@@ -49,10 +49,8 @@
     }
 
     .hero,
-    .toolbar,
     .page-panel,
     .transcript-panel,
-    .status-bar,
     .message-card {
       background: var(--panel);
       border: 1px solid var(--border);
@@ -62,10 +60,8 @@
     }
 
     .hero,
-    .toolbar,
     .page-panel,
-    .transcript-panel,
-    .status-bar {
+    .transcript-panel {
       padding: 20px 24px;
     }
 
@@ -80,9 +76,9 @@
     .panel-label,
     .line-label,
     .page-counter,
-    .status-chip,
     .helper,
-    .line-badge {
+    .line-badge,
+    .status-chip {
       margin: 0;
       font-family: "Avenir Next", "Segoe UI", sans-serif;
       text-transform: uppercase;
@@ -113,8 +109,6 @@
       color: var(--muted);
     }
 
-    .toolbar,
-    .status-bar,
     .toolbar-actions,
     .playback-actions,
     .line-actions,
@@ -123,12 +117,6 @@
       gap: 10px;
       flex-wrap: wrap;
       align-items: center;
-    }
-
-    .toolbar,
-    .status-bar {
-      justify-content: space-between;
-      gap: 16px;
     }
 
     .workspace {
@@ -194,6 +182,15 @@
     .transcript-panel {
       display: grid;
       gap: 18px;
+      align-self: start;
+    }
+
+    .page-panel {
+      position: sticky;
+      top: 18px;
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+      scrollbar-gutter: stable;
     }
 
     .image-frame {
@@ -217,6 +214,8 @@
 
     .image-wrap img {
       max-width: 100%;
+      max-height: min(70vh, 980px);
+      width: auto;
       height: auto;
       display: block;
       background: white;
@@ -232,22 +231,19 @@
 
     .line-overlay {
       position: absolute;
-      border: 2px solid rgba(147, 80, 54, 0.28);
-      background: rgba(147, 80, 54, 0.06);
+      border: 2px solid rgba(147, 80, 54, 0.52);
+      background: rgba(147, 80, 54, 0.08);
       border-radius: 14px;
-      pointer-events: auto;
-      box-shadow: 0 10px 16px rgba(89, 58, 40, 0.08);
-    }
-
-    .line-overlay:hover {
-      border-color: rgba(147, 80, 54, 0.56);
-      background: rgba(147, 80, 54, 0.12);
+      box-shadow: 0 14px 24px rgba(102, 61, 41, 0.12);
+      opacity: 0;
+      transition: opacity 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
     }
 
     .line-overlay.active {
       border-color: var(--accent);
       background: rgba(147, 80, 54, 0.16);
       box-shadow: 0 14px 24px rgba(102, 61, 41, 0.16);
+      opacity: 1;
     }
 
     .line-overlay-number {
@@ -290,6 +286,25 @@
       display: grid;
       gap: 14px;
       align-content: start;
+    }
+
+    .section-block {
+      display: grid;
+      gap: 12px;
+    }
+
+    .section-heading {
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: rgba(255, 252, 248, 0.9);
+      border: 1px solid rgba(84, 61, 46, 0.1);
+      box-shadow: 0 12px 20px rgba(87, 60, 42, 0.05);
+    }
+
+    .section-description {
+      margin-top: 8px;
+      color: var(--muted);
+      line-height: 1.5;
     }
 
     .line-card {
@@ -405,6 +420,18 @@
       color: var(--muted);
     }
 
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     .hidden {
       display: none;
     }
@@ -421,14 +448,23 @@
       .workspace {
         grid-template-columns: 1fr;
       }
+
+      .page-panel {
+        position: static;
+        max-height: none;
+        overflow: visible;
+      }
+
+      .image-wrap img {
+        max-height: none;
+        width: 100%;
+      }
     }
 
     @media (max-width: 720px) {
       .hero,
-      .toolbar,
       .page-panel,
-      .transcript-panel,
-      .status-bar {
+      .transcript-panel {
         padding: 16px;
       }
 
@@ -457,35 +493,19 @@
         </p>
       </div>
       <div class="nav-actions">
+        <p id="pageCounter" class="page-counter"></p>
         <button id="prevPage" class="secondary" type="button">Previous page</button>
         <button id="nextPage" type="button">Next page</button>
       </div>
     </header>
-
-    <section class="toolbar">
-      <div>
-        <p class="panel-label">Data source</p>
-        <h2 id="pageTitle">Loading reader...</h2>
-      </div>
-      <div class="toolbar-actions">
-        <p id="pageCounter" class="page-counter"></p>
-      </div>
-    </section>
-
-    <section class="status-bar">
-      <div>
-        <p class="panel-label">Playback status</p>
-        <p id="playbackStatus">Loading site data...</p>
-      </div>
-      <p id="audioSummary" class="status-chip"></p>
-    </section>
 
     <main class="workspace">
       <section class="page-panel">
         <div class="panel-heading">
           <div>
             <p class="panel-label">Scanned page</p>
-            <h2 id="pageSubtitle">Preparing page image</h2>
+            <h2 id="pageTitle">Loading reader...</h2>
+            <p id="pageSubtitle" class="page-guide">Preparing page image</p>
           </div>
           <p id="pageStatus" class="status-chip"></p>
         </div>
@@ -509,7 +529,7 @@
             </div>
           </div>
           <div class="playback-actions">
-            <button id="playPageHebrew" type="button">Play Hebrew excerpt</button>
+            <button id="playPageHebrew" type="button">Play Hebrew on page</button>
             <button id="playPageEnglish" class="secondary" type="button">Play printed English</button>
             <button id="stopPlayback" class="ghost" type="button">Stop</button>
           </div>
@@ -535,6 +555,9 @@
       </section>
     </main>
   </div>
+
+  <p id="playbackStatus" class="visually-hidden" aria-live="polite">Loading site data...</p>
+  <p id="audioSummary" class="visually-hidden" aria-live="polite"></p>
 
   <script>
     const state = {
@@ -708,6 +731,24 @@
       });
     }
 
+    function orderedSections(page) {
+      if (page.sections && page.sections.length) {
+        return page.sections.slice().sort(function (a, b) {
+          return a.order - b.order;
+        });
+      }
+
+      return [
+        {
+          id: "default",
+          order: 1,
+          title: "Transcript",
+          description: "",
+          hiddenHeading: true
+        }
+      ];
+    }
+
     function buildLineDisplayText(line, wordsById) {
       return line.wordIds
         .map(function (wordId) {
@@ -732,8 +773,7 @@
           return;
         }
 
-        const overlay = document.createElement("button");
-        overlay.type = "button";
+        const overlay = document.createElement("div");
         overlay.className = "line-overlay";
         overlay.dataset.lineId = line.id;
         overlay.style.top = line.overlay.top + "%";
@@ -744,24 +784,8 @@
 
         const number = document.createElement("span");
         number.className = "line-overlay-number";
-        number.textContent = String(line.order);
+        number.textContent = String(line.overlayNumber || line.order);
         overlay.appendChild(number);
-
-        overlay.addEventListener("mouseenter", function () {
-          setActiveLine(line.id);
-        });
-
-        overlay.addEventListener("focus", function () {
-          setActiveLine(line.id);
-        });
-
-        overlay.addEventListener("click", function () {
-          setActiveLine(line.id);
-          const card = document.querySelector('[data-line-id="' + line.id + '"]');
-          if (card) {
-            card.scrollIntoView({ behavior: "smooth", block: "nearest" });
-          }
-        });
 
         elements.overlayLayer.appendChild(overlay);
       });
@@ -780,117 +804,173 @@
 
       elements.emptyState.classList.add("hidden");
 
-      orderedLines(page).forEach(function (line) {
-        const card = document.createElement("section");
-        card.className = "line-card";
-        card.dataset.lineId = line.id;
-
-        card.addEventListener("mouseenter", function () {
-          updateActiveFromEvent(line.id);
+      orderedSections(page).forEach(function (section) {
+        const sectionLines = orderedLines(page).filter(function (line) {
+          return (line.sectionId || "default") === section.id;
         });
 
-        card.addEventListener("focusin", function () {
-          updateActiveFromEvent(line.id);
-        });
-
-        card.addEventListener("click", function (event) {
-          if (!event.target.closest("button")) {
-            setActiveLine(line.id);
-          }
-        });
-
-        const heading = document.createElement("div");
-        heading.className = "line-heading";
-
-        const headingMain = document.createElement("div");
-        headingMain.className = "line-heading-main";
-
-        const titleRow = document.createElement("div");
-        titleRow.className = "line-title-row";
-
-        const badge = document.createElement("span");
-        badge.className = "line-badge";
-        badge.textContent = "Line " + line.order;
-
-        const label = document.createElement("p");
-        label.className = "line-label";
-        label.textContent = line.label;
-
-        titleRow.appendChild(badge);
-        titleRow.appendChild(label);
-        headingMain.appendChild(titleRow);
-
-        const help = document.createElement("p");
-        help.className = "line-help";
-        help.textContent = "Matches the numbered overlay on the scanned page.";
-        headingMain.appendChild(help);
-
-        const printedHebrew = document.createElement("p");
-        printedHebrew.className = "printed-hebrew";
-        printedHebrew.lang = "he";
-        printedHebrew.dir = "rtl";
-        printedHebrew.textContent = buildLineDisplayText(line, wordsById);
-        headingMain.appendChild(printedHebrew);
-
-        if (line.englishText) {
-          const english = document.createElement("p");
-          english.className = "line-english";
-          english.textContent = line.englishText;
-          headingMain.appendChild(english);
+        if (!sectionLines.length) {
+          return;
         }
 
-        const actions = document.createElement("div");
-        actions.className = "line-actions";
+        const sectionBlock = document.createElement("section");
+        sectionBlock.className = "section-block";
 
-        const playHebrew = document.createElement("button");
-        playHebrew.type = "button";
-        playHebrew.textContent = "Play Hebrew line";
-        playHebrew.disabled = !line.hebrewAudioSequence || !line.hebrewAudioSequence.length;
-        playHebrew.addEventListener("click", function () {
-          playSequence(line.hebrewAudioSequence || [], line.label + " in Hebrew", line.id);
-        });
-        actions.appendChild(playHebrew);
+        if (!section.hiddenHeading) {
+          const sectionHeading = document.createElement("div");
+          sectionHeading.className = "section-heading";
 
-        if (line.audio && line.audio.en && line.audio.en.line) {
-          const playEnglish = document.createElement("button");
-          playEnglish.type = "button";
-          playEnglish.className = "secondary";
-          playEnglish.textContent = "Play printed English";
-          playEnglish.addEventListener("click", function () {
-            playSingle(line.audio.en.line, line.label + " in English", line.id);
-          });
-          actions.appendChild(playEnglish);
-        }
+          const sectionLabel = document.createElement("p");
+          sectionLabel.className = "panel-label";
+          sectionLabel.textContent = section.title;
+          sectionHeading.appendChild(sectionLabel);
 
-        heading.appendChild(headingMain);
-        heading.appendChild(actions);
-        card.appendChild(heading);
-
-        const wordGrid = document.createElement("div");
-        wordGrid.className = "word-grid";
-        wordGrid.lang = "he";
-        wordGrid.dir = "rtl";
-
-        line.wordIds.forEach(function (wordId) {
-          const word = wordsById.get(wordId);
-          if (!word) {
-            return;
+          if (section.description) {
+            const sectionDescription = document.createElement("p");
+            sectionDescription.className = "section-description";
+            sectionDescription.textContent = section.description;
+            sectionHeading.appendChild(sectionDescription);
           }
 
-          const chip = document.createElement("button");
-          chip.type = "button";
-          chip.className = "word-chip";
-          chip.textContent = word.displayText;
-          chip.disabled = !word.audio || !word.audio.he || !word.audio.he.word;
-          chip.title = word.spokenText;
-          chip.addEventListener("click", function () {
-            playSingle(word.audio.he.word, "Hebrew word: " + word.spokenText, line.id);
+          sectionBlock.appendChild(sectionHeading);
+        }
+
+        const sectionList = document.createElement("div");
+        sectionList.className = "line-list";
+
+        sectionLines.forEach(function (line) {
+          const card = document.createElement("section");
+          card.className = "line-card";
+          card.dataset.lineId = line.id;
+
+          card.addEventListener("mouseenter", function () {
+            updateActiveFromEvent(line.id);
           });
-          wordGrid.appendChild(chip);
+
+          card.addEventListener("focusin", function () {
+            updateActiveFromEvent(line.id);
+          });
+
+          card.addEventListener("click", function (event) {
+            if (!event.target.closest("button")) {
+              setActiveLine(line.id);
+            }
+          });
+
+          const heading = document.createElement("div");
+          heading.className = "line-heading";
+
+          const headingMain = document.createElement("div");
+          headingMain.className = "line-heading-main";
+
+          const titleRow = document.createElement("div");
+          titleRow.className = "line-title-row";
+
+          const badge = document.createElement("span");
+          badge.className = "line-badge";
+          badge.textContent = line.badgeLabel || (line.overlayNumber ? "Line " + line.overlayNumber : "Line " + line.order);
+
+          const label = document.createElement("p");
+          label.className = "line-label";
+          label.textContent = line.label;
+
+          titleRow.appendChild(badge);
+          titleRow.appendChild(label);
+          headingMain.appendChild(titleRow);
+
+          const helpText = line.overlay
+            ? "Matches the active highlight on the scanned page."
+            : (section.id === "intro" ? "Top-of-page transcription." : "");
+
+          if (helpText) {
+            const help = document.createElement("p");
+            help.className = "line-help";
+            help.textContent = helpText;
+            headingMain.appendChild(help);
+          }
+
+          const hebrewText = buildLineDisplayText(line, wordsById);
+          if (hebrewText) {
+            const printedHebrew = document.createElement("p");
+            printedHebrew.className = "printed-hebrew";
+            printedHebrew.lang = "he";
+            printedHebrew.dir = "rtl";
+            printedHebrew.textContent = hebrewText;
+            headingMain.appendChild(printedHebrew);
+          }
+
+          if (line.englishText) {
+            const english = document.createElement("p");
+            english.className = "line-english";
+            english.textContent = line.englishText;
+            headingMain.appendChild(english);
+          }
+
+          const actions = document.createElement("div");
+          actions.className = "line-actions";
+
+          if (line.hebrewAudioSequence && line.hebrewAudioSequence.length) {
+            const playHebrew = document.createElement("button");
+            playHebrew.type = "button";
+            playHebrew.textContent = "Play Hebrew line";
+            playHebrew.addEventListener("click", function () {
+              playSequence(line.hebrewAudioSequence || [], line.label + " in Hebrew", line.id);
+            });
+            actions.appendChild(playHebrew);
+          }
+
+          if (line.audio && line.audio.en && line.audio.en.line) {
+            const playEnglish = document.createElement("button");
+            playEnglish.type = "button";
+            playEnglish.className = "secondary";
+            playEnglish.textContent = "Play printed English";
+            playEnglish.addEventListener("click", function () {
+              playSingle(line.audio.en.line, line.label + " in English", line.id);
+            });
+            actions.appendChild(playEnglish);
+          }
+
+          if (actions.childNodes.length) {
+            heading.appendChild(headingMain);
+            heading.appendChild(actions);
+          } else {
+            heading.appendChild(headingMain);
+          }
+
+          card.appendChild(heading);
+
+          if (line.wordIds && line.wordIds.length) {
+            const wordGrid = document.createElement("div");
+            wordGrid.className = "word-grid";
+            wordGrid.lang = "he";
+            wordGrid.dir = "rtl";
+
+            line.wordIds.forEach(function (wordId) {
+              const word = wordsById.get(wordId);
+              if (!word) {
+                return;
+              }
+
+              const chip = document.createElement("button");
+              chip.type = "button";
+              chip.className = "word-chip";
+              chip.textContent = word.displayText;
+              chip.disabled = !word.audio || !word.audio.he || !word.audio.he.word;
+              chip.title = word.spokenText;
+              chip.addEventListener("click", function () {
+                playSingle(word.audio.he.word, "Hebrew word: " + word.spokenText, line.id);
+              });
+              wordGrid.appendChild(chip);
+            });
+
+            card.appendChild(wordGrid);
+          }
+
+          sectionList.appendChild(card);
         });
 
-        card.appendChild(wordGrid);
-        elements.lineList.appendChild(card);
+        sectionBlock.appendChild(sectionList);
+        elements.lineList.appendChild(sectionBlock);
       });
 
       setActiveLine(state.activeLineId);

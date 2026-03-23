@@ -10,7 +10,7 @@
       "id": "page-001",
       "page": 1,
       "sourcePdfPage": 4,
-      "title": "Blessing 1 printed excerpt",
+      "title": "Blessing 1 intro and exercise",
       "status": "verified",
       "image": "pages/page-001.png",
       "englishText": "Blessing 1: The Blessing over the Fruit of the Vine. The blessing begins. Read the Hebrew from right to left. The first letter of our blessing is Bet, which has the sound of B as in Berachah. Locate the bet throughout this paragraph from the siddur, prayer book. Pronounce the B sound each time in order to reinforce recognition.",
@@ -20,14 +20,162 @@
         }
       },
       "notes": [
-        "The numbered audio cards match the numbered overlays on the scanned page image.",
+        "Page 1 is split into an intro section and an exercise section.",
+        "Only the exercise section currently uses the active scanned-page highlight.",
         "Page-level English playback reads only the printed English on the page, not a translation of the Hebrew prayer lines.",
         "Printed divine-name abbreviations remain visible as written but are spoken as Adonai."
       ],
+      "sections": [
+        {
+          "id": "intro",
+          "order": 1,
+          "title": "Intro section",
+          "description": "Top-of-page cues, reading direction, and the bet-recognition setup."
+        },
+        {
+          "id": "exercise",
+          "order": 2,
+          "title": "Exercise section",
+          "description": "The siddur paragraph used for the main reading exercise."
+        }
+      ],
       "lines": [
         {
-          "id": "p1-line-001",
+          "id": "p1-intro-line-001",
+          "sectionId": "intro",
+          "badgeLabel": "Title",
           "order": 1,
+          "label": "Page title",
+          "status": "verified",
+          "englishText": "Blessing 1: The Blessing over the Fruit of the Vine",
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": []
+        },
+        {
+          "id": "p1-intro-line-002",
+          "sectionId": "intro",
+          "badgeLabel": "Intro 1",
+          "order": 2,
+          "label": "Opening cue",
+          "status": "verified",
+          "englishText": "The blessing begins:",
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": [
+            "p1-intro-word-001",
+            "p1-intro-word-002",
+            "p1-intro-word-003"
+          ]
+        },
+        {
+          "id": "p1-intro-line-003",
+          "sectionId": "intro",
+          "badgeLabel": "Intro 2",
+          "order": 3,
+          "label": "Direction cue",
+          "status": "verified",
+          "englishText": "Read the Hebrew from right to left,",
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": [
+            "p1-intro-word-004"
+          ]
+        },
+        {
+          "id": "p1-intro-line-004",
+          "sectionId": "intro",
+          "badgeLabel": "Intro 3",
+          "order": 4,
+          "label": "Letter setup",
+          "status": "verified",
+          "englishText": "The first letter of our blessing is",
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": []
+        },
+        {
+          "id": "p1-intro-line-005",
+          "sectionId": "intro",
+          "badgeLabel": "Intro 4",
+          "order": 5,
+          "label": "Letter name",
+          "status": "verified",
+          "englishText": "Bet",
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": [
+            "p1-intro-word-005"
+          ]
+        },
+        {
+          "id": "p1-intro-line-006",
+          "sectionId": "intro",
+          "badgeLabel": "Intro 5",
+          "order": 6,
+          "label": "Sound note",
+          "status": "verified",
+          "englishText": "which has the sound of “B” as in Berachah.",
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": []
+        },
+        {
+          "id": "p1-intro-line-007",
+          "sectionId": "intro",
+          "badgeLabel": "Intro 6",
+          "order": 7,
+          "label": "Practice prompt",
+          "status": "verified",
+          "englishText": "Locate the",
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": [
+            "p1-intro-word-006"
+          ]
+        },
+        {
+          "id": "p1-intro-line-008",
+          "sectionId": "intro",
+          "badgeLabel": "Intro 7",
+          "order": 8,
+          "label": "Practice note",
+          "status": "verified",
+          "englishText": "throughout this paragraph from the siddur (“prayer book”). Pronounce the “B” sound each time in order to reinforce recognition.",
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": []
+        },
+        {
+          "id": "p1-line-001",
+          "sectionId": "exercise",
+          "badgeLabel": "Line 1",
+          "overlayNumber": 1,
+          "order": 9,
           "label": "Printed line 1",
           "status": "verified",
           "englishText": null,
@@ -55,7 +203,10 @@
         },
         {
           "id": "p1-line-002",
-          "order": 2,
+          "sectionId": "exercise",
+          "badgeLabel": "Line 2",
+          "overlayNumber": 2,
+          "order": 10,
           "label": "Printed line 2",
           "status": "verified",
           "englishText": null,
@@ -83,7 +234,10 @@
         },
         {
           "id": "p1-line-003",
-          "order": 3,
+          "sectionId": "exercise",
+          "badgeLabel": "Line 3",
+          "overlayNumber": 3,
+          "order": 11,
           "label": "Printed line 3",
           "status": "verified",
           "englishText": null,
@@ -111,7 +265,10 @@
         },
         {
           "id": "p1-line-004",
-          "order": 4,
+          "sectionId": "exercise",
+          "badgeLabel": "Line 4",
+          "overlayNumber": 4,
+          "order": 12,
           "label": "Printed line 4",
           "status": "verified",
           "englishText": null,
@@ -137,7 +294,10 @@
         },
         {
           "id": "p1-line-005",
-          "order": 5,
+          "sectionId": "exercise",
+          "badgeLabel": "Line 5",
+          "overlayNumber": 5,
+          "order": 13,
           "label": "Printed line 5",
           "status": "verified",
           "englishText": null,
@@ -158,7 +318,10 @@
         },
         {
           "id": "p1-line-006",
-          "order": 6,
+          "sectionId": "exercise",
+          "badgeLabel": "Line 6",
+          "overlayNumber": 6,
+          "order": 14,
           "label": "Printed line 6",
           "status": "verified",
           "englishText": null,
@@ -186,7 +349,10 @@
         },
         {
           "id": "p1-line-007",
-          "order": 7,
+          "sectionId": "exercise",
+          "badgeLabel": "Line 7",
+          "overlayNumber": 7,
+          "order": 15,
           "label": "Printed line 7",
           "status": "verified",
           "englishText": null,
@@ -207,6 +373,99 @@
         }
       ],
       "words": [
+        {
+          "id": "p1-intro-word-001",
+          "page": 1,
+          "lineId": "p1-intro-line-002",
+          "order": 1,
+          "displayText": "בָּרוּךְ",
+          "spokenText": "בָּרוּךְ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-intro-word-002",
+          "page": 1,
+          "lineId": "p1-intro-line-002",
+          "order": 2,
+          "displayText": "אַתָּה",
+          "spokenText": "אַתָּה",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-intro-word-003",
+          "page": 1,
+          "lineId": "p1-intro-line-002",
+          "order": 3,
+          "displayText": "יְיָ",
+          "spokenText": "אֲדֹנָי",
+          "status": "verified",
+          "notes": [
+            "Printed as the divine-name abbreviation but spoken as Adonai."
+          ],
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-intro-word-004",
+          "page": 1,
+          "lineId": "p1-intro-line-003",
+          "order": 4,
+          "displayText": "בָּרוּךְ",
+          "spokenText": "בָּרוּךְ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-intro-word-005",
+          "page": 1,
+          "lineId": "p1-intro-line-005",
+          "order": 5,
+          "displayText": "ב",
+          "spokenText": "בֵּית",
+          "status": "verified",
+          "notes": [
+            "Printed as the single letter bet; spoken here as the letter name Bet."
+          ],
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-intro-word-006",
+          "page": 1,
+          "lineId": "p1-intro-line-007",
+          "order": 6,
+          "displayText": "ב",
+          "spokenText": "בֵּית",
+          "status": "verified",
+          "notes": [
+            "Printed as the single letter bet; spoken here as the letter name Bet."
+          ],
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
         {
           "id": "p1-word-001",
           "page": 1,

@@ -241,6 +241,7 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
             "image": page["image"],
             "englishText": page.get("englishText"),
             "notes": page.get("notes", []),
+            "sections": page.get("sections", []),
             "audio": {
                 "en": {
                     "page": None
