@@ -234,6 +234,7 @@
       border: 2px solid rgba(147, 80, 54, 0.52);
       background: rgba(147, 80, 54, 0.08);
       border-radius: 14px;
+      pointer-events: none;
       box-shadow: 0 14px 24px rgba(102, 61, 41, 0.12);
       opacity: 0;
       transition: opacity 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
@@ -301,10 +302,40 @@
       box-shadow: 0 12px 20px rgba(87, 60, 42, 0.05);
     }
 
+    .section-heading-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+      flex-wrap: wrap;
+    }
+
+    .section-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
     .section-description {
       margin-top: 8px;
       color: var(--muted);
       line-height: 1.5;
+    }
+
+    .section-line-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .section-line-item {
+      display: grid;
+      gap: 10px;
+    }
+
+    .section-line-item + .section-line-item {
+      padding-top: 14px;
+      border-top: 1px solid rgba(120, 89, 65, 0.12);
     }
 
     .line-card {
@@ -808,6 +839,7 @@
         const sectionLines = orderedLines(page).filter(function (line) {
           return (line.sectionId || "default") === section.id;
         });
+        const sectionIsSingleBlock = section.playbackMode === "single_block";
 
         if (!sectionLines.length) {
           return;
@@ -820,19 +852,80 @@
           const sectionHeading = document.createElement("div");
           sectionHeading.className = "section-heading";
 
+          const sectionHeadingRow = document.createElement("div");
+          sectionHeadingRow.className = "section-heading-row";
+
+          const sectionHeadingMain = document.createElement("div");
+
           const sectionLabel = document.createElement("p");
           sectionLabel.className = "panel-label";
           sectionLabel.textContent = section.title;
-          sectionHeading.appendChild(sectionLabel);
+          sectionHeadingMain.appendChild(sectionLabel);
 
           if (section.description) {
             const sectionDescription = document.createElement("p");
             sectionDescription.className = "section-description";
             sectionDescription.textContent = section.description;
-            sectionHeading.appendChild(sectionDescription);
+            sectionHeadingMain.appendChild(sectionDescription);
           }
 
+          sectionHeadingRow.appendChild(sectionHeadingMain);
+
+          if (sectionIsSingleBlock && section.audio && section.audio.mixed && section.audio.mixed.block) {
+            const sectionActions = document.createElement("div");
+            sectionActions.className = "section-actions";
+
+            const playSection = document.createElement("button");
+            playSection.type = "button";
+            playSection.textContent = section.playbackLabel || "Play section";
+            playSection.addEventListener("click", function () {
+              playSingle(section.audio.mixed.block, section.title, null);
+            });
+
+            sectionActions.appendChild(playSection);
+            sectionHeadingRow.appendChild(sectionActions);
+          }
+
+          sectionHeading.appendChild(sectionHeadingRow);
+
           sectionBlock.appendChild(sectionHeading);
+        }
+
+        if (sectionIsSingleBlock) {
+          const combinedCard = document.createElement("section");
+          combinedCard.className = "line-card";
+
+          const sectionLineStack = document.createElement("div");
+          sectionLineStack.className = "section-line-stack";
+
+          sectionLines.forEach(function (line) {
+            const lineItem = document.createElement("div");
+            lineItem.className = "section-line-item";
+
+            if (line.englishText) {
+              const english = document.createElement("p");
+              english.className = "line-english";
+              english.textContent = line.englishText;
+              lineItem.appendChild(english);
+            }
+
+            const hebrewText = buildLineDisplayText(line, wordsById);
+            if (hebrewText) {
+              const printedHebrew = document.createElement("p");
+              printedHebrew.className = "printed-hebrew";
+              printedHebrew.lang = "he";
+              printedHebrew.dir = "rtl";
+              printedHebrew.textContent = hebrewText;
+              lineItem.appendChild(printedHebrew);
+            }
+
+            sectionLineStack.appendChild(lineItem);
+          });
+
+          combinedCard.appendChild(sectionLineStack);
+          sectionBlock.appendChild(combinedCard);
+          elements.lineList.appendChild(sectionBlock);
+          return;
         }
 
         const sectionList = document.createElement("div");

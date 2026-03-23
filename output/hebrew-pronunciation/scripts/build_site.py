@@ -102,10 +102,12 @@ def ensure_audio(
     *,
     category: str,
     language: str,
+    language_code: Optional[str],
     item_id: str,
     text: Optional[str],
     model_id: str,
     voice_id: Optional[str],
+    voice_secret_name: str,
     api_key: Optional[str],
     output_format: str,
     allow_missing_audio: bool,
@@ -156,7 +158,7 @@ def ensure_audio(
             return None
         raise BuildError(
             f"Audio for {item_id} is missing and cannot be generated without "
-            f"{'ELEVENLABS_API_KEY' if not api_key else ('ELEVENLABS_HEBREW_VOICE_ID' if language == 'he' else 'ELEVENLABS_ENGLISH_VOICE_ID')}."
+            f"{'ELEVENLABS_API_KEY' if not api_key else voice_secret_name}."
         )
 
     audio_bytes = elevenlabs_request(
@@ -165,7 +167,7 @@ def ensure_audio(
         text=text,
         model_id=model_id,
         output_format=output_format,
-        language_code=language,
+        language_code=language_code,
     )
     output_path.write_bytes(audio_bytes)
     manifest_entries.append(
@@ -197,6 +199,16 @@ def clone_line(line: Dict) -> Dict:
     clone["audio"] = {
         "en": {
             "line": None
+        }
+    }
+    return clone
+
+
+def clone_section(section: Dict) -> Dict:
+    clone = dict(section)
+    clone["audio"] = {
+        "mixed": {
+            "block": None
         }
     }
     return clone
@@ -241,7 +253,7 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
             "image": page["image"],
             "englishText": page.get("englishText"),
             "notes": page.get("notes", []),
-            "sections": page.get("sections", []),
+            "sections": [],
             "audio": {
                 "en": {
                     "page": None
@@ -252,6 +264,25 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
         }
 
         words_by_id: Dict[str, Dict] = {}
+        for section in page.get("sections", []):
+            section_out = clone_section(section)
+            if section.get("status") == "verified" and section.get("playbackMode") == "single_block" and section.get("mixedText"):
+                section_out["audio"]["mixed"]["block"] = ensure_audio(
+                    category="sections",
+                    language="mixed",
+                    language_code=None,
+                    item_id=section["id"],
+                    text=section.get("mixedText"),
+                    model_id=hebrew_model,
+                    voice_id=hebrew_voice_id,
+                    voice_secret_name="ELEVENLABS_HEBREW_VOICE_ID",
+                    api_key=api_key,
+                    output_format=output_format,
+                    allow_missing_audio=allow_missing_audio,
+                    manifest_entries=manifest_entries,
+                    missing_items=missing_items,
+                )
+            page_out["sections"].append(section_out)
 
         for word in ordered_words(page):
             word_out = clone_word(word)
@@ -259,10 +290,12 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                 word_out["audio"]["he"]["word"] = ensure_audio(
                     category="words",
                     language="he",
+                    language_code="he",
                     item_id=word["id"],
                     text=word.get("spokenText"),
                     model_id=hebrew_model,
                     voice_id=hebrew_voice_id,
+                    voice_secret_name="ELEVENLABS_HEBREW_VOICE_ID",
                     api_key=api_key,
                     output_format=output_format,
                     allow_missing_audio=allow_missing_audio,
@@ -278,10 +311,12 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                 line_out["audio"]["en"]["line"] = ensure_audio(
                     category="lines",
                     language="en",
+                    language_code="en",
                     item_id=line["id"],
                     text=line.get("englishText"),
                     model_id=english_model,
                     voice_id=english_voice_id,
+                    voice_secret_name="ELEVENLABS_ENGLISH_VOICE_ID",
                     api_key=api_key,
                     output_format=output_format,
                     allow_missing_audio=allow_missing_audio,
@@ -307,10 +342,12 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
             page_out["audio"]["en"]["page"] = ensure_audio(
                 category="pages",
                 language="en",
+                language_code="en",
                 item_id=page["id"],
                 text=page.get("englishText"),
                 model_id=english_model,
                 voice_id=english_voice_id,
+                voice_secret_name="ELEVENLABS_ENGLISH_VOICE_ID",
                 api_key=api_key,
                 output_format=output_format,
                 allow_missing_audio=allow_missing_audio,
@@ -321,6 +358,7 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
         expected_page_word_ids = [
             word_id
             for line in page_out["lines"]
+            if line.get("status") == "verified"
             for word_id in line.get("wordIds", [])
         ]
         page_sequence = [

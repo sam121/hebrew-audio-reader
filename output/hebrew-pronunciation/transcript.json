@@ -30,7 +30,11 @@
           "id": "intro",
           "order": 1,
           "title": "Intro section",
-          "description": "Top-of-page cues, reading direction, and the bet-recognition setup."
+          "description": "Top-of-page cues, reading direction, and the bet-recognition setup.",
+          "status": "verified",
+          "playbackMode": "single_block",
+          "playbackLabel": "Play intro section",
+          "mixedText": "Blessing 1: The Blessing over the Fruit of the Vine. The blessing begins: בָּרוּךְ אַתָּה יְיָ. Read the Hebrew from right to left: בָּרוּךְ. The first letter of our blessing is ב, בֵּית, which has the sound of B as in בְּרָכָה. Locate the ב throughout this paragraph from the סִדּוּר, prayer book. Pronounce the B sound each time in order to reinforce recognition."
         },
         {
           "id": "exercise",
@@ -46,7 +50,7 @@
           "badgeLabel": "Title",
           "order": 1,
           "label": "Page title",
-          "status": "verified",
+          "status": "display-only",
           "englishText": "Blessing 1: The Blessing over the Fruit of the Vine",
           "audio": {
             "en": {
@@ -61,7 +65,7 @@
           "badgeLabel": "Intro 1",
           "order": 2,
           "label": "Opening cue",
-          "status": "verified",
+          "status": "display-only",
           "englishText": "The blessing begins:",
           "audio": {
             "en": {
@@ -80,7 +84,7 @@
           "badgeLabel": "Intro 2",
           "order": 3,
           "label": "Direction cue",
-          "status": "verified",
+          "status": "display-only",
           "englishText": "Read the Hebrew from right to left,",
           "audio": {
             "en": {
@@ -97,7 +101,7 @@
           "badgeLabel": "Intro 3",
           "order": 4,
           "label": "Letter setup",
-          "status": "verified",
+          "status": "display-only",
           "englishText": "The first letter of our blessing is",
           "audio": {
             "en": {
@@ -112,7 +116,7 @@
           "badgeLabel": "Intro 4",
           "order": 5,
           "label": "Letter name",
-          "status": "verified",
+          "status": "display-only",
           "englishText": "Bet",
           "audio": {
             "en": {
@@ -129,7 +133,7 @@
           "badgeLabel": "Intro 5",
           "order": 6,
           "label": "Sound note",
-          "status": "verified",
+          "status": "display-only",
           "englishText": "which has the sound of “B” as in Berachah.",
           "audio": {
             "en": {
@@ -144,7 +148,7 @@
           "badgeLabel": "Intro 6",
           "order": 7,
           "label": "Practice prompt",
-          "status": "verified",
+          "status": "display-only",
           "englishText": "Locate the",
           "audio": {
             "en": {
@@ -161,7 +165,7 @@
           "badgeLabel": "Intro 7",
           "order": 8,
           "label": "Practice note",
-          "status": "verified",
+          "status": "display-only",
           "englishText": "throughout this paragraph from the siddur (“prayer book”). Pronounce the “B” sound each time in order to reinforce recognition.",
           "audio": {
             "en": {
@@ -380,7 +384,7 @@
           "order": 1,
           "displayText": "בָּרוּךְ",
           "spokenText": "בָּרוּךְ",
-          "status": "verified",
+          "status": "display-only",
           "audio": {
             "he": {
               "word": null
@@ -394,7 +398,7 @@
           "order": 2,
           "displayText": "אַתָּה",
           "spokenText": "אַתָּה",
-          "status": "verified",
+          "status": "display-only",
           "audio": {
             "he": {
               "word": null
@@ -408,7 +412,7 @@
           "order": 3,
           "displayText": "יְיָ",
           "spokenText": "אֲדֹנָי",
-          "status": "verified",
+          "status": "display-only",
           "notes": [
             "Printed as the divine-name abbreviation but spoken as Adonai."
           ],
@@ -425,7 +429,7 @@
           "order": 4,
           "displayText": "בָּרוּךְ",
           "spokenText": "בָּרוּךְ",
-          "status": "verified",
+          "status": "display-only",
           "audio": {
             "he": {
               "word": null
@@ -439,7 +443,7 @@
           "order": 5,
           "displayText": "ב",
           "spokenText": "בֵּית",
-          "status": "verified",
+          "status": "display-only",
           "notes": [
             "Printed as the single letter bet; spoken here as the letter name Bet."
           ],
@@ -456,7 +460,7 @@
           "order": 6,
           "displayText": "ב",
           "spokenText": "בֵּית",
-          "status": "verified",
+          "status": "display-only",
           "notes": [
             "Printed as the single letter bet; spoken here as the letter name Bet."
           ],
