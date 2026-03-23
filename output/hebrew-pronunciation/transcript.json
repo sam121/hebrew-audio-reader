@@ -1289,15 +1289,15 @@
           "status": "verified",
           "englishText": null,
           "region": {
-            "top": 37.27,
-            "left": 40.05,
-            "width": 56.07,
-            "height": 9.09,
-            "padTop": 0.7,
-            "padRight": 1.4,
-            "padBottom": 0.7,
-            "padLeft": 2.35,
-            "confidence": 0.9
+            "top": 39.5,
+            "left": 41.65,
+            "width": 39.99,
+            "height": 3.27,
+            "padTop": 0.35,
+            "padRight": 0.8,
+            "padBottom": 0.45,
+            "padLeft": 0.95,
+            "confidence": 0.97
           },
           "audio": {
             "en": {
@@ -1322,15 +1322,15 @@
           "status": "verified",
           "englishText": null,
           "region": {
-            "top": 45.91,
-            "left": 8.63,
-            "width": 87.49,
-            "height": 9.77,
-            "padTop": 0.7,
-            "padRight": 1.4,
-            "padBottom": 0.7,
-            "padLeft": 2.35,
-            "confidence": 0.9
+            "top": 46.77,
+            "left": 22.06,
+            "width": 60.44,
+            "height": 3.77,
+            "padTop": 0.35,
+            "padRight": 0.8,
+            "padBottom": 0.45,
+            "padLeft": 0.95,
+            "confidence": 0.97
           },
           "audio": {
             "en": {
@@ -1357,15 +1357,15 @@
           "status": "verified",
           "englishText": null,
           "region": {
-            "top": 54.09,
-            "left": 3.7,
-            "width": 92.42,
-            "height": 10.0,
-            "padTop": 0.7,
-            "padRight": 1.4,
-            "padBottom": 0.7,
-            "padLeft": 2.35,
-            "confidence": 0.88
+            "top": 53.32,
+            "left": 17.62,
+            "width": 64.7,
+            "height": 3.86,
+            "padTop": 0.35,
+            "padRight": 0.8,
+            "padBottom": 0.45,
+            "padLeft": 0.95,
+            "confidence": 0.97
           },
           "audio": {
             "en": {
@@ -1392,15 +1392,15 @@
           "status": "verified",
           "englishText": null,
           "region": {
-            "top": 64.09,
-            "left": 3.7,
-            "width": 92.42,
-            "height": 10.0,
-            "padTop": 0.7,
-            "padRight": 1.4,
-            "padBottom": 0.7,
-            "padLeft": 2.35,
-            "confidence": 0.88
+            "top": 59.95,
+            "left": 15.28,
+            "width": 66.85,
+            "height": 4.05,
+            "padTop": 0.35,
+            "padRight": 0.8,
+            "padBottom": 0.45,
+            "padLeft": 0.95,
+            "confidence": 0.97
           },
           "audio": {
             "en": {
@@ -1425,7 +1425,7 @@
           "lineId": "p3-line-001",
           "order": 1,
           "displayText": "רְ",
-          "spokenText": "רְ",
+          "spokenText": "רֶ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1439,7 +1439,7 @@
           "lineId": "p3-line-001",
           "order": 2,
           "displayText": "בְּ",
-          "spokenText": "בְּ",
+          "spokenText": "בֶּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1453,7 +1453,7 @@
           "lineId": "p3-line-001",
           "order": 3,
           "displayText": "רְ",
-          "spokenText": "רְ",
+          "spokenText": "רֶ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1467,7 +1467,7 @@
           "lineId": "p3-line-001",
           "order": 4,
           "displayText": "בְּ",
-          "spokenText": "בְּ",
+          "spokenText": "בֶּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1481,7 +1481,7 @@
           "lineId": "p3-line-001",
           "order": 5,
           "displayText": "רְ",
-          "spokenText": "רְ",
+          "spokenText": "רֶ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1495,7 +1495,7 @@
           "lineId": "p3-line-002",
           "order": 6,
           "displayText": "רְ",
-          "spokenText": "רְ",
+          "spokenText": "רֶ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1509,7 +1509,7 @@
           "lineId": "p3-line-002",
           "order": 7,
           "displayText": "בְּ",
-          "spokenText": "בְּ",
+          "spokenText": "בֶּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1565,7 +1565,7 @@
           "lineId": "p3-line-002",
           "order": 11,
           "displayText": "רְ",
-          "spokenText": "רְ",
+          "spokenText": "רֶ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1579,7 +1579,7 @@
           "lineId": "p3-line-002",
           "order": 12,
           "displayText": "בְּ",
-          "spokenText": "בְּ",
+          "spokenText": "בֶּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1607,7 +1607,7 @@
           "lineId": "p3-line-003",
           "order": 14,
           "displayText": "בְּר",
-          "spokenText": "בְּר",
+          "spokenText": "בֶּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -1677,7 +1677,7 @@
           "lineId": "p3-line-003",
           "order": 19,
           "displayText": "בְּרָר",
-          "spokenText": "בְּרָר",
+          "spokenText": "בֶּרָר",
           "status": "verified",
           "audio": {
             "he": {
@@ -1691,7 +1691,7 @@
           "lineId": "p3-line-004",
           "order": 20,
           "displayText": "בְּבְּ",
-          "spokenText": "בְּבְּ",
+          "spokenText": "בֶּבֶּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1719,7 +1719,7 @@
           "lineId": "p3-line-004",
           "order": 22,
           "displayText": "בְּבָּר",
-          "spokenText": "בְּבָּר",
+          "spokenText": "בֶּבָּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -1733,7 +1733,7 @@
           "lineId": "p3-line-004",
           "order": 23,
           "displayText": "רְ",
-          "spokenText": "רְ",
+          "spokenText": "רֶ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1747,7 +1747,7 @@
           "lineId": "p3-line-004",
           "order": 24,
           "displayText": "בְּ",
-          "spokenText": "בְּ",
+          "spokenText": "בֶּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1775,7 +1775,7 @@
           "lineId": "p3-line-004",
           "order": 26,
           "displayText": "רַבְּבָר",
-          "spokenText": "רַבְּבָר",
+          "spokenText": "רַבֶּבָר",
           "status": "verified",
           "audio": {
             "he": {
@@ -1850,15 +1850,15 @@
           "status": "verified",
           "englishText": null,
           "region": {
-            "top": 37.27,
-            "left": 25.88,
-            "width": 70.24,
-            "height": 8.64,
-            "padTop": 0.7,
-            "padRight": 1.4,
-            "padBottom": 0.7,
-            "padLeft": 2.35,
-            "confidence": 0.94
+            "top": 41.59,
+            "left": 31.12,
+            "width": 49.97,
+            "height": 2.23,
+            "padTop": 0.35,
+            "padRight": 0.8,
+            "padBottom": 0.45,
+            "padLeft": 0.95,
+            "confidence": 0.97
           },
           "audio": {
             "en": {
@@ -1883,15 +1883,15 @@
           "status": "verified",
           "englishText": null,
           "region": {
-            "top": 45.45,
-            "left": 16.02,
-            "width": 80.1,
-            "height": 9.09,
-            "padTop": 0.7,
-            "padRight": 1.4,
-            "padBottom": 0.7,
-            "padLeft": 2.35,
-            "confidence": 0.94
+            "top": 48.23,
+            "left": 30.19,
+            "width": 50.89,
+            "height": 3.32,
+            "padTop": 0.35,
+            "padRight": 0.8,
+            "padBottom": 0.45,
+            "padLeft": 0.95,
+            "confidence": 0.97
           },
           "audio": {
             "en": {
@@ -1916,15 +1916,15 @@
           "status": "verified",
           "englishText": null,
           "region": {
-            "top": 54.09,
-            "left": 8.63,
-            "width": 87.49,
-            "height": 9.09,
-            "padTop": 0.7,
-            "padRight": 1.4,
-            "padBottom": 0.7,
-            "padLeft": 2.35,
-            "confidence": 0.94
+            "top": 54.86,
+            "left": 26.74,
+            "width": 54.34,
+            "height": 3.36,
+            "padTop": 0.35,
+            "padRight": 0.8,
+            "padBottom": 0.45,
+            "padLeft": 0.95,
+            "confidence": 0.97
           },
           "audio": {
             "en": {
@@ -1949,15 +1949,15 @@
           "status": "verified",
           "englishText": null,
           "region": {
-            "top": 63.18,
-            "left": 3.7,
-            "width": 92.42,
-            "height": 9.09,
-            "padTop": 0.7,
-            "padRight": 1.4,
-            "padBottom": 0.7,
-            "padLeft": 2.35,
-            "confidence": 0.9
+            "top": 61.55,
+            "left": 25.45,
+            "width": 55.64,
+            "height": 3.32,
+            "padTop": 0.35,
+            "padRight": 0.8,
+            "padBottom": 0.45,
+            "padLeft": 0.95,
+            "confidence": 0.97
           },
           "audio": {
             "en": {
@@ -1982,15 +1982,15 @@
           "status": "verified",
           "englishText": null,
           "region": {
-            "top": 71.82,
-            "left": 3.7,
-            "width": 92.42,
-            "height": 8.64,
-            "padTop": 0.7,
-            "padRight": 1.4,
-            "padBottom": 0.7,
-            "padLeft": 2.35,
-            "confidence": 0.9
+            "top": 68.18,
+            "left": 27.6,
+            "width": 53.48,
+            "height": 2.91,
+            "padTop": 0.35,
+            "padRight": 0.8,
+            "padBottom": 0.45,
+            "padLeft": 0.95,
+            "confidence": 0.97
           },
           "audio": {
             "en": {
@@ -2013,7 +2013,7 @@
           "lineId": "p4-line-001",
           "order": 1,
           "displayText": "בּוּ",
-          "spokenText": "בּוּ",
+          "spokenText": "בֻּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2027,7 +2027,7 @@
           "lineId": "p4-line-001",
           "order": 2,
           "displayText": "רוּ",
-          "spokenText": "רוּ",
+          "spokenText": "רֻ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2041,7 +2041,7 @@
           "lineId": "p4-line-001",
           "order": 3,
           "displayText": "רוּ",
-          "spokenText": "רוּ",
+          "spokenText": "רֻ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2055,7 +2055,7 @@
           "lineId": "p4-line-001",
           "order": 4,
           "displayText": "בּוּ",
-          "spokenText": "בּוּ",
+          "spokenText": "בֻּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2069,7 +2069,7 @@
           "lineId": "p4-line-001",
           "order": 5,
           "displayText": "בּוּ",
-          "spokenText": "בּוּ",
+          "spokenText": "בֻּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2083,7 +2083,7 @@
           "lineId": "p4-line-002",
           "order": 6,
           "displayText": "בּוּר",
-          "spokenText": "בּוּר",
+          "spokenText": "בֻּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -2111,7 +2111,7 @@
           "lineId": "p4-line-002",
           "order": 8,
           "displayText": "בְּרוּ",
-          "spokenText": "בְּרוּ",
+          "spokenText": "בְּרֻ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2125,7 +2125,7 @@
           "lineId": "p4-line-002",
           "order": 9,
           "displayText": "רוּבוּ",
-          "spokenText": "רוּבוּ",
+          "spokenText": "רֻבֻּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2153,7 +2153,7 @@
           "lineId": "p4-line-003",
           "order": 11,
           "displayText": "רוּבּ",
-          "spokenText": "רוּבּ",
+          "spokenText": "רֻבּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2167,7 +2167,7 @@
           "lineId": "p4-line-003",
           "order": 12,
           "displayText": "רְבוּר",
-          "spokenText": "רְבוּר",
+          "spokenText": "רְבֻר",
           "status": "verified",
           "audio": {
             "he": {
@@ -2181,7 +2181,7 @@
           "lineId": "p4-line-003",
           "order": 13,
           "displayText": "בְּבוּר",
-          "spokenText": "בְּבוּר",
+          "spokenText": "בְּבֻר",
           "status": "verified",
           "audio": {
             "he": {
@@ -2195,7 +2195,7 @@
           "lineId": "p4-line-003",
           "order": 14,
           "displayText": "רוּר",
-          "spokenText": "רוּר",
+          "spokenText": "רֻר",
           "status": "verified",
           "audio": {
             "he": {
@@ -2209,7 +2209,7 @@
           "lineId": "p4-line-003",
           "order": 15,
           "displayText": "בְּרוּר",
-          "spokenText": "בְּרוּר",
+          "spokenText": "בְּרֻר",
           "status": "verified",
           "audio": {
             "he": {
@@ -2223,7 +2223,7 @@
           "lineId": "p4-line-004",
           "order": 16,
           "displayText": "וּרְבוּ",
-          "spokenText": "וּרְבוּ",
+          "spokenText": "אֻרְבֻ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2237,7 +2237,7 @@
           "lineId": "p4-line-004",
           "order": 17,
           "displayText": "בְּרוּ",
-          "spokenText": "בְּרוּ",
+          "spokenText": "בְּרֻ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2251,7 +2251,7 @@
           "lineId": "p4-line-004",
           "order": 18,
           "displayText": "בְּרוּ",
-          "spokenText": "בְּרוּ",
+          "spokenText": "בְּרֻ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2265,7 +2265,7 @@
           "lineId": "p4-line-004",
           "order": 19,
           "displayText": "בְּבוּ",
-          "spokenText": "בְּבוּ",
+          "spokenText": "בְּבֻ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2279,7 +2279,7 @@
           "lineId": "p4-line-004",
           "order": 20,
           "displayText": "וּרְבוּ",
-          "spokenText": "וּרְבוּ",
+          "spokenText": "אֻרְבֻ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2293,7 +2293,7 @@
           "lineId": "p4-line-005",
           "order": 21,
           "displayText": "בּוּר",
-          "spokenText": "בּוּר",
+          "spokenText": "בֻּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -2307,7 +2307,7 @@
           "lineId": "p4-line-005",
           "order": 22,
           "displayText": "בְּרוּ",
-          "spokenText": "בְּרוּ",
+          "spokenText": "בְּרֻ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2321,7 +2321,7 @@
           "lineId": "p4-line-005",
           "order": 23,
           "displayText": "וּרְבוּ",
-          "spokenText": "וּרְבוּ",
+          "spokenText": "אֻרְבֻ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2349,7 +2349,7 @@
           "lineId": "p4-line-005",
           "order": 25,
           "displayText": "בְּרוּ",
-          "spokenText": "בְּרוּ",
+          "spokenText": "בְּרֻ",
           "status": "verified",
           "audio": {
             "he": {

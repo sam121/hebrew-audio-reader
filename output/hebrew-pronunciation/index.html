@@ -801,15 +801,28 @@
       }
 
       const token = startPlayback(label, lineId);
+      let skipped = 0;
       try {
         for (const url of sequence) {
           if (token !== state.playbackToken) {
             return;
           }
-          await playFile(url, token);
+          try {
+            await playFile(url, token);
+          } catch (error) {
+            skipped += 1;
+            console.error("Skipping broken clip in sequence", url, error);
+          }
         }
         if (token === state.playbackToken) {
-          setStatus(label + " finished.", "Ready");
+          if (skipped === sequence.length) {
+            setStatus("Playback failed. Every clip in this line was unavailable.", "Error");
+            return;
+          }
+          setStatus(
+            skipped ? label + " finished with " + skipped + " skipped clip" + (skipped === 1 ? "" : "s") + "." : label + " finished.",
+            skipped ? "Partial" : "Ready"
+          );
         }
       } catch (error) {
         setStatus("Playback failed. Check the generated audio file.", "Error");
@@ -836,6 +849,8 @@
       }
 
       const token = startPlayback(label, null);
+      let skipped = 0;
+      let attempted = 0;
       try {
         for (const group of preparedGroups) {
           if (token !== state.playbackToken) {
@@ -848,12 +863,25 @@
             if (token !== state.playbackToken) {
               return;
             }
-            await playFile(url, token);
+            attempted += 1;
+            try {
+              await playFile(url, token);
+            } catch (error) {
+              skipped += 1;
+              console.error("Skipping broken clip in grouped playback", url, error);
+            }
           }
         }
 
         if (token === state.playbackToken) {
-          setStatus(label + " finished.", "Ready");
+          if (attempted && skipped === attempted) {
+            setStatus("Playback failed. Every clip in this section was unavailable.", "Error");
+            return;
+          }
+          setStatus(
+            skipped ? label + " finished with " + skipped + " skipped clip" + (skipped === 1 ? "" : "s") + "." : label + " finished.",
+            skipped ? "Partial" : "Ready"
+          );
         }
       } catch (error) {
         setStatus("Playback failed. Check the generated audio file.", "Error");
