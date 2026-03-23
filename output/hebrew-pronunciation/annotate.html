@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hebrew Reader Annotation Helper</title>
+  <style>
+    :root {
+      --bg: #f6efe4;
+      --panel: rgba(255, 252, 246, 0.96);
+      --ink: #2b241e;
+      --muted: #716256;
+      --accent: #935036;
+      --accent-soft: rgba(147, 80, 54, 0.12);
+      --border: rgba(91, 66, 47, 0.16);
+      --shadow: 0 20px 40px rgba(73, 52, 36, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 18px;
+      background: linear-gradient(135deg, #f8f2e8, var(--bg));
+      color: var(--ink);
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+    }
+
+    .shell {
+      max-width: 1680px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(340px, 380px) minmax(640px, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    h1,
+    h2,
+    p,
+    label {
+      margin: 0;
+    }
+
+    h1,
+    h2 {
+      font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    .lede,
+    .hint {
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .controls {
+      display: grid;
+      gap: 18px;
+    }
+
+    .group {
+      display: grid;
+      gap: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .numeric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-size: 0.84rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 220px;
+      resize: vertical;
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    button {
+      border: 0;
+      background: var(--accent);
+      color: #fff9f4;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--border);
+    }
+
+    .button-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .button-row button {
+      width: auto;
+      min-width: 160px;
+    }
+
+    .viewer {
+      display: grid;
+      gap: 12px;
+    }
+
+    canvas {
+      width: 100%;
+      height: auto;
+      background: white;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: 0 12px 28px rgba(73, 52, 36, 0.08);
+    }
+
+    .status {
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    @media (max-width: 1040px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="panel controls">
+      <div class="group">
+        <h1>Annotation Helper</h1>
+        <p class="lede">
+          Use this to auto-suggest line regions from a scanned page, nudge them into place, and copy the final region data
+          back into <code>transcript.json</code>.
+        </p>
+      </div>
+
+      <div class="group">
+        <div class="grid">
+          <label>
+            Page
+            <select id="pageSelect"></select>
+          </label>
+          <label>
+            Line
+            <select id="lineSelect"></select>
+          </label>
+        </div>
+      </div>
+
+      <div class="group">
+        <h2>Selected Line Region</h2>
+        <div class="numeric-grid">
+          <label>Top %<input id="topInput" type="number" step="0.01"></label>
+          <label>Left %<input id="leftInput" type="number" step="0.01"></label>
+          <label>Width %<input id="widthInput" type="number" step="0.01"></label>
+          <label>Height %<input id="heightInput" type="number" step="0.01"></label>
+          <label>Pad Top %<input id="padTopInput" type="number" step="0.01"></label>
+          <label>Pad Right %<input id="padRightInput" type="number" step="0.01"></label>
+          <label>Pad Bottom %<input id="padBottomInput" type="number" step="0.01"></label>
+          <label>Pad Left %<input id="padLeftInput" type="number" step="0.01"></label>
+          <label>Confidence<input id="confidenceInput" type="number" step="0.01" min="0" max="1"></label>
+        </div>
+      </div>
+
+      <div class="group">
+        <h2>Auto-Suggest Search Area</h2>
+        <div class="numeric-grid">
+          <label>Top %<input id="searchTopInput" type="number" step="0.01"></label>
+          <label>Left %<input id="searchLeftInput" type="number" step="0.01"></label>
+          <label>Width %<input id="searchWidthInput" type="number" step="0.01"></label>
+          <label>Height %<input id="searchHeightInput" type="number" step="0.01"></label>
+        </div>
+        <p class="hint">
+          The suggestion pass only looks inside this area. On dense pages, start with the prayer block or exercise block
+          instead of the entire page.
+        </p>
+      </div>
+
+      <div class="group">
+        <div class="button-row">
+          <button id="suggestButton" type="button">Auto-suggest current section</button>
+          <button id="copyButton" class="secondary" type="button">Copy export JSON</button>
+        </div>
+        <p id="status" class="status">Loading reader data...</p>
+      </div>
+
+      <div class="group">
+        <h2>Export</h2>
+        <textarea id="exportBox" spellcheck="false"></textarea>
+      </div>
+    </section>
+
+    <section class="panel viewer">
+      <canvas id="pageCanvas"></canvas>
+    </section>
+  </div>
+
+  <script>
+    const state = {
+      reader: null,
+      currentPageId: null,
+      selectedLineId: null,
+      image: null,
+      scale: 1,
+      imageWidth: 0,
+      imageHeight: 0
+    };
+
+    const elements = {
+      canvas: document.getElementById("pageCanvas"),
+      confidenceInput: document.getElementById("confidenceInput"),
+      copyButton: document.getElementById("copyButton"),
+      exportBox: document.getElementById("exportBox"),
+      heightInput: document.getElementById("heightInput"),
+      leftInput: document.getElementById("leftInput"),
+      lineSelect: document.getElementById("lineSelect"),
+      pageSelect: document.getElementById("pageSelect"),
+      padBottomInput: document.getElementById("padBottomInput"),
+      padLeftInput: document.getElementById("padLeftInput"),
+      padRightInput: document.getElementById("padRightInput"),
+      padTopInput: document.getElementById("padTopInput"),
+      searchHeightInput: document.getElementById("searchHeightInput"),
+      searchLeftInput: document.getElementById("searchLeftInput"),
+      searchTopInput: document.getElementById("searchTopInput"),
+      searchWidthInput: document.getElementById("searchWidthInput"),
+      status: document.getElementById("status"),
+      suggestButton: document.getElementById("suggestButton"),
+      topInput: document.getElementById("topInput"),
+      widthInput: document.getElementById("widthInput")
+    };
+
+    function setStatus(message) {
+      elements.status.textContent = message;
+    }
+
+    function orderedSections(page) {
+      return (page.sections || []).slice().sort(function (a, b) {
+        return a.order - b.order;
+      });
+    }
+
+    function orderedLines(page) {
+      return (page.lines || []).slice().sort(function (a, b) {
+        return a.order - b.order;
+      });
+    }
+
+    function currentPage() {
+      return state.reader.pages.find(function (page) {
+        return page.id === state.currentPageId;
+      });
+    }
+
+    function currentLine() {
+      const page = currentPage();
+      return page ? orderedLines(page).find(function (line) {
+        return line.id === state.selectedLineId;
+      }) : null;
+    }
+
+    function exerciseLines(page) {
+      const sections = new Map();
+      orderedSections(page).forEach(function (section) {
+        sections.set(section.id, section);
+      });
+      return orderedLines(page).filter(function (line) {
+        const section = sections.get(line.sectionId || "default");
+        return !section || section.playbackMode !== "single_block";
+      });
+    }
+
+    function clamp(value, minimum, maximum) {
+      return Math.min(maximum, Math.max(minimum, value));
+    }
+
+    function paddedRegion(region) {
+      const left = clamp(region.left - (region.padLeft || 0), 0, 100);
+      const top = clamp(region.top - (region.padTop || 0), 0, 100);
+      const right = clamp(region.left + region.width + (region.padRight || 0), 0, 100);
+      const bottom = clamp(region.top + region.height + (region.padBottom || 0), 0, 100);
+      return {
+        top: top,
+        left: left,
+        width: Math.max(0, right - left),
+        height: Math.max(0, bottom - top)
+      };
+    }
+
+    function defaultSearchRegion(page) {
+      const lines = exerciseLines(page).filter(function (line) {
+        return line.region;
+      });
+
+      if (lines.length) {
+        let top = 100;
+        let left = 100;
+        let right = 0;
+        let bottom = 0;
+
+        lines.forEach(function (line) {
+          const region = paddedRegion(line.region);
+          top = Math.min(top, region.top);
+          left = Math.min(left, region.left);
+          right = Math.max(right, region.left + region.width);
+          bottom = Math.max(bottom, region.top + region.height);
+        });
+
+        return {
+          top: Math.max(0, top - 3),
+          left: Math.max(0, left - 6),
+          width: Math.min(100, right - left + 12),
+          height: Math.min(100, bottom - top + 6)
+        };
+      }
+
+      return { top: 55, left: 8, width: 84, height: 35 };
+    }
+
+    function updateSearchInputs(region) {
+      elements.searchTopInput.value = region.top.toFixed(2);
+      elements.searchLeftInput.value = region.left.toFixed(2);
+      elements.searchWidthInput.value = region.width.toFixed(2);
+      elements.searchHeightInput.value = region.height.toFixed(2);
+    }
+
+    function readSearchRegion() {
+      return {
+        top: Number(elements.searchTopInput.value) || 0,
+        left: Number(elements.searchLeftInput.value) || 0,
+        width: Number(elements.searchWidthInput.value) || 0,
+        height: Number(elements.searchHeightInput.value) || 0
+      };
+    }
+
+    function updateRegionInputs(line) {
+      const region = (line && line.region) || {
+        top: 0,
+        left: 0,
+        width: 10,
+        height: 4,
+        padTop: 0.45,
+        padRight: 1.05,
+        padBottom: 0.45,
+        padLeft: 1.05,
+        confidence: 0.7
+      };
+      elements.topInput.value = region.top.toFixed(2);
+      elements.leftInput.value = region.left.toFixed(2);
+      elements.widthInput.value = region.width.toFixed(2);
+      elements.heightInput.value = region.height.toFixed(2);
+      elements.padTopInput.value = (region.padTop || 0).toFixed(2);
+      elements.padRightInput.value = (region.padRight || 0).toFixed(2);
+      elements.padBottomInput.value = (region.padBottom || 0).toFixed(2);
+      elements.padLeftInput.value = (region.padLeft || 0).toFixed(2);
+      elements.confidenceInput.value = typeof region.confidence === "number" ? region.confidence.toFixed(2) : "0.70";
+    }
+
+    function applyInputsToCurrentLine() {
+      const line = currentLine();
+      if (!line) {
+        return;
+      }
+
+      line.region = {
+        top: Number(elements.topInput.value) || 0,
+        left: Number(elements.leftInput.value) || 0,
+        width: Number(elements.widthInput.value) || 0,
+        height: Number(elements.heightInput.value) || 0,
+        padTop: Number(elements.padTopInput.value) || 0,
+        padRight: Number(elements.padRightInput.value) || 0,
+        padBottom: Number(elements.padBottomInput.value) || 0,
+        padLeft: Number(elements.padLeftInput.value) || 0,
+        confidence: Number(elements.confidenceInput.value) || 0
+      };
+
+      renderCanvas();
+      updateExport();
+    }
+
+    function buildExport(page) {
+      return {
+        page: page.id,
+        lines: exerciseLines(page).map(function (line) {
+          return {
+            id: line.id,
+            badgeLabel: line.badgeLabel || null,
+            region: line.region || null
+          };
+        })
+      };
+    }
+
+    function updateExport() {
+      const page = currentPage();
+      if (!page) {
+        elements.exportBox.value = "";
+        return;
+      }
+      elements.exportBox.value = JSON.stringify(buildExport(page), null, 2);
+    }
+
+    function populatePageSelect() {
+      elements.pageSelect.replaceChildren();
+      state.reader.pages.forEach(function (page) {
+        const option = document.createElement("option");
+        option.value = page.id;
+        option.textContent = "Page " + page.page + " - " + page.title;
+        elements.pageSelect.appendChild(option);
+      });
+      elements.pageSelect.value = state.currentPageId;
+    }
+
+    function populateLineSelect(page) {
+      const lines = exerciseLines(page);
+      elements.lineSelect.replaceChildren();
+      lines.forEach(function (line) {
+        const option = document.createElement("option");
+        option.value = line.id;
+        option.textContent = line.badgeLabel || line.label || line.id;
+        elements.lineSelect.appendChild(option);
+      });
+      if (!lines.find(function (line) { return line.id === state.selectedLineId; })) {
+        state.selectedLineId = lines[0] ? lines[0].id : null;
+      }
+      elements.lineSelect.value = state.selectedLineId || "";
+    }
+
+    async function loadImage(src) {
+      return new Promise(function (resolve, reject) {
+        const image = new Image();
+        image.onload = function () {
+          resolve(image);
+        };
+        image.onerror = reject;
+        image.src = src;
+      });
+    }
+
+    function drawRegion(ctx, region, strokeColor, fillColor, lineWidth, scale) {
+      const padded = paddedRegion(region);
+      ctx.strokeStyle = strokeColor;
+      ctx.lineWidth = lineWidth;
+      ctx.fillStyle = fillColor;
+      ctx.strokeRect(
+        padded.left / 100 * state.imageWidth * scale,
+        padded.top / 100 * state.imageHeight * scale,
+        padded.width / 100 * state.imageWidth * scale,
+        padded.height / 100 * state.imageHeight * scale
+      );
+      ctx.fillRect(
+        padded.left / 100 * state.imageWidth * scale,
+        padded.top / 100 * state.imageHeight * scale,
+        padded.width / 100 * state.imageWidth * scale,
+        padded.height / 100 * state.imageHeight * scale
+      );
+    }
+
+    function renderCanvas() {
+      const page = currentPage();
+      if (!page || !state.image) {
+        return;
+      }
+
+      const maxWidth = Math.min(1180, document.querySelector(".viewer").clientWidth - 2);
+      state.scale = Math.min(1, maxWidth / state.imageWidth);
+
+      elements.canvas.width = Math.round(state.imageWidth * state.scale);
+      elements.canvas.height = Math.round(state.imageHeight * state.scale);
+
+      const ctx = elements.canvas.getContext("2d");
+      ctx.clearRect(0, 0, elements.canvas.width, elements.canvas.height);
+      ctx.drawImage(state.image, 0, 0, elements.canvas.width, elements.canvas.height);
+
+      exerciseLines(page).forEach(function (line) {
+        if (!line.region) {
+          return;
+        }
+        const isSelected = line.id === state.selectedLineId;
+        drawRegion(
+          ctx,
+          line.region,
+          isSelected ? "rgba(147, 80, 54, 1)" : "rgba(147, 80, 54, 0.52)",
+          isSelected ? "rgba(147, 80, 54, 0.1)" : "rgba(147, 80, 54, 0.05)",
+          isSelected ? 3 : 2,
+          state.scale
+        );
+      });
+
+      const search = readSearchRegion();
+      ctx.setLineDash([10, 8]);
+      ctx.strokeStyle = "rgba(34, 96, 131, 0.8)";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(
+        search.left / 100 * state.imageWidth * state.scale,
+        search.top / 100 * state.imageHeight * state.scale,
+        search.width / 100 * state.imageWidth * state.scale,
+        search.height / 100 * state.imageHeight * state.scale
+      );
+      ctx.setLineDash([]);
+    }
+
+    function grayscale(pixel) {
+      return 0.299 * pixel[0] + 0.587 * pixel[1] + 0.114 * pixel[2];
+    }
+
+    function suggestBands(page, searchRegion, lineCount) {
+      const canvas = document.createElement("canvas");
+      canvas.width = state.imageWidth;
+      canvas.height = state.imageHeight;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(state.image, 0, 0, state.imageWidth, state.imageHeight);
+
+      const left = Math.floor(searchRegion.left / 100 * state.imageWidth);
+      const top = Math.floor(searchRegion.top / 100 * state.imageHeight);
+      const width = Math.ceil(searchRegion.width / 100 * state.imageWidth);
+      const height = Math.ceil(searchRegion.height / 100 * state.imageHeight);
+      const imageData = ctx.getImageData(left, top, width, height);
+      const rows = new Array(height).fill(0);
+
+      for (let y = 0; y < height; y += 1) {
+        let count = 0;
+        for (let x = 0; x < width; x += 1) {
+          const offset = (y * width + x) * 4;
+          const value = grayscale([
+            imageData.data[offset],
+            imageData.data[offset + 1],
+            imageData.data[offset + 2]
+          ]);
+          if (value < 182) {
+            count += 1;
+          }
+        }
+        rows[y] = count;
+      }
+
+      const smoothed = rows.map(function (_, index) {
+        let total = 0;
+        let seen = 0;
+        for (let offset = -2; offset <= 2; offset += 1) {
+          const row = rows[index + offset];
+          if (typeof row === "number") {
+            total += row;
+            seen += 1;
+          }
+        }
+        return total / Math.max(seen, 1);
+      });
+
+      const maxDensity = Math.max.apply(null, smoothed);
+      const threshold = Math.max(18, maxDensity * 0.22);
+      const bands = [];
+      let start = null;
+
+      smoothed.forEach(function (count, index) {
+        if (count > threshold && start === null) {
+          start = index;
+        } else if (count <= threshold && start !== null) {
+          bands.push({ top: start, bottom: index - 1 });
+          start = null;
+        }
+      });
+      if (start !== null) {
+        bands.push({ top: start, bottom: height - 1 });
+      }
+
+      const mergedBands = [];
+      bands.forEach(function (band) {
+        const previous = mergedBands[mergedBands.length - 1];
+        if (previous && band.top - previous.bottom <= 16) {
+          previous.bottom = band.bottom;
+        } else {
+          mergedBands.push({ top: band.top, bottom: band.bottom });
+        }
+      });
+
+      const filteredBands = mergedBands
+        .map(function (band) {
+          return {
+            top: band.top,
+            bottom: band.bottom,
+            height: band.bottom - band.top + 1,
+            density: smoothed.slice(band.top, band.bottom + 1).reduce(function (total, value) {
+              return total + value;
+            }, 0)
+          };
+        })
+        .filter(function (band) {
+          return band.height >= 10;
+        });
+
+      const selectedBands = filteredBands
+        .sort(function (a, b) {
+          return b.density - a.density;
+        })
+        .slice(0, lineCount)
+        .sort(function (a, b) {
+          return a.top - b.top;
+        });
+
+      return selectedBands.map(function (band) {
+        const y0 = band.top;
+        const y1 = band.bottom;
+        const columns = new Array(width).fill(0);
+
+        for (let y = y0; y <= y1; y += 1) {
+          for (let x = 0; x < width; x += 1) {
+            const offset = (y * width + x) * 4;
+            const value = grayscale([
+              imageData.data[offset],
+              imageData.data[offset + 1],
+              imageData.data[offset + 2]
+            ]);
+            if (value < 182) {
+              columns[x] += 1;
+            }
+          }
+        }
+
+        const columnThreshold = Math.max(2, (y1 - y0 + 1) * 0.12);
+        let minX = columns.findIndex(function (count) {
+          return count >= columnThreshold;
+        });
+        let maxX = columns.length - 1;
+        while (maxX > minX && columns[maxX] < columnThreshold) {
+          maxX -= 1;
+        }
+
+        if (minX < 0) {
+          minX = 0;
+          maxX = width - 1;
+        }
+
+        return {
+          top: ((top + y0) / state.imageHeight) * 100,
+          left: ((left + minX) / state.imageWidth) * 100,
+          width: ((maxX - minX + 1) / state.imageWidth) * 100,
+          height: ((y1 - y0 + 1) / state.imageHeight) * 100,
+          padTop: 0.45,
+          padRight: 1.05,
+          padBottom: 0.45,
+          padLeft: 1.05,
+          confidence: 0.7
+        };
+      });
+    }
+
+    async function setCurrentPage(pageId) {
+      state.currentPageId = pageId;
+      const page = currentPage();
+      if (!page) {
+        return;
+      }
+
+      state.image = await loadImage(page.image);
+      state.imageWidth = state.image.naturalWidth;
+      state.imageHeight = state.image.naturalHeight;
+      populateLineSelect(page);
+      updateSearchInputs(defaultSearchRegion(page));
+      updateRegionInputs(currentLine());
+      updateExport();
+      renderCanvas();
+      setStatus("Loaded page " + page.page + ". Adjust regions, then copy the export JSON.");
+    }
+
+    function handleSuggest() {
+      const page = currentPage();
+      if (!page || !state.image) {
+        return;
+      }
+
+      const lines = exerciseLines(page);
+      if (!lines.length) {
+        setStatus("This page has no per-line section to suggest.");
+        return;
+      }
+
+      const suggestions = suggestBands(page, readSearchRegion(), lines.length);
+      if (!suggestions.length) {
+        setStatus("No likely text bands were found in the current search area.");
+        return;
+      }
+
+      lines.forEach(function (line, index) {
+        if (!suggestions[index]) {
+          return;
+        }
+        line.region = suggestions[index];
+      });
+
+      updateRegionInputs(currentLine());
+      updateExport();
+      renderCanvas();
+      setStatus("Applied " + suggestions.length + " suggested regions. Fine-tune any line that still needs it.");
+    }
+
+    async function loadReader() {
+      const response = await fetch("./data/reader.json", { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("Reader data fetch failed: " + response.status);
+      }
+      state.reader = await response.json();
+      state.currentPageId = state.reader.pages[0] ? state.reader.pages[0].id : null;
+      populatePageSelect();
+      await setCurrentPage(state.currentPageId);
+    }
+
+    elements.pageSelect.addEventListener("change", function () {
+      setCurrentPage(elements.pageSelect.value).catch(function (error) {
+        console.error(error);
+        setStatus("The selected page could not be loaded.");
+      });
+    });
+
+    elements.lineSelect.addEventListener("change", function () {
+      state.selectedLineId = elements.lineSelect.value;
+      updateRegionInputs(currentLine());
+      renderCanvas();
+    });
+
+    [
+      elements.topInput,
+      elements.leftInput,
+      elements.widthInput,
+      elements.heightInput,
+      elements.padTopInput,
+      elements.padRightInput,
+      elements.padBottomInput,
+      elements.padLeftInput,
+      elements.confidenceInput
+    ].forEach(function (input) {
+      input.addEventListener("input", applyInputsToCurrentLine);
+    });
+
+    [
+      elements.searchTopInput,
+      elements.searchLeftInput,
+      elements.searchWidthInput,
+      elements.searchHeightInput
+    ].forEach(function (input) {
+      input.addEventListener("input", renderCanvas);
+    });
+
+    elements.suggestButton.addEventListener("click", handleSuggest);
+
+    elements.copyButton.addEventListener("click", async function () {
+      try {
+        await navigator.clipboard.writeText(elements.exportBox.value);
+        setStatus("Copied the current export JSON to your clipboard.");
+      } catch (error) {
+        console.error(error);
+        setStatus("Copy failed. You can still copy the export box manually.");
+      }
+    });
+
+    loadReader().catch(function (error) {
+      console.error(error);
+      setStatus("Reader data could not be loaded. Build the site first.");
+    });
+  </script>
+</body>
+</html>

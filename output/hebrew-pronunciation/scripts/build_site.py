@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import os
 import shutil
 import sys
@@ -17,10 +18,12 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_TRANSCRIPT = ROOT / "transcript.json"
 SOURCE_INDEX = ROOT / "index.html"
+SOURCE_ANNOTATE = ROOT / "annotate.html"
 SOURCE_PAGES = ROOT / "pages"
 SITE_ROOT = ROOT / "site"
 SITE_DATA = SITE_ROOT / "data"
 SITE_AUDIO = SITE_ROOT / "assets" / "audio"
+SITE_LINE_STRIPS = SITE_ROOT / "assets" / "line-strips"
 
 DEFAULT_OUTPUT_FORMAT = "mp3_44100_128"
 
@@ -50,12 +53,17 @@ def copy_static_assets() -> None:
     SITE_ROOT.mkdir(parents=True, exist_ok=True)
     SITE_DATA.mkdir(parents=True, exist_ok=True)
     shutil.copy2(SOURCE_INDEX, SITE_ROOT / "index.html")
+    if SOURCE_ANNOTATE.exists():
+        shutil.copy2(SOURCE_ANNOTATE, SITE_ROOT / "annotate.html")
 
     if SOURCE_PAGES.exists():
         destination = SITE_ROOT / "pages"
         if destination.exists():
             shutil.rmtree(destination)
         shutil.copytree(SOURCE_PAGES, destination)
+
+    if SITE_LINE_STRIPS.exists():
+        shutil.rmtree(SITE_LINE_STRIPS)
 
 
 def elevenlabs_request(
@@ -201,6 +209,7 @@ def clone_line(line: Dict) -> Dict:
             "line": None
         }
     }
+    clone["stripImage"] = None
     return clone
 
 
@@ -220,6 +229,79 @@ def ordered_words(page: Dict) -> List[Dict]:
 
 def ordered_lines(page: Dict) -> List[Dict]:
     return sorted(page.get("lines", []), key=lambda item: item["order"])
+
+
+def ordered_sections(page: Dict) -> List[Dict]:
+    return sorted(page.get("sections", []), key=lambda item: item["order"])
+
+
+def resolved_region(line: Dict) -> Optional[Dict]:
+    region = line.get("region") or line.get("overlay")
+    if not region:
+        return None
+    return dict(region)
+
+
+def load_pillow_image():
+    try:
+        from PIL import Image
+    except ImportError as exc:
+        raise BuildError(
+            "Pillow is required to generate line-strip images. "
+            "Install it locally or let the GitHub Actions workflow build the site."
+        ) from exc
+    return Image
+
+
+def padded_region_bounds(region: Dict) -> Tuple[float, float, float, float]:
+    left = max(0.0, region["left"] - region.get("padLeft", 0.0))
+    top = max(0.0, region["top"] - region.get("padTop", 0.0))
+    right = min(100.0, region["left"] + region["width"] + region.get("padRight", 0.0))
+    bottom = min(100.0, region["top"] + region["height"] + region.get("padBottom", 0.0))
+    if right <= left or bottom <= top:
+        raise BuildError(f"Invalid region bounds: {region}")
+    return left, top, right, bottom
+
+
+def region_bounds_in_pixels(region: Dict, width: int, height: int) -> Tuple[int, int, int, int]:
+    left, top, right, bottom = padded_region_bounds(region)
+    pixel_left = max(0, math.floor((left / 100.0) * width))
+    pixel_top = max(0, math.floor((top / 100.0) * height))
+    pixel_right = min(width, math.ceil((right / 100.0) * width))
+    pixel_bottom = min(height, math.ceil((bottom / 100.0) * height))
+    if pixel_right <= pixel_left:
+        pixel_right = min(width, pixel_left + 1)
+    if pixel_bottom <= pixel_top:
+        pixel_bottom = min(height, pixel_top + 1)
+    return pixel_left, pixel_top, pixel_right, pixel_bottom
+
+
+def build_line_strip(*, page: Dict, line: Dict) -> Optional[str]:
+    region = resolved_region(line)
+    if not region:
+        return None
+
+    page_image_path = ROOT / page["image"]
+    if not page_image_path.exists():
+        raise BuildError(f"Page image for {page['id']} does not exist: {page_image_path}")
+
+    Image = load_pillow_image()
+    with Image.open(page_image_path) as image:
+        pixel_bounds = region_bounds_in_pixels(region, image.width, image.height)
+        crop = image.crop(pixel_bounds)
+        fingerprint = stable_hash(
+            {
+                "page_id": page["id"],
+                "line_id": line["id"],
+                "image": page["image"],
+                "region": region,
+            }
+        )
+        relative_path = f"assets/line-strips/{page['id']}/{line['id']}-{fingerprint}.png"
+        output_path = SITE_ROOT / relative_path
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        crop.save(output_path, format="PNG")
+    return relative_path
 
 
 def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, Dict]:
@@ -259,12 +341,13 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                     "page": None
                 }
             },
+            "fullPlaybackGroups": [],
             "lines": [],
             "words": [],
         }
 
         words_by_id: Dict[str, Dict] = {}
-        for section in page.get("sections", []):
+        for section in ordered_sections(page):
             section_out = clone_section(section)
             if section.get("status") == "verified" and section.get("playbackMode") == "single_block" and section.get("mixedText"):
                 section_out["audio"]["mixed"]["block"] = ensure_audio(
@@ -307,6 +390,7 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
 
         for line in ordered_lines(page):
             line_out = clone_line(line)
+            line_out["stripImage"] = build_line_strip(page=page, line=line_out)
             if line.get("status") == "verified" and line.get("englishText"):
                 line_out["audio"]["en"]["line"] = ensure_audio(
                     category="lines",
@@ -338,23 +422,6 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
             )
             page_out["lines"].append(line_out)
 
-        if page.get("status") == "verified" and page.get("englishText"):
-            page_out["audio"]["en"]["page"] = ensure_audio(
-                category="pages",
-                language="en",
-                language_code="en",
-                item_id=page["id"],
-                text=page.get("englishText"),
-                model_id=english_model,
-                voice_id=english_voice_id,
-                voice_secret_name="ELEVENLABS_ENGLISH_VOICE_ID",
-                api_key=api_key,
-                output_format=output_format,
-                allow_missing_audio=allow_missing_audio,
-                manifest_entries=manifest_entries,
-                missing_items=missing_items,
-            )
-
         expected_page_word_ids = [
             word_id
             for line in page_out["lines"]
@@ -369,6 +436,33 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
         page_out["hebrewAudioSequence"] = (
             page_sequence if len(page_sequence) == len(expected_page_word_ids) else []
         )
+
+        for section in page_out["sections"]:
+            if section.get("playbackMode") == "single_block" and section.get("audio", {}).get("mixed", {}).get("block"):
+                page_out["fullPlaybackGroups"].append(
+                    {
+                        "label": section.get("playbackLabel") or section.get("title") or "Section",
+                        "lineId": None,
+                        "urls": [section["audio"]["mixed"]["block"]],
+                    }
+                )
+                continue
+
+            section_lines = [
+                line
+                for line in page_out["lines"]
+                if (line.get("sectionId") or "default") == section["id"]
+                and line.get("status") == "verified"
+                and line.get("hebrewAudioSequence")
+            ]
+            for line in section_lines:
+                page_out["fullPlaybackGroups"].append(
+                    {
+                        "label": line.get("badgeLabel") or line.get("label") or line["id"],
+                        "lineId": line["id"],
+                        "urls": list(line.get("hebrewAudioSequence", [])),
+                    }
+                )
         site_payload["pages"].append(page_out)
 
     manifest = {

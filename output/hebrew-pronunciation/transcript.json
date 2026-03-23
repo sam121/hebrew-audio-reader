@@ -32,15 +32,19 @@
           "title": "Intro section",
           "description": "Top-of-page cues, reading direction, and the bet-recognition setup.",
           "status": "verified",
+          "matchMode": "none",
           "playbackMode": "single_block",
           "playbackLabel": "Play intro section",
-          "mixedText": "Blessing 1: The Blessing over the Fruit of the Vine. The blessing begins: בָּרוּךְ אַתָּה יְיָ. Read the Hebrew from right to left: בָּרוּךְ. The first letter of our blessing is ב, בֵּית, which has the sound of B as in בְּרָכָה. Locate the ב throughout this paragraph from the סִדּוּר, prayer book. Pronounce the B sound each time in order to reinforce recognition."
+          "mixedText": "Blessing 1: The Blessing over the Fruit of the Vine. The blessing begins: בָּרוּךְ אַתָּה אֲדֹנָי. Read the Hebrew from right to left: בָּרוּךְ. The first letter of our blessing is ב, בֵּית, which has the sound of B as in בְּרָכָה. Locate the ב throughout this paragraph from the סִדּוּר, prayer book. Pronounce the B sound each time in order to reinforce recognition."
         },
         {
           "id": "exercise",
           "order": 2,
           "title": "Exercise section",
-          "description": "The siddur paragraph used for the main reading exercise."
+          "description": "The siddur paragraph used for the main reading exercise.",
+          "status": "verified",
+          "playbackMode": "per_line",
+          "matchMode": "hybrid"
         }
       ],
       "lines": [
@@ -183,11 +187,16 @@
           "label": "Printed line 1",
           "status": "verified",
           "englishText": null,
-          "overlay": {
-            "top": 62.7,
-            "left": 10.7,
-            "width": 79.0,
-            "height": 4.6
+          "region": {
+            "top": 62.18,
+            "left": 14.11,
+            "width": 72.34,
+            "height": 2.82,
+            "padTop": 0.45,
+            "padRight": 1.05,
+            "padBottom": 0.45,
+            "padLeft": 1.15,
+            "confidence": 1
           },
           "audio": {
             "en": {
@@ -214,11 +223,16 @@
           "label": "Printed line 2",
           "status": "verified",
           "englishText": null,
-          "overlay": {
-            "top": 68.0,
-            "left": 10.7,
-            "width": 79.0,
-            "height": 4.6
+          "region": {
+            "top": 66.27,
+            "left": 14.11,
+            "width": 72.34,
+            "height": 2.64,
+            "padTop": 0.45,
+            "padRight": 1.05,
+            "padBottom": 0.45,
+            "padLeft": 1.15,
+            "confidence": 1
           },
           "audio": {
             "en": {
@@ -245,11 +259,16 @@
           "label": "Printed line 3",
           "status": "verified",
           "englishText": null,
-          "overlay": {
-            "top": 73.2,
-            "left": 10.7,
-            "width": 79.0,
-            "height": 4.6
+          "region": {
+            "top": 70.0,
+            "left": 14.05,
+            "width": 72.46,
+            "height": 2.86,
+            "padTop": 0.45,
+            "padRight": 1.05,
+            "padBottom": 0.45,
+            "padLeft": 1.15,
+            "confidence": 1
           },
           "audio": {
             "en": {
@@ -276,11 +295,16 @@
           "label": "Printed line 4",
           "status": "verified",
           "englishText": null,
-          "overlay": {
-            "top": 78.2,
-            "left": 10.7,
-            "width": 79.0,
-            "height": 4.6
+          "region": {
+            "top": 73.95,
+            "left": 14.05,
+            "width": 72.46,
+            "height": 2.82,
+            "padTop": 0.45,
+            "padRight": 1.05,
+            "padBottom": 0.45,
+            "padLeft": 1.15,
+            "confidence": 1
           },
           "audio": {
             "en": {
@@ -305,11 +329,16 @@
           "label": "Printed line 5",
           "status": "verified",
           "englishText": null,
-          "overlay": {
-            "top": 82.7,
-            "left": 10.7,
-            "width": 41.0,
-            "height": 4.2
+          "region": {
+            "top": 78.18,
+            "left": 74.12,
+            "width": 12.45,
+            "height": 2.59,
+            "padTop": 0.45,
+            "padRight": 1.05,
+            "padBottom": 0.45,
+            "padLeft": 0.95,
+            "confidence": 1
           },
           "audio": {
             "en": {
@@ -329,11 +358,16 @@
           "label": "Printed line 6",
           "status": "verified",
           "englishText": null,
-          "overlay": {
-            "top": 88.5,
-            "left": 10.7,
-            "width": 79.0,
-            "height": 4.6
+          "region": {
+            "top": 81.86,
+            "left": 14.05,
+            "width": 72.52,
+            "height": 2.86,
+            "padTop": 0.45,
+            "padRight": 1.05,
+            "padBottom": 0.45,
+            "padLeft": 1.15,
+            "confidence": 1
           },
           "audio": {
             "en": {
@@ -360,11 +394,16 @@
           "label": "Printed line 7",
           "status": "verified",
           "englishText": null,
-          "overlay": {
-            "top": 93.6,
-            "left": 10.7,
-            "width": 43.0,
-            "height": 4.2
+          "region": {
+            "top": 86.0,
+            "left": 67.22,
+            "width": 19.41,
+            "height": 2.73,
+            "padTop": 0.45,
+            "padRight": 1.05,
+            "padBottom": 0.45,
+            "padLeft": 0.95,
+            "confidence": 1
           },
           "audio": {
             "en": {

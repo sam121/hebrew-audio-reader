@@ -467,13 +467,118 @@
       display: none;
     }
 
+    .shell {
+      max-width: 1720px;
+      gap: 16px;
+    }
+
+    .compact-header {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .page-nav {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .workspace {
+      grid-template-columns: minmax(620px, 1.28fr) minmax(330px, 0.72fr);
+      gap: 16px;
+    }
+
+    .page-panel,
+    .transcript-panel {
+      padding: 16px;
+      gap: 16px;
+    }
+
+    .page-panel {
+      top: 12px;
+      max-height: calc(100vh - 24px);
+    }
+
+    .image-frame {
+      min-height: 0;
+      padding: 8px;
+    }
+
+    .image-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .image-wrap img {
+      width: 100%;
+      max-width: 1080px;
+      max-height: none;
+    }
+
+    .page-playback {
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    .simple-actions,
+    .intro-action {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .intro-action button {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .line-list,
+    .section-block {
+      gap: 12px;
+    }
+
+    .line-card {
+      padding: 14px;
+      gap: 12px;
+    }
+
+    .line-title {
+      margin: 0;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .line-card.active .line-title {
+      color: var(--accent-strong);
+    }
+
+    .line-strip {
+      display: block;
+      width: 100%;
+      padding: 6px 8px;
+      background: rgba(255, 253, 249, 0.96);
+      border: 1px solid rgba(147, 80, 54, 0.16);
+      border-radius: 16px;
+      box-shadow: 0 8px 18px rgba(87, 60, 42, 0.05);
+    }
+
+    .line-card.active .line-strip {
+      border-color: rgba(147, 80, 54, 0.34);
+      box-shadow: 0 12px 24px rgba(97, 63, 41, 0.1);
+    }
+
     @media (max-width: 1020px) {
       body {
         padding: 14px;
-      }
-
-      .hero {
-        align-items: start;
       }
 
       .workspace {
@@ -493,10 +598,18 @@
     }
 
     @media (max-width: 720px) {
-      .hero,
       .page-panel,
       .transcript-panel {
         padding: 16px;
+      }
+
+      .compact-header {
+        justify-content: stretch;
+      }
+
+      .page-nav {
+        width: 100%;
+        justify-content: space-between;
       }
 
       .word-chip {
@@ -513,75 +626,35 @@
 </head>
 <body>
   <div class="shell">
-    <header class="hero">
-      <div>
-        <p class="eyebrow">Static GitHub Pages reader</p>
-        <h1>Hebrew Audio Reader</h1>
-        <p class="lede">
-          Click any Hebrew word to hear its pre-generated audio immediately. The numbered audio cards match the numbered
-          overlays on the scanned page, and the Hebrew listing stays right-to-left to mirror the printed text exactly.
-          English playback reads only the printed English on the page, not a translation of the Hebrew prayer lines.
-        </p>
-      </div>
-      <div class="nav-actions">
-        <p id="pageCounter" class="page-counter"></p>
+    <header class="compact-header">
+      <div class="page-nav">
         <button id="prevPage" class="secondary" type="button">Previous page</button>
+        <p id="pageCounter" class="page-counter"></p>
         <button id="nextPage" type="button">Next page</button>
       </div>
     </header>
 
     <main class="workspace">
       <section class="page-panel">
-        <div class="panel-heading">
-          <div>
-            <p class="panel-label">Scanned page</p>
-            <h2 id="pageTitle">Loading reader...</h2>
-            <p id="pageSubtitle" class="page-guide">Preparing page image</p>
-          </div>
-          <p id="pageStatus" class="status-chip"></p>
-        </div>
-
         <div class="image-frame">
           <div class="image-wrap">
             <img id="pageImage" alt="Current book page">
             <div id="overlayLayer" class="overlay-layer"></div>
           </div>
         </div>
+      </section>
 
-        <p class="page-guide">
-          Hover, focus, or play a numbered line on the right and the matching strip on the scanned page will light up here.
-        </p>
-
+      <section class="transcript-panel">
         <section class="page-playback">
-          <div class="panel-heading">
-            <div>
-              <p class="panel-label">Whole page playback</p>
-              <h3>Play the current page</h3>
-            </div>
-          </div>
-          <div class="playback-actions">
-            <button id="playPageHebrew" type="button">Play Hebrew on page</button>
-            <button id="playPageEnglish" class="secondary" type="button">Play printed English</button>
+          <div class="simple-actions">
+            <button id="playWholePage" type="button">Play whole page</button>
             <button id="stopPlayback" class="ghost" type="button">Stop</button>
           </div>
         </section>
 
-        <ol id="pageNotes" class="notes"></ol>
-      </section>
-
-      <section class="transcript-panel">
-        <div class="panel-heading">
-          <div>
-            <p class="panel-label">Verified transcript</p>
-            <h2>Printed lines and word audio</h2>
-          </div>
-          <p class="helper">Word click = Hebrew audio</p>
-        </div>
-
         <div id="lineList" class="line-list"></div>
         <section id="emptyState" class="message-card hidden">
-          This page does not have verified transcript lines yet. Keep the scan as reference and add the next verified page
-          in <code>transcript.json</code> before generating production audio.
+          This page does not have verified transcript lines yet.
         </section>
       </section>
     </main>
@@ -607,13 +680,8 @@
       overlayLayer: document.getElementById("overlayLayer"),
       pageCounter: document.getElementById("pageCounter"),
       pageImage: document.getElementById("pageImage"),
-      pageNotes: document.getElementById("pageNotes"),
-      pageStatus: document.getElementById("pageStatus"),
-      pageSubtitle: document.getElementById("pageSubtitle"),
-      pageTitle: document.getElementById("pageTitle"),
       playbackStatus: document.getElementById("playbackStatus"),
-      playPageEnglish: document.getElementById("playPageEnglish"),
-      playPageHebrew: document.getElementById("playPageHebrew"),
+      playWholePage: document.getElementById("playWholePage"),
       prevPage: document.getElementById("prevPage"),
       stopPlayback: document.getElementById("stopPlayback")
     };
@@ -747,13 +815,48 @@
       }
     }
 
-    function renderNotes(notes) {
-      elements.pageNotes.replaceChildren();
-      notes.forEach(function (note) {
-        const item = document.createElement("li");
-        item.textContent = note;
-        elements.pageNotes.appendChild(item);
-      });
+    async function playGroups(groups, label) {
+      const preparedGroups = groups
+        .map(function (group) {
+          return {
+            label: group.label,
+            lineId: group.lineId || null,
+            urls: (group.urls || []).filter(Boolean)
+          };
+        })
+        .filter(function (group) {
+          return group.urls.length;
+        });
+
+      if (!preparedGroups.length) {
+        setStatus("Audio is not available for this item yet.", "Unavailable");
+        return;
+      }
+
+      const token = startPlayback(label, null);
+      try {
+        for (const group of preparedGroups) {
+          if (token !== state.playbackToken) {
+            return;
+          }
+
+          setActiveLine(group.lineId);
+
+          for (const url of group.urls) {
+            if (token !== state.playbackToken) {
+              return;
+            }
+            await playFile(url, token);
+          }
+        }
+
+        if (token === state.playbackToken) {
+          setStatus(label + " finished.", "Ready");
+        }
+      } catch (error) {
+        setStatus("Playback failed. Check the generated audio file.", "Error");
+        console.error(error);
+      }
     }
 
     function orderedLines(page) {
@@ -780,14 +883,61 @@
       ];
     }
 
-    function buildLineDisplayText(line, wordsById) {
-      return line.wordIds
-        .map(function (wordId) {
-          const word = wordsById.get(wordId);
-          return word ? word.displayText : "";
-        })
-        .filter(Boolean)
-        .join(" ");
+    function sectionsById(page) {
+      const byId = new Map();
+      orderedSections(page).forEach(function (section) {
+        byId.set(section.id, section);
+      });
+      return byId;
+    }
+
+    function resolvedRegion(line) {
+      return line.region || line.overlay || null;
+    }
+
+    function effectiveMatchMode(line, section) {
+      const requestedMode = line.matchMode || (section && section.matchMode) || (resolvedRegion(line) ? "hybrid" : "none");
+      const region = resolvedRegion(line);
+
+      if (requestedMode === "none") {
+        return "none";
+      }
+
+      if (!region) {
+        return "strip_only";
+      }
+
+      if (typeof region.confidence === "number" && region.confidence < 0.85) {
+        return "strip_only";
+      }
+
+      return requestedMode;
+    }
+
+    function paddedRegion(region) {
+      if (!region) {
+        return null;
+      }
+
+      const left = Math.max(0, region.left - (region.padLeft || 0));
+      const top = Math.max(0, region.top - (region.padTop || 0));
+      const right = Math.min(100, region.left + region.width + (region.padRight || 0));
+      const bottom = Math.min(100, region.top + region.height + (region.padBottom || 0));
+
+      return {
+        left: left,
+        top: top,
+        width: Math.max(0, right - left),
+        height: Math.max(0, bottom - top)
+      };
+    }
+
+    function firstMatchableLine(page) {
+      const pageSections = sectionsById(page);
+      return orderedLines(page).find(function (line) {
+        const section = pageSections.get(line.sectionId || "default");
+        return effectiveMatchMode(line, section) === "hybrid";
+      }) || orderedLines(page)[0] || null;
     }
 
     function updateActiveFromEvent(lineId) {
@@ -797,21 +947,28 @@
     }
 
     function renderOverlays(page) {
+      const pageSections = sectionsById(page);
       elements.overlayLayer.replaceChildren();
 
       orderedLines(page).forEach(function (line) {
-        if (!line.overlay) {
+        const section = pageSections.get(line.sectionId || "default");
+        if (effectiveMatchMode(line, section) !== "hybrid") {
+          return;
+        }
+
+        const region = paddedRegion(resolvedRegion(line));
+        if (!region || !region.width || !region.height) {
           return;
         }
 
         const overlay = document.createElement("div");
         overlay.className = "line-overlay";
         overlay.dataset.lineId = line.id;
-        overlay.style.top = line.overlay.top + "%";
-        overlay.style.left = line.overlay.left + "%";
-        overlay.style.width = line.overlay.width + "%";
-        overlay.style.height = line.overlay.height + "%";
-        overlay.title = line.label;
+        overlay.style.top = region.top + "%";
+        overlay.style.left = region.left + "%";
+        overlay.style.width = region.width + "%";
+        overlay.style.height = region.height + "%";
+        overlay.title = line.badgeLabel || line.label || line.id;
 
         const number = document.createElement("span");
         number.className = "line-overlay-number";
@@ -848,82 +1005,20 @@
         const sectionBlock = document.createElement("section");
         sectionBlock.className = "section-block";
 
-        if (!section.hiddenHeading) {
-          const sectionHeading = document.createElement("div");
-          sectionHeading.className = "section-heading";
-
-          const sectionHeadingRow = document.createElement("div");
-          sectionHeadingRow.className = "section-heading-row";
-
-          const sectionHeadingMain = document.createElement("div");
-
-          const sectionLabel = document.createElement("p");
-          sectionLabel.className = "panel-label";
-          sectionLabel.textContent = section.title;
-          sectionHeadingMain.appendChild(sectionLabel);
-
-          if (section.description) {
-            const sectionDescription = document.createElement("p");
-            sectionDescription.className = "section-description";
-            sectionDescription.textContent = section.description;
-            sectionHeadingMain.appendChild(sectionDescription);
-          }
-
-          sectionHeadingRow.appendChild(sectionHeadingMain);
-
-          if (sectionIsSingleBlock && section.audio && section.audio.mixed && section.audio.mixed.block) {
-            const sectionActions = document.createElement("div");
-            sectionActions.className = "section-actions";
-
-            const playSection = document.createElement("button");
-            playSection.type = "button";
-            playSection.textContent = section.playbackLabel || "Play section";
-            playSection.addEventListener("click", function () {
-              playSingle(section.audio.mixed.block, section.title, null);
-            });
-
-            sectionActions.appendChild(playSection);
-            sectionHeadingRow.appendChild(sectionActions);
-          }
-
-          sectionHeading.appendChild(sectionHeadingRow);
-
-          sectionBlock.appendChild(sectionHeading);
-        }
-
         if (sectionIsSingleBlock) {
-          const combinedCard = document.createElement("section");
-          combinedCard.className = "line-card";
+          const introAction = document.createElement("div");
+          introAction.className = "intro-action";
 
-          const sectionLineStack = document.createElement("div");
-          sectionLineStack.className = "section-line-stack";
-
-          sectionLines.forEach(function (line) {
-            const lineItem = document.createElement("div");
-            lineItem.className = "section-line-item";
-
-            if (line.englishText) {
-              const english = document.createElement("p");
-              english.className = "line-english";
-              english.textContent = line.englishText;
-              lineItem.appendChild(english);
-            }
-
-            const hebrewText = buildLineDisplayText(line, wordsById);
-            if (hebrewText) {
-              const printedHebrew = document.createElement("p");
-              printedHebrew.className = "printed-hebrew";
-              printedHebrew.lang = "he";
-              printedHebrew.dir = "rtl";
-              printedHebrew.textContent = hebrewText;
-              lineItem.appendChild(printedHebrew);
-            }
-
-            sectionLineStack.appendChild(lineItem);
+          const playSection = document.createElement("button");
+          playSection.type = "button";
+          playSection.textContent = section.playbackLabel || "Play section";
+          playSection.disabled = !(section.audio && section.audio.mixed && section.audio.mixed.block);
+          playSection.addEventListener("click", function () {
+            playSingle(section.audio && section.audio.mixed ? section.audio.mixed.block : null, section.title, null);
           });
 
-          combinedCard.appendChild(sectionLineStack);
-          sectionBlock.appendChild(combinedCard);
+          introAction.appendChild(playSection);
+          sectionBlock.appendChild(introAction);
           elements.lineList.appendChild(sectionBlock);
           return;
         }
@@ -951,52 +1046,20 @@
           });
 
           const heading = document.createElement("div");
-          heading.className = "line-heading";
+          heading.className = "line-heading-main";
 
-          const headingMain = document.createElement("div");
-          headingMain.className = "line-heading-main";
+          const title = document.createElement("h3");
+          title.className = "line-title";
+          title.textContent = line.badgeLabel || (line.overlayNumber ? "Line " + line.overlayNumber : "Line " + line.order);
+          heading.appendChild(title);
 
-          const titleRow = document.createElement("div");
-          titleRow.className = "line-title-row";
-
-          const badge = document.createElement("span");
-          badge.className = "line-badge";
-          badge.textContent = line.badgeLabel || (line.overlayNumber ? "Line " + line.overlayNumber : "Line " + line.order);
-
-          const label = document.createElement("p");
-          label.className = "line-label";
-          label.textContent = line.label;
-
-          titleRow.appendChild(badge);
-          titleRow.appendChild(label);
-          headingMain.appendChild(titleRow);
-
-          const helpText = line.overlay
-            ? "Matches the active highlight on the scanned page."
-            : (section.id === "intro" ? "Top-of-page transcription." : "");
-
-          if (helpText) {
-            const help = document.createElement("p");
-            help.className = "line-help";
-            help.textContent = helpText;
-            headingMain.appendChild(help);
-          }
-
-          const hebrewText = buildLineDisplayText(line, wordsById);
-          if (hebrewText) {
-            const printedHebrew = document.createElement("p");
-            printedHebrew.className = "printed-hebrew";
-            printedHebrew.lang = "he";
-            printedHebrew.dir = "rtl";
-            printedHebrew.textContent = hebrewText;
-            headingMain.appendChild(printedHebrew);
-          }
-
-          if (line.englishText) {
-            const english = document.createElement("p");
-            english.className = "line-english";
-            english.textContent = line.englishText;
-            headingMain.appendChild(english);
+          if (line.stripImage) {
+            const strip = document.createElement("img");
+            strip.className = "line-strip";
+            strip.src = line.stripImage;
+            strip.alt = (line.badgeLabel || line.label || line.id) + " strip from the scanned page";
+            strip.loading = "lazy";
+            heading.appendChild(strip);
           }
 
           const actions = document.createElement("div");
@@ -1005,32 +1068,18 @@
           if (line.hebrewAudioSequence && line.hebrewAudioSequence.length) {
             const playHebrew = document.createElement("button");
             playHebrew.type = "button";
-            playHebrew.textContent = "Play Hebrew line";
+            playHebrew.textContent = "Play whole line";
             playHebrew.addEventListener("click", function () {
               playSequence(line.hebrewAudioSequence || [], line.label + " in Hebrew", line.id);
             });
             actions.appendChild(playHebrew);
           }
 
-          if (line.audio && line.audio.en && line.audio.en.line) {
-            const playEnglish = document.createElement("button");
-            playEnglish.type = "button";
-            playEnglish.className = "secondary";
-            playEnglish.textContent = "Play printed English";
-            playEnglish.addEventListener("click", function () {
-              playSingle(line.audio.en.line, line.label + " in English", line.id);
-            });
-            actions.appendChild(playEnglish);
-          }
+          card.appendChild(heading);
 
           if (actions.childNodes.length) {
-            heading.appendChild(headingMain);
-            heading.appendChild(actions);
-          } else {
-            heading.appendChild(headingMain);
+            card.appendChild(actions);
           }
-
-          card.appendChild(heading);
 
           if (line.wordIds && line.wordIds.length) {
             const wordGrid = document.createElement("div");
@@ -1071,27 +1120,22 @@
 
     function renderPage() {
       const page = currentPage();
-      state.activeLineId = orderedLines(page)[0] ? orderedLines(page)[0].id : null;
+      const initialLine = firstMatchableLine(page);
+      state.activeLineId = initialLine ? initialLine.id : null;
 
-      elements.pageTitle.textContent = page.title;
-      elements.pageSubtitle.textContent = "Page " + page.page;
       elements.pageCounter.textContent = "Page " + (state.currentPageIndex + 1) + " of " + state.reader.pages.length;
-      elements.pageStatus.textContent = page.status === "verified" ? "Verified" : "Pending transcription";
       elements.pageImage.src = page.image;
       elements.pageImage.alt = "Scanned book page " + page.page;
+      document.title = "Hebrew Reader - Page " + page.page;
       elements.prevPage.disabled = state.currentPageIndex === 0;
       elements.nextPage.disabled = state.currentPageIndex === state.reader.pages.length - 1;
-      elements.playPageHebrew.disabled = !(page.hebrewAudioSequence && page.hebrewAudioSequence.length);
-      elements.playPageEnglish.disabled = !(page.audio && page.audio.en && page.audio.en.page);
+      elements.playWholePage.disabled = !(page.fullPlaybackGroups && page.fullPlaybackGroups.length);
 
-      renderNotes(page.notes || []);
       renderLines(page);
       renderOverlays(page);
 
       setStatus(
-        page.status === "verified"
-          ? "Ready. Click a Hebrew word or use the numbered line controls."
-          : "This page is visible, but it does not have verified audio yet.",
+        page.status === "verified" ? "Ready." : "This page is visible, but it does not have verified audio yet.",
         page.status === "verified" ? "Ready" : "Pending"
       );
     }
@@ -1130,14 +1174,9 @@
       movePage(1);
     });
 
-    elements.playPageHebrew.addEventListener("click", function () {
+    elements.playWholePage.addEventListener("click", function () {
       const page = currentPage();
-      playSequence(page.hebrewAudioSequence || [], "Page " + page.page + " in Hebrew", null);
-    });
-
-    elements.playPageEnglish.addEventListener("click", function () {
-      const page = currentPage();
-      playSingle(page.audio && page.audio.en ? page.audio.en.page : null, "Page " + page.page + " in English", null);
+      playGroups(page.fullPlaybackGroups || [], "Page " + page.page);
     });
 
     elements.stopPlayback.addEventListener("click", function () {
