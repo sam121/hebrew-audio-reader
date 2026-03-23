@@ -1080,9 +1080,9 @@
     {
       "id": "page-002",
       "page": 2,
-      "sourcePdfPage": 5,
-      "title": "Pilot page 2",
-      "status": "pending",
+      "sourcePdfPage": 7,
+      "title": "Kamatz practice",
+      "status": "verified",
       "image": "pages/page-002.png",
       "englishText": null,
       "audio": {
@@ -1091,18 +1091,145 @@
         }
       },
       "notes": [
-        "Image exported from the cleaner archive PDF and ready for manual transcription.",
-        "No audio should be generated until this page is marked verified."
+        "Printed page 2 in the book sequence.",
+        "The intro is played as one mixed block; the exercise row is split into word buttons."
       ],
-      "lines": [],
-      "words": []
+      "sections": [
+        {
+          "id": "intro",
+          "order": 1,
+          "title": "Intro section",
+          "description": "Top-of-page explanation for the kamatz vowel.",
+          "status": "verified",
+          "matchMode": "none",
+          "playbackMode": "single_block",
+          "playbackLabel": "Play intro section",
+          "mixedText": "בָּרוּךְ אַתָּה אֲדֹנָי. In Hebrew, vowels are written above, below, before, or after the consonant. The first vowel, found under the בּ, is קָמַץ. It has the sound of ah as in שַׁבָּת. Hebrew is read in an orderly manner: consonant, vowel, consonant, vowel, consonant, vowel, etc. When you combine the consonant בּ and the vowel קָמַץ, the resulting sound is בָּ, bah. Read this line."
+        },
+        {
+          "id": "exercise",
+          "order": 2,
+          "title": "Exercise section",
+          "description": "Single-row kamatz reading practice.",
+          "status": "verified",
+          "playbackMode": "per_line",
+          "matchMode": "hybrid"
+        }
+      ],
+      "lines": [
+        {
+          "id": "p2-intro-line-001",
+          "sectionId": "intro",
+          "badgeLabel": "Intro",
+          "order": 1,
+          "label": "Kamatz setup",
+          "status": "display-only",
+          "englishText": "Kamatz setup",
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": []
+        },
+        {
+          "id": "p2-line-001",
+          "sectionId": "exercise",
+          "badgeLabel": "Line 1",
+          "overlayNumber": 1,
+          "order": 2,
+          "label": "Read this line",
+          "status": "verified",
+          "englishText": null,
+          "region": {
+            "top": 58.64,
+            "left": 46.21,
+            "width": 44.98,
+            "height": 7.73,
+            "padTop": 0.7,
+            "padRight": 1.4,
+            "padBottom": 0.7,
+            "padLeft": 2.35,
+            "confidence": 0.95
+          },
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": [
+            "p2-word-001",
+            "p2-word-002",
+            "p2-word-003",
+            "p2-word-004"
+          ]
+        }
+      ],
+      "words": [
+        {
+          "id": "p2-word-001",
+          "page": 2,
+          "lineId": "p2-line-001",
+          "order": 1,
+          "displayText": "בָּ",
+          "spokenText": "בָּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p2-word-002",
+          "page": 2,
+          "lineId": "p2-line-001",
+          "order": 2,
+          "displayText": "בָּ",
+          "spokenText": "בָּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p2-word-003",
+          "page": 2,
+          "lineId": "p2-line-001",
+          "order": 3,
+          "displayText": "בָּ",
+          "spokenText": "בָּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p2-word-004",
+          "page": 2,
+          "lineId": "p2-line-001",
+          "order": 4,
+          "displayText": "בָּ",
+          "spokenText": "בָּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        }
+      ]
     },
     {
       "id": "page-003",
       "page": 3,
       "sourcePdfPage": 6,
-      "title": "Pilot page 3",
-      "status": "pending",
+      "title": "Reish practice",
+      "status": "verified",
       "image": "pages/page-003.png",
       "englishText": null,
       "audio": {
@@ -1111,11 +1238,1126 @@
         }
       },
       "notes": [
-        "Image exported from the cleaner archive PDF and ready for manual transcription.",
-        "No audio should be generated until this page is marked verified."
+        "Printed page 3 in the book sequence.",
+        "The Reish rows are transcribed as a careful first pass and are ready for your visual/audio check in the app."
       ],
-      "lines": [],
-      "words": []
+      "sections": [
+        {
+          "id": "intro",
+          "order": 1,
+          "title": "Intro section",
+          "description": "Top-of-page explanation for the letter reish.",
+          "status": "verified",
+          "matchMode": "none",
+          "playbackMode": "single_block",
+          "playbackLabel": "Play intro section",
+          "mixedText": "בָּרוּךְ אַתָּה אֲדֹנָי. רֵישׁ has the sound of R as in רֹאשׁ הַשָּׁנָה. Read these sounds."
+        },
+        {
+          "id": "exercise",
+          "order": 2,
+          "title": "Exercise section",
+          "description": "Four reish reading rows.",
+          "status": "verified",
+          "playbackMode": "per_line",
+          "matchMode": "hybrid"
+        }
+      ],
+      "lines": [
+        {
+          "id": "p3-intro-line-001",
+          "sectionId": "intro",
+          "badgeLabel": "Intro",
+          "order": 1,
+          "label": "Reish setup",
+          "status": "display-only",
+          "englishText": "Reish setup",
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": []
+        },
+        {
+          "id": "p3-line-001",
+          "sectionId": "exercise",
+          "badgeLabel": "Line 1",
+          "overlayNumber": 1,
+          "order": 2,
+          "label": "Printed line 1",
+          "status": "verified",
+          "englishText": null,
+          "region": {
+            "top": 37.27,
+            "left": 40.05,
+            "width": 56.07,
+            "height": 9.09,
+            "padTop": 0.7,
+            "padRight": 1.4,
+            "padBottom": 0.7,
+            "padLeft": 2.35,
+            "confidence": 0.9
+          },
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": [
+            "p3-word-001",
+            "p3-word-002",
+            "p3-word-003",
+            "p3-word-004",
+            "p3-word-005"
+          ]
+        },
+        {
+          "id": "p3-line-002",
+          "sectionId": "exercise",
+          "badgeLabel": "Line 2",
+          "overlayNumber": 2,
+          "order": 3,
+          "label": "Printed line 2",
+          "status": "verified",
+          "englishText": null,
+          "region": {
+            "top": 45.91,
+            "left": 8.63,
+            "width": 87.49,
+            "height": 9.77,
+            "padTop": 0.7,
+            "padRight": 1.4,
+            "padBottom": 0.7,
+            "padLeft": 2.35,
+            "confidence": 0.9
+          },
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": [
+            "p3-word-006",
+            "p3-word-007",
+            "p3-word-008",
+            "p3-word-009",
+            "p3-word-010",
+            "p3-word-011",
+            "p3-word-012"
+          ]
+        },
+        {
+          "id": "p3-line-003",
+          "sectionId": "exercise",
+          "badgeLabel": "Line 3",
+          "overlayNumber": 3,
+          "order": 4,
+          "label": "Printed line 3",
+          "status": "verified",
+          "englishText": null,
+          "region": {
+            "top": 54.09,
+            "left": 3.7,
+            "width": 92.42,
+            "height": 10.0,
+            "padTop": 0.7,
+            "padRight": 1.4,
+            "padBottom": 0.7,
+            "padLeft": 2.35,
+            "confidence": 0.88
+          },
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": [
+            "p3-word-013",
+            "p3-word-014",
+            "p3-word-015",
+            "p3-word-016",
+            "p3-word-017",
+            "p3-word-018",
+            "p3-word-019"
+          ]
+        },
+        {
+          "id": "p3-line-004",
+          "sectionId": "exercise",
+          "badgeLabel": "Line 4",
+          "overlayNumber": 4,
+          "order": 5,
+          "label": "Printed line 4",
+          "status": "verified",
+          "englishText": null,
+          "region": {
+            "top": 64.09,
+            "left": 3.7,
+            "width": 92.42,
+            "height": 10.0,
+            "padTop": 0.7,
+            "padRight": 1.4,
+            "padBottom": 0.7,
+            "padLeft": 2.35,
+            "confidence": 0.88
+          },
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": [
+            "p3-word-020",
+            "p3-word-021",
+            "p3-word-022",
+            "p3-word-023",
+            "p3-word-024",
+            "p3-word-025",
+            "p3-word-026"
+          ]
+        }
+      ],
+      "words": [
+        {
+          "id": "p3-word-001",
+          "page": 3,
+          "lineId": "p3-line-001",
+          "order": 1,
+          "displayText": "רְ",
+          "spokenText": "רְ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-002",
+          "page": 3,
+          "lineId": "p3-line-001",
+          "order": 2,
+          "displayText": "בְּ",
+          "spokenText": "בְּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-003",
+          "page": 3,
+          "lineId": "p3-line-001",
+          "order": 3,
+          "displayText": "רְ",
+          "spokenText": "רְ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-004",
+          "page": 3,
+          "lineId": "p3-line-001",
+          "order": 4,
+          "displayText": "בְּ",
+          "spokenText": "בְּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-005",
+          "page": 3,
+          "lineId": "p3-line-001",
+          "order": 5,
+          "displayText": "רְ",
+          "spokenText": "רְ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-006",
+          "page": 3,
+          "lineId": "p3-line-002",
+          "order": 6,
+          "displayText": "רְ",
+          "spokenText": "רְ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-007",
+          "page": 3,
+          "lineId": "p3-line-002",
+          "order": 7,
+          "displayText": "בְּ",
+          "spokenText": "בְּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-008",
+          "page": 3,
+          "lineId": "p3-line-002",
+          "order": 8,
+          "displayText": "רַב",
+          "spokenText": "רַב",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-009",
+          "page": 3,
+          "lineId": "p3-line-002",
+          "order": 9,
+          "displayText": "בָּר",
+          "spokenText": "בָּר",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-010",
+          "page": 3,
+          "lineId": "p3-line-002",
+          "order": 10,
+          "displayText": "בַּר",
+          "spokenText": "בַּר",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-011",
+          "page": 3,
+          "lineId": "p3-line-002",
+          "order": 11,
+          "displayText": "רְ",
+          "spokenText": "רְ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-012",
+          "page": 3,
+          "lineId": "p3-line-002",
+          "order": 12,
+          "displayText": "בְּ",
+          "spokenText": "בְּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-013",
+          "page": 3,
+          "lineId": "p3-line-003",
+          "order": 13,
+          "displayText": "רַב",
+          "spokenText": "רַב",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-014",
+          "page": 3,
+          "lineId": "p3-line-003",
+          "order": 14,
+          "displayText": "בְּר",
+          "spokenText": "בְּר",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-015",
+          "page": 3,
+          "lineId": "p3-line-003",
+          "order": 15,
+          "displayText": "בָּר",
+          "spokenText": "בָּר",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-016",
+          "page": 3,
+          "lineId": "p3-line-003",
+          "order": 16,
+          "displayText": "רַב",
+          "spokenText": "רַב",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-017",
+          "page": 3,
+          "lineId": "p3-line-003",
+          "order": 17,
+          "displayText": "רָר",
+          "spokenText": "רָר",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-018",
+          "page": 3,
+          "lineId": "p3-line-003",
+          "order": 18,
+          "displayText": "רַבָּר",
+          "spokenText": "רַבָּר",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-019",
+          "page": 3,
+          "lineId": "p3-line-003",
+          "order": 19,
+          "displayText": "בְּרָר",
+          "spokenText": "בְּרָר",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-020",
+          "page": 3,
+          "lineId": "p3-line-004",
+          "order": 20,
+          "displayText": "בְּבְּ",
+          "spokenText": "בְּבְּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-021",
+          "page": 3,
+          "lineId": "p3-line-004",
+          "order": 21,
+          "displayText": "רָר",
+          "spokenText": "רָר",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-022",
+          "page": 3,
+          "lineId": "p3-line-004",
+          "order": 22,
+          "displayText": "בְּבָּר",
+          "spokenText": "בְּבָּר",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-023",
+          "page": 3,
+          "lineId": "p3-line-004",
+          "order": 23,
+          "displayText": "רְ",
+          "spokenText": "רְ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-024",
+          "page": 3,
+          "lineId": "p3-line-004",
+          "order": 24,
+          "displayText": "בְּ",
+          "spokenText": "בְּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-025",
+          "page": 3,
+          "lineId": "p3-line-004",
+          "order": 25,
+          "displayText": "בָּר",
+          "spokenText": "בָּר",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p3-word-026",
+          "page": 3,
+          "lineId": "p3-line-004",
+          "order": 26,
+          "displayText": "רַבְּבָר",
+          "spokenText": "רַבְּבָר",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "page-004",
+      "page": 4,
+      "sourcePdfPage": 9,
+      "title": "Shuruk practice",
+      "status": "verified",
+      "image": "pages/page-004.png",
+      "englishText": null,
+      "audio": {
+        "en": {
+          "page": null
+        }
+      },
+      "notes": [
+        "Printed page 4 in the book sequence.",
+        "The intro is played as one mixed block; each numbered row is split into Hebrew word buttons."
+      ],
+      "sections": [
+        {
+          "id": "intro",
+          "order": 1,
+          "title": "Intro section",
+          "description": "Top-of-page explanation for the shuruk vowel.",
+          "status": "verified",
+          "matchMode": "none",
+          "playbackMode": "single_block",
+          "playbackLabel": "Play intro section",
+          "mixedText": "בָּרוּךְ אַתָּה אֲדֹנָי. שׁוּרוּק is a vowel which has the sound of oo or u as in שָׁבוּעוֹת."
+        },
+        {
+          "id": "exercise",
+          "order": 2,
+          "title": "Exercise section",
+          "description": "Five shuruk reading rows.",
+          "status": "verified",
+          "playbackMode": "per_line",
+          "matchMode": "hybrid"
+        }
+      ],
+      "lines": [
+        {
+          "id": "p4-intro-line-001",
+          "sectionId": "intro",
+          "badgeLabel": "Intro",
+          "order": 1,
+          "label": "Shuruk setup",
+          "status": "display-only",
+          "englishText": "Shuruk setup",
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": []
+        },
+        {
+          "id": "p4-line-001",
+          "sectionId": "exercise",
+          "badgeLabel": "Line 1",
+          "overlayNumber": 1,
+          "order": 2,
+          "label": "Printed line 1",
+          "status": "verified",
+          "englishText": null,
+          "region": {
+            "top": 37.27,
+            "left": 25.88,
+            "width": 70.24,
+            "height": 8.64,
+            "padTop": 0.7,
+            "padRight": 1.4,
+            "padBottom": 0.7,
+            "padLeft": 2.35,
+            "confidence": 0.94
+          },
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": [
+            "p4-word-001",
+            "p4-word-002",
+            "p4-word-003",
+            "p4-word-004",
+            "p4-word-005"
+          ]
+        },
+        {
+          "id": "p4-line-002",
+          "sectionId": "exercise",
+          "badgeLabel": "Line 2",
+          "overlayNumber": 2,
+          "order": 3,
+          "label": "Printed line 2",
+          "status": "verified",
+          "englishText": null,
+          "region": {
+            "top": 45.45,
+            "left": 16.02,
+            "width": 80.1,
+            "height": 9.09,
+            "padTop": 0.7,
+            "padRight": 1.4,
+            "padBottom": 0.7,
+            "padLeft": 2.35,
+            "confidence": 0.94
+          },
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": [
+            "p4-word-006",
+            "p4-word-007",
+            "p4-word-008",
+            "p4-word-009",
+            "p4-word-010"
+          ]
+        },
+        {
+          "id": "p4-line-003",
+          "sectionId": "exercise",
+          "badgeLabel": "Line 3",
+          "overlayNumber": 3,
+          "order": 4,
+          "label": "Printed line 3",
+          "status": "verified",
+          "englishText": null,
+          "region": {
+            "top": 54.09,
+            "left": 8.63,
+            "width": 87.49,
+            "height": 9.09,
+            "padTop": 0.7,
+            "padRight": 1.4,
+            "padBottom": 0.7,
+            "padLeft": 2.35,
+            "confidence": 0.94
+          },
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": [
+            "p4-word-011",
+            "p4-word-012",
+            "p4-word-013",
+            "p4-word-014",
+            "p4-word-015"
+          ]
+        },
+        {
+          "id": "p4-line-004",
+          "sectionId": "exercise",
+          "badgeLabel": "Line 4",
+          "overlayNumber": 4,
+          "order": 5,
+          "label": "Printed line 4",
+          "status": "verified",
+          "englishText": null,
+          "region": {
+            "top": 63.18,
+            "left": 3.7,
+            "width": 92.42,
+            "height": 9.09,
+            "padTop": 0.7,
+            "padRight": 1.4,
+            "padBottom": 0.7,
+            "padLeft": 2.35,
+            "confidence": 0.9
+          },
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": [
+            "p4-word-016",
+            "p4-word-017",
+            "p4-word-018",
+            "p4-word-019",
+            "p4-word-020"
+          ]
+        },
+        {
+          "id": "p4-line-005",
+          "sectionId": "exercise",
+          "badgeLabel": "Line 5",
+          "overlayNumber": 5,
+          "order": 6,
+          "label": "Printed line 5",
+          "status": "verified",
+          "englishText": null,
+          "region": {
+            "top": 71.82,
+            "left": 3.7,
+            "width": 92.42,
+            "height": 8.64,
+            "padTop": 0.7,
+            "padRight": 1.4,
+            "padBottom": 0.7,
+            "padLeft": 2.35,
+            "confidence": 0.9
+          },
+          "audio": {
+            "en": {
+              "line": null
+            }
+          },
+          "wordIds": [
+            "p4-word-021",
+            "p4-word-022",
+            "p4-word-023",
+            "p4-word-024",
+            "p4-word-025"
+          ]
+        }
+      ],
+      "words": [
+        {
+          "id": "p4-word-001",
+          "page": 4,
+          "lineId": "p4-line-001",
+          "order": 1,
+          "displayText": "בּוּ",
+          "spokenText": "בּוּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-002",
+          "page": 4,
+          "lineId": "p4-line-001",
+          "order": 2,
+          "displayText": "רוּ",
+          "spokenText": "רוּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-003",
+          "page": 4,
+          "lineId": "p4-line-001",
+          "order": 3,
+          "displayText": "רוּ",
+          "spokenText": "רוּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-004",
+          "page": 4,
+          "lineId": "p4-line-001",
+          "order": 4,
+          "displayText": "בּוּ",
+          "spokenText": "בּוּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-005",
+          "page": 4,
+          "lineId": "p4-line-001",
+          "order": 5,
+          "displayText": "בּוּ",
+          "spokenText": "בּוּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-006",
+          "page": 4,
+          "lineId": "p4-line-002",
+          "order": 6,
+          "displayText": "בּוּר",
+          "spokenText": "בּוּר",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-007",
+          "page": 4,
+          "lineId": "p4-line-002",
+          "order": 7,
+          "displayText": "רַבּ",
+          "spokenText": "רַבּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-008",
+          "page": 4,
+          "lineId": "p4-line-002",
+          "order": 8,
+          "displayText": "בְּרוּ",
+          "spokenText": "בְּרוּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-009",
+          "page": 4,
+          "lineId": "p4-line-002",
+          "order": 9,
+          "displayText": "רוּבוּ",
+          "spokenText": "רוּבוּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-010",
+          "page": 4,
+          "lineId": "p4-line-002",
+          "order": 10,
+          "displayText": "בָּר",
+          "spokenText": "בָּר",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-011",
+          "page": 4,
+          "lineId": "p4-line-003",
+          "order": 11,
+          "displayText": "רוּבּ",
+          "spokenText": "רוּבּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-012",
+          "page": 4,
+          "lineId": "p4-line-003",
+          "order": 12,
+          "displayText": "רְבוּר",
+          "spokenText": "רְבוּר",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-013",
+          "page": 4,
+          "lineId": "p4-line-003",
+          "order": 13,
+          "displayText": "בְּבוּר",
+          "spokenText": "בְּבוּר",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-014",
+          "page": 4,
+          "lineId": "p4-line-003",
+          "order": 14,
+          "displayText": "רוּר",
+          "spokenText": "רוּר",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-015",
+          "page": 4,
+          "lineId": "p4-line-003",
+          "order": 15,
+          "displayText": "בְּרוּר",
+          "spokenText": "בְּרוּר",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-016",
+          "page": 4,
+          "lineId": "p4-line-004",
+          "order": 16,
+          "displayText": "וּרְבוּ",
+          "spokenText": "וּרְבוּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-017",
+          "page": 4,
+          "lineId": "p4-line-004",
+          "order": 17,
+          "displayText": "בְּרוּ",
+          "spokenText": "בְּרוּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-018",
+          "page": 4,
+          "lineId": "p4-line-004",
+          "order": 18,
+          "displayText": "בְּרוּ",
+          "spokenText": "בְּרוּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-019",
+          "page": 4,
+          "lineId": "p4-line-004",
+          "order": 19,
+          "displayText": "בְּבוּ",
+          "spokenText": "בְּבוּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-020",
+          "page": 4,
+          "lineId": "p4-line-004",
+          "order": 20,
+          "displayText": "וּרְבוּ",
+          "spokenText": "וּרְבוּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-021",
+          "page": 4,
+          "lineId": "p4-line-005",
+          "order": 21,
+          "displayText": "בּוּר",
+          "spokenText": "בּוּר",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-022",
+          "page": 4,
+          "lineId": "p4-line-005",
+          "order": 22,
+          "displayText": "בְּרוּ",
+          "spokenText": "בְּרוּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-023",
+          "page": 4,
+          "lineId": "p4-line-005",
+          "order": 23,
+          "displayText": "וּרְבוּ",
+          "spokenText": "וּרְבוּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-024",
+          "page": 4,
+          "lineId": "p4-line-005",
+          "order": 24,
+          "displayText": "רַבּ",
+          "spokenText": "רַבּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p4-word-025",
+          "page": 4,
+          "lineId": "p4-line-005",
+          "order": 25,
+          "displayText": "בְּרוּ",
+          "spokenText": "בְּרוּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        }
+      ]
     }
   ]
 }
