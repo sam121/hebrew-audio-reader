@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hebrew Reader</title>
+  <style>
+    :root {
+      --bg: #f6efe4;
+      --sand: #efe1cd;
+      --panel: rgba(255, 251, 245, 0.93);
+      --panel-strong: rgba(255, 253, 248, 0.98);
+      --ink: #29231d;
+      --muted: #726559;
+      --accent: #935036;
+      --accent-soft: #ecd5c2;
+      --border: rgba(93, 69, 52, 0.16);
+      --shadow: 0 24px 60px rgba(77, 54, 36, 0.13);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --success: #295944;
+      --warning: #a45831;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(255, 247, 233, 0.95), transparent 36%),
+        linear-gradient(135deg, var(--bg), #f7f1e8 48%, var(--sand));
+      font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    }
+
+    body {
+      padding: 24px;
+    }
+
+    .shell {
+      max-width: 1480px;
+      margin: 0 auto;
+      display: grid;
+      gap: 18px;
+    }
+
+    .hero,
+    .toolbar,
+    .page-panel,
+    .transcript-panel,
+    .status-bar,
+    .message-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero,
+    .toolbar,
+    .page-panel,
+    .transcript-panel,
+    .status-bar {
+      padding: 20px 24px;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: end;
+    }
+
+    .eyebrow,
+    .panel-label,
+    .line-label,
+    .page-counter,
+    .status-chip,
+    .helper {
+      margin: 0;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      margin-top: 10px;
+      font-size: clamp(2.1rem, 3vw, 3.4rem);
+      line-height: 1.03;
+      max-width: 12ch;
+    }
+
+    .lede {
+      margin-top: 12px;
+      max-width: 66ch;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-actions,
+    .playback-actions,
+    .line-actions,
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(360px, 0.96fr) minmax(400px, 1.04fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 15px;
+      background: var(--accent);
+      color: #fff8f3;
+      cursor: pointer;
+      font: inherit;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+    }
+
+    button:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 18px rgba(108, 61, 42, 0.18);
+    }
+
+    button.secondary {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid rgba(106, 77, 57, 0.18);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    }
+
+    button.ghost {
+      background: rgba(255, 248, 242, 0.88);
+      color: var(--accent);
+      border: 1px solid rgba(147, 80, 54, 0.16);
+      box-shadow: none;
+    }
+
+    button:disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .status-chip {
+      color: var(--success);
+    }
+
+    .workspace section {
+      min-width: 0;
+    }
+
+    .panel-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      flex-wrap: wrap;
+    }
+
+    .page-panel,
+    .transcript-panel {
+      display: grid;
+      gap: 18px;
+    }
+
+    .image-frame {
+      min-height: 440px;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+      border-radius: 20px;
+      background:
+        linear-gradient(180deg, rgba(103, 77, 57, 0.11), transparent 22%),
+        #f2e8d8;
+      border: 1px solid rgba(94, 67, 48, 0.12);
+    }
+
+    .image-frame img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 18px 34px rgba(63, 44, 31, 0.18);
+    }
+
+    .notes {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      display: grid;
+      gap: 8px;
+      line-height: 1.5;
+    }
+
+    .page-playback {
+      padding: 16px;
+      border-radius: 20px;
+      background: var(--panel-strong);
+      border: 1px solid rgba(83, 61, 46, 0.11);
+      display: grid;
+      gap: 12px;
+    }
+
+    .line-list {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .line-card {
+      padding: 16px;
+      border-radius: 20px;
+      background: var(--panel-strong);
+      border: 1px solid rgba(84, 61, 46, 0.11);
+      display: grid;
+      gap: 14px;
+    }
+
+    .line-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: start;
+      flex-wrap: wrap;
+    }
+
+    .line-english {
+      color: var(--muted);
+      line-height: 1.5;
+      margin-top: 4px;
+    }
+
+    .word-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .word-chip {
+      padding: 10px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(120, 89, 65, 0.18);
+      background: rgba(255, 249, 243, 0.96);
+      color: var(--ink);
+      box-shadow: 0 8px 18px rgba(87, 60, 42, 0.06);
+      font-size: 1.35rem;
+      direction: rtl;
+      unicode-bidi: plaintext;
+      font-family: "Times New Roman", "Noto Serif Hebrew", "David", serif;
+      line-height: 1.1;
+    }
+
+    .word-chip:hover:not(:disabled) {
+      background: rgba(255, 245, 234, 0.98);
+    }
+
+    .message-card {
+      padding: 18px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 1020px) {
+      body {
+        padding: 14px;
+      }
+
+      .hero {
+        align-items: start;
+      }
+
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hero,
+      .toolbar,
+      .page-panel,
+      .transcript-panel,
+      .status-bar {
+        padding: 16px;
+      }
+
+      .word-chip {
+        font-size: 1.15rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Static GitHub Pages reader</p>
+        <h1>Hebrew Audio Reader</h1>
+        <p class="lede">
+          Click any Hebrew word to hear its pre-generated audio immediately. Use the line and page controls
+          to hear Hebrew assembled from the verified word clips, or the matching English read as a full line or page.
+        </p>
+      </div>
+      <div class="nav-actions">
+        <button id="prevPage" class="secondary" type="button">Previous page</button>
+        <button id="nextPage" type="button">Next page</button>
+      </div>
+    </header>
+
+    <section class="toolbar">
+      <div>
+        <p class="panel-label">Data source</p>
+        <h2 id="pageTitle">Loading reader...</h2>
+      </div>
+      <div class="toolbar-actions">
+        <p id="pageCounter" class="page-counter"></p>
+      </div>
+    </section>
+
+    <section class="status-bar">
+      <div>
+        <p class="panel-label">Playback status</p>
+        <p id="playbackStatus">Loading site data...</p>
+      </div>
+      <p id="audioSummary" class="status-chip"></p>
+    </section>
+
+    <main class="workspace">
+      <section class="page-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="panel-label">Scanned page</p>
+            <h2 id="pageSubtitle">Preparing page image</h2>
+          </div>
+          <p id="pageStatus" class="status-chip"></p>
+        </div>
+
+        <div class="image-frame">
+          <img id="pageImage" alt="Current book page">
+        </div>
+
+        <section class="page-playback">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-label">Whole page playback</p>
+              <h3>Play the full page</h3>
+            </div>
+          </div>
+          <div class="playback-actions">
+            <button id="playPageHebrew" type="button">Play page in Hebrew</button>
+            <button id="playPageEnglish" class="secondary" type="button">Play page in English</button>
+            <button id="stopPlayback" class="ghost" type="button">Stop</button>
+          </div>
+        </section>
+
+        <ol id="pageNotes" class="notes"></ol>
+      </section>
+
+      <section class="transcript-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="panel-label">Verified transcript</p>
+            <h2>Lines and word audio</h2>
+          </div>
+          <p class="helper">Word click = Hebrew audio</p>
+        </div>
+
+        <div id="lineList" class="line-list"></div>
+        <section id="emptyState" class="message-card hidden">
+          This page does not have verified transcript lines yet. Keep the scan as reference and add the next verified page
+          in <code>transcript.json</code> before generating production audio.
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const state = {
+      reader: null,
+      currentPageIndex: 0,
+      currentAudio: null,
+      playbackToken: 0
+    };
+
+    const elements = {
+      audioSummary: document.getElementById("audioSummary"),
+      emptyState: document.getElementById("emptyState"),
+      lineList: document.getElementById("lineList"),
+      nextPage: document.getElementById("nextPage"),
+      pageCounter: document.getElementById("pageCounter"),
+      pageImage: document.getElementById("pageImage"),
+      pageNotes: document.getElementById("pageNotes"),
+      pageStatus: document.getElementById("pageStatus"),
+      pageSubtitle: document.getElementById("pageSubtitle"),
+      pageTitle: document.getElementById("pageTitle"),
+      playbackStatus: document.getElementById("playbackStatus"),
+      playPageEnglish: document.getElementById("playPageEnglish"),
+      playPageHebrew: document.getElementById("playPageHebrew"),
+      prevPage: document.getElementById("prevPage"),
+      stopPlayback: document.getElementById("stopPlayback")
+    };
+
+    function currentPage() {
+      return state.reader.pages[state.currentPageIndex];
+    }
+
+    function currentPageWordsById(page) {
+      const byId = new Map();
+      page.words.forEach(function (word) {
+        byId.set(word.id, word);
+      });
+      return byId;
+    }
+
+    function setStatus(message, tone) {
+      elements.playbackStatus.textContent = message;
+      elements.audioSummary.textContent = tone || "";
+    }
+
+    function stopAudioOnly() {
+      if (state.currentAudio) {
+        state.currentAudio.pause();
+        state.currentAudio.currentTime = 0;
+        state.currentAudio = null;
+      }
+    }
+
+    function stopPlayback(withMessage) {
+      state.playbackToken += 1;
+      stopAudioOnly();
+      if (withMessage) {
+        setStatus("Playback stopped.", "");
+      }
+    }
+
+    function startPlayback(label) {
+      stopPlayback(false);
+      state.playbackToken += 1;
+      setStatus(label, "Playing");
+      return state.playbackToken;
+    }
+
+    function playFile(url, token) {
+      return new Promise(function (resolve, reject) {
+        if (token !== state.playbackToken) {
+          resolve(false);
+          return;
+        }
+
+        const audio = new Audio(url);
+        state.currentAudio = audio;
+
+        audio.addEventListener("ended", function () {
+          if (state.currentAudio === audio) {
+            state.currentAudio = null;
+          }
+          resolve(true);
+        });
+
+        audio.addEventListener("error", function () {
+          if (state.currentAudio === audio) {
+            state.currentAudio = null;
+          }
+          reject(new Error("Audio failed to load: " + url));
+        });
+
+        const playResult = audio.play();
+        if (playResult && typeof playResult.then === "function") {
+          playResult.catch(function (error) {
+            if (state.currentAudio === audio) {
+              state.currentAudio = null;
+            }
+            reject(error);
+          });
+        }
+      });
+    }
+
+    async function playSingle(url, label) {
+      if (!url) {
+        setStatus("Audio is not available for this item yet.", "Unavailable");
+        return;
+      }
+
+      const token = startPlayback(label);
+      try {
+        await playFile(url, token);
+        if (token === state.playbackToken) {
+          setStatus(label + " finished.", "Ready");
+        }
+      } catch (error) {
+        setStatus("Playback failed. Check the generated audio file.", "Error");
+        console.error(error);
+      }
+    }
+
+    async function playSequence(urls, label) {
+      const sequence = urls.filter(Boolean);
+      if (!sequence.length) {
+        setStatus("Audio is not available for this item yet.", "Unavailable");
+        return;
+      }
+
+      const token = startPlayback(label);
+      try {
+        for (const url of sequence) {
+          if (token !== state.playbackToken) {
+            return;
+          }
+          await playFile(url, token);
+        }
+        if (token === state.playbackToken) {
+          setStatus(label + " finished.", "Ready");
+        }
+      } catch (error) {
+        setStatus("Playback failed. Check the generated audio file.", "Error");
+        console.error(error);
+      }
+    }
+
+    function renderNotes(notes) {
+      elements.pageNotes.replaceChildren();
+      notes.forEach(function (note) {
+        const item = document.createElement("li");
+        item.textContent = note;
+        elements.pageNotes.appendChild(item);
+      });
+    }
+
+    function orderedLines(page) {
+      return page.lines.slice().sort(function (a, b) {
+        return a.order - b.order;
+      });
+    }
+
+    function orderedWords(page) {
+      return page.words.slice().sort(function (a, b) {
+        return a.order - b.order;
+      });
+    }
+
+    function renderLines(page) {
+      const wordsById = currentPageWordsById(page);
+      elements.lineList.replaceChildren();
+
+      if (!page.lines.length) {
+        elements.emptyState.classList.remove("hidden");
+        return;
+      }
+
+      elements.emptyState.classList.add("hidden");
+
+      orderedLines(page).forEach(function (line) {
+        const card = document.createElement("section");
+        card.className = "line-card";
+
+        const heading = document.createElement("div");
+        heading.className = "line-heading";
+
+        const headingText = document.createElement("div");
+        const label = document.createElement("p");
+        label.className = "line-label";
+        label.textContent = line.label;
+        const english = document.createElement("p");
+        english.className = "line-english";
+        english.textContent = line.englishText || "English line audio has not been added yet.";
+        headingText.appendChild(label);
+        headingText.appendChild(english);
+
+        const actions = document.createElement("div");
+        actions.className = "line-actions";
+
+        const playHebrew = document.createElement("button");
+        playHebrew.type = "button";
+        playHebrew.textContent = "Play Hebrew line";
+        playHebrew.disabled = !line.hebrewAudioSequence || !line.hebrewAudioSequence.length;
+        playHebrew.addEventListener("click", function () {
+          playSequence(line.hebrewAudioSequence || [], line.label + " in Hebrew");
+        });
+
+        const playEnglish = document.createElement("button");
+        playEnglish.type = "button";
+        playEnglish.className = "secondary";
+        playEnglish.textContent = "Play English line";
+        playEnglish.disabled = !line.audio || !line.audio.en || !line.audio.en.line;
+        playEnglish.addEventListener("click", function () {
+          playSingle(line.audio.en.line, line.label + " in English");
+        });
+
+        actions.appendChild(playHebrew);
+        actions.appendChild(playEnglish);
+        heading.appendChild(headingText);
+        heading.appendChild(actions);
+        card.appendChild(heading);
+
+        const wordGrid = document.createElement("div");
+        wordGrid.className = "word-grid";
+
+        line.wordIds.forEach(function (wordId) {
+          const word = wordsById.get(wordId);
+          if (!word) {
+            return;
+          }
+
+          const chip = document.createElement("button");
+          chip.type = "button";
+          chip.className = "word-chip";
+          chip.textContent = word.displayText;
+          chip.disabled = !word.audio || !word.audio.he || !word.audio.he.word;
+          chip.title = word.spokenText;
+          chip.addEventListener("click", function () {
+            playSingle(word.audio.he.word, "Hebrew word: " + word.spokenText);
+          });
+          wordGrid.appendChild(chip);
+        });
+
+        card.appendChild(wordGrid);
+        elements.lineList.appendChild(card);
+      });
+    }
+
+    function renderPage() {
+      const page = currentPage();
+      elements.pageTitle.textContent = page.title;
+      elements.pageSubtitle.textContent = "Page " + page.page;
+      elements.pageCounter.textContent = "Page " + (state.currentPageIndex + 1) + " of " + state.reader.pages.length;
+      elements.pageStatus.textContent = page.status === "verified" ? "Verified" : "Pending transcription";
+      elements.pageImage.src = page.image;
+      elements.pageImage.alt = "Scanned book page " + page.page;
+      elements.prevPage.disabled = state.currentPageIndex === 0;
+      elements.nextPage.disabled = state.currentPageIndex === state.reader.pages.length - 1;
+      elements.playPageHebrew.disabled = !(page.hebrewAudioSequence && page.hebrewAudioSequence.length);
+      elements.playPageEnglish.disabled = !(page.audio && page.audio.en && page.audio.en.page);
+
+      renderNotes(page.notes || []);
+      renderLines(page);
+
+      setStatus(
+        page.status === "verified"
+          ? "Ready. Click a Hebrew word to hear it immediately."
+          : "This page is visible, but it does not have verified audio yet.",
+        page.status === "verified" ? "Ready" : "Pending"
+      );
+    }
+
+    function movePage(delta) {
+      const nextIndex = state.currentPageIndex + delta;
+      if (nextIndex < 0 || nextIndex >= state.reader.pages.length) {
+        return;
+      }
+
+      stopPlayback(false);
+      state.currentPageIndex = nextIndex;
+      renderPage();
+    }
+
+    async function loadReader() {
+      try {
+        const response = await fetch("./data/reader.json", { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error("Reader data fetch failed: " + response.status);
+        }
+
+        state.reader = await response.json();
+        renderPage();
+      } catch (error) {
+        setStatus("Site data could not be loaded. Run the build step first.", "Error");
+        console.error(error);
+      }
+    }
+
+    elements.prevPage.addEventListener("click", function () {
+      movePage(-1);
+    });
+
+    elements.nextPage.addEventListener("click", function () {
+      movePage(1);
+    });
+
+    elements.playPageHebrew.addEventListener("click", function () {
+      const page = currentPage();
+      playSequence(page.hebrewAudioSequence || [], "Page " + page.page + " in Hebrew");
+    });
+
+    elements.playPageEnglish.addEventListener("click", function () {
+      const page = currentPage();
+      playSingle(page.audio && page.audio.en ? page.audio.en.page : null, "Page " + page.page + " in English");
+    });
+
+    elements.stopPlayback.addEventListener("click", function () {
+      stopPlayback(true);
+    });
+
+    window.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowLeft") {
+        movePage(-1);
+      } else if (event.key === "ArrowRight") {
+        movePage(1);
+      }
+    });
+
+    loadReader();
+  </script>
+</body>
+</html>

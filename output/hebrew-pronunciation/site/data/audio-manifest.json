@@ -1,0 +1,438 @@
+{
+  "version": "2026-03-23",
+  "generatedAssets": [],
+  "missingAssets": [
+    {
+      "id": "p1-word-001",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "בָּרוּךְ"
+    },
+    {
+      "id": "p1-word-002",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "אַתָּה"
+    },
+    {
+      "id": "p1-word-003",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "אֲדֹנָי"
+    },
+    {
+      "id": "p1-word-004",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "בָּרוּךְ"
+    },
+    {
+      "id": "p1-word-005",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "אֱלֹהַי"
+    },
+    {
+      "id": "p1-word-006",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "נְשָׁמָה"
+    },
+    {
+      "id": "p1-word-007",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "שֶׁנָּתַתָּ"
+    },
+    {
+      "id": "p1-word-008",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "בִּי"
+    },
+    {
+      "id": "p1-word-009",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "טְהוֹרָה"
+    },
+    {
+      "id": "p1-word-010",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "הִיא"
+    },
+    {
+      "id": "p1-word-011",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "אַתָּה"
+    },
+    {
+      "id": "p1-word-012",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "בְרָאתָהּ"
+    },
+    {
+      "id": "p1-word-013",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "אַתָּה"
+    },
+    {
+      "id": "p1-word-014",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "יְצַרְתָּהּ"
+    },
+    {
+      "id": "p1-word-015",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "אַתָּה"
+    },
+    {
+      "id": "p1-word-016",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "נְפַחְתָּהּ"
+    },
+    {
+      "id": "p1-word-017",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "בִּי"
+    },
+    {
+      "id": "p1-word-018",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "וְאַתָּה"
+    },
+    {
+      "id": "p1-word-019",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "מְשַׁמְּרָהּ"
+    },
+    {
+      "id": "p1-word-020",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "בְּקִרְבִּי"
+    },
+    {
+      "id": "p1-word-021",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "וְאַתָּה"
+    },
+    {
+      "id": "p1-word-022",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "עָתִיד"
+    },
+    {
+      "id": "p1-word-023",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "לִטְּלָהּ"
+    },
+    {
+      "id": "p1-word-024",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "מִמֶּנִּי"
+    },
+    {
+      "id": "p1-word-025",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "וּלְהַחֲזִירָהּ"
+    },
+    {
+      "id": "p1-word-026",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "בִּי"
+    },
+    {
+      "id": "p1-word-027",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "לֶעָתִיד"
+    },
+    {
+      "id": "p1-word-028",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "לָבֹא"
+    },
+    {
+      "id": "p1-word-029",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "כָּל זְמַן"
+    },
+    {
+      "id": "p1-word-030",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "שֶׁהַנְּשָׁמָה"
+    },
+    {
+      "id": "p1-word-031",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "בְּקִרְבִּי"
+    },
+    {
+      "id": "p1-word-032",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "מוֹדֶה"
+    },
+    {
+      "id": "p1-word-033",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "אֲנִי"
+    },
+    {
+      "id": "p1-word-034",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "לְפָנֶיךָ"
+    },
+    {
+      "id": "p1-word-035",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "אֲדֹנָי"
+    },
+    {
+      "id": "p1-word-036",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "אֱלֹהַי"
+    },
+    {
+      "id": "p1-word-037",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "וֵאלֹהֵי"
+    },
+    {
+      "id": "p1-word-038",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "אֲבוֹתַי"
+    },
+    {
+      "id": "p1-word-039",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "רִבּוֹן"
+    },
+    {
+      "id": "p1-word-040",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "כָּל הַמַּעֲשִׂים"
+    },
+    {
+      "id": "p1-word-041",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "אֲדוֹן"
+    },
+    {
+      "id": "p1-word-042",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "כָּל הַנְּשָׁמוֹת"
+    },
+    {
+      "id": "p1-word-043",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "בָּרוּךְ"
+    },
+    {
+      "id": "p1-word-044",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "אַתָּה"
+    },
+    {
+      "id": "p1-word-045",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "אֲדֹנָי"
+    },
+    {
+      "id": "p1-word-046",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "אֲשֶׁר"
+    },
+    {
+      "id": "p1-word-047",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "בְּיָדוֹ"
+    },
+    {
+      "id": "p1-word-048",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "נֶפֶשׁ"
+    },
+    {
+      "id": "p1-word-049",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "כָּל חַי"
+    },
+    {
+      "id": "p1-word-050",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "וְרוּחַ"
+    },
+    {
+      "id": "p1-word-051",
+      "language": "he",
+      "category": "words",
+      "reason": "missing_credentials",
+      "text": "כָּל בְּשַׂר אִישׁ"
+    },
+    {
+      "id": "p1-line-001",
+      "language": "en",
+      "category": "lines",
+      "reason": "missing_credentials",
+      "text": "Blessed are You, Adonai."
+    },
+    {
+      "id": "p1-line-002",
+      "language": "en",
+      "category": "lines",
+      "reason": "missing_credentials",
+      "text": "Blessed."
+    },
+    {
+      "id": "p1-line-003",
+      "language": "en",
+      "category": "lines",
+      "reason": "missing_credentials",
+      "text": "My God, the soul You have given me is pure. You created it."
+    },
+    {
+      "id": "p1-line-004",
+      "language": "en",
+      "category": "lines",
+      "reason": "missing_credentials",
+      "text": "You formed it, You breathed it into me, and You preserve it within me."
+    },
+    {
+      "id": "p1-line-005",
+      "language": "en",
+      "category": "lines",
+      "reason": "missing_credentials",
+      "text": "One day You will take it from me and restore it to me in the time to come."
+    },
+    {
+      "id": "p1-line-006",
+      "language": "en",
+      "category": "lines",
+      "reason": "missing_credentials",
+      "text": "As long as the soul is within me, I thank You, Adonai."
+    },
+    {
+      "id": "p1-line-007",
+      "language": "en",
+      "category": "lines",
+      "reason": "missing_credentials",
+      "text": "My God and God of my ancestors, Master of all works, Lord"
+    },
+    {
+      "id": "p1-line-008",
+      "language": "en",
+      "category": "lines",
+      "reason": "missing_credentials",
+      "text": "of all souls."
+    },
+    {
+      "id": "p1-line-009",
+      "language": "en",
+      "category": "lines",
+      "reason": "missing_credentials",
+      "text": "Blessed are You, Adonai, in whose hand is the soul of every living thing and the spirit of all flesh."
+    },
+    {
+      "id": "page-001",
+      "language": "en",
+      "category": "pages",
+      "reason": "missing_credentials",
+      "text": "Blessed are You, Adonai. Blessed. My God, the soul You have given me is pure. You created it, You formed it, You breathed it into me, and You preserve it within me. One day You will take it from me and restore it to me in the time to come. As long as the soul is within me, I thank You, Adonai my God and God of my ancestors, Master of all works, Lord of all souls. Blessed are You, Adonai, in whose hand is the soul of every living thing and the spirit of all flesh."
+    }
+  ],
+  "summary": {
+    "generated": 0,
+    "reused": 0,
+    "missing": 61
+  }
+}

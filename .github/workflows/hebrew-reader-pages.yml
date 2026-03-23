@@ -1,0 +1,75 @@
+name: Deploy Hebrew Reader
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "output/hebrew-pronunciation/**"
+      - ".github/workflows/hebrew-reader-pages.yml"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: hebrew-reader-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Restore cached audio assets
+        uses: actions/cache/restore@v4
+        with:
+          path: output/hebrew-pronunciation/site/assets/audio
+          key: hebrew-reader-audio-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            hebrew-reader-audio-${{ runner.os }}-
+
+      - name: Build static site and generate missing audio
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          ELEVENLABS_HEBREW_VOICE_ID: ${{ secrets.ELEVENLABS_HEBREW_VOICE_ID }}
+          ELEVENLABS_ENGLISH_VOICE_ID: ${{ secrets.ELEVENLABS_ENGLISH_VOICE_ID }}
+          ELEVENLABS_HEBREW_MODEL: eleven_v3
+          ELEVENLABS_ENGLISH_MODEL: eleven_flash_v2_5
+        run: |
+          export HEBREW_READER_BUILD_TIMESTAMP="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          python output/hebrew-pronunciation/scripts/build_site.py
+
+      - name: Save cached audio assets
+        uses: actions/cache/save@v4
+        with:
+          path: output/hebrew-pronunciation/site/assets/audio
+          key: hebrew-reader-audio-${{ runner.os }}-${{ github.run_id }}
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: output/hebrew-pronunciation/site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
