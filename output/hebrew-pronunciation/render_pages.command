@@ -2,11 +2,12 @@
 set -euo pipefail
 setopt null_glob
 
-PDF="/Users/samueltaylor/Downloads/Learn Hebrew Today (Adult Hebrew book) (1).pdf"
+SOURCE_PDF="/Users/samueltaylor/Downloads/annas-arch-c9a691bed7c4 (1).pdf"
 OUT_DIR="/Users/samueltaylor/Documents/New project/output/hebrew-pronunciation/pages"
-FIRST="${1:-1}"
-LAST="${2:-3}"
-TMP_PREFIX="${OUT_DIR}/page"
+SOURCE_FIRST="${1:-4}"
+SOURCE_LAST="${2:-6}"
+OUTPUT_START="${3:-1}"
+TMP_PREFIX="${OUT_DIR}/source-page"
 
 mkdir -p "$OUT_DIR"
 rm -f -- "${OUT_DIR}"/page-*.png
@@ -16,15 +17,19 @@ if ! command -v pdftoppm >/dev/null 2>&1; then
   exit 1
 fi
 
-pdftoppm -png -scale-to 2200 -f "$FIRST" -l "$LAST" "$PDF" "$TMP_PREFIX"
+if [[ ! -f "$SOURCE_PDF" ]]; then
+  echo "Source PDF not found: $SOURCE_PDF"
+  exit 1
+fi
 
-for file in "${OUT_DIR}"/page-*.png; do
-  base="${file:t}"
-  page_number="${base#page-}"
-  page_number="${page_number%.png}"
-  padded=$(printf "%03d" "$page_number")
+pdftoppm -png -scale-to 2200 -f "$SOURCE_FIRST" -l "$SOURCE_LAST" "$SOURCE_PDF" "$TMP_PREFIX"
+
+output_number="$OUTPUT_START"
+for file in "${OUT_DIR}"/source-page-*.png; do
+  padded=$(printf "%03d" "$output_number")
   mv "$file" "${OUT_DIR}/page-${padded}.png"
+  output_number=$((output_number + 1))
 done
 
-echo "Rendered pages ${FIRST} through ${LAST} into ${OUT_DIR}."
+echo "Rendered source PDF pages ${SOURCE_FIRST} through ${SOURCE_LAST} into ${OUT_DIR} as app pages ${OUTPUT_START}+."
 echo "Run scripts/build_site.py afterwards to refresh the deployable site/pages copy."

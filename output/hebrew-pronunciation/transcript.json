@@ -1,34 +1,42 @@
 {
   "version": "2026-03-23",
-  "pdfPath": "/Users/samueltaylor/Downloads/Learn Hebrew Today (Adult Hebrew book) (1).pdf",
+  "pdfPath": "/Users/samueltaylor/Downloads/annas-arch-c9a691bed7c4 (1).pdf",
   "notes": [
-    "This file is the hand-curated source of truth for text and grouping.",
+    "This file is the hand-curated source of truth for text, printed line grouping, and playback metadata.",
     "Only entries marked verified should be turned into production audio."
   ],
   "pages": [
     {
       "id": "page-001",
       "page": 1,
-      "title": "Blessing 1 pilot: opening phrase and bet practice",
+      "sourcePdfPage": 4,
+      "title": "Blessing 1 printed excerpt",
       "status": "verified",
       "image": "pages/page-001.png",
-      "englishText": "Blessed are You, Adonai. Blessed. My God, the soul You have given me is pure. You created it, You formed it, You breathed it into me, and You preserve it within me. One day You will take it from me and restore it to me in the time to come. As long as the soul is within me, I thank You, Adonai my God and God of my ancestors, Master of all works, Lord of all souls. Blessed are You, Adonai, in whose hand is the soul of every living thing and the spirit of all flesh.",
+      "englishText": "Blessing 1: The Blessing over the Fruit of the Vine. The blessing begins. Read the Hebrew from right to left. The first letter of our blessing is Bet, which has the sound of B as in Berachah. Locate the bet throughout this paragraph from the siddur, prayer book. Pronounce the B sound each time in order to reinforce recognition.",
       "audio": {
         "en": {
           "page": null
         }
       },
       "notes": [
-        "Spoken overrides are used where the printed text is written as the divine name abbreviation.",
-        "Hebrew line and page playback should be assembled from verified word clips in order."
+        "The numbered audio cards match the numbered overlays on the scanned page image.",
+        "Page-level English playback reads only the printed English on the page, not a translation of the Hebrew prayer lines.",
+        "Printed divine-name abbreviations remain visible as written but are spoken as Adonai."
       ],
       "lines": [
         {
           "id": "p1-line-001",
           "order": 1,
-          "label": "Opening phrase",
+          "label": "Printed line 1",
           "status": "verified",
-          "englishText": "Blessed are You, Adonai.",
+          "englishText": null,
+          "overlay": {
+            "top": 62.7,
+            "left": 10.7,
+            "width": 79.0,
+            "height": 4.6
+          },
           "audio": {
             "en": {
               "line": null
@@ -37,167 +45,164 @@
           "wordIds": [
             "p1-word-001",
             "p1-word-002",
-            "p1-word-003"
+            "p1-word-003",
+            "p1-word-004",
+            "p1-word-005",
+            "p1-word-006",
+            "p1-word-007",
+            "p1-word-008"
           ]
         },
         {
           "id": "p1-line-002",
           "order": 2,
-          "label": "Bet example",
+          "label": "Printed line 2",
           "status": "verified",
-          "englishText": "Blessed.",
+          "englishText": null,
+          "overlay": {
+            "top": 68.0,
+            "left": 10.7,
+            "width": 79.0,
+            "height": 4.6
+          },
           "audio": {
             "en": {
               "line": null
             }
           },
           "wordIds": [
-            "p1-word-004"
+            "p1-word-009",
+            "p1-word-010",
+            "p1-word-011",
+            "p1-word-012",
+            "p1-word-013",
+            "p1-word-014",
+            "p1-word-015",
+            "p1-word-016"
           ]
         },
         {
           "id": "p1-line-003",
           "order": 3,
-          "label": "Prayer line 1",
+          "label": "Printed line 3",
           "status": "verified",
-          "englishText": "My God, the soul You have given me is pure. You created it.",
+          "englishText": null,
+          "overlay": {
+            "top": 73.2,
+            "left": 10.7,
+            "width": 79.0,
+            "height": 4.6
+          },
           "audio": {
             "en": {
               "line": null
             }
           },
           "wordIds": [
-            "p1-word-005",
-            "p1-word-006",
-            "p1-word-007",
-            "p1-word-008",
-            "p1-word-009",
-            "p1-word-010",
-            "p1-word-011",
-            "p1-word-012"
+            "p1-word-017",
+            "p1-word-018",
+            "p1-word-019",
+            "p1-word-020",
+            "p1-word-021",
+            "p1-word-022",
+            "p1-word-023",
+            "p1-word-024"
           ]
         },
         {
           "id": "p1-line-004",
           "order": 4,
-          "label": "Prayer line 2",
+          "label": "Printed line 4",
           "status": "verified",
-          "englishText": "You formed it, You breathed it into me, and You preserve it within me.",
+          "englishText": null,
+          "overlay": {
+            "top": 78.2,
+            "left": 10.7,
+            "width": 79.0,
+            "height": 4.6
+          },
           "audio": {
             "en": {
               "line": null
             }
           },
           "wordIds": [
-            "p1-word-013",
-            "p1-word-014",
-            "p1-word-015",
-            "p1-word-016",
-            "p1-word-017",
-            "p1-word-018",
-            "p1-word-019",
-            "p1-word-020"
+            "p1-word-025",
+            "p1-word-026",
+            "p1-word-027",
+            "p1-word-028",
+            "p1-word-029",
+            "p1-word-030"
           ]
         },
         {
           "id": "p1-line-005",
           "order": 5,
-          "label": "Prayer line 3",
+          "label": "Printed line 5",
           "status": "verified",
-          "englishText": "One day You will take it from me and restore it to me in the time to come.",
+          "englishText": null,
+          "overlay": {
+            "top": 82.7,
+            "left": 10.7,
+            "width": 41.0,
+            "height": 4.2
+          },
           "audio": {
             "en": {
               "line": null
             }
           },
           "wordIds": [
-            "p1-word-021",
-            "p1-word-022",
-            "p1-word-023",
-            "p1-word-024",
-            "p1-word-025",
-            "p1-word-026",
-            "p1-word-027",
-            "p1-word-028"
+            "p1-word-031"
           ]
         },
         {
           "id": "p1-line-006",
           "order": 6,
-          "label": "Prayer line 4",
+          "label": "Printed line 6",
           "status": "verified",
-          "englishText": "As long as the soul is within me, I thank You, Adonai.",
+          "englishText": null,
+          "overlay": {
+            "top": 88.5,
+            "left": 10.7,
+            "width": 79.0,
+            "height": 4.6
+          },
           "audio": {
             "en": {
               "line": null
             }
           },
           "wordIds": [
-            "p1-word-029",
-            "p1-word-030",
-            "p1-word-031",
             "p1-word-032",
             "p1-word-033",
             "p1-word-034",
-            "p1-word-035"
+            "p1-word-035",
+            "p1-word-036",
+            "p1-word-037",
+            "p1-word-038",
+            "p1-word-039"
           ]
         },
         {
           "id": "p1-line-007",
           "order": 7,
-          "label": "Prayer line 5",
+          "label": "Printed line 7",
           "status": "verified",
-          "englishText": "My God and God of my ancestors, Master of all works, Lord",
+          "englishText": null,
+          "overlay": {
+            "top": 93.6,
+            "left": 10.7,
+            "width": 43.0,
+            "height": 4.2
+          },
           "audio": {
             "en": {
               "line": null
             }
           },
           "wordIds": [
-            "p1-word-036",
-            "p1-word-037",
-            "p1-word-038",
-            "p1-word-039",
-            "p1-word-040",
-            "p1-word-041"
-          ]
-        },
-        {
-          "id": "p1-line-008",
-          "order": 8,
-          "label": "Prayer line 6",
-          "status": "verified",
-          "englishText": "of all souls.",
-          "audio": {
-            "en": {
-              "line": null
-            }
-          },
-          "wordIds": [
-            "p1-word-042"
-          ]
-        },
-        {
-          "id": "p1-line-009",
-          "order": 9,
-          "label": "Closing line",
-          "status": "verified",
-          "englishText": "Blessed are You, Adonai, in whose hand is the soul of every living thing and the spirit of all flesh.",
-          "audio": {
-            "en": {
-              "line": null
-            }
-          },
-          "wordIds": [
-            "p1-word-043",
-            "p1-word-044",
-            "p1-word-045",
-            "p1-word-046",
-            "p1-word-047",
-            "p1-word-048",
-            "p1-word-049",
-            "p1-word-050",
-            "p1-word-051"
+            "p1-word-040"
           ]
         }
       ],
@@ -207,8 +212,8 @@
           "page": 1,
           "lineId": "p1-line-001",
           "order": 1,
-          "displayText": "בָּרוּךְ",
-          "spokenText": "בָּרוּךְ",
+          "displayText": "אֱלֹהַי,",
+          "spokenText": "אֱלֹהַי",
           "status": "verified",
           "audio": {
             "he": {
@@ -221,8 +226,8 @@
           "page": 1,
           "lineId": "p1-line-001",
           "order": 2,
-          "displayText": "אַתָּה",
-          "spokenText": "אַתָּה",
+          "displayText": "נְשָׁמָה",
+          "spokenText": "נְשָׁמָה",
           "status": "verified",
           "audio": {
             "he": {
@@ -235,65 +240,6 @@
           "page": 1,
           "lineId": "p1-line-001",
           "order": 3,
-          "displayText": "יְיָ",
-          "spokenText": "אֲדֹנָי",
-          "status": "verified",
-          "notes": [
-            "Printed as the divine name abbreviation but spoken as Adonai."
-          ],
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-004",
-          "page": 1,
-          "lineId": "p1-line-002",
-          "order": 4,
-          "displayText": "בָּרוּךְ",
-          "spokenText": "בָּרוּךְ",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-005",
-          "page": 1,
-          "lineId": "p1-line-003",
-          "order": 5,
-          "displayText": "אֱלֹהַי",
-          "spokenText": "אֱלֹהַי",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-006",
-          "page": 1,
-          "lineId": "p1-line-003",
-          "order": 6,
-          "displayText": "נְשָׁמָה",
-          "spokenText": "נְשָׁמָה",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-007",
-          "page": 1,
-          "lineId": "p1-line-003",
-          "order": 7,
           "displayText": "שֶׁנָּתַתָּ",
           "spokenText": "שֶׁנָּתַתָּ",
           "status": "verified",
@@ -304,10 +250,10 @@
           }
         },
         {
-          "id": "p1-word-008",
+          "id": "p1-word-004",
           "page": 1,
-          "lineId": "p1-line-003",
-          "order": 8,
+          "lineId": "p1-line-001",
+          "order": 4,
           "displayText": "בִּי",
           "spokenText": "בִּי",
           "status": "verified",
@@ -318,10 +264,10 @@
           }
         },
         {
-          "id": "p1-word-009",
+          "id": "p1-word-005",
           "page": 1,
-          "lineId": "p1-line-003",
-          "order": 9,
+          "lineId": "p1-line-001",
+          "order": 5,
           "displayText": "טְהוֹרָה",
           "spokenText": "טְהוֹרָה",
           "status": "verified",
@@ -332,12 +278,68 @@
           }
         },
         {
+          "id": "p1-word-006",
+          "page": 1,
+          "lineId": "p1-line-001",
+          "order": 6,
+          "displayText": "הִיא",
+          "spokenText": "הִיא",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-word-007",
+          "page": 1,
+          "lineId": "p1-line-001",
+          "order": 7,
+          "displayText": "אַתָּה",
+          "spokenText": "אַתָּה",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-word-008",
+          "page": 1,
+          "lineId": "p1-line-001",
+          "order": 8,
+          "displayText": "בְּרָאתָהּ,",
+          "spokenText": "בְּרָאתָהּ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-word-009",
+          "page": 1,
+          "lineId": "p1-line-002",
+          "order": 9,
+          "displayText": "אַתָּה",
+          "spokenText": "אַתָּה",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
           "id": "p1-word-010",
           "page": 1,
-          "lineId": "p1-line-003",
+          "lineId": "p1-line-002",
           "order": 10,
-          "displayText": "הִיא.",
-          "spokenText": "הִיא",
+          "displayText": "יְצַרְתָּהּ,",
+          "spokenText": "יְצַרְתָּהּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -348,7 +350,7 @@
         {
           "id": "p1-word-011",
           "page": 1,
-          "lineId": "p1-line-003",
+          "lineId": "p1-line-002",
           "order": 11,
           "displayText": "אַתָּה",
           "spokenText": "אַתָּה",
@@ -362,10 +364,10 @@
         {
           "id": "p1-word-012",
           "page": 1,
-          "lineId": "p1-line-003",
+          "lineId": "p1-line-002",
           "order": 12,
-          "displayText": "בְרָאתָהּ,",
-          "spokenText": "בְרָאתָהּ",
+          "displayText": "נְפַחְתָּה",
+          "spokenText": "נְפַחְתָּה",
           "status": "verified",
           "audio": {
             "he": {
@@ -376,64 +378,8 @@
         {
           "id": "p1-word-013",
           "page": 1,
-          "lineId": "p1-line-004",
+          "lineId": "p1-line-002",
           "order": 13,
-          "displayText": "אַתָּה",
-          "spokenText": "אַתָּה",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-014",
-          "page": 1,
-          "lineId": "p1-line-004",
-          "order": 14,
-          "displayText": "יְצַרְתָּהּ,",
-          "spokenText": "יְצַרְתָּהּ",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-015",
-          "page": 1,
-          "lineId": "p1-line-004",
-          "order": 15,
-          "displayText": "אַתָּה",
-          "spokenText": "אַתָּה",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-016",
-          "page": 1,
-          "lineId": "p1-line-004",
-          "order": 16,
-          "displayText": "נְפַחְתָּהּ",
-          "spokenText": "נְפַחְתָּהּ",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-017",
-          "page": 1,
-          "lineId": "p1-line-004",
-          "order": 17,
           "displayText": "בִּי,",
           "spokenText": "בִּי",
           "status": "verified",
@@ -444,10 +390,10 @@
           }
         },
         {
-          "id": "p1-word-018",
+          "id": "p1-word-014",
           "page": 1,
-          "lineId": "p1-line-004",
-          "order": 18,
+          "lineId": "p1-line-002",
+          "order": 14,
           "displayText": "וְאַתָּה",
           "spokenText": "וְאַתָּה",
           "status": "verified",
@@ -458,10 +404,10 @@
           }
         },
         {
-          "id": "p1-word-019",
+          "id": "p1-word-015",
           "page": 1,
-          "lineId": "p1-line-004",
-          "order": 19,
+          "lineId": "p1-line-002",
+          "order": 15,
           "displayText": "מְשַׁמְּרָהּ",
           "spokenText": "מְשַׁמְּרָהּ",
           "status": "verified",
@@ -472,11 +418,11 @@
           }
         },
         {
-          "id": "p1-word-020",
+          "id": "p1-word-016",
           "page": 1,
-          "lineId": "p1-line-004",
-          "order": 20,
-          "displayText": "בְּקִרְבִּי,",
+          "lineId": "p1-line-002",
+          "order": 16,
+          "displayText": "בְּקִרְבִּי.",
           "spokenText": "בְּקִרְבִּי",
           "status": "verified",
           "audio": {
@@ -486,122 +432,10 @@
           }
         },
         {
-          "id": "p1-word-021",
+          "id": "p1-word-017",
           "page": 1,
-          "lineId": "p1-line-005",
-          "order": 21,
-          "displayText": "וְאַתָּה",
-          "spokenText": "וְאַתָּה",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-022",
-          "page": 1,
-          "lineId": "p1-line-005",
-          "order": 22,
-          "displayText": "עָתִיד",
-          "spokenText": "עָתִיד",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-023",
-          "page": 1,
-          "lineId": "p1-line-005",
-          "order": 23,
-          "displayText": "לִטְּלָהּ",
-          "spokenText": "לִטְּלָהּ",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-024",
-          "page": 1,
-          "lineId": "p1-line-005",
-          "order": 24,
-          "displayText": "מִמֶּנִּי",
-          "spokenText": "מִמֶּנִּי",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-025",
-          "page": 1,
-          "lineId": "p1-line-005",
-          "order": 25,
-          "displayText": "וּלְהַחֲזִירָהּ",
-          "spokenText": "וּלְהַחֲזִירָהּ",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-026",
-          "page": 1,
-          "lineId": "p1-line-005",
-          "order": 26,
-          "displayText": "בִּי",
-          "spokenText": "בִּי",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-027",
-          "page": 1,
-          "lineId": "p1-line-005",
-          "order": 27,
-          "displayText": "לֶעָתִיד",
-          "spokenText": "לֶעָתִיד",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-028",
-          "page": 1,
-          "lineId": "p1-line-005",
-          "order": 28,
-          "displayText": "לָבֹא.",
-          "spokenText": "לָבֹא",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-029",
-          "page": 1,
-          "lineId": "p1-line-006",
-          "order": 29,
+          "lineId": "p1-line-003",
+          "order": 17,
           "displayText": "כָּל־זְמַן",
           "spokenText": "כָּל זְמַן",
           "status": "verified",
@@ -612,10 +446,10 @@
           }
         },
         {
-          "id": "p1-word-030",
+          "id": "p1-word-018",
           "page": 1,
-          "lineId": "p1-line-006",
-          "order": 30,
+          "lineId": "p1-line-003",
+          "order": 18,
           "displayText": "שֶׁהַנְּשָׁמָה",
           "spokenText": "שֶׁהַנְּשָׁמָה",
           "status": "verified",
@@ -626,12 +460,183 @@
           }
         },
         {
-          "id": "p1-word-031",
+          "id": "p1-word-019",
           "page": 1,
-          "lineId": "p1-line-006",
-          "order": 31,
+          "lineId": "p1-line-003",
+          "order": 19,
           "displayText": "בְּקִרְבִּי,",
           "spokenText": "בְּקִרְבִּי",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-word-020",
+          "page": 1,
+          "lineId": "p1-line-003",
+          "order": 20,
+          "displayText": "מוֹדֶה",
+          "spokenText": "מוֹדֶה",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-word-021",
+          "page": 1,
+          "lineId": "p1-line-003",
+          "order": 21,
+          "displayText": "אֲנִי",
+          "spokenText": "אֲנִי",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-word-022",
+          "page": 1,
+          "lineId": "p1-line-003",
+          "order": 22,
+          "displayText": "לְפָנֶיךָ,",
+          "spokenText": "לְפָנֶיךָ",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-word-023",
+          "page": 1,
+          "lineId": "p1-line-003",
+          "order": 23,
+          "displayText": "יְיָ",
+          "spokenText": "אֲדֹנָי",
+          "status": "verified",
+          "notes": [
+            "Printed as the divine-name abbreviation but spoken as Adonai."
+          ],
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-word-024",
+          "page": 1,
+          "lineId": "p1-line-003",
+          "order": 24,
+          "displayText": "אֱלֹהַי",
+          "spokenText": "אֱלֹהַי",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-word-025",
+          "page": 1,
+          "lineId": "p1-line-004",
+          "order": 25,
+          "displayText": "וֵאלֹהֵי",
+          "spokenText": "וֵאלֹהֵי",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-word-026",
+          "page": 1,
+          "lineId": "p1-line-004",
+          "order": 26,
+          "displayText": "אֲבוֹתַי,",
+          "spokenText": "אֲבוֹתַי",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-word-027",
+          "page": 1,
+          "lineId": "p1-line-004",
+          "order": 27,
+          "displayText": "רִבּוֹן",
+          "spokenText": "רִבּוֹן",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-word-028",
+          "page": 1,
+          "lineId": "p1-line-004",
+          "order": 28,
+          "displayText": "כָּל־הַמַּעֲשִׂים,",
+          "spokenText": "כָּל הַמַּעֲשִׂים",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-word-029",
+          "page": 1,
+          "lineId": "p1-line-004",
+          "order": 29,
+          "displayText": "אָדוֹן",
+          "spokenText": "אָדוֹן",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-word-030",
+          "page": 1,
+          "lineId": "p1-line-004",
+          "order": 30,
+          "displayText": "כָּל־",
+          "spokenText": "כָּל",
+          "status": "verified",
+          "audio": {
+            "he": {
+              "word": null
+            }
+          }
+        },
+        {
+          "id": "p1-word-031",
+          "page": 1,
+          "lineId": "p1-line-005",
+          "order": 31,
+          "displayText": "הַנְּשָׁמוֹת.",
+          "spokenText": "הַנְּשָׁמוֹת",
           "status": "verified",
           "audio": {
             "he": {
@@ -644,8 +649,8 @@
           "page": 1,
           "lineId": "p1-line-006",
           "order": 32,
-          "displayText": "מוֹדֶה",
-          "spokenText": "מוֹדֶה",
+          "displayText": "בָּרוּךְ",
+          "spokenText": "בָּרוּךְ",
           "status": "verified",
           "audio": {
             "he": {
@@ -658,8 +663,8 @@
           "page": 1,
           "lineId": "p1-line-006",
           "order": 33,
-          "displayText": "אֲנִי",
-          "spokenText": "אֲנִי",
+          "displayText": "אַתָּה,",
+          "spokenText": "אַתָּה",
           "status": "verified",
           "audio": {
             "he": {
@@ -672,9 +677,12 @@
           "page": 1,
           "lineId": "p1-line-006",
           "order": 34,
-          "displayText": "לְפָנֶיךָ,",
-          "spokenText": "לְפָנֶיךָ",
+          "displayText": "יְיָ,",
+          "spokenText": "אֲדֹנָי",
           "status": "verified",
+          "notes": [
+            "Printed as the divine-name abbreviation but spoken as Adonai."
+          ],
           "audio": {
             "he": {
               "word": null
@@ -686,12 +694,9 @@
           "page": 1,
           "lineId": "p1-line-006",
           "order": 35,
-          "displayText": "יְיָ",
-          "spokenText": "אֲדֹנָי",
+          "displayText": "אֲשֶׁר",
+          "spokenText": "אֲשֶׁר",
           "status": "verified",
-          "notes": [
-            "Printed as the divine name abbreviation but spoken as Adonai."
-          ],
           "audio": {
             "he": {
               "word": null
@@ -701,10 +706,10 @@
         {
           "id": "p1-word-036",
           "page": 1,
-          "lineId": "p1-line-007",
+          "lineId": "p1-line-006",
           "order": 36,
-          "displayText": "אֱלֹהַי",
-          "spokenText": "אֱלֹהַי",
+          "displayText": "בְּיָדוֹ",
+          "spokenText": "בְּיָדוֹ",
           "status": "verified",
           "audio": {
             "he": {
@@ -715,10 +720,10 @@
         {
           "id": "p1-word-037",
           "page": 1,
-          "lineId": "p1-line-007",
+          "lineId": "p1-line-006",
           "order": 37,
-          "displayText": "וֵאלֹהֵי",
-          "spokenText": "וֵאלֹהֵי",
+          "displayText": "נֶפֶשׁ",
+          "spokenText": "נֶפֶשׁ",
           "status": "verified",
           "audio": {
             "he": {
@@ -729,10 +734,10 @@
         {
           "id": "p1-word-038",
           "page": 1,
-          "lineId": "p1-line-007",
+          "lineId": "p1-line-006",
           "order": 38,
-          "displayText": "אֲבוֹתַי,",
-          "spokenText": "אֲבוֹתַי",
+          "displayText": "כָּל־חַי,",
+          "spokenText": "כָּל חַי",
           "status": "verified",
           "audio": {
             "he": {
@@ -743,10 +748,10 @@
         {
           "id": "p1-word-039",
           "page": 1,
-          "lineId": "p1-line-007",
+          "lineId": "p1-line-006",
           "order": 39,
-          "displayText": "רִבּוֹן",
-          "spokenText": "רִבּוֹן",
+          "displayText": "וְרוּחַ",
+          "spokenText": "וְרוּחַ",
           "status": "verified",
           "audio": {
             "he": {
@@ -759,163 +764,6 @@
           "page": 1,
           "lineId": "p1-line-007",
           "order": 40,
-          "displayText": "כָּל־הַמַּעֲשִׂים,",
-          "spokenText": "כָּל הַמַּעֲשִׂים",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-041",
-          "page": 1,
-          "lineId": "p1-line-007",
-          "order": 41,
-          "displayText": "אֲדוֹן",
-          "spokenText": "אֲדוֹן",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-042",
-          "page": 1,
-          "lineId": "p1-line-008",
-          "order": 42,
-          "displayText": "כָּל־הַנְּשָׁמוֹת.",
-          "spokenText": "כָּל הַנְּשָׁמוֹת",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-043",
-          "page": 1,
-          "lineId": "p1-line-009",
-          "order": 43,
-          "displayText": "בָּרוּךְ",
-          "spokenText": "בָּרוּךְ",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-044",
-          "page": 1,
-          "lineId": "p1-line-009",
-          "order": 44,
-          "displayText": "אַתָּה,",
-          "spokenText": "אַתָּה",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-045",
-          "page": 1,
-          "lineId": "p1-line-009",
-          "order": 45,
-          "displayText": "יְיָ,",
-          "spokenText": "אֲדֹנָי",
-          "status": "verified",
-          "notes": [
-            "Printed as the divine name abbreviation but spoken as Adonai."
-          ],
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-046",
-          "page": 1,
-          "lineId": "p1-line-009",
-          "order": 46,
-          "displayText": "אֲשֶׁר",
-          "spokenText": "אֲשֶׁר",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-047",
-          "page": 1,
-          "lineId": "p1-line-009",
-          "order": 47,
-          "displayText": "בְּיָדוֹ",
-          "spokenText": "בְּיָדוֹ",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-048",
-          "page": 1,
-          "lineId": "p1-line-009",
-          "order": 48,
-          "displayText": "נֶפֶשׁ",
-          "spokenText": "נֶפֶשׁ",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-049",
-          "page": 1,
-          "lineId": "p1-line-009",
-          "order": 49,
-          "displayText": "כָּל־חַי,",
-          "spokenText": "כָּל חַי",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-050",
-          "page": 1,
-          "lineId": "p1-line-009",
-          "order": 50,
-          "displayText": "וְרוּחַ",
-          "spokenText": "וְרוּחַ",
-          "status": "verified",
-          "audio": {
-            "he": {
-              "word": null
-            }
-          }
-        },
-        {
-          "id": "p1-word-051",
-          "page": 1,
-          "lineId": "p1-line-009",
-          "order": 51,
           "displayText": "כָּל־בְּשַׂר־אִישׁ.",
           "spokenText": "כָּל בְּשַׂר אִישׁ",
           "status": "verified",
@@ -930,6 +778,7 @@
     {
       "id": "page-002",
       "page": 2,
+      "sourcePdfPage": 5,
       "title": "Pilot page 2",
       "status": "pending",
       "image": "pages/page-002.png",
@@ -940,7 +789,7 @@
         }
       },
       "notes": [
-        "Image exported and ready for manual transcription.",
+        "Image exported from the cleaner archive PDF and ready for manual transcription.",
         "No audio should be generated until this page is marked verified."
       ],
       "lines": [],
@@ -949,6 +798,7 @@
     {
       "id": "page-003",
       "page": 3,
+      "sourcePdfPage": 6,
       "title": "Pilot page 3",
       "status": "pending",
       "image": "pages/page-003.png",
@@ -959,7 +809,7 @@
         }
       },
       "notes": [
-        "Image exported and ready for manual transcription.",
+        "Image exported from the cleaner archive PDF and ready for manual transcription.",
         "No audio should be generated until this page is marked verified."
       ],
       "lines": [],
