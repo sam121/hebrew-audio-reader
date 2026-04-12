@@ -1209,11 +1209,16 @@
           const actions = document.createElement("div");
           actions.className = "line-actions";
 
-          if (line.hebrewAudioSequence && line.hebrewAudioSequence.length) {
+          const hebrewLineAudio = line.audio && line.audio.he ? line.audio.he.line : null;
+          if (hebrewLineAudio || (line.hebrewAudioSequence && line.hebrewAudioSequence.length)) {
             const playHebrew = document.createElement("button");
             playHebrew.type = "button";
             playHebrew.textContent = "Play whole line";
             playHebrew.addEventListener("click", function () {
+              if (hebrewLineAudio) {
+                playSingle(hebrewLineAudio, line.label + " in Hebrew", line.id);
+                return;
+              }
               playSequence(line.hebrewAudioSequence || [], line.label + " in Hebrew", line.id);
             });
             actions.appendChild(playHebrew);

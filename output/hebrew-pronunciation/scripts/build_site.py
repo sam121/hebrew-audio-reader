@@ -26,6 +26,7 @@ SITE_AUDIO = SITE_ROOT / "assets" / "audio"
 SITE_LINE_STRIPS = SITE_ROOT / "assets" / "line-strips"
 
 DEFAULT_OUTPUT_FORMAT = "mp3_44100_128"
+TRAILING_PUNCTUATION = ",.;:!?\"'״׳…׃"
 
 
 class BuildError(Exception):
@@ -121,6 +122,7 @@ def ensure_audio(
     allow_missing_audio: bool,
     manifest_entries: List[Dict],
     missing_items: List[Dict],
+    revision: Optional[str] = None,
 ) -> Optional[str]:
     if not text:
         return None
@@ -130,6 +132,7 @@ def ensure_audio(
         "language": language,
         "model_id": model_id,
         "output_format": output_format,
+        "revision": revision or "",
         "text": text,
         "voice_id": voice_id,
     }
@@ -205,6 +208,9 @@ def clone_word(word: Dict) -> Dict:
 def clone_line(line: Dict) -> Dict:
     clone = dict(line)
     clone["audio"] = {
+        "he": {
+            "line": None
+        },
         "en": {
             "line": None
         }
@@ -233,6 +239,47 @@ def ordered_lines(page: Dict) -> List[Dict]:
 
 def ordered_sections(page: Dict) -> List[Dict]:
     return sorted(page.get("sections", []), key=lambda item: item["order"])
+
+
+def trailing_punctuation(text: Optional[str]) -> str:
+    if not text:
+        return ""
+
+    stripped = text.rstrip()
+    suffix: List[str] = []
+    for character in reversed(stripped):
+        if character not in TRAILING_PUNCTUATION:
+            break
+        suffix.append(character)
+    return "".join(reversed(suffix))
+
+
+def hebrew_line_text(line: Dict, words_by_id: Dict[str, Dict]) -> Optional[str]:
+    word_ids = line.get("wordIds", [])
+    if not word_ids:
+        return None
+
+    display_words = line.get("displayWords")
+    use_display_words = isinstance(display_words, list) and len(display_words) == len(word_ids)
+
+    parts: List[str] = []
+    for index, word_id in enumerate(word_ids):
+        word = words_by_id.get(word_id)
+        if not word:
+            return None
+
+        spoken_text = (word.get("spokenText") or "").strip()
+        if not spoken_text:
+            return None
+
+        if use_display_words:
+            punctuation = trailing_punctuation(display_words[index])
+            if punctuation and not spoken_text.endswith(punctuation):
+                spoken_text += punctuation
+
+        parts.append(spoken_text)
+
+    return " ".join(parts)
 
 
 def resolved_region(line: Dict) -> Optional[Dict]:
@@ -327,6 +374,7 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
     }
 
     for page in source.get("pages", []):
+        page_audio_revision = page.get("audioRevision")
         page_out = {
             "id": page["id"],
             "page": page["page"],
@@ -364,6 +412,7 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                     allow_missing_audio=allow_missing_audio,
                     manifest_entries=manifest_entries,
                     missing_items=missing_items,
+                    revision=page_audio_revision,
                 )
             page_out["sections"].append(section_out)
 
@@ -384,6 +433,7 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                     allow_missing_audio=allow_missing_audio,
                     manifest_entries=manifest_entries,
                     missing_items=missing_items,
+                    revision=page_audio_revision,
                 )
             page_out["words"].append(word_out)
             words_by_id[word_out["id"]] = word_out
@@ -391,6 +441,24 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
         for line in ordered_lines(page):
             line_out = clone_line(line)
             line_out["stripImage"] = build_line_strip(page=page, line=line_out)
+            line_hebrew_text = hebrew_line_text(line, words_by_id)
+            if line.get("status") == "verified" and line_hebrew_text:
+                line_out["audio"]["he"]["line"] = ensure_audio(
+                    category="lines",
+                    language="he",
+                    language_code="he",
+                    item_id=line["id"],
+                    text=line_hebrew_text,
+                    model_id=hebrew_model,
+                    voice_id=hebrew_voice_id,
+                    voice_secret_name="ELEVENLABS_HEBREW_VOICE_ID",
+                    api_key=api_key,
+                    output_format=output_format,
+                    allow_missing_audio=allow_missing_audio,
+                    manifest_entries=manifest_entries,
+                    missing_items=missing_items,
+                    revision=page_audio_revision,
+                )
             if line.get("status") == "verified" and line.get("englishText"):
                 line_out["audio"]["en"]["line"] = ensure_audio(
                     category="lines",
@@ -406,6 +474,7 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                     allow_missing_audio=allow_missing_audio,
                     manifest_entries=manifest_entries,
                     missing_items=missing_items,
+                    revision=page_audio_revision,
                 )
 
             missing_word_ids = [word_id for word_id in line.get("wordIds", []) if word_id not in words_by_id]
@@ -453,14 +522,19 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                 for line in page_out["lines"]
                 if (line.get("sectionId") or "default") == section["id"]
                 and line.get("status") == "verified"
-                and line.get("hebrewAudioSequence")
+                and (line.get("audio", {}).get("he", {}).get("line") or line.get("hebrewAudioSequence"))
             ]
             for line in section_lines:
+                line_urls = (
+                    [line["audio"]["he"]["line"]]
+                    if line.get("audio", {}).get("he", {}).get("line")
+                    else list(line.get("hebrewAudioSequence", []))
+                )
                 page_out["fullPlaybackGroups"].append(
                     {
                         "label": line.get("badgeLabel") or line.get("label") or line["id"],
                         "lineId": line["id"],
-                        "urls": list(line.get("hebrewAudioSequence", [])),
+                        "urls": line_urls,
                     }
                 )
         site_payload["pages"].append(page_out)
