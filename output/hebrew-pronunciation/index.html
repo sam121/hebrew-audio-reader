@@ -223,6 +223,10 @@
       box-shadow: 0 18px 34px rgba(63, 44, 31, 0.18);
     }
 
+    .image-wrap img.loading {
+      opacity: 0.72;
+    }
+
     .overlay-layer {
       position: absolute;
       inset: 0;
@@ -708,7 +712,7 @@
       <section class="page-panel">
         <div class="image-frame">
           <div class="image-wrap">
-            <img id="pageImage" alt="Current book page" decoding="async">
+            <img id="pageImage" alt="Current book page" decoding="sync" loading="eager" fetchpriority="high">
             <div id="overlayLayer" class="overlay-layer"></div>
           </div>
         </div>
@@ -740,6 +744,7 @@
       currentAudio: null,
       playbackToken: 0,
       activeLineId: null,
+      pageImageLoadToken: 0,
       preloadedImages: new Map()
     };
 
@@ -803,6 +808,54 @@
       }
 
       state.preloadedImages.set(url, image);
+    }
+
+    function markPageImageReady() {
+      elements.pageImage.classList.remove("loading");
+      elements.pageImage.removeAttribute("aria-busy");
+    }
+
+    function requestVisiblePageImage(page) {
+      const sourceUrl = page.image;
+      const token = state.pageImageLoadToken + 1;
+      state.pageImageLoadToken = token;
+
+      elements.pageImage.dataset.sourceUrl = sourceUrl;
+      elements.pageImage.dataset.retryCount = "0";
+      elements.pageImage.alt = "Scanned book page " + page.page;
+      elements.pageImage.classList.add("loading");
+      elements.pageImage.setAttribute("aria-busy", "true");
+      elements.pageImage.decoding = "sync";
+      elements.pageImage.loading = "eager";
+
+      if ("fetchPriority" in elements.pageImage) {
+        elements.pageImage.fetchPriority = "high";
+      }
+
+      preloadImage(sourceUrl, "high");
+      if (elements.pageImage.getAttribute("src") !== sourceUrl) {
+        elements.pageImage.src = sourceUrl;
+      }
+
+      const cached = state.preloadedImages.get(sourceUrl);
+      if (cached && cached.complete && cached.naturalWidth > 0) {
+        markPageImageReady();
+        return;
+      }
+
+      window.setTimeout(function () {
+        if (token !== state.pageImageLoadToken) {
+          return;
+        }
+
+        if (elements.pageImage.complete && elements.pageImage.naturalWidth > 0) {
+          markPageImageReady();
+          return;
+        }
+
+        elements.pageImage.dataset.retryCount = "1";
+        elements.pageImage.src = sourceUrl + (sourceUrl.indexOf("?") === -1 ? "?" : "&") + "retry=" + token;
+      }, 1200);
     }
 
     function stopAudioOnly() {
@@ -1322,8 +1375,7 @@
       state.activeLineId = initialLine ? initialLine.id : null;
 
       elements.pageCounter.textContent = "Page " + (state.currentPageIndex + 1) + " of " + state.reader.pages.length;
-      elements.pageImage.src = page.image;
-      elements.pageImage.alt = "Scanned book page " + page.page;
+      requestVisiblePageImage(page);
       document.title = "Hebrew Reader - Page " + page.page;
       elements.prevPage.disabled = state.currentPageIndex === 0;
       elements.nextPage.disabled = state.currentPageIndex === state.reader.pages.length - 1;
@@ -1382,6 +1434,28 @@
     elements.playWholePage.addEventListener("click", function () {
       const page = currentPage();
       playGroups(page.fullPlaybackGroups || [], "Page " + page.page);
+    });
+
+    elements.pageImage.addEventListener("load", function () {
+      markPageImageReady();
+    });
+
+    elements.pageImage.addEventListener("error", function () {
+      const sourceUrl = elements.pageImage.dataset.sourceUrl;
+      if (!sourceUrl) {
+        return;
+      }
+
+      const retryCount = Number(elements.pageImage.dataset.retryCount || "0");
+      if (retryCount < 1) {
+        elements.pageImage.dataset.retryCount = String(retryCount + 1);
+        elements.pageImage.src = sourceUrl + (sourceUrl.indexOf("?") === -1 ? "?" : "&") + "retry=" + Date.now();
+        return;
+      }
+
+      elements.pageImage.classList.remove("loading");
+      elements.pageImage.removeAttribute("aria-busy");
+      setStatus("The page image had trouble loading. Try refreshing if it stays blank.", "Image");
     });
 
     elements.stopPlayback.addEventListener("click", function () {
