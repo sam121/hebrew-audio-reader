@@ -676,6 +676,7 @@
         <section class="page-playback">
           <div class="simple-actions">
             <button id="playPrimary" type="button" disabled>Play introduction</button>
+            <button id="playDrills" class="secondary" type="button" disabled>Play drills</button>
             <button id="stopPlayback" class="ghost" type="button">Stop</button>
           </div>
         </section>
@@ -711,6 +712,7 @@
       pageCounter: document.getElementById("pageCounter"),
       pageImage: document.getElementById("pageImage"),
       playbackStatus: document.getElementById("playbackStatus"),
+      playDrills: document.getElementById("playDrills"),
       playPrimary: document.getElementById("playPrimary"),
       goToPageOne: document.getElementById("goToPageOne"),
       prevPage: document.getElementById("prevPage"),
@@ -754,6 +756,61 @@
         urls: [introSection.audio.mixed.block],
         gapMs: 0,
       };
+    }
+
+    function primaryPlaybackGroups(page) {
+      const introGroup = introPlaybackGroup(page);
+      if (introGroup) {
+        return [introGroup];
+      }
+
+      const drillLineIds = new Set(
+        drillPlaybackGroups(page)
+          .map(function (group) {
+            return group.lineId;
+          })
+          .filter(Boolean)
+      );
+
+      const groupedPlayback = (page.fullPlaybackGroups || []).filter(function (group) {
+        return !group.lineId || !drillLineIds.has(group.lineId);
+      });
+      if (groupedPlayback.length) {
+        return groupedPlayback;
+      }
+
+      return orderedLines(page)
+        .filter(function (line) {
+          return !drillLineIds.has(line.id);
+        })
+        .map(function (line) {
+          if (line.audio && line.audio.mixed && line.audio.mixed.line) {
+            return {
+              label: line.badgeLabel || line.label || line.id,
+              lineId: line.id,
+              urls: [line.audio.mixed.line],
+              gapMs: 0,
+            };
+          }
+          if (line.audio && line.audio.he && line.audio.he.line) {
+            return {
+              label: line.badgeLabel || line.label || line.id,
+              lineId: line.id,
+              urls: [line.audio.he.line],
+              gapMs: 0,
+            };
+          }
+          if (line.audio && line.audio.en && line.audio.en.line) {
+            return {
+              label: line.badgeLabel || line.label || line.id,
+              lineId: line.id,
+              urls: [line.audio.en.line],
+              gapMs: 0,
+            };
+          }
+          return null;
+        })
+        .filter(Boolean);
     }
 
     function currentPageWordsById(page) {
@@ -1194,9 +1251,9 @@
         overlay.className = "line-overlay";
         overlay.dataset.lineId = line.id;
         overlay.style.top = region.top + (region.height / 2) + "%";
-        overlay.style.left = Math.max(1.4, region.left - 3.8) + "%";
+        overlay.style.left = Math.min(96, region.left + region.width + 0.9) + "%";
         overlay.title = line.badgeLabel || line.label || line.id;
-        overlay.textContent = "➜";
+        overlay.textContent = "⬅";
 
         elements.overlayLayer.appendChild(overlay);
       });
@@ -1363,10 +1420,13 @@
       elements.nextPage.disabled = state.currentPageIndex === state.reader.pages.length - 1;
       elements.goToPageOne.disabled = state.currentPageIndex === 0;
       elements.endPage.disabled = state.currentPageIndex === state.reader.pages.length - 1;
-      const introGroup = introPlaybackGroup(page);
-      elements.playPrimary.disabled = !introGroup;
-      elements.playPrimary.classList.toggle("hidden", !introGroup);
+      const primaryGroups = primaryPlaybackGroups(page);
+      const drills = drillPlaybackGroups(page);
+      elements.playPrimary.disabled = !primaryGroups.length;
+      elements.playPrimary.classList.toggle("hidden", !primaryGroups.length);
       elements.playPrimary.textContent = "Play introduction";
+      elements.playDrills.disabled = !drills.length;
+      elements.playDrills.classList.toggle("hidden", !drills.length);
 
       renderLines(page);
       renderOverlays(page);
@@ -1438,11 +1498,20 @@
 
     elements.playPrimary.addEventListener("click", function () {
       const page = currentPage();
-      const introGroup = introPlaybackGroup(page);
-      if (!introGroup) {
+      const groups = primaryPlaybackGroups(page);
+      if (!groups.length) {
         return;
       }
-      playGroups([introGroup], "Page " + page.page + " introduction");
+      playGroups(groups, "Page " + page.page + " introduction");
+    });
+
+    elements.playDrills.addEventListener("click", function () {
+      const page = currentPage();
+      const groups = drillPlaybackGroups(page);
+      if (!groups.length) {
+        return;
+      }
+      playGroups(groups, "Page " + page.page + " drills");
     });
 
     elements.pageImage.addEventListener("load", function () {
