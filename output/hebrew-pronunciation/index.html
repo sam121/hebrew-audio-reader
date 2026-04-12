@@ -226,43 +226,48 @@
     .overlay-layer {
       position: absolute;
       inset: 0;
+      overflow: visible;
       pointer-events: none;
     }
 
     .line-overlay {
       position: absolute;
-      border: 2px solid rgba(147, 80, 54, 0.52);
-      background: rgba(147, 80, 54, 0.08);
-      border-radius: 14px;
+      width: 54px;
+      height: 20px;
       pointer-events: none;
-      box-shadow: 0 14px 24px rgba(102, 61, 41, 0.12);
       opacity: 0;
-      transition: opacity 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+      z-index: 3;
+      transform: translate(10px, -50%);
+      transition: opacity 140ms ease, transform 140ms ease;
+      filter: drop-shadow(0 2px 6px rgba(134, 9, 0, 0.3));
+    }
+
+    .line-overlay::before {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 7px;
+      width: 32px;
+      height: 6px;
+      border-radius: 999px;
+      background: #ff2a1f;
+    }
+
+    .line-overlay::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 0;
+      height: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-right: 18px solid #ff2a1f;
     }
 
     .line-overlay.active {
-      border-color: var(--accent);
-      background: rgba(147, 80, 54, 0.16);
-      box-shadow: 0 14px 24px rgba(102, 61, 41, 0.16);
       opacity: 1;
-    }
-
-    .line-overlay-number {
-      position: absolute;
-      top: -16px;
-      left: -24px;
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      display: grid;
-      place-items: center;
-      background: #fff7f0;
-      border: 2px solid rgba(147, 80, 54, 0.55);
-      color: var(--accent-strong);
-      font-family: "Avenir Next", "Segoe UI", sans-serif;
-      font-weight: 800;
-      font-size: 0.86rem;
-      box-shadow: 0 8px 14px rgba(102, 61, 41, 0.16);
+      transform: translate(14px, -50%);
     }
 
     .notes {
@@ -507,15 +512,15 @@
     }
 
     .image-wrap {
-      width: 100%;
-      display: flex;
-      justify-content: center;
+      width: fit-content;
+      max-width: 100%;
+      display: inline-block;
     }
 
     .image-wrap img {
-      width: 100%;
-      max-width: 1080px;
-      max-height: none;
+      width: auto;
+      max-width: min(100%, 980px);
+      max-height: min(86vh, 980px);
     }
 
     .page-playback {
@@ -616,12 +621,22 @@
         font-size: 1.15rem;
       }
 
-      .line-overlay-number {
-        top: -14px;
-        left: -20px;
+      .line-overlay {
+        width: 46px;
+        height: 18px;
+      }
+
+      .line-overlay::before {
+        top: 6px;
         width: 28px;
-        height: 28px;
-        font-size: 0.75rem;
+        height: 5px;
+      }
+
+      .line-overlay::after {
+        top: 1px;
+        border-top-width: 8px;
+        border-bottom-width: 8px;
+        border-right-width: 16px;
       }
     }
   </style>
@@ -630,9 +645,9 @@
   <div class="shell">
     <header class="compact-header">
       <div class="page-nav">
-        <button id="prevPage" class="secondary" type="button">Previous page</button>
+        <button id="prevPage" class="secondary" type="button" disabled>Previous page</button>
         <p id="pageCounter" class="page-counter"></p>
-        <button id="nextPage" type="button">Next page</button>
+        <button id="nextPage" type="button" disabled>Next page</button>
       </div>
     </header>
 
@@ -640,7 +655,7 @@
       <section class="page-panel">
         <div class="image-frame">
           <div class="image-wrap">
-            <img id="pageImage" alt="Current book page">
+            <img id="pageImage" alt="Current book page" decoding="async">
             <div id="overlayLayer" class="overlay-layer"></div>
           </div>
         </div>
@@ -649,7 +664,7 @@
       <section class="transcript-panel">
         <section class="page-playback">
           <div class="simple-actions">
-            <button id="playWholePage" type="button">Play whole page</button>
+            <button id="playWholePage" type="button" disabled>Play whole page</button>
             <button id="stopPlayback" class="ghost" type="button">Stop</button>
           </div>
         </section>
@@ -671,7 +686,8 @@
       currentPageIndex: 0,
       currentAudio: null,
       playbackToken: 0,
-      activeLineId: null
+      activeLineId: null,
+      preloadedImages: new Map()
     };
 
     const elements = {
@@ -703,6 +719,37 @@
     function setStatus(message, tone) {
       elements.playbackStatus.textContent = message;
       elements.audioSummary.textContent = tone || "";
+    }
+
+    function scheduleIdle(callback) {
+      if ("requestIdleCallback" in window) {
+        window.requestIdleCallback(callback, { timeout: 800 });
+        return;
+      }
+
+      window.setTimeout(callback, 80);
+    }
+
+    function preloadImage(url, fetchPriority) {
+      if (!url || state.preloadedImages.has(url)) {
+        return;
+      }
+
+      const image = new Image();
+      image.decoding = "async";
+
+      if (fetchPriority && "fetchPriority" in image) {
+        image.fetchPriority = fetchPriority;
+      }
+
+      image.src = url;
+      if (typeof image.decode === "function") {
+        image.decode().catch(function () {
+          return undefined;
+        });
+      }
+
+      state.preloadedImages.set(url, image);
     }
 
     function stopAudioOnly() {
@@ -895,6 +942,36 @@
       });
     }
 
+    function preloadPageAssets(pageIndex, options) {
+      if (!state.reader || pageIndex < 0 || pageIndex >= state.reader.pages.length) {
+        return;
+      }
+
+      const page = state.reader.pages[pageIndex];
+      const includeStrips = !options || options.includeStrips !== false;
+      preloadImage(page.image, options && options.pagePriority ? options.pagePriority : null);
+
+      if (!includeStrips) {
+        return;
+      }
+
+      orderedLines(page).forEach(function (line) {
+        if (line.stripImage) {
+          preloadImage(line.stripImage, "low");
+        }
+      });
+    }
+
+    function warmNearbyPages(pageIndex) {
+      preloadPageAssets(pageIndex, { pagePriority: "high" });
+      preloadPageAssets(pageIndex + 1, { pagePriority: "high" });
+
+      scheduleIdle(function () {
+        preloadPageAssets(pageIndex - 1);
+        preloadPageAssets(pageIndex + 2, { includeStrips: false });
+      });
+    }
+
     function orderedSections(page) {
       if (page.sections && page.sections.length) {
         return page.sections.slice().sort(function (a, b) {
@@ -994,16 +1071,9 @@
         const overlay = document.createElement("div");
         overlay.className = "line-overlay";
         overlay.dataset.lineId = line.id;
-        overlay.style.top = region.top + "%";
-        overlay.style.left = region.left + "%";
-        overlay.style.width = region.width + "%";
-        overlay.style.height = region.height + "%";
+        overlay.style.top = region.top + (region.height / 2) + "%";
+        overlay.style.left = region.left + region.width + "%";
         overlay.title = line.badgeLabel || line.label || line.id;
-
-        const number = document.createElement("span");
-        number.className = "line-overlay-number";
-        number.textContent = String(line.overlayNumber || line.order);
-        overlay.appendChild(number);
 
         elements.overlayLayer.appendChild(overlay);
       });
@@ -1089,6 +1159,7 @@
             strip.src = line.stripImage;
             strip.alt = (line.badgeLabel || line.label || line.id) + " strip from the scanned page";
             strip.loading = "lazy";
+            strip.decoding = "async";
             heading.appendChild(strip);
           }
 
@@ -1163,6 +1234,7 @@
 
       renderLines(page);
       renderOverlays(page);
+      warmNearbyPages(state.currentPageIndex);
 
       setStatus(
         page.status === "verified" ? "Ready." : "This page is visible, but it does not have verified audio yet.",
@@ -1171,6 +1243,10 @@
     }
 
     function movePage(delta) {
+      if (!state.reader) {
+        return;
+      }
+
       const nextIndex = state.currentPageIndex + delta;
       if (nextIndex < 0 || nextIndex >= state.reader.pages.length) {
         return;
@@ -1183,12 +1259,14 @@
 
     async function loadReader() {
       try {
-        const response = await fetch("./data/reader.json", { cache: "no-store" });
+        const response = await fetch("./data/reader.json");
         if (!response.ok) {
           throw new Error("Reader data fetch failed: " + response.status);
         }
 
         state.reader = await response.json();
+        preloadPageAssets(0, { pagePriority: "high" });
+        preloadPageAssets(1, { pagePriority: "high" });
         renderPage();
       } catch (error) {
         setStatus("Site data could not be loaded. Run the build step first.", "Error");
