@@ -36,6 +36,18 @@ Example patterns:
   - `displayText: "וּרָבּוּר"`
   - first try `spokenText: "אוּרָבּוּר"`
   - if ElevenLabs still inserts a v-sound, try a more explicit helper such as `spokenText: "אוּ רָבּוּר"`
+- Vet read as a bet:
+  - keep the printed Hebrew unchanged in `displayText`
+  - if the visible letter is a non-dagesh `ב` and ElevenLabs keeps saying `b`, use a helper `spokenText` that swaps only the sounded consonant, for example:
+  - `displayText: "בָבָר"`
+  - first try `spokenText: "וָוָר"`
+  - if that over-corrects the word, use a more explicit helper such as `spokenText: "וָ בָר"` or another phonetic stepping stone that preserves the intended vowels
+
+For contractor guidance and later QA, treat bet/vet as an explicit check:
+
+- `בּ` should stay a bet / `b` sound.
+- plain `ב` without dagesh should be reviewed as a vet / `v` sound unless the page notes say otherwise.
+- If the scan is ambiguous, add a note instead of guessing.
 
 The rule is general: preserve the printed Hebrew for the reader, and use `spokenText` only to steer pronunciation.
 

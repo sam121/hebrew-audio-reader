@@ -384,8 +384,8 @@
 
     .line-reading {
       display: flex;
-      flex-direction: row-reverse;
       align-items: flex-start;
+      justify-content: flex-end;
       gap: 14px;
     }
 
@@ -414,35 +414,16 @@
     }
 
     .line-reading-arrow {
-      position: relative;
-      width: 40px;
-      min-width: 40px;
-      height: 18px;
+      min-width: 98px;
       margin-top: 16px;
-      filter: drop-shadow(0 2px 6px rgba(134, 9, 0, 0.28));
-    }
-
-    .line-reading-arrow::before {
-      content: "";
-      position: absolute;
-      right: 0;
-      top: 6px;
-      width: 24px;
-      height: 6px;
-      border-radius: 999px;
-      background: #ff2a1f;
-    }
-
-    .line-reading-arrow::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 1px;
-      width: 0;
-      height: 0;
-      border-top: 8px solid transparent;
-      border-bottom: 8px solid transparent;
-      border-right: 16px solid #ff2a1f;
+      color: #ff2a1f;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-align: right;
+      text-shadow: 0 2px 8px rgba(134, 9, 0, 0.2);
     }
 
     .line-title-row {
@@ -600,17 +581,11 @@
       background: transparent;
     }
 
-    .simple-actions,
-    .intro-action {
+    .simple-actions {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
       align-items: center;
-    }
-
-    .intro-action button {
-      width: 100%;
-      justify-content: center;
     }
 
     .line-list,
@@ -683,23 +658,9 @@
       }
 
       .line-reading-arrow {
-        width: 32px;
-        min-width: 32px;
-        height: 16px;
+        min-width: 78px;
         margin-top: 14px;
-      }
-
-      .line-reading-arrow::before {
-        top: 6px;
-        width: 20px;
-        height: 5px;
-      }
-
-      .line-reading-arrow::after {
-        top: 1px;
-        border-top-width: 7px;
-        border-bottom-width: 7px;
-        border-right-width: 13px;
+        font-size: 0.78rem;
       }
 
       .line-overlay {
@@ -727,7 +688,9 @@
     <header class="compact-header">
       <div class="page-nav">
         <button id="prevPage" class="secondary" type="button" disabled>Previous page</button>
+        <button id="prevStartPage" class="secondary" type="button" disabled>Last start page</button>
         <p id="pageCounter" class="page-counter"></p>
+        <button id="endPage" class="secondary" type="button" disabled>End page</button>
         <button id="nextPage" type="button" disabled>Next page</button>
       </div>
     </header>
@@ -746,6 +709,7 @@
         <section class="page-playback">
           <div class="simple-actions">
             <button id="playWholePage" type="button" disabled>Play whole page</button>
+            <button id="playDrills" class="secondary" type="button" disabled>Play drills</button>
             <button id="stopPlayback" class="ghost" type="button">Stop</button>
           </div>
         </section>
@@ -781,13 +745,46 @@
       pageCounter: document.getElementById("pageCounter"),
       pageImage: document.getElementById("pageImage"),
       playbackStatus: document.getElementById("playbackStatus"),
+      playDrills: document.getElementById("playDrills"),
       playWholePage: document.getElementById("playWholePage"),
+      prevStartPage: document.getElementById("prevStartPage"),
       prevPage: document.getElementById("prevPage"),
+      endPage: document.getElementById("endPage"),
       stopPlayback: document.getElementById("stopPlayback")
     };
 
     function currentPage() {
       return state.reader.pages[state.currentPageIndex];
+    }
+
+    function isStartPage(page) {
+      return orderedSections(page).some(function (section) {
+        return section.playbackMode === "single_block";
+      });
+    }
+
+    function previousStartPageIndex(fromIndex) {
+      for (let index = fromIndex - 1; index >= 0; index -= 1) {
+        if (isStartPage(state.reader.pages[index])) {
+          return index;
+        }
+      }
+      return -1;
+    }
+
+    function drillPlaybackGroups(page) {
+      return orderedLines(page)
+        .filter(function (line) {
+          return line.hebrewPlaybackMode === "sequence" && line.hebrewAudioSequence && line.hebrewAudioSequence.length;
+        })
+        .map(function (line) {
+          return {
+            label: line.badgeLabel || line.label || line.id,
+            lineId: line.id,
+            urls: line.hebrewAudioSequence,
+            gapMs: Number(line.sequenceGapMs) || 0
+          };
+        });
     }
 
     function currentPageWordsById(page) {
@@ -1258,35 +1255,17 @@
         });
         const sectionIsSingleBlock = section.playbackMode === "single_block";
 
-        if (!sectionLines.length) {
+        if (!sectionLines.length || sectionIsSingleBlock) {
           return;
         }
 
         const sectionBlock = document.createElement("section");
         sectionBlock.className = "section-block";
 
-        if (sectionIsSingleBlock) {
-          const introAction = document.createElement("div");
-          introAction.className = "intro-action";
-
-          const playSection = document.createElement("button");
-          playSection.type = "button";
-          playSection.textContent = section.playbackLabel || "Play section";
-          playSection.disabled = !(section.audio && section.audio.mixed && section.audio.mixed.block);
-          playSection.addEventListener("click", function () {
-            playSingle(section.audio && section.audio.mixed ? section.audio.mixed.block : null, section.title, null);
-          });
-
-          introAction.appendChild(playSection);
-          sectionBlock.appendChild(introAction);
-          elements.lineList.appendChild(sectionBlock);
-          return;
-        }
-
         const sectionList = document.createElement("div");
         sectionList.className = "line-list";
 
-        sectionLines.forEach(function (line) {
+        sectionLines.forEach(function (line, sectionLineIndex) {
           const card = document.createElement("section");
           card.className = "line-card";
           card.dataset.lineId = line.id;
@@ -1310,7 +1289,7 @@
 
           const title = document.createElement("h3");
           title.className = "line-title";
-          title.textContent = line.badgeLabel || (line.overlayNumber ? "Line " + line.overlayNumber : "Line " + line.order);
+          title.textContent = "Line " + String(sectionLineIndex + 1);
           heading.appendChild(title);
 
           const actions = document.createElement("div");
@@ -1379,6 +1358,7 @@
             const readingArrow = document.createElement("span");
             readingArrow.className = "line-reading-arrow";
             readingArrow.setAttribute("aria-hidden", "true");
+            readingArrow.textContent = "Start →";
             lineReading.appendChild(readingArrow);
 
             const wordGrid = document.createElement("div");
@@ -1436,7 +1416,10 @@
       document.title = "Hebrew Reader - Page " + page.page;
       elements.prevPage.disabled = state.currentPageIndex === 0;
       elements.nextPage.disabled = state.currentPageIndex === state.reader.pages.length - 1;
+      elements.prevStartPage.disabled = previousStartPageIndex(state.currentPageIndex) === -1;
+      elements.endPage.disabled = state.currentPageIndex === state.reader.pages.length - 1;
       elements.playWholePage.disabled = !(page.fullPlaybackGroups && page.fullPlaybackGroups.length);
+      elements.playDrills.disabled = !drillPlaybackGroups(page).length;
 
       renderLines(page);
       renderOverlays(page);
@@ -1488,9 +1471,36 @@
       movePage(1);
     });
 
+    elements.prevStartPage.addEventListener("click", function () {
+      if (!state.reader) {
+        return;
+      }
+      const previousIndex = previousStartPageIndex(state.currentPageIndex);
+      if (previousIndex === -1) {
+        return;
+      }
+      stopPlayback(false);
+      state.currentPageIndex = previousIndex;
+      renderPage();
+    });
+
+    elements.endPage.addEventListener("click", function () {
+      if (!state.reader || state.currentPageIndex === state.reader.pages.length - 1) {
+        return;
+      }
+      stopPlayback(false);
+      state.currentPageIndex = state.reader.pages.length - 1;
+      renderPage();
+    });
+
     elements.playWholePage.addEventListener("click", function () {
       const page = currentPage();
       playGroups(page.fullPlaybackGroups || [], "Page " + page.page);
+    });
+
+    elements.playDrills.addEventListener("click", function () {
+      const page = currentPage();
+      playGroups(drillPlaybackGroups(page), "Page " + page.page + " drills");
     });
 
     elements.pageImage.addEventListener("load", function () {

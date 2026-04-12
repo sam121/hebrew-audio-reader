@@ -72,22 +72,61 @@ def tokenize_hebrew_words(text: str) -> List[str]:
     return [part for part in WORD_SPLIT_RE.split(clean_text(text)) if has_hebrew(part)]
 
 
-def normalize_word_for_speech(token: str, *, drill_line: bool) -> str:
+def replace_vet_with_vav(text: str) -> str:
+    characters = list(text)
+    output: List[str] = []
+    index = 0
+    while index < len(characters):
+        character = characters[index]
+        if character == "ב":
+            look_ahead = index + 1
+            has_dagesh = False
+            while look_ahead < len(characters):
+                next_char = characters[look_ahead]
+                if "\u0590" <= next_char <= "\u05FF" and not ("\u0591" <= next_char <= "\u05C7"):
+                    break
+                if next_char == "ּ":
+                    has_dagesh = True
+                look_ahead += 1
+            output.append("ב" if has_dagesh else "ו")
+        else:
+            output.append(character)
+        index += 1
+    return "".join(output)
+
+
+def infer_page_context(page_rows: List[Dict]) -> Dict:
+    has_vet_lesson = any(" vet" in row["line_content"].lower() for row in page_rows)
+    return {
+        "vet_lesson": has_vet_lesson,
+    }
+
+
+def apply_page_pronunciation_rules(text: str, *, page_context: Dict) -> str:
+    spoken = text
+    if page_context.get("vet_lesson"):
+        spoken = replace_vet_with_vav(spoken)
+    return spoken
+
+
+def normalize_word_for_speech(token: str, *, drill_line: bool, page_context: Dict) -> str:
     spoken = clean_text(token)
     spoken = DIVINE_NAME_RE.sub("אֲדֹנָי", spoken)
     spoken = spoken.replace("־", " ")
+    spoken = apply_page_pronunciation_rules(spoken, page_context=page_context)
     if drill_line and spoken.startswith("וּ"):
         spoken = "א" + spoken
     return spoken
 
 
-def normalize_line_for_speech(text: str) -> str:
+def normalize_line_for_speech(text: str, *, page_context: Dict) -> str:
     spoken = clean_text(text)
     spoken = DIVINE_NAME_RE.sub("אֲדֹנָי", spoken)
+    spoken = apply_page_pronunciation_rules(spoken, page_context=page_context)
     return spoken
 
 
-def build_sections(line_rows: List[Dict]) -> List[Dict]:
+def build_sections(line_rows: List[Dict], *, page_context: Dict) -> List[Dict]:
     first_drill_index: Optional[int] = None
     for index, row in enumerate(line_rows):
         if row["is_drill"]:
@@ -116,7 +155,7 @@ def build_sections(line_rows: List[Dict]) -> List[Dict]:
             "playbackLabel": "Play intro section",
             "matchMode": "none",
             "status": "verified",
-            "mixedText": normalize_line_for_speech(intro_text),
+            "mixedText": normalize_line_for_speech(intro_text, page_context=page_context),
         },
         {
             "id": "exercise",
@@ -149,7 +188,8 @@ def page_title(page_rows: List[Dict], page_number: int) -> str:
 
 
 def build_page(page_number: int, page_rows: List[Dict], *, pdf_path: str, audio_revision: str) -> Dict:
-    sections = build_sections(page_rows)
+    page_context = infer_page_context(page_rows)
+    sections = build_sections(page_rows, page_context=page_context)
     assign_section_id(page_rows, sections)
 
     words: List[Dict] = []
@@ -171,7 +211,7 @@ def build_page(page_number: int, page_rows: List[Dict], *, pdf_path: str, audio_
                     "lineId": line_id,
                     "order": word_order,
                     "displayText": token,
-                    "spokenText": normalize_word_for_speech(token, drill_line=row["is_drill"]),
+                    "spokenText": normalize_word_for_speech(token, drill_line=row["is_drill"], page_context=page_context),
                     "status": "verified",
                 }
             )
@@ -208,7 +248,7 @@ def build_page(page_number: int, page_rows: List[Dict], *, pdf_path: str, audio_
         if content_mode == "english":
             line["englishText"] = row["line_content"]
         elif content_mode == "mixed":
-            line["mixedText"] = normalize_line_for_speech(row["line_content"])
+            line["mixedText"] = normalize_line_for_speech(row["line_content"], page_context=page_context)
 
         lines.append(line)
 

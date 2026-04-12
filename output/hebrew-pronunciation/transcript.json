@@ -25770,7 +25770,7 @@
           "playbackLabel": "Play intro section",
           "matchMode": "none",
           "status": "verified",
-          "mixedText": "בָּרוּךְ אַתָּה אֲדֹנָי אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם אֲשֶׁר קִדְשָׁנוּ בְּמִצְוֹתָיו וְצִוָנוּ לְהַדְלִיק נֵר שֶׁל יוֹם טוֹב ב Vet has the sound of the \"v\" in Havdalah."
+          "mixedText": "בָּרוּךְ אַתָּה אֲדֹנָי אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם אֲשֶׁר קִדְשָׁנוּ בְּמִצְוֹתָיו וְצִוָנוּ לְהַדְלִיק נֵר שֶׁל יוֹם טוֹו ו Vet has the sound of the \"v\" in Havdalah."
         },
         {
           "id": "exercise",
@@ -25873,7 +25873,7 @@
           "displayWords": [
             "ב"
           ],
-          "mixedText": "ב Vet"
+          "mixedText": "ו Vet"
         },
         {
           "id": "p39-line-005",
@@ -26255,7 +26255,7 @@
           "lineId": "p39-line-003",
           "order": 15,
           "displayText": "טוֹב",
-          "spokenText": "טוֹב",
+          "spokenText": "טוֹו",
           "status": "verified"
         },
         {
@@ -26264,7 +26264,7 @@
           "lineId": "p39-line-004",
           "order": 16,
           "displayText": "ב",
-          "spokenText": "ב",
+          "spokenText": "ו",
           "status": "verified"
         },
         {
@@ -26273,7 +26273,7 @@
           "lineId": "p39-line-006",
           "order": 17,
           "displayText": "בֹ",
-          "spokenText": "בֹ",
+          "spokenText": "וֹ",
           "status": "verified"
         },
         {
@@ -26282,7 +26282,7 @@
           "lineId": "p39-line-006",
           "order": 18,
           "displayText": "בְ",
-          "spokenText": "בְ",
+          "spokenText": "וְ",
           "status": "verified"
         },
         {
@@ -26291,7 +26291,7 @@
           "lineId": "p39-line-006",
           "order": 19,
           "displayText": "בִ",
-          "spokenText": "בִ",
+          "spokenText": "וִ",
           "status": "verified"
         },
         {
@@ -26300,7 +26300,7 @@
           "lineId": "p39-line-006",
           "order": 20,
           "displayText": "בֶ",
-          "spokenText": "בֶ",
+          "spokenText": "וֶ",
           "status": "verified"
         },
         {
@@ -26309,7 +26309,7 @@
           "lineId": "p39-line-006",
           "order": 21,
           "displayText": "בֵ",
-          "spokenText": "בֵ",
+          "spokenText": "וֵ",
           "status": "verified"
         },
         {
@@ -26318,7 +26318,7 @@
           "lineId": "p39-line-006",
           "order": 22,
           "displayText": "בֵי",
-          "spokenText": "בֵי",
+          "spokenText": "וֵי",
           "status": "verified"
         },
         {
@@ -26327,7 +26327,7 @@
           "lineId": "p39-line-006",
           "order": 23,
           "displayText": "בַי",
-          "spokenText": "בַי",
+          "spokenText": "וַי",
           "status": "verified"
         },
         {
@@ -26336,7 +26336,7 @@
           "lineId": "p39-line-006",
           "order": 24,
           "displayText": "בוֹ",
-          "spokenText": "בוֹ",
+          "spokenText": "ווֹ",
           "status": "verified"
         },
         {
@@ -26345,7 +26345,7 @@
           "lineId": "p39-line-007",
           "order": 25,
           "displayText": "לֵב",
-          "spokenText": "לֵב",
+          "spokenText": "לֵו",
           "status": "verified"
         },
         {
@@ -26354,7 +26354,7 @@
           "lineId": "p39-line-007",
           "order": 26,
           "displayText": "לֵבָב",
-          "spokenText": "לֵבָב",
+          "spokenText": "לֵוָו",
           "status": "verified"
         },
         {
@@ -26363,7 +26363,7 @@
           "lineId": "p39-line-007",
           "order": 27,
           "displayText": "רָב",
-          "spokenText": "רָב",
+          "spokenText": "רָו",
           "status": "verified"
         },
         {
@@ -26372,7 +26372,7 @@
           "lineId": "p39-line-007",
           "order": 28,
           "displayText": "חָלָב",
-          "spokenText": "חָלָב",
+          "spokenText": "חָלָו",
           "status": "verified"
         },
         {
@@ -26381,7 +26381,7 @@
           "lineId": "p39-line-007",
           "order": 29,
           "displayText": "הַלֵב",
-          "spokenText": "הַלֵב",
+          "spokenText": "הַלֵו",
           "status": "verified"
         },
         {
@@ -26390,7 +26390,7 @@
           "lineId": "p39-line-007",
           "order": 30,
           "displayText": "נַדָב",
-          "spokenText": "נַדָב",
+          "spokenText": "נַדָו",
           "status": "verified"
         },
         {
@@ -26399,7 +26399,7 @@
           "lineId": "p39-line-007",
           "order": 31,
           "displayText": "דוֹב",
-          "spokenText": "דוֹב",
+          "spokenText": "דוֹו",
           "status": "verified"
         },
         {
@@ -26408,7 +26408,7 @@
           "lineId": "p39-line-008",
           "order": 32,
           "displayText": "קֶבֶר",
-          "spokenText": "קֶבֶר",
+          "spokenText": "קֶוֶר",
           "status": "verified"
         },
         {
@@ -26453,7 +26453,7 @@
           "lineId": "p39-line-009",
           "order": 37,
           "displayText": "רוֹבֶה",
-          "spokenText": "רוֹבֶה",
+          "spokenText": "רוֹוֶה",
           "status": "verified"
         },
         {
@@ -26471,7 +26471,7 @@
           "lineId": "p39-line-009",
           "order": 39,
           "displayText": "שׁוּבָה",
-          "spokenText": "שׁוּבָה",
+          "spokenText": "שׁוּוָה",
           "status": "verified"
         },
         {
@@ -26480,7 +26480,7 @@
           "lineId": "p39-line-009",
           "order": 40,
           "displayText": "שׁוֹבְבוּת",
-          "spokenText": "שׁוֹבְבוּת",
+          "spokenText": "שׁוֹוְווּת",
           "status": "verified"
         },
         {
@@ -26498,7 +26498,7 @@
           "lineId": "p39-line-010",
           "order": 42,
           "displayText": "בַּדָבָר",
-          "spokenText": "בַּדָבָר",
+          "spokenText": "בַּדָוָר",
           "status": "verified"
         },
         {
@@ -26507,7 +26507,7 @@
           "lineId": "p39-line-010",
           "order": 43,
           "displayText": "מִבְרָק",
-          "spokenText": "מִבְרָק",
+          "spokenText": "מִוְרָק",
           "status": "verified"
         },
         {
@@ -26516,7 +26516,7 @@
           "lineId": "p39-line-010",
           "order": 44,
           "displayText": "הַבְרָקָה",
-          "spokenText": "הַבְרָקָה",
+          "spokenText": "הַוְרָקָה",
           "status": "verified"
         },
         {
@@ -26525,7 +26525,7 @@
           "lineId": "p39-line-010",
           "order": 45,
           "displayText": "עִרְבֵּב",
-          "spokenText": "עִרְבֵּב",
+          "spokenText": "עִרְבֵּו",
           "status": "verified"
         },
         {
@@ -26534,7 +26534,7 @@
           "lineId": "p39-line-010",
           "order": 46,
           "displayText": "רָכַב",
-          "spokenText": "רָכַב",
+          "spokenText": "רָכַו",
           "status": "verified"
         },
         {
@@ -26543,7 +26543,7 @@
           "lineId": "p39-line-011",
           "order": 47,
           "displayText": "לְהַבְדִיל",
-          "spokenText": "לְהַבְדִיל",
+          "spokenText": "לְהַוְדִיל",
           "status": "verified"
         },
         {
@@ -26552,7 +26552,7 @@
           "lineId": "p39-line-011",
           "order": 48,
           "displayText": "הַבְדָלָה",
-          "spokenText": "הַבְדָלָה",
+          "spokenText": "הַוְדָלָה",
           "status": "verified"
         },
         {
@@ -26561,7 +26561,7 @@
           "lineId": "p39-line-011",
           "order": 49,
           "displayText": "הֶבְדֵל",
-          "spokenText": "הֶבְדֵל",
+          "spokenText": "הֶוְדֵל",
           "status": "verified"
         },
         {
@@ -26570,7 +26570,7 @@
           "lineId": "p39-line-011",
           "order": 50,
           "displayText": "שָׁבוּעַ",
-          "spokenText": "שָׁבוּעַ",
+          "spokenText": "שָׁווּעַ",
           "status": "verified"
         },
         {
@@ -26579,7 +26579,7 @@
           "lineId": "p39-line-011",
           "order": 51,
           "displayText": "טוֹב",
-          "spokenText": "טוֹב",
+          "spokenText": "טוֹו",
           "status": "verified"
         },
         {
@@ -43959,7 +43959,7 @@
             "ב",
             "בֵית"
           ],
-          "mixedText": "39 v Vet ב - בֵית"
+          "mixedText": "39 v Vet ו - וֵית"
         },
         {
           "id": "p59-line-007",
@@ -44280,7 +44280,7 @@
           "lineId": "p59-line-006",
           "order": 6,
           "displayText": "ב",
-          "spokenText": "ב",
+          "spokenText": "ו",
           "status": "verified"
         },
         {
@@ -44289,7 +44289,7 @@
           "lineId": "p59-line-006",
           "order": 7,
           "displayText": "בֵית",
-          "spokenText": "בֵית",
+          "spokenText": "וֵית",
           "status": "verified"
         },
         {
