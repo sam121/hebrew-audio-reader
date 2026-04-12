@@ -655,7 +655,7 @@
     <header class="compact-header">
       <div class="page-nav">
         <button id="prevPage" class="secondary" type="button" disabled>Previous page</button>
-        <button id="prevStartPage" class="secondary" type="button" disabled>Last start page</button>
+        <button id="goToPageOne" class="secondary" type="button" disabled>Page 1</button>
         <p id="pageCounter" class="page-counter"></p>
         <button id="endPage" class="secondary" type="button" disabled>End page</button>
         <button id="nextPage" type="button" disabled>Next page</button>
@@ -714,7 +714,7 @@
       playbackStatus: document.getElementById("playbackStatus"),
       playDrills: document.getElementById("playDrills"),
       playWholePage: document.getElementById("playWholePage"),
-      prevStartPage: document.getElementById("prevStartPage"),
+      goToPageOne: document.getElementById("goToPageOne"),
       prevPage: document.getElementById("prevPage"),
       endPage: document.getElementById("endPage"),
       stopPlayback: document.getElementById("stopPlayback")
@@ -728,15 +728,6 @@
       return orderedSections(page).some(function (section) {
         return section.playbackMode === "single_block";
       });
-    }
-
-    function previousStartPageIndex(fromIndex) {
-      for (let index = fromIndex - 1; index >= 0; index -= 1) {
-        if (isStartPage(state.reader.pages[index])) {
-          return index;
-        }
-      }
-      return -1;
     }
 
     function drillPlaybackGroups(page) {
@@ -1382,7 +1373,7 @@
       document.title = "Hebrew Reader - Page " + page.page;
       elements.prevPage.disabled = state.currentPageIndex === 0;
       elements.nextPage.disabled = state.currentPageIndex === state.reader.pages.length - 1;
-      elements.prevStartPage.disabled = previousStartPageIndex(state.currentPageIndex) === -1;
+      elements.goToPageOne.disabled = state.currentPageIndex === 0;
       elements.endPage.disabled = state.currentPageIndex === state.reader.pages.length - 1;
       elements.playWholePage.disabled = !(page.fullPlaybackGroups && page.fullPlaybackGroups.length);
       elements.playDrills.disabled = !drillPlaybackGroups(page).length;
@@ -1437,16 +1428,12 @@
       movePage(1);
     });
 
-    elements.prevStartPage.addEventListener("click", function () {
-      if (!state.reader) {
-        return;
-      }
-      const previousIndex = previousStartPageIndex(state.currentPageIndex);
-      if (previousIndex === -1) {
+    elements.goToPageOne.addEventListener("click", function () {
+      if (!state.reader || state.currentPageIndex === 0) {
         return;
       }
       stopPlayback(false);
-      state.currentPageIndex = previousIndex;
+      state.currentPageIndex = 0;
       renderPage();
     });
 
