@@ -416,7 +416,7 @@ def suggest_line_regions(page_number: int, page_rows: List[Dict], sections: List
                 "padRight": 0.8,
                 "padBottom": 0.55,
                 "padLeft": 1.2,
-                "confidence": 0.82,
+                "confidence": 0.92,
             }
 
         return regions

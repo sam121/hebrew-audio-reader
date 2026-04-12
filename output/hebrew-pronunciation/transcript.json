@@ -48,7 +48,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 1: The Blessing over the Fruit of the Vine"
@@ -74,7 +74,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "The blessing begins:"
@@ -108,7 +108,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -137,7 +137,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "Read the Hebrew from right to left, בָּרוּךְ"
@@ -163,7 +163,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "The first letter of our blessing is"
@@ -193,7 +193,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "בּ Bet"
@@ -219,7 +219,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "which has the sound of \"B\" as in Berachah."
@@ -249,7 +249,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "Locate the בּ throughout this paragraph from the siddur"
@@ -275,7 +275,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "(\"prayer book\"). Pronounce the \"B\" sound each time in order to"
@@ -301,7 +301,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "reinforce recognition."
@@ -348,7 +348,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -391,7 +391,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -436,7 +436,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -477,7 +477,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -506,7 +506,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -549,7 +549,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -578,7 +578,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         }
@@ -1049,7 +1049,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -1074,7 +1074,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "In Hebrew, vowels are written above, below, before, or after the"
@@ -1104,7 +1104,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "consonant. The first vowel, found under the בּ, is"
@@ -1136,7 +1136,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "ָ Kamatz"
@@ -1162,7 +1162,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "which has the sound of \"ah\" as in Shabbat."
@@ -1188,7 +1188,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Hebrew is read in an orderly manner:"
@@ -1214,7 +1214,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "consonant, vowel, consonant, vowel, consonant, vowel, etc."
@@ -1246,7 +1246,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "When you combine the consonant בּ  and the vowel ָ . the"
@@ -1276,7 +1276,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "resulting sound is בָּ (\"bah\")."
@@ -1312,7 +1312,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "בָּ בָּ בָּ בָּ :Read this line"
@@ -1559,7 +1559,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -1602,7 +1602,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -1645,7 +1645,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -1688,7 +1688,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -2084,7 +2084,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -2123,7 +2123,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -2162,7 +2162,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -2201,7 +2201,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -2240,7 +2240,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -2645,7 +2645,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -2672,7 +2672,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "The Sheva is also read as a stop or pause, having no sound at all"
@@ -2698,7 +2698,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "when placed at the end of a syllable."
@@ -2730,7 +2730,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -2765,7 +2765,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -2802,7 +2802,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -2829,7 +2829,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Read these three lines"
@@ -2869,7 +2869,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -2910,7 +2910,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -2949,7 +2949,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -3426,7 +3426,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -3465,7 +3465,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -3504,7 +3504,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -3543,7 +3543,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -3582,7 +3582,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -3621,7 +3621,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -3652,7 +3652,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "בָּרוּךְ means blessed."
@@ -3678,7 +3678,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "We bless God for those events and"
@@ -3704,7 +3704,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "experiences that make our lives special."
@@ -4153,7 +4153,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -4192,7 +4192,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -4231,7 +4231,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -4270,7 +4270,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -4309,7 +4309,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -4348,7 +4348,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -4802,7 +4802,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -4841,7 +4841,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -4878,7 +4878,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -4915,7 +4915,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -4954,7 +4954,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -4991,7 +4991,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -5411,7 +5411,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -5450,7 +5450,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -5489,7 +5489,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -5526,7 +5526,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -5565,7 +5565,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -5604,7 +5604,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -6072,7 +6072,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -6111,7 +6111,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -6150,7 +6150,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -6189,7 +6189,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -6228,7 +6228,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -6265,7 +6265,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -6296,7 +6296,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "אַתָּה means You."
@@ -6736,7 +6736,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -6775,7 +6775,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -6812,7 +6812,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -6849,7 +6849,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -6882,7 +6882,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -6911,7 +6911,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "When י follows a vowel, it intensifies the sound of the vowel and is"
@@ -6943,7 +6943,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "treated like part of the vowel. For example, י ַ is pronounced like"
@@ -6969,7 +6969,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "the \"ay\" in the Hebrew salute to life, Lechayim."
@@ -7007,7 +7007,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -7044,7 +7044,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -7427,7 +7427,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -7456,7 +7456,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -7485,7 +7485,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "אֲדֹנָי is a combination of Hebrew consonants and vowels that is not"
@@ -7511,7 +7511,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "pronounced as printed. It is a symbol or abbreviation for God's"
@@ -7537,7 +7537,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "name, which is pronounced Adonai (ah-doe-n-eye)."
@@ -7567,7 +7567,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "אֲדֹנָי also serves the same function and is"
@@ -7593,7 +7593,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "also pronounced Adonai when read."
@@ -7627,7 +7627,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -7652,7 +7652,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed are You, Adonai"
@@ -7821,7 +7821,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -7862,7 +7862,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -7903,7 +7903,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -7942,7 +7942,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -7981,7 +7981,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -8020,7 +8020,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -8059,7 +8059,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -8098,7 +8098,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -8137,7 +8137,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -8705,7 +8705,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -8744,7 +8744,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -8781,7 +8781,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -8818,7 +8818,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -8855,7 +8855,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -8892,7 +8892,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -8925,7 +8925,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "Note ֱ  =  ֶ (Chataf Segol sounds like the Segol)"
@@ -8957,7 +8957,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         }
@@ -9431,7 +9431,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -9470,7 +9470,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -9509,7 +9509,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -9546,7 +9546,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -9585,7 +9585,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -9624,7 +9624,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -9663,7 +9663,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -10196,7 +10196,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -10239,7 +10239,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -10278,7 +10278,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -10317,7 +10317,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -10356,7 +10356,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -10395,7 +10395,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -10434,7 +10434,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -10473,7 +10473,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -11088,7 +11088,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -11127,7 +11127,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -11166,7 +11166,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -11203,7 +11203,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -11242,7 +11242,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -11279,7 +11279,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -11318,7 +11318,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -11834,7 +11834,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -11875,7 +11875,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -11914,7 +11914,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -11953,7 +11953,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -11992,7 +11992,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -12035,7 +12035,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -12066,7 +12066,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "אֱלֹהֵינוּ means our God."
@@ -12601,7 +12601,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -12644,7 +12644,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -12683,7 +12683,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -12722,7 +12722,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -12761,7 +12761,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -12800,7 +12800,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -12839,7 +12839,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -12870,7 +12870,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "מֶלֶךְ means king or ruler."
@@ -13452,7 +13452,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -13493,7 +13493,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -13532,7 +13532,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -13571,7 +13571,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -13610,7 +13610,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -13649,7 +13649,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -13680,7 +13680,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "הָעוֹלָם means the world or universe."
@@ -13720,7 +13720,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -13745,7 +13745,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed are You, Adonai our God, Ruler of the universe..."
@@ -13771,7 +13771,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "(These words begin most blessings.)"
@@ -14302,7 +14302,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -14343,7 +14343,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -14382,7 +14382,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -14421,7 +14421,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -14460,7 +14460,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -14499,7 +14499,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -14540,7 +14540,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -14579,7 +14579,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -14618,7 +14618,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -14659,7 +14659,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -15313,7 +15313,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -15354,7 +15354,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -15393,7 +15393,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -15432,7 +15432,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -15471,7 +15471,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -15510,7 +15510,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -15549,7 +15549,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -16155,7 +16155,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -16194,7 +16194,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -16237,7 +16237,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -16276,7 +16276,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -16315,7 +16315,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -16354,7 +16354,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -16393,7 +16393,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -16424,7 +16424,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "פְּרִי means fruit."
@@ -17059,7 +17059,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -17102,7 +17102,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -17141,7 +17141,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -17180,7 +17180,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -17219,7 +17219,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -17258,7 +17258,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -17297,7 +17297,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -17908,7 +17908,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -17951,7 +17951,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -17990,7 +17990,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -18031,7 +18031,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -18072,7 +18072,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -18111,7 +18111,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -18152,7 +18152,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -18185,7 +18185,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "הַגָפֶן means the vine."
@@ -18730,7 +18730,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Kol Hakavod! Congratulations!"
@@ -18756,7 +18756,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "You have just learned your first blessing:"
@@ -18782,7 +18782,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "the Kiddush or the blessing over the wine."
@@ -18818,7 +18818,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -18843,7 +18843,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed are You, Adonai our God,"
@@ -18875,7 +18875,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -18900,7 +18900,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Ruler of the universe,"
@@ -18936,7 +18936,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -18961,7 +18961,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Creator of the fruit of the vine."
@@ -18987,7 +18987,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Raise your cup, recite the blessing,"
@@ -19027,7 +19027,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -19060,7 +19060,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -19085,7 +19085,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "and drink"
@@ -19111,7 +19111,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Lechayim"
@@ -19137,7 +19137,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "to life!"
@@ -19477,7 +19477,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -19518,7 +19518,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -19561,7 +19561,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -19600,7 +19600,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -19639,7 +19639,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -19670,7 +19670,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "הַמוֹצִיא means who brings forth."
@@ -20257,7 +20257,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -20302,7 +20302,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -20343,7 +20343,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -20382,7 +20382,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -20421,7 +20421,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -20462,7 +20462,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -20503,7 +20503,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -20534,7 +20534,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "לֶחֶם means bread."
@@ -21190,7 +21190,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -21229,7 +21229,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -21268,7 +21268,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -21307,7 +21307,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -21346,7 +21346,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -21387,7 +21387,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -21422,7 +21422,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -21447,7 +21447,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed are You, Adonai our God, Ruler of the universe,"
@@ -21473,7 +21473,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "who brings forth bread from the earth."
@@ -21910,7 +21910,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -21951,7 +21951,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -21994,7 +21994,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -22033,7 +22033,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -22072,7 +22072,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -22111,7 +22111,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -22150,7 +22150,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -22187,7 +22187,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -22226,7 +22226,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -22263,7 +22263,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -22897,7 +22897,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -22940,7 +22940,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -22981,7 +22981,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -23020,7 +23020,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -23059,7 +23059,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -23092,7 +23092,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "Note: ֲ = ַ (Chataf Patach sounds like the Patach)"
@@ -23122,7 +23122,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "אֲשֶׁר means that or who."
@@ -23689,7 +23689,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -23732,7 +23732,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -23773,7 +23773,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -23814,7 +23814,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -23855,7 +23855,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -23896,7 +23896,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -23935,7 +23935,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -23966,7 +23966,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "The dot to the right of the  שׁ can do \"double duty\" and serve as a"
@@ -23996,7 +23996,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "cholam if there is no other vowel, so that מֹשֶה = Mosheh."
@@ -24680,7 +24680,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -24723,7 +24723,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -24764,7 +24764,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -24805,7 +24805,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -24846,7 +24846,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -24885,7 +24885,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -24924,7 +24924,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -24955,7 +24955,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "קִדְשָׁנוּ means made us holy or sanctified us."
@@ -25619,7 +25619,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -25660,7 +25660,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -25699,7 +25699,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -25736,7 +25736,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -25773,7 +25773,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -25810,7 +25810,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -25845,7 +25845,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -26305,7 +26305,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "מִצְוָה commandment"
@@ -26335,7 +26335,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "מִצְוֹת commandments"
@@ -26365,7 +26365,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "The plural of מִצְוָה presents a minor reading problem."
@@ -26395,7 +26395,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "It is written מִצְוֹת Based on the consonant-vowel-consonant pat-"
@@ -26425,7 +26425,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "tern described on page 2 of this text, the vowel (ו) must first be"
@@ -26455,7 +26455,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "read as a consonant and then as the vowel cholam (וֹ)."
@@ -26487,7 +26487,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "Thus, we read מִצְוֹת as if it were written מִצְווֹת"
@@ -26517,7 +26517,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "And commanded us = וְצִוָנוּ"
@@ -26547,7 +26547,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "By Your (God's) commandments = בְּמִצְוֹתָיו"
@@ -26579,7 +26579,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "תָיו = תָו :Note"
@@ -26621,7 +26621,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -26662,7 +26662,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -26687,7 +26687,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "New Words:"
@@ -26717,7 +26717,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "to kindle pr light לְהַדְלִיק"
@@ -26747,7 +26747,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "candle נֵר"
@@ -26777,7 +26777,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "of שֶׁל"
@@ -26807,7 +26807,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "Sabbath שַׁבָּת"
@@ -27143,7 +27143,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -27184,7 +27184,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -27209,7 +27209,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, by whose mitzvot"
@@ -27235,7 +27235,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "we are hallowed, who commands us to kindle the lights of Shabbat."
@@ -27261,7 +27261,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Write the meaning of each word in the space provided:"
@@ -27293,7 +27293,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -27324,7 +27324,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -27357,7 +27357,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "אֲדֹנָי or אֲדֹנָי"
@@ -27389,7 +27389,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -27420,7 +27420,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -27451,7 +27451,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -27482,7 +27482,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -27513,7 +27513,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -27544,7 +27544,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -27575,7 +27575,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -27606,7 +27606,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -27637,7 +27637,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -27668,7 +27668,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -27699,7 +27699,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         }
@@ -28045,7 +28045,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -28084,7 +28084,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -28121,7 +28121,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -28162,7 +28162,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -28203,7 +28203,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -28244,7 +28244,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -28285,7 +28285,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -28324,7 +28324,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -28363,7 +28363,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -28404,7 +28404,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -29092,7 +29092,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -29133,7 +29133,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -29174,7 +29174,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -29213,7 +29213,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -29252,7 +29252,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -29291,7 +29291,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -29936,7 +29936,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -29979,7 +29979,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -30018,7 +30018,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -30057,7 +30057,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -30096,7 +30096,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -30135,7 +30135,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -30166,7 +30166,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "Note: The bet (בּ) always has the sound of \"B.\""
@@ -30192,7 +30192,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Translation: Blessed are You, Adonai our God,"
@@ -30218,7 +30218,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Ruler of the universe who sanctifies us with Your mitzvot,"
@@ -30244,7 +30244,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "and commands us to kindle the festival lights."
@@ -30796,7 +30796,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -30835,7 +30835,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -30874,7 +30874,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -30913,7 +30913,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -30950,7 +30950,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -30989,7 +30989,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -31028,7 +31028,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -31067,7 +31067,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -31104,7 +31104,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -31141,7 +31141,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -31779,7 +31779,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -31822,7 +31822,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -31865,7 +31865,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -31906,7 +31906,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -31945,7 +31945,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -31984,7 +31984,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -32023,7 +32023,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -32769,7 +32769,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -32812,7 +32812,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -32853,7 +32853,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -32894,7 +32894,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -32933,7 +32933,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -32974,7 +32974,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -33013,7 +33013,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -33595,7 +33595,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "The blessing over the Chanukah candles:"
@@ -33637,7 +33637,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -33674,7 +33674,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -33705,7 +33705,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -33730,7 +33730,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Match the Hebrew word to its English translation:"
@@ -33760,7 +33760,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "our God אַתָּה"
@@ -33790,7 +33790,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "the world מֶלֶךְ"
@@ -33820,7 +33820,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "made us holy בְּמִצְוֹתָּיו"
@@ -33850,7 +33850,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "and commanded us נֵר"
@@ -33880,7 +33880,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "that, who בָּרוּךְ"
@@ -33910,7 +33910,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "candle אֲשֶׁר"
@@ -33940,7 +33940,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "Adonai חֲנֻכָּה"
@@ -33970,7 +33970,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "Ruler pr King אֲדֹנָי"
@@ -34000,7 +34000,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "You קִדְשָׁנוּ"
@@ -34030,7 +34030,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "to light or kindle לְהַדְלִיק"
@@ -34060,7 +34060,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "of שֶׁל"
@@ -34090,7 +34090,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "Chanukah אֱלֹהֵינוּ"
@@ -34120,7 +34120,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "blessed הָעוֹלָם"
@@ -34150,7 +34150,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "by Your commandments וְצִוָנוּ"
@@ -34488,7 +34488,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -34525,7 +34525,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -34564,7 +34564,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -34605,7 +34605,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -34644,7 +34644,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -34683,7 +34683,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -34720,7 +34720,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -34759,7 +34759,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -34798,7 +34798,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -34837,7 +34837,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -35461,7 +35461,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -35502,7 +35502,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -35541,7 +35541,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -35580,7 +35580,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -35619,7 +35619,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -35658,7 +35658,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -36272,7 +36272,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -36315,7 +36315,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -36356,7 +36356,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -36395,7 +36395,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -36436,7 +36436,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -36475,7 +36475,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -36514,7 +36514,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -37207,7 +37207,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -37248,7 +37248,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -37289,7 +37289,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -37330,7 +37330,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -37369,7 +37369,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -37408,7 +37408,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -37447,7 +37447,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "hebrewPlaybackMode": "sequence",
@@ -37474,7 +37474,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed are You, Adonai our God, Ruler of the universe,"
@@ -37500,7 +37500,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "who performed miracles for our ancestors in days of old"
@@ -37526,7 +37526,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "at this season."
@@ -38089,7 +38089,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 7: The Shehecheyanu"
@@ -38115,7 +38115,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "You have completed your introduction to basic Hebrew reading."
@@ -38141,7 +38141,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Let's celebrate by reading the very special blessing that we say at"
@@ -38167,7 +38167,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "all happy occasions, including festivals, as well as on the first night"
@@ -38197,7 +38197,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "of חֲנֻכָּה : the Shehecheyanu."
@@ -38237,7 +38237,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -38274,7 +38274,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -38299,7 +38299,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed are You, Adonai our God, Ruler of the universe for giving us"
@@ -38325,7 +38325,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "life, for sustaining us, and for enabling us to reach this season."
@@ -38355,7 +38355,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         }
@@ -38521,7 +38521,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "HELPFUL HINTS"
@@ -38547,7 +38547,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "In some cases you may find a dagesh (dot) in letters other than"
@@ -38583,7 +38583,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "ב כ פ ת. With these exceptions, the dagesh is a matter of"
@@ -38609,7 +38609,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "grammar and does not affect the pronunciation of letters."
@@ -38639,7 +38639,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "In some limited cases a Kamatz ( ָ )  is pronounced “aw” as in the"
@@ -38667,7 +38667,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "word \"aught\" rather than \"ah.\" In this case the Kamatz is called a"
@@ -38699,7 +38699,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "Kamatz Katan. (There is also a Chataf Kamatz ֳ which sounds"
@@ -38725,7 +38725,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "like \"aw\" as well as \"oh.\") For instance, the Hebrew word for \"all,\""
@@ -38755,7 +38755,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "כָּל‚ is pronounced \"kol\" not \"kal.\""
@@ -38787,7 +38787,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "וֹי sounds like \"oy.\" וּי sounds like \"oo-ee.\""
@@ -38825,7 +38825,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "אֱלֹהֶיךָ = אֱלֹהֶךָ The י is not pronounced after a ֶ"
@@ -38855,7 +38855,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "If there is a dagesh (dot) in a Final Chaf,ךָּ, it is pronounced like a"
@@ -38887,7 +38887,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "כּ as in the word וִיחֻנֶךָּ ,“vichuneka.”"
@@ -38917,7 +38917,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "If there is a dagesh (dot) in a ה at the end of a word, it is called a"
@@ -38943,7 +38943,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "\"mapik.\" In these cases, the \"h\" sound is pronounced."
@@ -39146,7 +39146,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "ADDITIONAL BLESSINGS"
@@ -39172,7 +39172,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 8: For the Study of Torah"
@@ -39220,7 +39220,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -39253,7 +39253,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -39278,7 +39278,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, by whose mitzvot we are"
@@ -39304,7 +39304,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "hallowed, who commands us to engage in the study of Torah."
@@ -39330,7 +39330,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 9: Over Pastry"
@@ -39376,7 +39376,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -39401,7 +39401,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, Creator of many kinds of"
@@ -39427,7 +39427,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "food."
@@ -39453,7 +39453,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 10: Over Fruits That Grow on Trees"
@@ -39499,7 +39499,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -39524,7 +39524,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, Creator of the fruit of the"
@@ -39550,7 +39550,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "tree."
@@ -39576,7 +39576,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 11: Over Fruits and Vegetables That Grow in the Soil"
@@ -39622,7 +39622,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -39647,7 +39647,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, Creator of the fruit of the"
@@ -39673,7 +39673,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "earth."
@@ -39699,7 +39699,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 12: Over Food Other Than Bread, Fruits, or Vegetables,"
@@ -39725,7 +39725,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "and over Liquids Other Than Wine"
@@ -39771,7 +39771,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -39796,7 +39796,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, by whose word all things"
@@ -39822,7 +39822,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "come into being."
@@ -40313,7 +40313,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 13: On Seeing Lightning or Other Natural Wonders"
@@ -40359,7 +40359,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -40384,7 +40384,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, the Source of creative"
@@ -40410,7 +40410,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "power."
@@ -40436,7 +40436,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 14: On Hearing Thunder"
@@ -40484,7 +40484,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -40509,7 +40509,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, whose power and might"
@@ -40535,7 +40535,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "pervade the world."
@@ -40561,7 +40561,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 15: On Seeing the Ocean"
@@ -40609,7 +40609,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -40634,7 +40634,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, Maker of the great sea."
@@ -40660,7 +40660,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 16: On Seeing the Beauties of Nature"
@@ -40706,7 +40706,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -40731,7 +40731,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, whose world is filled with"
@@ -40757,7 +40757,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "beauty."
@@ -40783,7 +40783,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 17: On Seeing a Rainbow"
@@ -40833,7 +40833,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -40862,7 +40862,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -40887,7 +40887,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Adonai our God, Ruler of the universe, You are the Blessed One. You keep"
@@ -40913,7 +40913,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "faith with us, and, true to Your word, You remember Your covenant with"
@@ -40939,7 +40939,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "creation."
@@ -41439,7 +41439,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 18: On Seeing Trees in Blossom"
@@ -41491,7 +41491,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -41534,7 +41534,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -41559,7 +41559,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Adonai our God, Ruler of the universe, You are the Blessed One. Your world"
@@ -41585,7 +41585,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "lacks nothing needful; You have fashioned goodly creatures and lovely"
@@ -41611,7 +41611,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "trees that enchant the heart."
@@ -41637,7 +41637,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 19: On Hearing Good News"
@@ -41681,7 +41681,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -41706,7 +41706,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, the Good One, the"
@@ -41732,7 +41732,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Source of good."
@@ -41758,7 +41758,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "HAVDALAH BLESSINGS"
@@ -41784,7 +41784,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 20: Over the Havdalah Wine"
@@ -41830,7 +41830,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -41855,7 +41855,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, Creator of the fruit of the"
@@ -41881,7 +41881,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "vine."
@@ -41907,7 +41907,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 21: Over the Spice Box"
@@ -41953,7 +41953,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -41978,7 +41978,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, Creator of all the spices."
@@ -42442,7 +42442,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 18: On Seeing Trees in Blossom"
@@ -42468,7 +42468,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "HAVDALAH BLESSINGS"
@@ -42494,7 +42494,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 22: Over the Havdalah Candle"
@@ -42540,7 +42540,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -42565,7 +42565,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, Creator of the light of"
@@ -42591,7 +42591,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "fire."
@@ -42617,7 +42617,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 23: For Havdala"
@@ -42669,7 +42669,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -42710,7 +42710,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -42735,7 +42735,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, who separates sacred"
@@ -42761,7 +42761,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "from profane, light from darkness, the seventh day of rest from the six"
@@ -42787,7 +42787,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "days of labor."
@@ -42829,7 +42829,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -42854,7 +42854,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 24: Kiddush for Erev Shabbat"
@@ -42900,7 +42900,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -42949,7 +42949,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -42996,7 +42996,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -43037,7 +43037,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -43080,7 +43080,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -43121,7 +43121,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -43146,7 +43146,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, Creator of the fruit of the"
@@ -43172,7 +43172,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "vine."
@@ -43198,7 +43198,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, who hallows us with"
@@ -43224,7 +43224,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "mitzvot and takes delight in us. In love and favor God has made the holy"
@@ -43250,7 +43250,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Sabbath our heritage, as a reminder of the work of creation. It is first"
@@ -43276,7 +43276,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "among our sacred days, and a remembrance of the Exodus from Egypt."
@@ -43302,7 +43302,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "O God, You have chosen us and set us apart from all the peoples, and in"
@@ -43328,7 +43328,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "love and favor have given us the Sabbath day as a sacred inheritance."
@@ -43354,7 +43354,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai, for the Sabbath and its holiness."
@@ -44187,7 +44187,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "TORAH BLESSINGS"
@@ -44213,7 +44213,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 25: Before the Reading of the Torah"
@@ -44247,7 +44247,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -44284,7 +44284,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -44329,7 +44329,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -44372,7 +44372,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -44397,7 +44397,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Praise Adonai, to whom our praise is due!"
@@ -44423,7 +44423,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Praised be Adonai, to whom our praise is due, now and for ever!"
@@ -44449,7 +44449,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, who has chosen us from"
@@ -44475,7 +44475,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "all peoples by giving us the Torah. Blessed is Adonai, Giver of the Torah."
@@ -44501,7 +44501,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 26: After the Reading of the Torah"
@@ -44553,7 +44553,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -44596,7 +44596,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -44621,7 +44621,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, who has given us a Torah"
@@ -44647,7 +44647,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "of truth, implanting within us eternal life. Blessed is Adonai, Giver of the"
@@ -44673,7 +44673,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Torah."
@@ -44699,7 +44699,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 27: Before the Reading of the Haftarah"
@@ -44749,7 +44749,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -44796,7 +44796,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -44833,7 +44833,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -44858,7 +44858,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, who has chosen faithful"
@@ -44884,7 +44884,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "prophets to speak words of truth. Blessed is Adonai, for the revelation of"
@@ -44910,7 +44910,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Torah, for Moses God's servant and Israel God's people, and for the"
@@ -44936,7 +44936,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "prophets of truth and righteousness."
@@ -45625,7 +45625,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 28: After the Reading of the Haftarah"
@@ -45671,7 +45671,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -45714,7 +45714,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -45745,7 +45745,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -45770,7 +45770,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, Rock of all creation,"
@@ -45796,7 +45796,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Righteous One of all generations, the faithful God whose word is deed,"
@@ -45822,7 +45822,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "whose every command is just and true."
@@ -45864,7 +45864,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -45909,7 +45909,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -45956,7 +45956,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -45987,7 +45987,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -46024,7 +46024,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -46049,7 +46049,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "For the Torah, for the privilege of worship, for the prophets, and for the"
@@ -46075,7 +46075,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Shabbat that You, Adonai our God, have given us for holiness and rest, for"
@@ -46101,7 +46101,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "honor and glory, we thank and bless You. May Your name be blessed for"
@@ -46127,7 +46127,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "ever by every living being."
@@ -46153,7 +46153,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai, for the Sabbath and its holiness."
@@ -46179,7 +46179,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessing 29: The Blessing for Putting Up a Mezuzah"
@@ -46227,7 +46227,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -46258,7 +46258,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -46283,7 +46283,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Blessed is Adonai our God, Ruler of the universe, by whose mitzvot we are"
@@ -46309,7 +46309,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "hallowed, who commands us to affix the mezuzah."
@@ -46335,7 +46335,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "The mezuzah is affixed to the upper part of the doorpost."
@@ -46361,7 +46361,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "It is placed on the right-hand side as you enter the house,"
@@ -46387,7 +46387,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "with its top inclining inward."
@@ -47013,7 +47013,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "ADDITIONAL READINGS"
@@ -47039,7 +47039,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "FOUR QUESTIONS"
@@ -47065,7 +47065,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "FROM THE PASSOVER HAGGADAH"
@@ -47105,7 +47105,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -47152,7 +47152,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -47197,7 +47197,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -47246,7 +47246,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -47275,7 +47275,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -47324,7 +47324,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -47353,7 +47353,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -47378,7 +47378,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Why is this night different from all other nights?"
@@ -47404,7 +47404,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "On all other nights, we eat either levened bread or matzah; on this"
@@ -47430,7 +47430,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "night-only matzah."
@@ -47456,7 +47456,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "On all other nights, we eat all kinds of herbs; on this night, we espe-"
@@ -47482,7 +47482,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "cially eat bitter herbs."
@@ -47508,7 +47508,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "On all other nights, we do not dip herbs at all; on this night we dip"
@@ -47534,7 +47534,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "them twice."
@@ -47560,7 +47560,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "On all other nights, we eat in an ordinary manner; tonight we dine"
@@ -47586,7 +47586,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "with special ceremony."
@@ -48077,7 +48077,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "FROM THE PRAYER BOOK"
@@ -48113,7 +48113,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "Barech  !בָּרְכוּ אֶת־אֲדֹנָי הַמְבֹרָךְ\nPraise Adonai, to whom our praise is duel"
@@ -48153,7 +48153,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "Praised be Adonai, to whom our praise is !בָּרוּךְ אֲדֹנָי הַמְבֹרָךְ לְעוֹלָם וָעֶד \ndue, now and for ever!"
@@ -48179,7 +48179,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Shema"
@@ -48221,7 +48221,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "Hear O Israel: Adonai is our God, Adonai is !שְׁמַע יִשְׂרָאֵל: אֲדֹנָי אֱלֹהֵֽינוּ, אֲדֹנָי אֶחָד\nand ever!"
@@ -48247,7 +48247,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Ve'ahavta"
@@ -48291,7 +48291,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -48336,7 +48336,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -48379,7 +48379,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -48404,7 +48404,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "You shall love Adonai your God with all your mind, with all your strength, with all your being."
@@ -48430,7 +48430,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Set these words, which I command you this day, upon your heart. Teach them faithfully to your"
@@ -48456,7 +48456,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "children; speak of them in your home and on your way, when you lie down and when you rise"
@@ -48482,7 +48482,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "up."
@@ -48528,7 +48528,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -48559,7 +48559,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -48584,7 +48584,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Bind them as a sign upon your hand; let them be a symbol before your eyes; inscribe be them on"
@@ -48610,7 +48610,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "the doorposts of your house, and on your gates."
@@ -48656,7 +48656,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -48703,7 +48703,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -48734,7 +48734,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -48759,7 +48759,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Be mindful of all My mitzvot, and do them: so shall you consecrate yourselves to your God. I,"
@@ -48785,7 +48785,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Adonai, am your God who led you out of Egypt to be your God; I, Adonai, a am your God."
@@ -48821,7 +48821,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "Mi Chamochah ?מִי־כָמֹֽכָה בָּאֵלִים, אֲדֹנָי\nWho is like You, Eternal One, among the gods \nthat are worshiped?"
@@ -48857,7 +48857,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "Who is like You, majestic in holiness, ?מִי כָמֹֽכָה, נֶאְדָּר בַּקְֹדֶשׁ"
@@ -48893,7 +48893,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "awesome in splendor, doing wonders?  ?נוֹרָא תְהִלֹּת, עֹֽשֵׂה פֶֽלֶא"
@@ -49681,7 +49681,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Veshamru"
@@ -49725,7 +49725,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -49776,7 +49776,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -49815,7 +49815,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -49840,7 +49840,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "The people of Israel shall keep the Sabbath, observing the Sabbath in every generation as a"
@@ -49866,7 +49866,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "covenant for all time. It is a sign for ever between Me and the people of Israel, for in six days"
@@ -49892,7 +49892,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "the Eternal God made heaven and earth, and on the seventh day God rested from [His] labors."
@@ -49918,7 +49918,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Avot"
@@ -49966,7 +49966,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -50013,7 +50013,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -50060,7 +50060,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -50093,7 +50093,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -50138,7 +50138,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -50163,7 +50163,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "We praise You, Adonai our God and God of all generations: God of Abraham, God of Isaac,"
@@ -50189,7 +50189,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "God of Jacob; great, mighty, and awesome God, God supreme. Sovereign of all the living, Your"
@@ -50215,7 +50215,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "ways are the ways of love. You remember the faithfulness of our ancestors, and in love bring"
@@ -50241,7 +50241,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "redemption to their children's children for the sake of Your name."
@@ -50267,7 +50267,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "You are our Ruler and our Help, our Savior and our Shield. Blessed is Adonai, the Shield of"
@@ -50293,7 +50293,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Abraham."
@@ -50319,7 +50319,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Aleinu"
@@ -50367,7 +50367,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -50414,7 +50414,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -50445,7 +50445,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -50490,7 +50490,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -50521,7 +50521,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -50546,7 +50546,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "We must praise Adonai of all, the Maker of heaven and earth, who has set us apart from the"
@@ -50572,7 +50572,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "other families of earth, giving us a destiny unique among the nations."
@@ -50598,7 +50598,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "We therefore bow in awe and thanksgiving before the One who is Sovereign over all, the Holy"
@@ -50624,7 +50624,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "One, blessed be God."
@@ -50650,7 +50650,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Oseh Shalom"
@@ -50696,7 +50696,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -50725,7 +50725,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -50750,7 +50750,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "May the One who causes peace to reign in the high heavens let peace descend on us, on all"
@@ -50776,7 +50776,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Israel, and all the world."
@@ -51829,7 +51829,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid"
         },
@@ -51854,7 +51854,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "CHART OF THE HEBREW ALPHABET"
@@ -51882,7 +51882,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Page  Sounds Like  Transliteration  Hebrew Script Bloack\n                                                          Name   Letter Letter"
@@ -51916,7 +51916,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "7 silent Alef א - אָלֶף"
@@ -51950,7 +51950,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "1 b Bet בּ - בֵּית"
@@ -51984,7 +51984,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "39 v Vet ו - וֵית"
@@ -52018,7 +52018,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "24 g Gimel ג - גּימֶל"
@@ -52052,7 +52052,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "33 d Dalet ד - דָּלֶת"
@@ -52086,7 +52086,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "10 h Hei ה - הֵא"
@@ -52120,7 +52120,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "34 v Vav ו - וָו"
@@ -52154,7 +52154,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "47 z Zayin ז - זַיִן"
@@ -52188,7 +52188,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "28 ch Chet ח - חֵית"
@@ -52222,7 +52222,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "38 t Tet ט - טֵית"
@@ -52256,7 +52256,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "11 y Yod י - יוֹד"
@@ -52290,7 +52290,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "42 k Kaf כּ - כָּף"
@@ -52324,7 +52324,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "6 ch Chaf כ - כָף"
@@ -52360,7 +52360,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "6 ch Final Chaf ך - כָף סוֹפִית"
@@ -52394,7 +52394,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "15 l Lamed ל - לָמֶד"
@@ -52734,7 +52734,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Page  Sounds Like  Transliteration  Hebrew Script Bloack\n                                                          Name   Letter Letter"
@@ -52768,7 +52768,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "19 m  Mem מ - מֵם"
@@ -52804,7 +52804,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "19 m Final Mem ם - מֵם סוֹפִית"
@@ -52838,7 +52838,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "18 n Nun נ - נוּן"
@@ -52874,7 +52874,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "18 n Final Nun ן - נוּן סוֹפִית"
@@ -52908,7 +52908,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "46 s Samech ס - סָמֶךְ"
@@ -52942,7 +52942,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "20 silent Ayin ע - עַין"
@@ -52976,7 +52976,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "22 p Pei פּ - פֵּא"
@@ -53010,7 +53010,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "25 f Fei פ - פֵא"
@@ -53046,7 +53046,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "25 f Final Fei ף - פֵא סוֹפִית"
@@ -53080,7 +53080,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "27 ts Tzadei צ - צָדִי"
@@ -53116,7 +53116,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "27 ts Final Tzadei ץ - צָדִי סוֹפִית"
@@ -53150,7 +53150,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "32 k Kof ק - קוֹף"
@@ -53184,7 +53184,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "3 r Reish ר - רֵשׁ"
@@ -53218,7 +53218,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "31 sh Shin שׁ - שִׁין"
@@ -53252,7 +53252,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "45 s Sin שׂ - שִׂין"
@@ -53286,7 +53286,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "9 t Tav תּ - תָּו"
@@ -53320,7 +53320,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "9 t Tav ת - תָו"
@@ -53712,7 +53712,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "VOWEL CHART"
@@ -53740,7 +53740,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "englishText": "Page Sounds Like Transliteration Hebrew Vowel\n                                                       Name"
@@ -53774,7 +53774,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "8 ah Patach פַּתָּח  ַ"
@@ -53808,7 +53808,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "41 oo or u Kubutz קֻבּוּץ  ֻ"
@@ -53842,7 +53842,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "23 ee Chirik חִירִיק ִ"
@@ -53876,7 +53876,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "14 eh Segol סֶגוֹל ֶ"
@@ -53910,7 +53910,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "2 ah Kamatz קָמָץ ָ"
@@ -53944,7 +53944,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "17 ay Tzeiri צֵירֵי ֵ"
@@ -53980,7 +53980,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "16 oh Cholam וֹ חוֹלָם or ֹ"
@@ -54014,7 +54014,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "4 oo or u Shuruk וּ שׁוּרוּק"
@@ -54049,7 +54049,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "5 i Sheva שְׁוָה ְ\n   or stop or pause"
@@ -54085,7 +54085,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "31 ah Chataf Patach חֲטַף פַּתָּח ֲ"
@@ -54121,7 +54121,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "14 eh Chataf Segol חֲטַף סֶגּוֹל ֱ"
@@ -54157,7 +54157,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "49 aw or oh Chataf Kamatz חֲטַף קָמָץ ֳ"
@@ -54193,7 +54193,7 @@
             "padRight": 0.8,
             "padBottom": 0.55,
             "padLeft": 1.2,
-            "confidence": 0.82
+            "confidence": 0.92
           },
           "matchMode": "hybrid",
           "mixedText": "49 oh or aw Kamatz Katan קָמָץ קָטָן ָ"

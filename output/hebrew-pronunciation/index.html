@@ -675,8 +675,7 @@
       <section class="transcript-panel">
         <section class="page-playback">
           <div class="simple-actions">
-            <button id="playWholePage" type="button" disabled>Play whole page</button>
-            <button id="playDrills" class="secondary" type="button" disabled>Play drills</button>
+            <button id="playPrimary" type="button" disabled>Play introduction</button>
             <button id="stopPlayback" class="ghost" type="button">Stop</button>
           </div>
         </section>
@@ -712,8 +711,7 @@
       pageCounter: document.getElementById("pageCounter"),
       pageImage: document.getElementById("pageImage"),
       playbackStatus: document.getElementById("playbackStatus"),
-      playDrills: document.getElementById("playDrills"),
-      playWholePage: document.getElementById("playWholePage"),
+      playPrimary: document.getElementById("playPrimary"),
       goToPageOne: document.getElementById("goToPageOne"),
       prevPage: document.getElementById("prevPage"),
       endPage: document.getElementById("endPage"),
@@ -722,12 +720,6 @@
 
     function currentPage() {
       return state.reader.pages[state.currentPageIndex];
-    }
-
-    function isStartPage(page) {
-      return orderedSections(page).some(function (section) {
-        return section.playbackMode === "single_block";
-      });
     }
 
     function drillPlaybackGroups(page) {
@@ -747,6 +739,21 @@
             gapMs: Number(line.sequenceGapMs) || 0
           };
         });
+    }
+
+    function introPlaybackGroup(page) {
+      const introSection = orderedSections(page).find(function (section) {
+        return section.playbackMode === "single_block" && section.audio && section.audio.mixed && section.audio.mixed.block;
+      });
+      if (!introSection) {
+        return null;
+      }
+      return {
+        label: introSection.playbackLabel || "Introduction",
+        lineId: null,
+        urls: [introSection.audio.mixed.block],
+        gapMs: 0,
+      };
     }
 
     function currentPageWordsById(page) {
@@ -1133,10 +1140,6 @@
         return "strip_only";
       }
 
-      if (typeof region.confidence === "number" && region.confidence < 0.85) {
-        return "strip_only";
-      }
-
       return requestedMode;
     }
 
@@ -1258,30 +1261,15 @@
           const actions = document.createElement("div");
           actions.className = "line-actions";
 
-          const hebrewLineAudio = line.audio && line.audio.he ? line.audio.he.line : null;
-          const englishLineAudio = line.audio && line.audio.en ? line.audio.en.line : null;
-          const mixedLineAudio = line.audio && line.audio.mixed ? line.audio.mixed.line : null;
           const hebrewPlaybackMode = line.hebrewPlaybackMode === "sequence" ? "sequence" : "continuous";
           const sequenceGapMs = Number(line.sequenceGapMs) || 0;
-          if (mixedLineAudio || hebrewLineAudio || englishLineAudio || (line.hebrewAudioSequence && line.hebrewAudioSequence.length)) {
+          if (line.hebrewPlaybackMode === "sequence" && (line.hebrewAudioSequence && line.hebrewAudioSequence.length)) {
             const playHebrew = document.createElement("button");
             playHebrew.type = "button";
             playHebrew.textContent = "Play whole line";
             playHebrew.addEventListener("click", function () {
-              if (hebrewPlaybackMode === "sequence" && line.hebrewAudioSequence && line.hebrewAudioSequence.length) {
+              if (line.hebrewAudioSequence && line.hebrewAudioSequence.length) {
                 playSequence(line.hebrewAudioSequence || [], line.label + " in Hebrew", line.id, sequenceGapMs);
-                return;
-              }
-              if (mixedLineAudio) {
-                playSingle(mixedLineAudio, line.label, line.id);
-                return;
-              }
-              if (hebrewLineAudio) {
-                playSingle(hebrewLineAudio, line.label + " in Hebrew", line.id);
-                return;
-              }
-              if (englishLineAudio) {
-                playSingle(englishLineAudio, line.label + " in English", line.id);
                 return;
               }
               playSequence(line.hebrewAudioSequence || [], line.label + " in Hebrew", line.id, sequenceGapMs);
@@ -1375,8 +1363,10 @@
       elements.nextPage.disabled = state.currentPageIndex === state.reader.pages.length - 1;
       elements.goToPageOne.disabled = state.currentPageIndex === 0;
       elements.endPage.disabled = state.currentPageIndex === state.reader.pages.length - 1;
-      elements.playWholePage.disabled = !(page.fullPlaybackGroups && page.fullPlaybackGroups.length);
-      elements.playDrills.disabled = !drillPlaybackGroups(page).length;
+      const introGroup = introPlaybackGroup(page);
+      elements.playPrimary.disabled = !introGroup;
+      elements.playPrimary.classList.toggle("hidden", !introGroup);
+      elements.playPrimary.textContent = "Play introduction";
 
       renderLines(page);
       renderOverlays(page);
@@ -1446,14 +1436,13 @@
       renderPage();
     });
 
-    elements.playWholePage.addEventListener("click", function () {
+    elements.playPrimary.addEventListener("click", function () {
       const page = currentPage();
-      playGroups(page.fullPlaybackGroups || [], "Page " + page.page);
-    });
-
-    elements.playDrills.addEventListener("click", function () {
-      const page = currentPage();
-      playGroups(drillPlaybackGroups(page), "Page " + page.page + " drills");
+      const introGroup = introPlaybackGroup(page);
+      if (!introGroup) {
+        return;
+      }
+      playGroups([introGroup], "Page " + page.page + " introduction");
     });
 
     elements.pageImage.addEventListener("load", function () {
