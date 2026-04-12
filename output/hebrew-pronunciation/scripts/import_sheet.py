@@ -12,6 +12,11 @@ from pathlib import Path
 from typing import Dict, Iterable, List, Optional
 from urllib.request import urlopen
 
+try:
+    from PIL import Image
+except ImportError:  # pragma: no cover - optional in some local shells
+    Image = None
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT_PATH = ROOT / "transcript.json"
@@ -27,6 +32,17 @@ DRILL_RE = re.compile(r"^\s*(\d+)\.\s*")
 WORD_SPLIT_RE = re.compile(r"\s+")
 INVISIBLE_RE = re.compile(r"[\u200e\u200f\ufeff]")
 DIVINE_NAME_RE = re.compile(r"(יְיָ|יְהוָה|יהוה)")
+REGION_DETECTION_CANDIDATES = [
+    {"bottom": 0.88, "row_threshold": 8, "merge_gap": 4, "dark_threshold": 170, "min_height": 4},
+    {"bottom": 0.88, "row_threshold": 10, "merge_gap": 4, "dark_threshold": 170, "min_height": 4},
+    {"bottom": 0.9, "row_threshold": 8, "merge_gap": 4, "dark_threshold": 170, "min_height": 4},
+    {"bottom": 0.9, "row_threshold": 10, "merge_gap": 4, "dark_threshold": 170, "min_height": 4},
+    {"bottom": 0.9, "row_threshold": 12, "merge_gap": 4, "dark_threshold": 170, "min_height": 4},
+    {"bottom": 0.9, "row_threshold": 15, "merge_gap": 4, "dark_threshold": 170, "min_height": 4},
+    {"bottom": 0.92, "row_threshold": 8, "merge_gap": 4, "dark_threshold": 170, "min_height": 4},
+    {"bottom": 0.92, "row_threshold": 10, "merge_gap": 4, "dark_threshold": 170, "min_height": 4},
+    {"bottom": 0.94, "row_threshold": 8, "merge_gap": 4, "dark_threshold": 170, "min_height": 4},
+]
 
 
 def parse_args(argv: Iterable[str]) -> argparse.Namespace:
@@ -187,10 +203,230 @@ def page_title(page_rows: List[Dict], page_number: int) -> str:
     return f"Page {page_number}"
 
 
+def page_image_path(page_number: int) -> Path:
+    return ROOT / "pages" / f"page-{page_number:03d}.png"
+
+
+def detect_candidate_bands(
+    image: "Image.Image",
+    *,
+    bottom: float,
+    row_threshold: int,
+    merge_gap: int,
+    dark_threshold: int,
+    min_height: int,
+    left_pct: float = 0.05,
+    right_pct: float = 0.96,
+    top_pct: float = 0.04,
+) -> Dict:
+    width, height = image.size
+    left = int(width * left_pct)
+    right = int(width * right_pct)
+    top = int(height * top_pct)
+    bottom_px = int(height * bottom)
+    data = image.load()
+
+    rows: List[int] = []
+    for y in range(top, bottom_px):
+        count = 0
+        for x in range(left, right):
+            if data[x, y] < dark_threshold:
+                count += 1
+        rows.append(count)
+
+    bands: List[List[int]] = []
+    start: Optional[int] = None
+    for index, count in enumerate(rows):
+        y = top + index
+        if count > row_threshold and start is None:
+            start = y
+        elif count <= row_threshold and start is not None:
+            bands.append([start, y - 1])
+            start = None
+
+    if start is not None:
+        bands.append([start, bottom_px - 1])
+
+    merged: List[List[int]] = []
+    for start_px, end_px in bands:
+        if merged and start_px - merged[-1][1] <= merge_gap:
+            merged[-1][1] = end_px
+        else:
+            merged.append([start_px, end_px])
+
+    filtered = [band for band in merged if (band[1] - band[0] + 1) >= min_height]
+    max_height = max((band[1] - band[0] + 1) for band in filtered) if filtered else 9999
+    return {
+        "bands": filtered,
+        "rows": rows,
+        "top_px": top,
+        "left_px": left,
+        "right_px": right,
+        "width": width,
+        "height": height,
+        "max_height": max_height,
+    }
+
+
+def merge_closest_bands(bands: List[List[int]], target_count: int) -> List[List[int]]:
+    adjusted = [list(band) for band in bands]
+    while len(adjusted) > target_count and len(adjusted) > 1:
+        gaps = [adjusted[index + 1][0] - adjusted[index][1] for index in range(len(adjusted) - 1)]
+        merge_index = min(range(len(gaps)), key=lambda index: gaps[index])
+        adjusted[merge_index][1] = adjusted[merge_index + 1][1]
+        adjusted.pop(merge_index + 1)
+    return adjusted
+
+
+def split_tallest_band(bands: List[List[int]], rows: List[int], top_px: int) -> bool:
+    if not bands:
+        return False
+
+    tallest_index = max(range(len(bands)), key=lambda index: bands[index][1] - bands[index][0])
+    start_px, end_px = bands[tallest_index]
+    height = end_px - start_px + 1
+    if height < 12:
+        return False
+
+    start_row = max(0, start_px - top_px)
+    end_row = min(len(rows) - 1, end_px - top_px)
+    band_rows = rows[start_row : end_row + 1]
+    if len(band_rows) < 8:
+        return False
+
+    margin = max(2, len(band_rows) // 8)
+    interior = band_rows[margin : len(band_rows) - margin]
+    if len(interior) < 4:
+        return False
+
+    split_offset = min(range(len(interior)), key=lambda index: interior[index]) + margin
+    split_px = start_px + split_offset
+    if split_px <= start_px + 2 or split_px >= end_px - 2:
+        split_px = start_px + (height // 2)
+    if split_px <= start_px + 1 or split_px >= end_px - 1:
+        return False
+
+    bands[tallest_index : tallest_index + 1] = [[start_px, split_px - 1], [split_px + 1, end_px]]
+    return True
+
+
+def adjust_bands_to_count(bands: List[List[int]], rows: List[int], top_px: int, target_count: int) -> List[List[int]]:
+    adjusted = [list(band) for band in bands]
+    if len(adjusted) > target_count:
+        adjusted = merge_closest_bands(adjusted, target_count)
+
+    attempts = 0
+    while len(adjusted) < target_count and attempts < target_count * 3:
+        if not split_tallest_band(adjusted, rows, top_px):
+            break
+        attempts += 1
+
+    return sorted(adjusted, key=lambda band: band[0])
+
+
+def detect_text_bounds(
+    image: "Image.Image",
+    *,
+    y1: int,
+    y2: int,
+    left: int,
+    right: int,
+    dark_threshold: int,
+) -> Dict:
+    data = image.load()
+    columns: List[int] = []
+    for x in range(left, right):
+        count = 0
+        for y in range(y1, y2 + 1):
+            if data[x, y] < dark_threshold:
+                count += 1
+        columns.append(count)
+
+    threshold = max(2, (y2 - y1 + 1) * 0.12)
+    min_x = next((left + index for index, count in enumerate(columns) if count >= threshold), left)
+    max_x = right - 1
+    while max_x > min_x and columns[max_x - left] < threshold:
+        max_x -= 1
+
+    return {"left": min_x, "right": max(max_x, min_x)}
+
+
+def pct(value: float, total: int) -> float:
+    return round((value / total) * 100.0, 2)
+
+
+def suggest_line_regions(page_number: int, page_rows: List[Dict], sections: List[Dict]) -> Dict[int, Dict]:
+    if Image is None:
+        return {}
+
+    image_path = page_image_path(page_number)
+    if not image_path.exists():
+        return {}
+
+    hidden_section_ids = {section["id"] for section in sections if section.get("playbackMode") == "single_block"}
+    visible_rows = [row for row in page_rows if row.get("sectionId") not in hidden_section_ids]
+    if not visible_rows:
+        return {}
+
+    expected_total = len(page_rows)
+    best_candidate: Optional[Dict] = None
+
+    with Image.open(image_path).convert("L") as image:
+        for candidate in REGION_DETECTION_CANDIDATES:
+            detected = detect_candidate_bands(image, **candidate)
+            band_count = len(detected["bands"])
+            if band_count >= expected_total:
+                score = (band_count - expected_total, detected["max_height"])
+            else:
+                score = (1000 + (expected_total - band_count), detected["max_height"])
+            if best_candidate is None or score < best_candidate["score"]:
+                best_candidate = {
+                    "score": score,
+                    "candidate": candidate,
+                    "detected": detected,
+                }
+
+        if best_candidate is None:
+            return {}
+
+        detected = best_candidate["detected"]
+        bands = adjust_bands_to_count(detected["bands"], detected["rows"], detected["top_px"], expected_total)
+        if hidden_section_ids:
+            bands = bands[-len(visible_rows) :]
+        else:
+            bands = bands[: len(visible_rows)]
+
+        regions: Dict[int, Dict] = {}
+        for row, band in zip(visible_rows, bands):
+            y1, y2 = band
+            bounds = detect_text_bounds(
+                image,
+                y1=y1,
+                y2=y2,
+                left=detected["left_px"],
+                right=detected["right_px"],
+                dark_threshold=best_candidate["candidate"]["dark_threshold"],
+            )
+            regions[row["line_number"]] = {
+                "top": pct(y1, detected["height"]),
+                "left": pct(bounds["left"], detected["width"]),
+                "width": pct(bounds["right"] - bounds["left"] + 1, detected["width"]),
+                "height": pct(y2 - y1 + 1, detected["height"]),
+                "padTop": 0.45,
+                "padRight": 0.8,
+                "padBottom": 0.55,
+                "padLeft": 1.2,
+                "confidence": 0.82,
+            }
+
+        return regions
+
+
 def build_page(page_number: int, page_rows: List[Dict], *, pdf_path: str, audio_revision: str) -> Dict:
     page_context = infer_page_context(page_rows)
     sections = build_sections(page_rows, page_context=page_context)
     assign_section_id(page_rows, sections)
+    line_regions = suggest_line_regions(page_number, page_rows, sections)
 
     words: List[Dict] = []
     lines: List[Dict] = []
@@ -240,6 +476,10 @@ def build_page(page_number: int, page_rows: List[Dict], *, pdf_path: str, audio_
             "wordIds": word_ids,
             "displayWords": tokens,
         }
+
+        if row["line_number"] in line_regions:
+            line["region"] = line_regions[row["line_number"]]
+            line["matchMode"] = "hybrid"
 
         if row["is_drill"] and word_ids:
             line["hebrewPlaybackMode"] = "sequence"
