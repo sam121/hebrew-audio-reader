@@ -212,6 +212,16 @@
             "p1-word-006",
             "p1-word-007",
             "p1-word-008"
+          ],
+          "displayWords": [
+            "אֱלֹהַי,",
+            "נְשָׁמָה",
+            "שֶׁנָּתַֽתָּ",
+            "בִּי",
+            "טְהוֹרָה",
+            "הִיא!",
+            "אַתָּה",
+            "בְּרָאתָהּ,"
           ]
         },
         {
@@ -248,6 +258,16 @@
             "p1-word-014",
             "p1-word-015",
             "p1-word-016"
+          ],
+          "displayWords": [
+            "אַתָּה",
+            "יְצַרְתָּהּ,",
+            "אַתָּה",
+            "נְפַחְתָּהּ",
+            "בִּי,",
+            "וְאַתָּה",
+            "מְשַׁמְּרָהּ",
+            "בְּקִרְבִּי."
           ]
         },
         {
@@ -284,6 +304,16 @@
             "p1-word-022",
             "p1-word-023",
             "p1-word-024"
+          ],
+          "displayWords": [
+            "כָּל־זְמַן",
+            "שֶׁהַנְּשָׁמָה",
+            "בְּקִרְבִּי,",
+            "מוֹדֶה",
+            "אֲנִי",
+            "לְפָנֶֽיךָ,",
+            "יְיָ",
+            "אֱלֹהַי"
           ]
         },
         {
@@ -318,6 +348,14 @@
             "p1-word-028",
             "p1-word-029",
             "p1-word-030"
+          ],
+          "displayWords": [
+            "וֵאלֹהֵי",
+            "אֲבוֹתַי,",
+            "רִבּוֹן",
+            "כָּל־הַמַּעֲשִׂים,",
+            "אֲדוֹן",
+            "כָּל־"
           ]
         },
         {
@@ -347,6 +385,9 @@
           },
           "wordIds": [
             "p1-word-031"
+          ],
+          "displayWords": [
+            "הַנְּשָׁמוֹת."
           ]
         },
         {
@@ -383,6 +424,16 @@
             "p1-word-037",
             "p1-word-038",
             "p1-word-039"
+          ],
+          "displayWords": [
+            "בָּרוּךְ",
+            "אַתָּה,",
+            "יְיָ,",
+            "אֲשֶׁר",
+            "בְּיָדוֹ",
+            "נֶֽפֶשׁ",
+            "כָּל־חָי,",
+            "וְרֽוּחַ"
           ]
         },
         {
@@ -412,6 +463,9 @@
           },
           "wordIds": [
             "p1-word-040"
+          ],
+          "displayWords": [
+            "כָּל־בְּשַׂר־אִישׁ."
           ]
         }
       ],
@@ -1162,6 +1216,12 @@
             "p2-word-002",
             "p2-word-003",
             "p2-word-004"
+          ],
+          "displayWords": [
+            "בָּ",
+            "בָּ",
+            "בָּ",
+            "בָּ"
           ]
         }
       ],
@@ -1310,6 +1370,13 @@
             "p3-word-003",
             "p3-word-004",
             "p3-word-005"
+          ],
+          "displayWords": [
+            "רָ",
+            "בָּ",
+            "רָ",
+            "בָּ",
+            "רָ"
           ]
         },
         {
@@ -1345,6 +1412,15 @@
             "p3-word-010",
             "p3-word-011",
             "p3-word-012"
+          ],
+          "displayWords": [
+            "רָ",
+            "בָּ",
+            "רָבָּ",
+            "בָּרָ",
+            "בָּר",
+            "רָ",
+            "בָּ"
           ]
         },
         {
@@ -1380,6 +1456,15 @@
             "p3-word-017",
             "p3-word-018",
             "p3-word-019"
+          ],
+          "displayWords": [
+            "רָבּ",
+            "בָּר",
+            "בָּרָ",
+            "רָבָּ",
+            "רָר",
+            "רָבָּר",
+            "בָּרָר"
           ]
         },
         {
@@ -1415,6 +1500,15 @@
             "p3-word-024",
             "p3-word-025",
             "p3-word-026"
+          ],
+          "displayWords": [
+            "בָּבָּ",
+            "רָרָ",
+            "בָּבָּרָ",
+            "רָ",
+            "בָּ",
+            "בָּר",
+            "רָבָּבָּר"
           ]
         }
       ],
@@ -1424,8 +1518,8 @@
           "page": 3,
           "lineId": "p3-line-001",
           "order": 1,
-          "displayText": "רְ",
-          "spokenText": "רֶ",
+          "displayText": "רָ",
+          "spokenText": "רָ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1438,8 +1532,8 @@
           "page": 3,
           "lineId": "p3-line-001",
           "order": 2,
-          "displayText": "בְּ",
-          "spokenText": "בֶּ",
+          "displayText": "בָּ",
+          "spokenText": "בָּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1452,8 +1546,8 @@
           "page": 3,
           "lineId": "p3-line-001",
           "order": 3,
-          "displayText": "רְ",
-          "spokenText": "רֶ",
+          "displayText": "רָ",
+          "spokenText": "רָ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1466,8 +1560,8 @@
           "page": 3,
           "lineId": "p3-line-001",
           "order": 4,
-          "displayText": "בְּ",
-          "spokenText": "בֶּ",
+          "displayText": "בָּ",
+          "spokenText": "בָּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1480,8 +1574,8 @@
           "page": 3,
           "lineId": "p3-line-001",
           "order": 5,
-          "displayText": "רְ",
-          "spokenText": "רֶ",
+          "displayText": "רָ",
+          "spokenText": "רָ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1494,8 +1588,8 @@
           "page": 3,
           "lineId": "p3-line-002",
           "order": 6,
-          "displayText": "רְ",
-          "spokenText": "רֶ",
+          "displayText": "רָ",
+          "spokenText": "רָ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1508,8 +1602,8 @@
           "page": 3,
           "lineId": "p3-line-002",
           "order": 7,
-          "displayText": "בְּ",
-          "spokenText": "בֶּ",
+          "displayText": "בָּ",
+          "spokenText": "בָּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1522,8 +1616,8 @@
           "page": 3,
           "lineId": "p3-line-002",
           "order": 8,
-          "displayText": "רַב",
-          "spokenText": "רַב",
+          "displayText": "רָבָּ",
+          "spokenText": "רָבָּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1536,8 +1630,8 @@
           "page": 3,
           "lineId": "p3-line-002",
           "order": 9,
-          "displayText": "בָּר",
-          "spokenText": "בָּר",
+          "displayText": "בָּרָ",
+          "spokenText": "בָּרָ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1550,8 +1644,8 @@
           "page": 3,
           "lineId": "p3-line-002",
           "order": 10,
-          "displayText": "בַּר",
-          "spokenText": "בַּר",
+          "displayText": "בָּר",
+          "spokenText": "בָּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -1564,8 +1658,8 @@
           "page": 3,
           "lineId": "p3-line-002",
           "order": 11,
-          "displayText": "רְ",
-          "spokenText": "רֶ",
+          "displayText": "רָ",
+          "spokenText": "רָ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1578,8 +1672,8 @@
           "page": 3,
           "lineId": "p3-line-002",
           "order": 12,
-          "displayText": "בְּ",
-          "spokenText": "בֶּ",
+          "displayText": "בָּ",
+          "spokenText": "בָּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1592,8 +1686,8 @@
           "page": 3,
           "lineId": "p3-line-003",
           "order": 13,
-          "displayText": "רַב",
-          "spokenText": "רַב",
+          "displayText": "רָבּ",
+          "spokenText": "רָבּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1606,8 +1700,8 @@
           "page": 3,
           "lineId": "p3-line-003",
           "order": 14,
-          "displayText": "בְּר",
-          "spokenText": "בֶּר",
+          "displayText": "בָּר",
+          "spokenText": "בָּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -1620,8 +1714,8 @@
           "page": 3,
           "lineId": "p3-line-003",
           "order": 15,
-          "displayText": "בָּר",
-          "spokenText": "בָּר",
+          "displayText": "בָּרָ",
+          "spokenText": "בָּרָ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1634,8 +1728,8 @@
           "page": 3,
           "lineId": "p3-line-003",
           "order": 16,
-          "displayText": "רַב",
-          "spokenText": "רַב",
+          "displayText": "רָבָּ",
+          "spokenText": "רָבָּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1662,8 +1756,8 @@
           "page": 3,
           "lineId": "p3-line-003",
           "order": 18,
-          "displayText": "רַבָּר",
-          "spokenText": "רַבָּר",
+          "displayText": "רָבָּר",
+          "spokenText": "רָבָּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -1676,8 +1770,8 @@
           "page": 3,
           "lineId": "p3-line-003",
           "order": 19,
-          "displayText": "בְּרָר",
-          "spokenText": "בֶּרָר",
+          "displayText": "בָּרָר",
+          "spokenText": "בָּרָר",
           "status": "verified",
           "audio": {
             "he": {
@@ -1690,8 +1784,8 @@
           "page": 3,
           "lineId": "p3-line-004",
           "order": 20,
-          "displayText": "בְּבְּ",
-          "spokenText": "בֶּבֶּ",
+          "displayText": "בָּבָּ",
+          "spokenText": "בָּבָּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1704,8 +1798,8 @@
           "page": 3,
           "lineId": "p3-line-004",
           "order": 21,
-          "displayText": "רָר",
-          "spokenText": "רָר",
+          "displayText": "רָרָ",
+          "spokenText": "רָרָ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1718,8 +1812,8 @@
           "page": 3,
           "lineId": "p3-line-004",
           "order": 22,
-          "displayText": "בְּבָּר",
-          "spokenText": "בֶּבָּר",
+          "displayText": "בָּבָּרָ",
+          "spokenText": "בָּבָּרָ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1732,8 +1826,8 @@
           "page": 3,
           "lineId": "p3-line-004",
           "order": 23,
-          "displayText": "רְ",
-          "spokenText": "רֶ",
+          "displayText": "רָ",
+          "spokenText": "רָ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1746,8 +1840,8 @@
           "page": 3,
           "lineId": "p3-line-004",
           "order": 24,
-          "displayText": "בְּ",
-          "spokenText": "בֶּ",
+          "displayText": "בָּ",
+          "spokenText": "בָּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -1774,8 +1868,8 @@
           "page": 3,
           "lineId": "p3-line-004",
           "order": 26,
-          "displayText": "רַבְּבָר",
-          "spokenText": "רַבֶּבָר",
+          "displayText": "רָבָּבָּר",
+          "spokenText": "רָבָּבָּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -1871,6 +1965,13 @@
             "p4-word-003",
             "p4-word-004",
             "p4-word-005"
+          ],
+          "displayWords": [
+            "בּוּ",
+            "רוּ",
+            "רוּ",
+            "בּוּ",
+            "בּוּ"
           ]
         },
         {
@@ -1904,6 +2005,13 @@
             "p4-word-008",
             "p4-word-009",
             "p4-word-010"
+          ],
+          "displayWords": [
+            "בּוּר",
+            "רָבָּ",
+            "בָּרוּ",
+            "רוּבּוּ",
+            "בָּרָ"
           ]
         },
         {
@@ -1937,6 +2045,13 @@
             "p4-word-013",
             "p4-word-014",
             "p4-word-015"
+          ],
+          "displayWords": [
+            "רָבּוּ",
+            "רָבּוּר",
+            "בָּבּוּר",
+            "רוּר",
+            "בָּרוּר"
           ]
         },
         {
@@ -1970,6 +2085,13 @@
             "p4-word-018",
             "p4-word-019",
             "p4-word-020"
+          ],
+          "displayWords": [
+            "וּרָבּוּ",
+            "בָּרוּ",
+            "בָּרוּר",
+            "בָּבּוּר",
+            "וּרָבּוּר"
           ]
         },
         {
@@ -2003,6 +2125,13 @@
             "p4-word-023",
             "p4-word-024",
             "p4-word-025"
+          ],
+          "displayWords": [
+            "בּוּר",
+            "בּוּרוּ",
+            "וּרָבּוּר",
+            "רָבּוּ",
+            "בּוּרוּ"
           ]
         }
       ],
@@ -2013,7 +2142,7 @@
           "lineId": "p4-line-001",
           "order": 1,
           "displayText": "בּוּ",
-          "spokenText": "בֻּ",
+          "spokenText": "בּוּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2027,7 +2156,7 @@
           "lineId": "p4-line-001",
           "order": 2,
           "displayText": "רוּ",
-          "spokenText": "רֻ",
+          "spokenText": "רוּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2041,7 +2170,7 @@
           "lineId": "p4-line-001",
           "order": 3,
           "displayText": "רוּ",
-          "spokenText": "רֻ",
+          "spokenText": "רוּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2055,7 +2184,7 @@
           "lineId": "p4-line-001",
           "order": 4,
           "displayText": "בּוּ",
-          "spokenText": "בֻּ",
+          "spokenText": "בּוּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2069,7 +2198,7 @@
           "lineId": "p4-line-001",
           "order": 5,
           "displayText": "בּוּ",
-          "spokenText": "בֻּ",
+          "spokenText": "בּוּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2083,7 +2212,7 @@
           "lineId": "p4-line-002",
           "order": 6,
           "displayText": "בּוּר",
-          "spokenText": "בֻּר",
+          "spokenText": "בּוּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -2096,8 +2225,8 @@
           "page": 4,
           "lineId": "p4-line-002",
           "order": 7,
-          "displayText": "רַבּ",
-          "spokenText": "רַבּ",
+          "displayText": "רָבָּ",
+          "spokenText": "רָבָּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2110,8 +2239,8 @@
           "page": 4,
           "lineId": "p4-line-002",
           "order": 8,
-          "displayText": "בְּרוּ",
-          "spokenText": "בְּרֻ",
+          "displayText": "בָּרוּ",
+          "spokenText": "בָּרוּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2124,8 +2253,8 @@
           "page": 4,
           "lineId": "p4-line-002",
           "order": 9,
-          "displayText": "רוּבוּ",
-          "spokenText": "רֻבֻּ",
+          "displayText": "רוּבּוּ",
+          "spokenText": "רוּבּוּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2138,8 +2267,8 @@
           "page": 4,
           "lineId": "p4-line-002",
           "order": 10,
-          "displayText": "בָּר",
-          "spokenText": "בָּר",
+          "displayText": "בָּרָ",
+          "spokenText": "בָּרָ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2152,8 +2281,8 @@
           "page": 4,
           "lineId": "p4-line-003",
           "order": 11,
-          "displayText": "רוּבּ",
-          "spokenText": "רֻבּ",
+          "displayText": "רָבּוּ",
+          "spokenText": "רָבּוּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2166,8 +2295,8 @@
           "page": 4,
           "lineId": "p4-line-003",
           "order": 12,
-          "displayText": "רְבוּר",
-          "spokenText": "רְבֻר",
+          "displayText": "רָבּוּר",
+          "spokenText": "רָבּוּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -2180,8 +2309,8 @@
           "page": 4,
           "lineId": "p4-line-003",
           "order": 13,
-          "displayText": "בְּבוּר",
-          "spokenText": "בְּבֻר",
+          "displayText": "בָּבּוּר",
+          "spokenText": "בָּבּוּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -2195,7 +2324,7 @@
           "lineId": "p4-line-003",
           "order": 14,
           "displayText": "רוּר",
-          "spokenText": "רֻר",
+          "spokenText": "רוּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -2208,8 +2337,8 @@
           "page": 4,
           "lineId": "p4-line-003",
           "order": 15,
-          "displayText": "בְּרוּר",
-          "spokenText": "בְּרֻר",
+          "displayText": "בָּרוּר",
+          "spokenText": "בָּרוּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -2222,8 +2351,8 @@
           "page": 4,
           "lineId": "p4-line-004",
           "order": 16,
-          "displayText": "וּרְבוּ",
-          "spokenText": "אֻרְבֻ",
+          "displayText": "וּרָבּוּ",
+          "spokenText": "וּרָבּוּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2236,8 +2365,8 @@
           "page": 4,
           "lineId": "p4-line-004",
           "order": 17,
-          "displayText": "בְּרוּ",
-          "spokenText": "בְּרֻ",
+          "displayText": "בָּרוּ",
+          "spokenText": "בָּרוּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2250,8 +2379,8 @@
           "page": 4,
           "lineId": "p4-line-004",
           "order": 18,
-          "displayText": "בְּרוּ",
-          "spokenText": "בְּרֻ",
+          "displayText": "בָּרוּר",
+          "spokenText": "בָּרוּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -2264,8 +2393,8 @@
           "page": 4,
           "lineId": "p4-line-004",
           "order": 19,
-          "displayText": "בְּבוּ",
-          "spokenText": "בְּבֻ",
+          "displayText": "בָּבּוּר",
+          "spokenText": "בָּבּוּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -2278,8 +2407,8 @@
           "page": 4,
           "lineId": "p4-line-004",
           "order": 20,
-          "displayText": "וּרְבוּ",
-          "spokenText": "אֻרְבֻ",
+          "displayText": "וּרָבּוּר",
+          "spokenText": "וּרָבּוּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -2293,7 +2422,7 @@
           "lineId": "p4-line-005",
           "order": 21,
           "displayText": "בּוּר",
-          "spokenText": "בֻּר",
+          "spokenText": "בּוּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -2306,8 +2435,8 @@
           "page": 4,
           "lineId": "p4-line-005",
           "order": 22,
-          "displayText": "בְּרוּ",
-          "spokenText": "בְּרֻ",
+          "displayText": "בּוּרוּ",
+          "spokenText": "בּוּרוּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2320,8 +2449,8 @@
           "page": 4,
           "lineId": "p4-line-005",
           "order": 23,
-          "displayText": "וּרְבוּ",
-          "spokenText": "אֻרְבֻ",
+          "displayText": "וּרָבּוּר",
+          "spokenText": "וּרָבּוּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -2334,8 +2463,8 @@
           "page": 4,
           "lineId": "p4-line-005",
           "order": 24,
-          "displayText": "רַבּ",
-          "spokenText": "רַבּ",
+          "displayText": "רָבּוּ",
+          "spokenText": "רָבּוּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2348,8 +2477,8 @@
           "page": 4,
           "lineId": "p4-line-005",
           "order": 25,
-          "displayText": "בְּרוּ",
-          "spokenText": "בְּרֻ",
+          "displayText": "בּוּרוּ",
+          "spokenText": "בּוּרוּ",
           "status": "verified",
           "audio": {
             "he": {

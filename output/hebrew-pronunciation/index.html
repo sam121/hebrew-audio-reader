@@ -378,6 +378,45 @@
       gap: 6px;
     }
 
+    .line-reading {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .line-reading-arrow {
+      position: relative;
+      width: 40px;
+      min-width: 40px;
+      height: 18px;
+      margin-top: 16px;
+      filter: drop-shadow(0 2px 6px rgba(134, 9, 0, 0.28));
+    }
+
+    .line-reading-arrow::before {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 6px;
+      width: 24px;
+      height: 6px;
+      border-radius: 999px;
+      background: #ff2a1f;
+    }
+
+    .line-reading-arrow::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 1px;
+      width: 0;
+      height: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-right: 16px solid #ff2a1f;
+    }
+
     .line-title-row {
       display: flex;
       gap: 10px;
@@ -426,20 +465,24 @@
     .word-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
       direction: rtl;
-      justify-content: flex-start;
+      justify-content: flex-end;
       align-items: flex-start;
     }
 
+    .line-word-grid {
+      flex: 1;
+    }
+
     .word-chip {
-      padding: 10px 14px;
-      border-radius: 16px;
+      padding: 14px 18px;
+      border-radius: 18px;
       border: 1px solid rgba(120, 89, 65, 0.18);
       background: rgba(255, 249, 243, 0.96);
       color: var(--ink);
       box-shadow: 0 8px 18px rgba(87, 60, 42, 0.06);
-      font-size: 1.35rem;
+      font-size: clamp(1.6rem, 2.1vw, 2.05rem);
       direction: rtl;
       unicode-bidi: plaintext;
       font-family: "Times New Roman", "Noto Serif Hebrew", "David", serif;
@@ -566,21 +609,6 @@
       color: var(--accent-strong);
     }
 
-    .line-strip {
-      display: block;
-      width: 100%;
-      padding: 6px 8px;
-      background: rgba(255, 253, 249, 0.96);
-      border: 1px solid rgba(147, 80, 54, 0.16);
-      border-radius: 16px;
-      box-shadow: 0 8px 18px rgba(87, 60, 42, 0.05);
-    }
-
-    .line-card.active .line-strip {
-      border-color: rgba(147, 80, 54, 0.34);
-      box-shadow: 0 12px 24px rgba(97, 63, 41, 0.1);
-    }
-
     @media (max-width: 1020px) {
       body {
         padding: 14px;
@@ -618,7 +646,32 @@
       }
 
       .word-chip {
-        font-size: 1.15rem;
+        font-size: 1.35rem;
+        padding: 12px 15px;
+      }
+
+      .line-reading {
+        gap: 10px;
+      }
+
+      .line-reading-arrow {
+        width: 32px;
+        min-width: 32px;
+        height: 16px;
+        margin-top: 14px;
+      }
+
+      .line-reading-arrow::before {
+        top: 6px;
+        width: 20px;
+        height: 5px;
+      }
+
+      .line-reading-arrow::after {
+        top: 1px;
+        border-top-width: 7px;
+        border-bottom-width: 7px;
+        border-right-width: 13px;
       }
 
       .line-overlay {
@@ -1153,16 +1206,6 @@
           title.textContent = line.badgeLabel || (line.overlayNumber ? "Line " + line.overlayNumber : "Line " + line.order);
           heading.appendChild(title);
 
-          if (line.stripImage) {
-            const strip = document.createElement("img");
-            strip.className = "line-strip";
-            strip.src = line.stripImage;
-            strip.alt = (line.badgeLabel || line.label || line.id) + " strip from the scanned page";
-            strip.loading = "lazy";
-            strip.decoding = "async";
-            heading.appendChild(strip);
-          }
-
           const actions = document.createElement("div");
           actions.className = "line-actions";
 
@@ -1178,17 +1221,25 @@
 
           card.appendChild(heading);
 
-          if (actions.childNodes.length) {
-            card.appendChild(actions);
-          }
-
           if (line.wordIds && line.wordIds.length) {
+            const lineReading = document.createElement("div");
+            lineReading.className = "line-reading";
+
+            const readingArrow = document.createElement("span");
+            readingArrow.className = "line-reading-arrow";
+            readingArrow.setAttribute("aria-hidden", "true");
+            lineReading.appendChild(readingArrow);
+
             const wordGrid = document.createElement("div");
-            wordGrid.className = "word-grid";
+            wordGrid.className = "word-grid line-word-grid";
             wordGrid.lang = "he";
             wordGrid.dir = "rtl";
 
-            line.wordIds.forEach(function (wordId) {
+            const displayWords = Array.isArray(line.displayWords) && line.displayWords.length === line.wordIds.length
+              ? line.displayWords
+              : null;
+
+            line.wordIds.forEach(function (wordId, index) {
               const word = wordsById.get(wordId);
               if (!word) {
                 return;
@@ -1197,7 +1248,7 @@
               const chip = document.createElement("button");
               chip.type = "button";
               chip.className = "word-chip";
-              chip.textContent = word.displayText;
+              chip.textContent = displayWords ? displayWords[index] : word.displayText;
               chip.disabled = !word.audio || !word.audio.he || !word.audio.he.word;
               chip.title = word.spokenText;
               chip.addEventListener("click", function () {
@@ -1206,7 +1257,12 @@
               wordGrid.appendChild(chip);
             });
 
-            card.appendChild(wordGrid);
+            lineReading.appendChild(wordGrid);
+            card.appendChild(lineReading);
+          }
+
+          if (actions.childNodes.length) {
+            card.appendChild(actions);
           }
 
           sectionList.appendChild(card);
