@@ -389,6 +389,30 @@
       gap: 14px;
     }
 
+    .line-display-text {
+      margin: 0;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(147, 80, 54, 0.06);
+      border: 1px solid rgba(147, 80, 54, 0.12);
+      color: var(--ink);
+      line-height: 1.55;
+      white-space: pre-wrap;
+      unicode-bidi: plaintext;
+      font-size: 1rem;
+    }
+
+    .line-display-text.hebrew {
+      text-align: right;
+      direction: rtl;
+      font-family: "Times New Roman", "Noto Serif Hebrew", "David", serif;
+      font-size: clamp(1.35rem, 1.9vw, 1.7rem);
+    }
+
+    .line-display-text.mixed {
+      direction: auto;
+    }
+
     .line-reading-arrow {
       position: relative;
       width: 40px;
@@ -1293,9 +1317,11 @@
           actions.className = "line-actions";
 
           const hebrewLineAudio = line.audio && line.audio.he ? line.audio.he.line : null;
+          const englishLineAudio = line.audio && line.audio.en ? line.audio.en.line : null;
+          const mixedLineAudio = line.audio && line.audio.mixed ? line.audio.mixed.line : null;
           const hebrewPlaybackMode = line.hebrewPlaybackMode === "sequence" ? "sequence" : "continuous";
           const sequenceGapMs = Number(line.sequenceGapMs) || 0;
-          if (hebrewLineAudio || (line.hebrewAudioSequence && line.hebrewAudioSequence.length)) {
+          if (mixedLineAudio || hebrewLineAudio || englishLineAudio || (line.hebrewAudioSequence && line.hebrewAudioSequence.length)) {
             const playHebrew = document.createElement("button");
             playHebrew.type = "button";
             playHebrew.textContent = "Play whole line";
@@ -1304,8 +1330,16 @@
                 playSequence(line.hebrewAudioSequence || [], line.label + " in Hebrew", line.id, sequenceGapMs);
                 return;
               }
+              if (mixedLineAudio) {
+                playSingle(mixedLineAudio, line.label, line.id);
+                return;
+              }
               if (hebrewLineAudio) {
                 playSingle(hebrewLineAudio, line.label + " in Hebrew", line.id);
+                return;
+              }
+              if (englishLineAudio) {
+                playSingle(englishLineAudio, line.label + " in English", line.id);
                 return;
               }
               playSequence(line.hebrewAudioSequence || [], line.label + " in Hebrew", line.id, sequenceGapMs);
@@ -1315,7 +1349,30 @@
 
           card.appendChild(heading);
 
-          if (line.wordIds && line.wordIds.length) {
+          const hasWordIds = line.wordIds && line.wordIds.length;
+          const contentMode = line.contentMode || (hasWordIds ? "hebrew" : "english");
+          const shouldShowDisplayText = Boolean(
+            line.displayText && (!hasWordIds || contentMode === "mixed" || contentMode === "english" || contentMode === "other")
+          );
+
+          if (shouldShowDisplayText) {
+            const displayText = document.createElement("p");
+            displayText.className = "line-display-text";
+            if (contentMode === "hebrew") {
+              displayText.classList.add("hebrew");
+              displayText.lang = "he";
+              displayText.dir = "rtl";
+            } else if (contentMode === "mixed") {
+              displayText.classList.add("mixed");
+              displayText.dir = "auto";
+            } else {
+              displayText.dir = "auto";
+            }
+            displayText.textContent = line.displayText;
+            card.appendChild(displayText);
+          }
+
+          if (hasWordIds) {
             const lineReading = document.createElement("div");
             lineReading.className = "line-reading";
 

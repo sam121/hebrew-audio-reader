@@ -214,6 +214,9 @@ def clone_line(line: Dict) -> Dict:
         },
         "en": {
             "line": None
+        },
+        "mixed": {
+            "line": None
         }
     }
     clone["stripImage"] = None
@@ -462,6 +465,7 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
             if (
                 line.get("status") == "verified"
                 and line_out["hebrewPlaybackMode"] != "sequence"
+                and not line.get("mixedText")
                 and line_hebrew_text
             ):
                 line_out["audio"]["he"]["line"] = ensure_audio(
@@ -470,6 +474,23 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                     language_code="he",
                     item_id=line["id"],
                     text=line_hebrew_text,
+                    model_id=hebrew_model,
+                    voice_id=hebrew_voice_id,
+                    voice_secret_name="ELEVENLABS_HEBREW_VOICE_ID",
+                    api_key=api_key,
+                    output_format=output_format,
+                    allow_missing_audio=allow_missing_audio,
+                    manifest_entries=manifest_entries,
+                    missing_items=missing_items,
+                    revision=page_audio_revision,
+                )
+            if line.get("status") == "verified" and line.get("mixedText"):
+                line_out["audio"]["mixed"]["line"] = ensure_audio(
+                    category="lines",
+                    language="mixed",
+                    language_code=None,
+                    item_id=line["id"],
+                    text=line.get("mixedText"),
                     model_id=hebrew_model,
                     voice_id=hebrew_voice_id,
                     voice_secret_name="ELEVENLABS_HEBREW_VOICE_ID",
@@ -543,18 +564,34 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                 for line in page_out["lines"]
                 if (line.get("sectionId") or "default") == section["id"]
                 and line.get("status") == "verified"
-                and (line.get("audio", {}).get("he", {}).get("line") or line.get("hebrewAudioSequence"))
+                and (
+                    line.get("audio", {}).get("mixed", {}).get("line")
+                    or line.get("audio", {}).get("he", {}).get("line")
+                    or line.get("audio", {}).get("en", {}).get("line")
+                    or line.get("hebrewAudioSequence")
+                )
             ]
             for line in section_lines:
                 use_sequence = (
                     line.get("hebrewPlaybackMode") == "sequence"
                     or not line.get("audio", {}).get("he", {}).get("line")
                 )
-                line_urls = (
-                    list(line.get("hebrewAudioSequence", []))
-                    if use_sequence
-                    else [line["audio"]["he"]["line"]]
-                )
+                if use_sequence and line.get("hebrewAudioSequence"):
+                    line_urls = list(line.get("hebrewAudioSequence", []))
+                elif line.get("audio", {}).get("mixed", {}).get("line"):
+                    line_urls = [line["audio"]["mixed"]["line"]]
+                    use_sequence = False
+                elif line.get("audio", {}).get("he", {}).get("line"):
+                    line_urls = [line["audio"]["he"]["line"]]
+                    use_sequence = False
+                elif line.get("audio", {}).get("en", {}).get("line"):
+                    line_urls = [line["audio"]["en"]["line"]]
+                    use_sequence = False
+                else:
+                    line_urls = []
+
+                if not line_urls:
+                    continue
                 page_out["fullPlaybackGroups"].append(
                     {
                         "label": line.get("badgeLabel") or line.get("label") or line["id"],

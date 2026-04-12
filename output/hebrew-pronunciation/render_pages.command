@@ -2,10 +2,10 @@
 set -euo pipefail
 setopt null_glob
 
-SOURCE_PDF="/Users/samueltaylor/Downloads/annas-arch-c9a691bed7c4 (1).pdf"
+SOURCE_PDF="/Users/samueltaylor/Downloads/Learn Hebrew Today (Adult Hebrew book) (1) (1).pdf"
 OUT_DIR="/Users/samueltaylor/Documents/New project/output/hebrew-pronunciation/pages"
-SOURCE_FIRST="${1:-4}"
-SOURCE_LAST="${2:-6}"
+SOURCE_FIRST="${1:-1}"
+SOURCE_LAST="${2:-61}"
 OUTPUT_START="${3:-1}"
 TMP_PREFIX="${OUT_DIR}/source-page"
 
