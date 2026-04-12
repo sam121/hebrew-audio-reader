@@ -405,6 +405,7 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                 }
             },
             "fullPlaybackGroups": [],
+            "drillPlaybackGroups": [],
             "lines": [],
             "words": [],
         }
@@ -531,6 +532,15 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
             line_out["hebrewAudioSequence"] = (
                 line_sequence if len(line_sequence) == len(line.get("wordIds", [])) else []
             )
+            if line_out["hebrewPlaybackMode"] == "sequence" and line_out["hebrewAudioSequence"]:
+                page_out["drillPlaybackGroups"].append(
+                    {
+                        "label": line.get("badgeLabel") or line.get("label") or line["id"],
+                        "lineId": line["id"],
+                        "urls": list(line_out["hebrewAudioSequence"]),
+                        "gapMs": sequence_gap_ms(line_out),
+                    }
+                )
             page_out["lines"].append(line_out)
 
         expected_page_word_ids = [

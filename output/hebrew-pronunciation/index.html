@@ -740,6 +740,10 @@
     }
 
     function drillPlaybackGroups(page) {
+      if (page.drillPlaybackGroups && page.drillPlaybackGroups.length) {
+        return page.drillPlaybackGroups;
+      }
+
       return orderedLines(page)
         .filter(function (line) {
           return line.hebrewPlaybackMode === "sequence" && line.hebrewAudioSequence && line.hebrewAudioSequence.length;
@@ -1410,7 +1414,7 @@
 
     async function loadReader() {
       try {
-        const response = await fetch("./data/reader.json");
+        const response = await fetch("./data/reader.json", { cache: "no-store" });
         if (!response.ok) {
           throw new Error("Reader data fetch failed: " + response.status);
         }
