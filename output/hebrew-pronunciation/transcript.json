@@ -1350,6 +1350,8 @@
           "order": 2,
           "label": "Printed line 1",
           "status": "verified",
+          "hebrewPlaybackMode": "sequence",
+          "sequenceGapMs": 220,
           "englishText": null,
           "region": {
             "top": 39.5,
@@ -1390,6 +1392,8 @@
           "order": 3,
           "label": "Printed line 2",
           "status": "verified",
+          "hebrewPlaybackMode": "sequence",
+          "sequenceGapMs": 220,
           "englishText": null,
           "region": {
             "top": 46.77,
@@ -1434,6 +1438,8 @@
           "order": 4,
           "label": "Printed line 3",
           "status": "verified",
+          "hebrewPlaybackMode": "sequence",
+          "sequenceGapMs": 220,
           "englishText": null,
           "region": {
             "top": 53.32,
@@ -1478,6 +1484,8 @@
           "order": 5,
           "label": "Printed line 4",
           "status": "verified",
+          "hebrewPlaybackMode": "sequence",
+          "sequenceGapMs": 220,
           "englishText": null,
           "region": {
             "top": 59.95,
@@ -1888,7 +1896,7 @@
       "sourcePdfPage": 9,
       "title": "Shuruk practice",
       "status": "verified",
-      "audioRevision": "2026-04-12-refresh-1",
+      "audioRevision": "2026-04-12-refresh-2",
       "image": "pages/page-004.png",
       "englishText": null,
       "audio": {
@@ -1946,6 +1954,8 @@
           "order": 2,
           "label": "Printed line 1",
           "status": "verified",
+          "hebrewPlaybackMode": "sequence",
+          "sequenceGapMs": 220,
           "englishText": null,
           "region": {
             "top": 41.59,
@@ -1986,6 +1996,8 @@
           "order": 3,
           "label": "Printed line 2",
           "status": "verified",
+          "hebrewPlaybackMode": "sequence",
+          "sequenceGapMs": 220,
           "englishText": null,
           "region": {
             "top": 48.23,
@@ -2026,6 +2038,8 @@
           "order": 4,
           "label": "Printed line 3",
           "status": "verified",
+          "hebrewPlaybackMode": "sequence",
+          "sequenceGapMs": 220,
           "englishText": null,
           "region": {
             "top": 54.86,
@@ -2066,6 +2080,8 @@
           "order": 5,
           "label": "Printed line 4",
           "status": "verified",
+          "hebrewPlaybackMode": "sequence",
+          "sequenceGapMs": 220,
           "englishText": null,
           "region": {
             "top": 61.55,
@@ -2106,6 +2122,8 @@
           "order": 6,
           "label": "Printed line 5",
           "status": "verified",
+          "hebrewPlaybackMode": "sequence",
+          "sequenceGapMs": 220,
           "englishText": null,
           "region": {
             "top": 68.18,
@@ -2356,7 +2374,7 @@
           "lineId": "p4-line-004",
           "order": 16,
           "displayText": "וּרָבּוּ",
-          "spokenText": "וּרָבּוּ",
+          "spokenText": "אוּרָבּוּ",
           "status": "verified",
           "audio": {
             "he": {
@@ -2412,7 +2430,7 @@
           "lineId": "p4-line-004",
           "order": 20,
           "displayText": "וּרָבּוּר",
-          "spokenText": "וּרָבּוּר",
+          "spokenText": "אוּרָבּוּר",
           "status": "verified",
           "audio": {
             "he": {
@@ -2454,7 +2472,7 @@
           "lineId": "p4-line-005",
           "order": 23,
           "displayText": "וּרָבּוּר",
-          "spokenText": "וּרָבּוּר",
+          "spokenText": "אוּרָבּוּר",
           "status": "verified",
           "audio": {
             "he": {

@@ -9,6 +9,36 @@ This folder contains the source and build pipeline for a static GitHub Pages sit
 - `pages/`: rendered PDF page images
 - `scripts/build_site.py`: builds `site/`, generates missing audio, and writes manifests
 
+## Transcript conventions
+
+- Keep `displayText` exactly as printed in the scan.
+- Use `spokenText` for the text that should actually be sent to ElevenLabs.
+- Use `hebrewPlaybackMode: "sequence"` for numbered drill rows that should play word by word.
+- Use `hebrewPlaybackMode: "continuous"` or omit the field for normal prose, blessings, and other flowing text.
+- `sequenceGapMs` controls the pause between word clips for sequence playback. The current default is `220`.
+- Bump the page-level `audioRevision` any time you need fresh audio for a page, even if the visible text did not change.
+
+### Pronunciation override workflow
+
+Use this when ElevenLabs mispronounces a word but the visible Hebrew on the page is correct.
+
+1. Leave `displayText` unchanged.
+2. Change `spokenText` to a helper form that produces the intended sound.
+3. Bump that page's `audioRevision`.
+4. Rebuild and deploy so the corrected clips are regenerated.
+
+Example patterns:
+
+- Divine name:
+  - `displayText: "יְיָ"`
+  - `spokenText: "אֲדֹנָי"`
+- Initial shuruk read as a consonantal vav:
+  - `displayText: "וּרָבּוּר"`
+  - first try `spokenText: "אוּרָבּוּר"`
+  - if ElevenLabs still inserts a v-sound, try a more explicit helper such as `spokenText: "אוּ רָבּוּר"`
+
+The rule is general: preserve the printed Hebrew for the reader, and use `spokenText` only to steer pronunciation.
+
 ## Environment variables
 
 - `ELEVENLABS_API_KEY`

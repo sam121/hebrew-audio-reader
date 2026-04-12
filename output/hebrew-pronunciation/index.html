@@ -875,6 +875,19 @@
       });
     }
 
+    function pauseBetweenSequenceClips(gapMs, token) {
+      const delay = Number(gapMs) || 0;
+      if (delay <= 0) {
+        return Promise.resolve(true);
+      }
+
+      return new Promise(function (resolve) {
+        window.setTimeout(function () {
+          resolve(token === state.playbackToken);
+        }, delay);
+      });
+    }
+
     async function playSingle(url, label, lineId) {
       if (!url) {
         setStatus("Audio is not available for this item yet.", "Unavailable");
@@ -893,7 +906,7 @@
       }
     }
 
-    async function playSequence(urls, label, lineId) {
+    async function playSequence(urls, label, lineId, gapMs) {
       const sequence = urls.filter(Boolean);
       if (!sequence.length) {
         setStatus("Audio is not available for this item yet.", "Unavailable");
@@ -903,7 +916,8 @@
       const token = startPlayback(label, lineId);
       let skipped = 0;
       try {
-        for (const url of sequence) {
+        for (let index = 0; index < sequence.length; index += 1) {
+          const url = sequence[index];
           if (token !== state.playbackToken) {
             return;
           }
@@ -912,6 +926,13 @@
           } catch (error) {
             skipped += 1;
             console.error("Skipping broken clip in sequence", url, error);
+          }
+
+          if (index < sequence.length - 1) {
+            const stillActive = await pauseBetweenSequenceClips(gapMs, token);
+            if (!stillActive) {
+              return;
+            }
           }
         }
         if (token === state.playbackToken) {
@@ -936,7 +957,8 @@
           return {
             label: group.label,
             lineId: group.lineId || null,
-            urls: (group.urls || []).filter(Boolean)
+            urls: (group.urls || []).filter(Boolean),
+            gapMs: Number(group.gapMs) || 0
           };
         })
         .filter(function (group) {
@@ -959,7 +981,8 @@
 
           setActiveLine(group.lineId);
 
-          for (const url of group.urls) {
+          for (let index = 0; index < group.urls.length; index += 1) {
+            const url = group.urls[index];
             if (token !== state.playbackToken) {
               return;
             }
@@ -969,6 +992,13 @@
             } catch (error) {
               skipped += 1;
               console.error("Skipping broken clip in grouped playback", url, error);
+            }
+
+            if (index < group.urls.length - 1) {
+              const stillActive = await pauseBetweenSequenceClips(group.gapMs, token);
+              if (!stillActive) {
+                return;
+              }
             }
           }
         }
@@ -1210,16 +1240,22 @@
           actions.className = "line-actions";
 
           const hebrewLineAudio = line.audio && line.audio.he ? line.audio.he.line : null;
+          const hebrewPlaybackMode = line.hebrewPlaybackMode === "sequence" ? "sequence" : "continuous";
+          const sequenceGapMs = Number(line.sequenceGapMs) || 0;
           if (hebrewLineAudio || (line.hebrewAudioSequence && line.hebrewAudioSequence.length)) {
             const playHebrew = document.createElement("button");
             playHebrew.type = "button";
             playHebrew.textContent = "Play whole line";
             playHebrew.addEventListener("click", function () {
+              if (hebrewPlaybackMode === "sequence" && line.hebrewAudioSequence && line.hebrewAudioSequence.length) {
+                playSequence(line.hebrewAudioSequence || [], line.label + " in Hebrew", line.id, sequenceGapMs);
+                return;
+              }
               if (hebrewLineAudio) {
                 playSingle(hebrewLineAudio, line.label + " in Hebrew", line.id);
                 return;
               }
-              playSequence(line.hebrewAudioSequence || [], line.label + " in Hebrew", line.id);
+              playSequence(line.hebrewAudioSequence || [], line.label + " in Hebrew", line.id, sequenceGapMs);
             });
             actions.appendChild(playHebrew);
           }

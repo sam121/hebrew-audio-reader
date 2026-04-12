@@ -26,6 +26,7 @@ SITE_AUDIO = SITE_ROOT / "assets" / "audio"
 SITE_LINE_STRIPS = SITE_ROOT / "assets" / "line-strips"
 
 DEFAULT_OUTPUT_FORMAT = "mp3_44100_128"
+DEFAULT_SEQUENCE_GAP_MS = 220
 TRAILING_PUNCTUATION = ",.;:!?\"'״׳…׃"
 
 
@@ -282,6 +283,17 @@ def hebrew_line_text(line: Dict, words_by_id: Dict[str, Dict]) -> Optional[str]:
     return " ".join(parts)
 
 
+def hebrew_playback_mode(line: Dict) -> str:
+    return "sequence" if line.get("hebrewPlaybackMode") == "sequence" else "continuous"
+
+
+def sequence_gap_ms(line: Dict) -> int:
+    value = line.get("sequenceGapMs")
+    if isinstance(value, (int, float)) and value > 0:
+        return int(value)
+    return DEFAULT_SEQUENCE_GAP_MS
+
+
 def resolved_region(line: Dict) -> Optional[Dict]:
     region = line.get("region") or line.get("overlay")
     if not region:
@@ -441,8 +453,17 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
         for line in ordered_lines(page):
             line_out = clone_line(line)
             line_out["stripImage"] = build_line_strip(page=page, line=line_out)
+            line_out["hebrewPlaybackMode"] = hebrew_playback_mode(line_out)
+            if line_out["hebrewPlaybackMode"] == "sequence":
+                line_out["sequenceGapMs"] = sequence_gap_ms(line_out)
+            else:
+                line_out.pop("sequenceGapMs", None)
             line_hebrew_text = hebrew_line_text(line, words_by_id)
-            if line.get("status") == "verified" and line_hebrew_text:
+            if (
+                line.get("status") == "verified"
+                and line_out["hebrewPlaybackMode"] != "sequence"
+                and line_hebrew_text
+            ):
                 line_out["audio"]["he"]["line"] = ensure_audio(
                     category="lines",
                     language="he",
@@ -525,16 +546,21 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                 and (line.get("audio", {}).get("he", {}).get("line") or line.get("hebrewAudioSequence"))
             ]
             for line in section_lines:
+                use_sequence = (
+                    line.get("hebrewPlaybackMode") == "sequence"
+                    or not line.get("audio", {}).get("he", {}).get("line")
+                )
                 line_urls = (
-                    [line["audio"]["he"]["line"]]
-                    if line.get("audio", {}).get("he", {}).get("line")
-                    else list(line.get("hebrewAudioSequence", []))
+                    list(line.get("hebrewAudioSequence", []))
+                    if use_sequence
+                    else [line["audio"]["he"]["line"]]
                 )
                 page_out["fullPlaybackGroups"].append(
                     {
                         "label": line.get("badgeLabel") or line.get("label") or line["id"],
                         "lineId": line["id"],
                         "urls": line_urls,
+                        "gapMs": sequence_gap_ms(line) if use_sequence else 0,
                     }
                 )
         site_payload["pages"].append(page_out)
