@@ -2999,7 +2999,7 @@
           "lineId": "p05-line-005",
           "order": 5,
           "displayText": "בְּ",
-          "spokenText": "בְּ",
+          "spokenText": "בִּ",
           "status": "verified"
         },
         {
@@ -3008,7 +3008,7 @@
           "lineId": "p05-line-005",
           "order": 6,
           "displayText": "רְ",
-          "spokenText": "רְ",
+          "spokenText": "רִ",
           "status": "verified"
         },
         {
@@ -3017,7 +3017,7 @@
           "lineId": "p05-line-005",
           "order": 7,
           "displayText": "בְּ",
-          "spokenText": "בְּ",
+          "spokenText": "בִּ",
           "status": "verified"
         },
         {
@@ -3260,7 +3260,7 @@
           "lineId": "p05-line-014",
           "order": 34,
           "displayText": "רְ",
-          "spokenText": "רְ",
+          "spokenText": "רִ",
           "status": "verified"
         },
         {

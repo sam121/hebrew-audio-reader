@@ -32,6 +32,7 @@ DRILL_RE = re.compile(r"^\s*(\d+)\.\s*")
 WORD_SPLIT_RE = re.compile(r"\s+")
 INVISIBLE_RE = re.compile(r"[\u200e\u200f\ufeff]")
 DIVINE_NAME_RE = re.compile(r"(יְיָ|יְהוָה|יהוה)")
+ISOLATED_SHEVA_RE = re.compile(r"^([א-ת])(\u05bc)?\u05b0$")
 REGION_DETECTION_CANDIDATES = [
     {"bottom": 0.88, "row_threshold": 8, "merge_gap": 4, "dark_threshold": 170, "min_height": 4},
     {"bottom": 0.88, "row_threshold": 10, "merge_gap": 4, "dark_threshold": 170, "min_height": 4},
@@ -113,8 +114,10 @@ def replace_vet_with_vav(text: str) -> str:
 
 def infer_page_context(page_rows: List[Dict]) -> Dict:
     has_vet_lesson = any(" vet" in row["line_content"].lower() for row in page_rows)
+    has_sheva_lesson = any("sheva" in row["line_content"].lower() for row in page_rows)
     return {
         "vet_lesson": has_vet_lesson,
+        "sheva_lesson": has_sheva_lesson,
     }
 
 
@@ -130,6 +133,11 @@ def normalize_word_for_speech(token: str, *, drill_line: bool, page_context: Dic
     spoken = DIVINE_NAME_RE.sub("אֲדֹנָי", spoken)
     spoken = spoken.replace("־", " ")
     spoken = apply_page_pronunciation_rules(spoken, page_context=page_context)
+    if page_context.get("sheva_lesson"):
+        sheva_match = ISOLATED_SHEVA_RE.match(spoken)
+        if sheva_match:
+            letter, dagesh = sheva_match.groups()
+            spoken = letter + (dagesh or "") + "ִ"
     if drill_line and spoken.startswith("וּ"):
         spoken = "א" + spoken
     return spoken
