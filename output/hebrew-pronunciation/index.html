@@ -675,6 +675,8 @@
       <section class="transcript-panel">
         <section class="page-playback">
           <div class="simple-actions">
+            <button id="playWholePage" type="button" disabled>Play whole page</button>
+            <button id="playPrimary" type="button" disabled>Play introduction</button>
             <button id="playDrills" class="secondary" type="button" disabled>Play drills</button>
             <button id="stopPlayback" class="ghost" type="button">Stop</button>
           </div>
@@ -712,6 +714,8 @@
       pageImage: document.getElementById("pageImage"),
       playbackStatus: document.getElementById("playbackStatus"),
       playDrills: document.getElementById("playDrills"),
+      playPrimary: document.getElementById("playPrimary"),
+      playWholePage: document.getElementById("playWholePage"),
       goToPageOne: document.getElementById("goToPageOne"),
       prevPage: document.getElementById("prevPage"),
       endPage: document.getElementById("endPage"),
@@ -742,6 +746,88 @@
             gapMs: Number(line.sequenceGapMs) || 0
           };
         });
+    }
+
+    function introPlaybackGroup(page) {
+      const introSection = orderedSections(page).find(function (section) {
+        return section.playbackMode === "single_block" && section.audio && section.audio.mixed && section.audio.mixed.block;
+      });
+      if (!introSection) {
+        return null;
+      }
+      return {
+        label: introSection.playbackLabel || "Introduction",
+        lineId: null,
+        urls: [introSection.audio.mixed.block],
+        gapMs: 0,
+      };
+    }
+
+    function primaryPlaybackGroups(page) {
+      const introGroup = introPlaybackGroup(page);
+      if (introGroup) {
+        return [introGroup];
+      }
+
+      const drillLineIds = new Set(
+        drillPlaybackGroups(page)
+          .map(function (group) {
+            return group.lineId;
+          })
+          .filter(Boolean)
+      );
+
+      const groupedPlayback = (page.fullPlaybackGroups || []).filter(function (group) {
+        return !group.lineId || !drillLineIds.has(group.lineId);
+      });
+      if (groupedPlayback.length) {
+        return groupedPlayback;
+      }
+
+      return orderedLines(page)
+        .filter(function (line) {
+          return !drillLineIds.has(line.id);
+        })
+        .map(function (line) {
+          if (line.audio && line.audio.mixed && line.audio.mixed.line) {
+            return {
+              label: line.badgeLabel || line.label || line.id,
+              lineId: line.id,
+              urls: [line.audio.mixed.line],
+              gapMs: 0,
+            };
+          }
+          if (line.audio && line.audio.he && line.audio.he.line) {
+            return {
+              label: line.badgeLabel || line.label || line.id,
+              lineId: line.id,
+              urls: [line.audio.he.line],
+              gapMs: 0,
+            };
+          }
+          if (line.audio && line.audio.en && line.audio.en.line) {
+            return {
+              label: line.badgeLabel || line.label || line.id,
+              lineId: line.id,
+              urls: [line.audio.en.line],
+              gapMs: 0,
+            };
+          }
+          return null;
+        })
+        .filter(Boolean);
+    }
+
+    function wholePagePlaybackGroups(page) {
+      if (page.fullPlaybackGroups && page.fullPlaybackGroups.length) {
+        return page.fullPlaybackGroups.filter(function (group) {
+          return group.urls && group.urls.length;
+        });
+      }
+
+      const drills = drillPlaybackGroups(page);
+      const primary = primaryPlaybackGroups(page);
+      return primary.concat(drills);
     }
 
     function currentPageWordsById(page) {
@@ -1307,9 +1393,12 @@
       elements.nextPage.disabled = state.currentPageIndex === state.reader.pages.length - 1;
       elements.goToPageOne.disabled = state.currentPageIndex === 0;
       elements.endPage.disabled = state.currentPageIndex === state.reader.pages.length - 1;
+      const wholePage = wholePagePlaybackGroups(page);
+      const primary = primaryPlaybackGroups(page);
       const drills = drillPlaybackGroups(page);
+      elements.playWholePage.disabled = !wholePage.length;
+      elements.playPrimary.disabled = !primary.length;
       elements.playDrills.disabled = !drills.length;
-      elements.playDrills.classList.toggle("hidden", !drills.length);
 
       renderLines(page);
       renderOverlays(page);
@@ -1377,6 +1466,24 @@
       stopPlayback(false);
       state.currentPageIndex = state.reader.pages.length - 1;
       renderPage();
+    });
+
+    elements.playWholePage.addEventListener("click", function () {
+      const page = currentPage();
+      const groups = wholePagePlaybackGroups(page);
+      if (!groups.length) {
+        return;
+      }
+      playGroups(groups, "Page " + page.page);
+    });
+
+    elements.playPrimary.addEventListener("click", function () {
+      const page = currentPage();
+      const groups = primaryPlaybackGroups(page);
+      if (!groups.length) {
+        return;
+      }
+      playGroups(groups, "Page " + page.page + " introduction");
     });
 
     elements.playDrills.addEventListener("click", function () {
