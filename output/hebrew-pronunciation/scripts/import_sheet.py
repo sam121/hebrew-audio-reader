@@ -310,6 +310,28 @@ def split_tallest_band(bands: List[List[int]], rows: List[int], top_px: int) -> 
     return True
 
 
+def trim_footer_bands(bands: List[List[int]], page_height: int) -> List[List[int]]:
+    adjusted = [list(band) for band in bands]
+    if len(adjusted) < 2:
+        return adjusted
+
+    min_gap_px = max(110, int(page_height * 0.065))
+    max_footer_height_px = max(18, int(page_height * 0.012))
+    footer_start_px = int(page_height * 0.78)
+
+    while len(adjusted) >= 2:
+        last_start, last_end = adjusted[-1]
+        prev_start, prev_end = adjusted[-2]
+        last_height = last_end - last_start + 1
+        gap = last_start - prev_end
+        if last_start >= footer_start_px and last_height <= max_footer_height_px and gap >= min_gap_px:
+            adjusted.pop()
+            continue
+        break
+
+    return adjusted
+
+
 def adjust_bands_to_count(bands: List[List[int]], rows: List[int], top_px: int, target_count: int) -> List[List[int]]:
     adjusted = [list(band) for band in bands]
     if len(adjusted) > target_count:
@@ -334,19 +356,63 @@ def detect_text_bounds(
     dark_threshold: int,
 ) -> Dict:
     data = image.load()
+    band_height = y2 - y1 + 1
+    row_counts: List[int] = []
+    for y in range(y1, y2 + 1):
+        count = 0
+        for x in range(left, right):
+            if data[x, y] < dark_threshold:
+                count += 1
+        row_counts.append(count)
+
+    trim_rows = min(2, max(0, band_height // 4))
+    candidate_rows = list(range(y1 + trim_rows, y2 - trim_rows + 1)) if (y2 - trim_rows) >= (y1 + trim_rows) else list(range(y1, y2 + 1))
+    frame_row_threshold = int((right - left) * 0.55)
+    sample_rows = [y for y in candidate_rows if row_counts[y - y1] < frame_row_threshold]
+    if not sample_rows:
+        sample_rows = candidate_rows
+
     columns: List[int] = []
     for x in range(left, right):
         count = 0
-        for y in range(y1, y2 + 1):
+        for y in sample_rows:
             if data[x, y] < dark_threshold:
                 count += 1
         columns.append(count)
 
-    threshold = max(2, (y2 - y1 + 1) * 0.12)
-    min_x = next((left + index for index, count in enumerate(columns) if count >= threshold), left)
-    max_x = right - 1
-    while max_x > min_x and columns[max_x - left] < threshold:
-        max_x -= 1
+    threshold = max(1, len(sample_rows) * 0.18)
+    min_run_width = max(3, min(18, band_height // 2))
+    edge_margin = max(8, int((right - left) * 0.015))
+
+    runs: List[List[int]] = []
+    start: Optional[int] = None
+    for index, count in enumerate(columns):
+        if count >= threshold and start is None:
+            start = index
+        elif count < threshold and start is not None:
+            runs.append([start, index - 1])
+            start = None
+    if start is not None:
+        runs.append([start, len(columns) - 1])
+
+    filtered_runs: List[List[int]] = []
+    for run_start, run_end in runs:
+        run_width = run_end - run_start + 1
+        near_left_edge = run_start <= edge_margin
+        near_right_edge = run_end >= len(columns) - edge_margin - 1
+        if (near_left_edge or near_right_edge) and run_width < min_run_width * 2:
+            continue
+        if run_width >= min_run_width:
+            filtered_runs.append([run_start, run_end])
+
+    if filtered_runs:
+        min_x = left + filtered_runs[0][0]
+        max_x = left + filtered_runs[-1][1]
+    else:
+        min_x = next((left + index for index, count in enumerate(columns) if count >= threshold), left)
+        max_x = right - 1
+        while max_x > min_x and columns[max_x - left] < threshold:
+            max_x -= 1
 
     return {"left": min_x, "right": max(max_x, min_x)}
 
@@ -374,7 +440,8 @@ def suggest_line_regions(page_number: int, page_rows: List[Dict], sections: List
     with Image.open(image_path).convert("L") as image:
         for candidate in REGION_DETECTION_CANDIDATES:
             detected = detect_candidate_bands(image, **candidate)
-            band_count = len(detected["bands"])
+            trimmed_bands = trim_footer_bands(detected["bands"], detected["height"])
+            band_count = len(trimmed_bands)
             if band_count >= expected_total:
                 score = (band_count - expected_total, detected["max_height"])
             else:
@@ -384,17 +451,16 @@ def suggest_line_regions(page_number: int, page_rows: List[Dict], sections: List
                     "score": score,
                     "candidate": candidate,
                     "detected": detected,
+                    "trimmed_bands": trimmed_bands,
                 }
 
         if best_candidate is None:
             return {}
 
         detected = best_candidate["detected"]
-        bands = adjust_bands_to_count(detected["bands"], detected["rows"], detected["top_px"], expected_total)
-        if hidden_section_ids:
-            bands = bands[-len(visible_rows) :]
-        else:
-            bands = bands[: len(visible_rows)]
+        bands = adjust_bands_to_count(best_candidate["trimmed_bands"], detected["rows"], detected["top_px"], expected_total)
+        hidden_row_count = len(page_rows) - len(visible_rows)
+        bands = bands[hidden_row_count : hidden_row_count + len(visible_rows)]
 
         regions: Dict[int, Dict] = {}
         for row, band in zip(visible_rows, bands):
