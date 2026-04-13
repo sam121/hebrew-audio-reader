@@ -675,7 +675,6 @@
       <section class="transcript-panel">
         <section class="page-playback">
           <div class="simple-actions">
-            <button id="playPrimary" type="button" disabled>Play introduction</button>
             <button id="playDrills" class="secondary" type="button" disabled>Play drills</button>
             <button id="stopPlayback" class="ghost" type="button">Stop</button>
           </div>
@@ -713,7 +712,6 @@
       pageImage: document.getElementById("pageImage"),
       playbackStatus: document.getElementById("playbackStatus"),
       playDrills: document.getElementById("playDrills"),
-      playPrimary: document.getElementById("playPrimary"),
       goToPageOne: document.getElementById("goToPageOne"),
       prevPage: document.getElementById("prevPage"),
       endPage: document.getElementById("endPage"),
@@ -724,15 +722,18 @@
       return state.reader.pages[state.currentPageIndex];
     }
 
+    function drillLines(page) {
+      return orderedLines(page).filter(function (line) {
+        return line.hebrewPlaybackMode === "sequence" && line.hebrewAudioSequence && line.hebrewAudioSequence.length;
+      });
+    }
+
     function drillPlaybackGroups(page) {
       if (page.drillPlaybackGroups && page.drillPlaybackGroups.length) {
         return page.drillPlaybackGroups;
       }
 
-      return orderedLines(page)
-        .filter(function (line) {
-          return line.hebrewPlaybackMode === "sequence" && line.hebrewAudioSequence && line.hebrewAudioSequence.length;
-        })
+      return drillLines(page)
         .map(function (line) {
           return {
             label: line.badgeLabel || line.label || line.id,
@@ -741,76 +742,6 @@
             gapMs: Number(line.sequenceGapMs) || 0
           };
         });
-    }
-
-    function introPlaybackGroup(page) {
-      const introSection = orderedSections(page).find(function (section) {
-        return section.playbackMode === "single_block" && section.audio && section.audio.mixed && section.audio.mixed.block;
-      });
-      if (!introSection) {
-        return null;
-      }
-      return {
-        label: introSection.playbackLabel || "Introduction",
-        lineId: null,
-        urls: [introSection.audio.mixed.block],
-        gapMs: 0,
-      };
-    }
-
-    function primaryPlaybackGroups(page) {
-      const introGroup = introPlaybackGroup(page);
-      if (introGroup) {
-        return [introGroup];
-      }
-
-      const drillLineIds = new Set(
-        drillPlaybackGroups(page)
-          .map(function (group) {
-            return group.lineId;
-          })
-          .filter(Boolean)
-      );
-
-      const groupedPlayback = (page.fullPlaybackGroups || []).filter(function (group) {
-        return !group.lineId || !drillLineIds.has(group.lineId);
-      });
-      if (groupedPlayback.length) {
-        return groupedPlayback;
-      }
-
-      return orderedLines(page)
-        .filter(function (line) {
-          return !drillLineIds.has(line.id);
-        })
-        .map(function (line) {
-          if (line.audio && line.audio.mixed && line.audio.mixed.line) {
-            return {
-              label: line.badgeLabel || line.label || line.id,
-              lineId: line.id,
-              urls: [line.audio.mixed.line],
-              gapMs: 0,
-            };
-          }
-          if (line.audio && line.audio.he && line.audio.he.line) {
-            return {
-              label: line.badgeLabel || line.label || line.id,
-              lineId: line.id,
-              urls: [line.audio.he.line],
-              gapMs: 0,
-            };
-          }
-          if (line.audio && line.audio.en && line.audio.en.line) {
-            return {
-              label: line.badgeLabel || line.label || line.id,
-              lineId: line.id,
-              urls: [line.audio.en.line],
-              gapMs: 0,
-            };
-          }
-          return null;
-        })
-        .filter(Boolean);
     }
 
     function currentPageWordsById(page) {
@@ -1220,10 +1151,10 @@
 
     function firstMatchableLine(page) {
       const pageSections = sectionsById(page);
-      return orderedLines(page).find(function (line) {
+      return drillLines(page).find(function (line) {
         const section = pageSections.get(line.sectionId || "default");
         return effectiveMatchMode(line, section) === "hybrid";
-      }) || orderedLines(page)[0] || null;
+      }) || drillLines(page)[0] || null;
     }
 
     function updateActiveFromEvent(lineId) {
@@ -1236,7 +1167,7 @@
       const pageSections = sectionsById(page);
       elements.overlayLayer.replaceChildren();
 
-      orderedLines(page).forEach(function (line) {
+      drillLines(page).forEach(function (line) {
         const section = pageSections.get(line.sectionId || "default");
         if (effectiveMatchMode(line, section) !== "hybrid") {
           return;
@@ -1265,145 +1196,101 @@
       const wordsById = currentPageWordsById(page);
       elements.lineList.replaceChildren();
 
-      if (!page.lines.length) {
-        elements.emptyState.classList.remove("hidden");
+      const pageDrillLines = drillLines(page);
+      if (!pageDrillLines.length) {
+        elements.emptyState.classList.add("hidden");
         return;
       }
 
       elements.emptyState.classList.add("hidden");
 
-      orderedSections(page).forEach(function (section) {
-        const sectionLines = orderedLines(page).filter(function (line) {
-          return (line.sectionId || "default") === section.id;
-        });
-        const sectionIsSingleBlock = section.playbackMode === "single_block";
+      const sectionBlock = document.createElement("section");
+      sectionBlock.className = "section-block";
 
-        if (!sectionLines.length || sectionIsSingleBlock) {
-          return;
+      const sectionList = document.createElement("div");
+      sectionList.className = "line-list";
+
+      pageDrillLines.forEach(function (line, sectionLineIndex) {
+        const card = document.createElement("section");
+        card.className = "line-card";
+        card.dataset.lineId = line.id;
+
+        card.addEventListener("mouseenter", function () {
+          updateActiveFromEvent(line.id);
+        });
+
+        card.addEventListener("focusin", function () {
+          updateActiveFromEvent(line.id);
+        });
+
+        card.addEventListener("click", function (event) {
+          if (!event.target.closest("button")) {
+            setActiveLine(line.id);
+          }
+        });
+
+        const heading = document.createElement("div");
+        heading.className = "line-heading-main";
+
+        const title = document.createElement("h3");
+        title.className = "line-title";
+        title.textContent = "Line " + String(sectionLineIndex + 1);
+        heading.appendChild(title);
+
+        const actions = document.createElement("div");
+        actions.className = "line-actions";
+        const sequenceGapMs = Number(line.sequenceGapMs) || 0;
+        const playHebrew = document.createElement("button");
+        playHebrew.type = "button";
+        playHebrew.textContent = "Play whole line";
+        playHebrew.addEventListener("click", function () {
+          playSequence(line.hebrewAudioSequence || [], line.label + " in Hebrew", line.id, sequenceGapMs);
+        });
+        actions.appendChild(playHebrew);
+
+        card.appendChild(heading);
+
+        if (line.wordIds && line.wordIds.length) {
+          const lineReading = document.createElement("div");
+          lineReading.className = "line-reading";
+
+          const wordGrid = document.createElement("div");
+          wordGrid.className = "word-grid line-word-grid";
+          wordGrid.lang = "he";
+          wordGrid.dir = "rtl";
+
+          const displayWords = Array.isArray(line.displayWords) && line.displayWords.length === line.wordIds.length
+            ? line.displayWords
+            : null;
+
+          line.wordIds.forEach(function (wordId, index) {
+            const word = wordsById.get(wordId);
+            if (!word) {
+              return;
+            }
+
+            const chip = document.createElement("button");
+            chip.type = "button";
+            chip.className = "word-chip";
+            chip.textContent = displayWords ? displayWords[index] : word.displayText;
+            chip.disabled = !word.audio || !word.audio.he || !word.audio.he.word;
+            chip.title = word.spokenText;
+            chip.addEventListener("click", function () {
+              playSingle(word.audio.he.word, "Hebrew word: " + word.spokenText, line.id);
+            });
+            wordGrid.appendChild(chip);
+          });
+
+          lineReading.appendChild(wordGrid);
+          card.appendChild(lineReading);
         }
 
-        const sectionBlock = document.createElement("section");
-        sectionBlock.className = "section-block";
-
-        const sectionList = document.createElement("div");
-        sectionList.className = "line-list";
-
-        sectionLines.forEach(function (line, sectionLineIndex) {
-          const card = document.createElement("section");
-          card.className = "line-card";
-          card.dataset.lineId = line.id;
-
-          card.addEventListener("mouseenter", function () {
-            updateActiveFromEvent(line.id);
-          });
-
-          card.addEventListener("focusin", function () {
-            updateActiveFromEvent(line.id);
-          });
-
-          card.addEventListener("click", function (event) {
-            if (!event.target.closest("button")) {
-              setActiveLine(line.id);
-            }
-          });
-
-          const heading = document.createElement("div");
-          heading.className = "line-heading-main";
-
-          const title = document.createElement("h3");
-          title.className = "line-title";
-          title.textContent = "Line " + String(sectionLineIndex + 1);
-          heading.appendChild(title);
-
-          const actions = document.createElement("div");
-          actions.className = "line-actions";
-
-          const hebrewPlaybackMode = line.hebrewPlaybackMode === "sequence" ? "sequence" : "continuous";
-          const sequenceGapMs = Number(line.sequenceGapMs) || 0;
-          if (line.hebrewPlaybackMode === "sequence" && (line.hebrewAudioSequence && line.hebrewAudioSequence.length)) {
-            const playHebrew = document.createElement("button");
-            playHebrew.type = "button";
-            playHebrew.textContent = "Play whole line";
-            playHebrew.addEventListener("click", function () {
-              if (line.hebrewAudioSequence && line.hebrewAudioSequence.length) {
-                playSequence(line.hebrewAudioSequence || [], line.label + " in Hebrew", line.id, sequenceGapMs);
-                return;
-              }
-              playSequence(line.hebrewAudioSequence || [], line.label + " in Hebrew", line.id, sequenceGapMs);
-            });
-            actions.appendChild(playHebrew);
-          }
-
-          card.appendChild(heading);
-
-          const hasWordIds = line.wordIds && line.wordIds.length;
-          const contentMode = line.contentMode || (hasWordIds ? "hebrew" : "english");
-          const shouldShowDisplayText = Boolean(
-            line.displayText && (!hasWordIds || contentMode === "mixed" || contentMode === "english" || contentMode === "other")
-          );
-
-          if (shouldShowDisplayText) {
-            const displayText = document.createElement("p");
-            displayText.className = "line-display-text";
-            if (contentMode === "hebrew") {
-              displayText.classList.add("hebrew");
-              displayText.lang = "he";
-              displayText.dir = "rtl";
-            } else if (contentMode === "mixed") {
-              displayText.classList.add("mixed");
-              displayText.dir = "auto";
-            } else {
-              displayText.dir = "auto";
-            }
-            displayText.textContent = line.displayText;
-            card.appendChild(displayText);
-          }
-
-          if (hasWordIds) {
-            const lineReading = document.createElement("div");
-            lineReading.className = "line-reading";
-
-            const wordGrid = document.createElement("div");
-            wordGrid.className = "word-grid line-word-grid";
-            wordGrid.lang = "he";
-            wordGrid.dir = "rtl";
-
-            const displayWords = Array.isArray(line.displayWords) && line.displayWords.length === line.wordIds.length
-              ? line.displayWords
-              : null;
-
-            line.wordIds.forEach(function (wordId, index) {
-              const word = wordsById.get(wordId);
-              if (!word) {
-                return;
-              }
-
-              const chip = document.createElement("button");
-              chip.type = "button";
-              chip.className = "word-chip";
-              chip.textContent = displayWords ? displayWords[index] : word.displayText;
-              chip.disabled = !word.audio || !word.audio.he || !word.audio.he.word;
-              chip.title = word.spokenText;
-              chip.addEventListener("click", function () {
-                playSingle(word.audio.he.word, "Hebrew word: " + word.spokenText, line.id);
-              });
-              wordGrid.appendChild(chip);
-            });
-
-            lineReading.appendChild(wordGrid);
-            card.appendChild(lineReading);
-          }
-
-          if (actions.childNodes.length) {
-            card.appendChild(actions);
-          }
-
-          sectionList.appendChild(card);
-        });
-
-        sectionBlock.appendChild(sectionList);
-        elements.lineList.appendChild(sectionBlock);
+        card.appendChild(actions);
+        sectionList.appendChild(card);
       });
+
+      sectionBlock.appendChild(sectionList);
+      elements.lineList.appendChild(sectionBlock);
 
       setActiveLine(state.activeLineId);
     }
@@ -1420,11 +1307,7 @@
       elements.nextPage.disabled = state.currentPageIndex === state.reader.pages.length - 1;
       elements.goToPageOne.disabled = state.currentPageIndex === 0;
       elements.endPage.disabled = state.currentPageIndex === state.reader.pages.length - 1;
-      const primaryGroups = primaryPlaybackGroups(page);
       const drills = drillPlaybackGroups(page);
-      elements.playPrimary.disabled = !primaryGroups.length;
-      elements.playPrimary.classList.toggle("hidden", !primaryGroups.length);
-      elements.playPrimary.textContent = "Play introduction";
       elements.playDrills.disabled = !drills.length;
       elements.playDrills.classList.toggle("hidden", !drills.length);
 
@@ -1494,15 +1377,6 @@
       stopPlayback(false);
       state.currentPageIndex = state.reader.pages.length - 1;
       renderPage();
-    });
-
-    elements.playPrimary.addEventListener("click", function () {
-      const page = currentPage();
-      const groups = primaryPlaybackGroups(page);
-      if (!groups.length) {
-        return;
-      }
-      playGroups(groups, "Page " + page.page + " introduction");
     });
 
     elements.playDrills.addEventListener("click", function () {
