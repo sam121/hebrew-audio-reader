@@ -4,26 +4,16 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-from typing import Dict, Iterable, List, Tuple
+from typing import Dict, Iterable, List
 
 
 def parse_args(argv: Iterable[str]) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Apply QA review bundle overrides to transcript.json.")
-    parser.add_argument("review_bundle", help="Path to exported QA review JSON.")
-    parser.add_argument(
-        "--transcript",
-        default="/Users/samueltaylor/Documents/New project/output/hebrew-pronunciation/transcript.json",
-        help="Transcript JSON to update.",
-    )
+    parser = argparse.ArgumentParser(description="Summarize a contractor review bundle from qa.html.")
+    parser.add_argument("review_bundle", help="Path to exported contractor review JSON.")
     parser.add_argument(
         "--output",
         default="",
-        help="Optional output transcript path. Defaults to overwriting --transcript.",
-    )
-    parser.add_argument(
-        "--issues-output",
-        default="",
-        help="Optional JSON path for unresolved issue notes.",
+        help="Optional JSON path for the summarized output. Prints to stdout if omitted.",
     )
     return parser.parse_args(list(argv))
 
@@ -37,70 +27,75 @@ def write_json(path: Path, payload: Dict) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def build_line_index(transcript: Dict) -> Dict[str, Tuple[Dict, Dict]]:
-    index: Dict[str, Tuple[Dict, Dict]] = {}
-    for page in transcript.get("pages", []):
-        for line in page.get("lines", []):
-            index[line["id"]] = (page, line)
-    return index
+def normalized_line_review(review: Dict) -> Dict:
+    return {
+        "page": review.get("page"),
+        "lineId": review.get("lineId"),
+        "lineNumber": review.get("lineNumber"),
+        "anchorY": review.get("anchorY"),
+        "status": review.get("status", "pending"),
+        "category": review.get("category", ""),
+        "note": (review.get("note") or "").strip(),
+    }
 
 
 def main(argv: Iterable[str]) -> int:
     args = parse_args(argv)
     review_path = Path(args.review_bundle)
-    transcript_path = Path(args.transcript)
-    output_path = Path(args.output) if args.output else transcript_path
+    bundle = load_json(review_path)
 
-    review = load_json(review_path)
-    transcript = load_json(transcript_path)
-    line_index = build_line_index(transcript)
+    line_reviews: List[Dict] = [
+        normalized_line_review(review)
+        for review in bundle.get("lineReviews", [])
+    ]
 
-    applied = []
-    skipped = []
-    for override in review.get("regionOverrides", []):
-        line_id = override.get("lineId")
-        region = override.get("region")
-        if not line_id or not region:
-            skipped.append({"reason": "missing_line_or_region", "override": override})
-            continue
+    anchors = [
+        {
+            "page": review["page"],
+            "lineId": review["lineId"],
+            "lineNumber": review["lineNumber"],
+            "anchorY": review["anchorY"],
+        }
+        for review in line_reviews
+        if isinstance(review.get("anchorY"), (int, float))
+    ]
 
-        match = line_index.get(line_id)
-        if not match:
-            skipped.append({"reason": "unknown_line_id", "override": override})
-            continue
+    needs_regen = [review for review in line_reviews if review["status"] == "needs_regen"]
+    bad_lines = [review for review in line_reviews if review["status"] == "bad"]
+    good_lines = [review for review in line_reviews if review["status"] == "good"]
+    pending_lines = [review for review in line_reviews if review["status"] == "pending"]
 
-        page, line = match
-        line["region"] = region
-        line["matchMode"] = "hybrid"
-        applied.append(
-            {
-                "page": page["page"],
-                "lineId": line_id,
-                "lineNumber": line.get("order"),
-                "badgeLabel": line.get("badgeLabel"),
-            }
-        )
-
-    write_json(output_path, transcript)
-
-    unresolved_issues: List[Dict] = list(review.get("issues", []))
-    issue_summary = {
+    summary = {
         "reviewBundle": str(review_path),
-        "reviewerName": review.get("reviewerName"),
-        "sessionNotes": review.get("sessionNotes"),
-        "appliedRegionOverrides": applied,
-        "skippedRegionOverrides": skipped,
-        "unresolvedIssues": unresolved_issues,
+        "reviewerName": bundle.get("reviewerName", ""),
+        "sessionNotes": bundle.get("sessionNotes", ""),
+        "createdAt": bundle.get("createdAt"),
+        "updatedAt": bundle.get("updatedAt"),
+        "pageSignOffs": bundle.get("pageSignOffs", {}),
+        "summary": {
+            "lineCount": len(line_reviews),
+            "anchorCount": len(anchors),
+            "goodCount": len(good_lines),
+            "badCount": len(bad_lines),
+            "needsRegenCount": len(needs_regen),
+            "pendingCount": len(pending_lines),
+        },
+        "lineAnchors": anchors,
+        "needsRegen": needs_regen,
+        "manualFollowUp": bad_lines,
+        "pending": pending_lines,
+        "good": good_lines,
     }
 
-    if args.issues_output:
-        write_json(Path(args.issues_output), issue_summary)
+    if args.output:
+        write_json(Path(args.output), summary)
     else:
-        print(json.dumps(issue_summary, ensure_ascii=False, indent=2))
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
 
     print(
-        f"Applied {len(applied)} region override(s), skipped {len(skipped)}, "
-        f"left {len(unresolved_issues)} issue note(s) for manual follow-up."
+        f"Processed {len(line_reviews)} line review(s): "
+        f"{len(good_lines)} good, {len(bad_lines)} bad, "
+        f"{len(needs_regen)} need regeneration, {len(pending_lines)} pending."
     )
     return 0
 

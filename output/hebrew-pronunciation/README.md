@@ -100,17 +100,28 @@ If verified items are missing audio and you want production-ready output, rerun 
 
 ## QA workflow
 
-- `qa.html`: reviewer-facing QA surface for mixed lines, dot-sensitive Hebrew, drill-arrow checks, and structured issue capture
-- `site/data/qa.json`: build-generated QA dataset with risk tags, playback metadata, and critical-pass queues
-- `scripts/apply_qa_review.py`: applies exported region overrides back to `transcript.json` and emits the remaining issue notes for manual follow-up
+- `qa.html`: contractor-facing line review surface
+- `site/data/qa.json`: build-generated review dataset
+- `scripts/apply_qa_review.py`: summarizes the exported line-review bundle into:
+  - line arrow anchors
+  - lines that need regeneration
+  - manual pronunciation follow-up notes
 
 Suggested cycle:
 
 1. Build and deploy a fresh review build.
-2. Open `qa.html` and work through mixed lines, dot-sensitive lines, and drill lines.
-3. Export the review bundle JSON from the QA page.
-4. Apply region overrides with `apply_qa_review.py`.
-5. Handle the remaining issue notes in one batch, then bump `audioRevision` for changed pages and rebuild.
+2. Open `qa.html`.
+3. For each line:
+   - click once on the page to place the arrow vertically
+   - mark the line good or bad
+   - if bad, choose a reason and write the exact wrong word or phrase plus the audio problem
+4. If the reason is `Google Sheet error`, fix the sheet and save the line; it will export as `needs_regen`.
+5. Export the review bundle JSON from the QA page.
+6. Run `apply_qa_review.py` on that bundle to split out:
+   - arrow anchors
+   - regeneration candidates
+   - manual follow-up items
+7. Rebuild and re-review only the regenerated lines.
 
 ## GitHub Pages
 
