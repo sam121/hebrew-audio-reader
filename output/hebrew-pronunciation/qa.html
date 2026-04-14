@@ -48,7 +48,7 @@
       margin: 0 auto;
       padding: 18px;
       display: grid;
-      grid-template-columns: minmax(720px, 1.45fr) minmax(380px, 440px) minmax(280px, 360px);
+      grid-template-columns: minmax(720px, 1.5fr) minmax(340px, 420px) minmax(360px, 460px);
       gap: 18px;
       align-items: start;
     }
@@ -59,6 +59,7 @@
       border-radius: 24px;
       box-shadow: var(--shadow);
       padding: 18px;
+      min-height: 0;
     }
 
     .viewer-panel,
@@ -66,6 +67,17 @@
     .summary-panel {
       display: grid;
       gap: 16px;
+      min-height: 0;
+      height: calc(100vh - 36px);
+    }
+
+    .viewer-panel {
+      overflow: hidden;
+    }
+
+    .review-panel,
+    .summary-panel {
+      overflow: auto;
     }
 
     h1,
@@ -209,8 +221,8 @@
     .canvas-wrap {
       display: grid;
       gap: 10px;
-      position: sticky;
-      top: 18px;
+      min-height: 0;
+      align-content: start;
     }
 
     canvas {
@@ -240,7 +252,7 @@
     .line-list-card {
       display: grid;
       gap: 10px;
-      max-height: 44vh;
+      height: 100%;
       overflow: auto;
       padding-right: 6px;
     }
@@ -391,8 +403,11 @@
         grid-template-columns: 1fr;
       }
 
-      .canvas-wrap {
-        position: static;
+      .viewer-panel,
+      .review-panel,
+      .summary-panel {
+        height: auto;
+        overflow: visible;
       }
     }
   </style>
@@ -420,6 +435,7 @@
       <div class="button-row">
         <button id="prevPage" type="button" class="secondary">Previous page</button>
         <button id="nextPage" type="button" class="secondary">Next page</button>
+        <span id="pagePill" class="mini-pill">Page 1</span>
         <button id="signOffPage" type="button">Sign off page</button>
         <button id="stopPlayback" type="button" class="secondary">Stop</button>
       </div>
@@ -432,30 +448,10 @@
     </section>
 
     <section class="panel review-panel">
-      <div class="group">
-        <div class="grid">
-          <label>
-            Reviewer
-            <input id="reviewerName" type="text" placeholder="Reviewer name">
-          </label>
-          <label>
-            Page
-            <select id="pageSelect"></select>
-          </label>
-        </div>
-      </div>
-
       <section class="selected-line-card">
         <div class="group">
           <h2 id="selectedLineTitle">Select a line</h2>
           <div id="selectedLineStatus" class="status-chip-row"></div>
-        </div>
-
-        <div class="instruction-box">
-          <strong>Current line process</strong>
-          <div>1. Click where this line sits on the page.</div>
-          <div>2. Listen to the line.</div>
-          <div>3. Mark the line good or bad.</div>
         </div>
 
         <div id="selectedLineText" class="line-text">Choose a line from the list below.</div>
@@ -508,9 +504,11 @@
 
       <section class="actions-card group">
         <div class="button-row">
-          <button id="copyExport" type="button">Copy export JSON</button>
+          <button id="saveProgress" type="button">Save progress</button>
+          <button id="loadReview" type="button" class="secondary">Load progress</button>
           <button id="resetReview" type="button" class="secondary">Reset local review</button>
         </div>
+        <input id="loadReviewFile" type="file" accept="application/json" hidden>
       </section>
     </section>
 
@@ -542,14 +540,16 @@
     const elements = {
       canvasHint: document.getElementById("canvasHint"),
       clearLocation: document.getElementById("clearLocation"),
-      copyExport: document.getElementById("copyExport"),
+      saveProgress: document.getElementById("saveProgress"),
       lineList: document.getElementById("lineList"),
+      loadReview: document.getElementById("loadReview"),
+      loadReviewFile: document.getElementById("loadReviewFile"),
       markBad: document.getElementById("markBad"),
       markGood: document.getElementById("markGood"),
       nextPage: document.getElementById("nextPage"),
       notesInput: document.getElementById("notesInput"),
       pageCanvas: document.getElementById("pageCanvas"),
-      pageSelect: document.getElementById("pageSelect"),
+      pagePill: document.getElementById("pagePill"),
       pageTitle: document.getElementById("pageTitle"),
       playLine: document.getElementById("playLine"),
       prevPage: document.getElementById("prevPage"),
@@ -559,7 +559,6 @@
       reasonSelect: document.getElementById("reasonSelect"),
       resetLine: document.getElementById("resetLine"),
       resetReview: document.getElementById("resetReview"),
-      reviewerName: document.getElementById("reviewerName"),
       savedNote: document.getElementById("savedNote"),
       saveBadLine: document.getElementById("saveBadLine"),
       selectedLineStatus: document.getElementById("selectedLineStatus"),
@@ -602,7 +601,6 @@
     }
 
     function saveReviewState() {
-      state.review.reviewerName = elements.reviewerName.value.trim();
       state.review.updatedAt = new Date().toISOString();
       window.localStorage.setItem(REVIEW_STORAGE_KEY, JSON.stringify(state.review));
       updateProgress();
@@ -767,7 +765,8 @@
       }
 
       const maxWidth = Math.min(980, document.querySelector(".viewer-panel").clientWidth - 8);
-      state.scale = Math.min(1, maxWidth / state.imageWidth);
+      const maxHeight = availableCanvasHeight();
+      state.scale = Math.min(1, maxWidth / state.imageWidth, maxHeight / state.imageHeight);
       elements.pageCanvas.width = Math.round(state.imageWidth * state.scale);
       elements.pageCanvas.height = Math.round(state.imageHeight * state.scale);
 
@@ -814,7 +813,10 @@
     }
 
     function updateActionButtons(review, draftReason) {
-      elements.markGood.className = review.status === "good" ? "button-state-good" : "";
+      elements.markGood.className =
+        review.status === "good" && !elements.reasonCard.classList.contains("visible")
+          ? "button-state-good"
+          : "";
       if (review.status === "needs_regen" || draftReason === "Google Sheet error") {
         elements.markBad.className = "button-state-regen";
         return;
@@ -972,7 +974,7 @@
         version: "line-review-v1",
         createdAt: state.review.createdAt,
         updatedAt: new Date().toISOString(),
-        reviewerName: elements.reviewerName.value.trim(),
+        reviewerName: state.review.reviewerName || "",
         pageSignOffs: state.review.pageSignOffs,
         lineReviews: lineReviews
       };
@@ -993,7 +995,7 @@
         state.selectedLineId = lines[0] ? lines[0].id : null;
       }
       elements.pageTitle.textContent = "Page " + page.page + " · " + page.title;
-      elements.pageSelect.value = page.id;
+      elements.pagePill.textContent = "Page " + page.page;
       updateSelectedLine();
       renderLineList();
       renderCanvas();
@@ -1130,17 +1132,6 @@
       setStatus("Cleared arrow location for " + line.badgeLabel + ".");
     }
 
-    function populatePageSelect() {
-      elements.pageSelect.replaceChildren();
-      orderedPages().forEach(function (page) {
-        const option = document.createElement("option");
-        option.value = page.id;
-        option.textContent = "Page " + page.page;
-        elements.pageSelect.appendChild(option);
-      });
-      elements.pageSelect.value = state.currentPageId;
-    }
-
     function signOffPage() {
       const page = currentPage();
       if (!page) {
@@ -1165,13 +1156,16 @@
         throw new Error("QA data fetch failed: " + response.status);
       }
       state.qa = await response.json();
-      elements.reviewerName.value = state.review.reviewerName || "";
       const firstPage = orderedPages()[0];
       state.currentPageId = firstPage ? firstPage.id : null;
-      populatePageSelect();
       if (state.currentPageId) {
         await setCurrentPage(state.currentPageId);
       }
+    }
+
+    function availableCanvasHeight() {
+      const reserved = 270;
+      return Math.max(420, window.innerHeight - reserved);
     }
 
     elements.pageCanvas.addEventListener("click", function (event) {
@@ -1192,13 +1186,6 @@
       saveReviewState();
       renderCanvas();
       setStatus("Arrow placed for " + line.badgeLabel + ".");
-    });
-
-    elements.pageSelect.addEventListener("change", function () {
-      setCurrentPage(elements.pageSelect.value).catch(function (error) {
-        console.error(error);
-        setStatus("The selected page could not be loaded.");
-      });
     });
 
     elements.prevPage.addEventListener("click", function () {
@@ -1230,16 +1217,88 @@
       updateActionButtons(reviewForLine(state.selectedLineId || ""), elements.reasonSelect.value);
     });
 
-    elements.reviewerName.addEventListener("input", saveReviewState);
-
-    elements.copyExport.addEventListener("click", async function () {
+    elements.saveProgress.addEventListener("click", async function () {
       try {
-        await navigator.clipboard.writeText(JSON.stringify(state.exportPayload || {}, null, 2));
-        setStatus("Copied the review export JSON to your clipboard.");
+        updateExport();
+        const payload = JSON.stringify(state.exportPayload || {}, null, 2);
+        if ("showSaveFilePicker" in window) {
+          const handle = await window.showSaveFilePicker({
+            suggestedName: "hebrew-reader-review-progress.json",
+            types: [
+              {
+                description: "JSON review progress",
+                accept: { "application/json": [".json"] }
+              }
+            ]
+          });
+          const writable = await handle.createWritable();
+          await writable.write(payload);
+          await writable.close();
+          setStatus("Progress saved to file.");
+          return;
+        }
+
+        const blob = new Blob([payload], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "hebrew-reader-review-progress.json";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+        setStatus("Progress downloaded as a file.");
       } catch (error) {
         console.error(error);
-        setStatus("Copy failed. You can still copy the export box manually.");
+        if (error && error.name === "AbortError") {
+          setStatus("Save cancelled.");
+          return;
+        }
+        setStatus("Save failed.");
       }
+    });
+
+    elements.loadReview.addEventListener("click", function () {
+      elements.loadReviewFile.click();
+    });
+
+    elements.loadReviewFile.addEventListener("change", function () {
+      const file = elements.loadReviewFile.files && elements.loadReviewFile.files[0];
+      if (!file) {
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = function () {
+        try {
+          const parsed = JSON.parse(String(reader.result));
+          state.review = {
+            reviewerName: parsed.reviewerName || "",
+            lineReviews: Object.fromEntries(
+              (parsed.lineReviews || []).map(function (review) {
+                return [review.lineId, {
+                  lineId: review.lineId,
+                  status: review.status || "pending",
+                  anchorY: typeof review.anchorY === "number" ? review.anchorY : null,
+                  category: review.category || "",
+                  note: review.note || ""
+                }];
+              })
+            ),
+            pageSignOffs: parsed.pageSignOffs || {},
+            createdAt: parsed.createdAt || new Date().toISOString(),
+            updatedAt: parsed.updatedAt || new Date().toISOString()
+          };
+          saveReviewState();
+          renderCanvas();
+          setStatus("Progress loaded from file.");
+        } catch (error) {
+          console.error(error);
+          setStatus("That file could not be loaded.");
+        } finally {
+          elements.loadReviewFile.value = "";
+        }
+      };
+      reader.readAsText(file);
     });
 
     elements.resetReview.addEventListener("click", function () {
@@ -1252,7 +1311,6 @@
         pageSignOffs: {},
         createdAt: new Date().toISOString()
       };
-      elements.reviewerName.value = "";
       elements.reasonCard.classList.remove("visible");
       elements.reasonSelect.value = "";
       elements.notesInput.value = "";
@@ -1265,6 +1323,10 @@
     loadQa().catch(function (error) {
       console.error(error);
       setStatus("Review data could not be loaded. Build the site first.");
+    });
+
+    window.addEventListener("resize", function () {
+      renderCanvas();
     });
   </script>
 </body>
