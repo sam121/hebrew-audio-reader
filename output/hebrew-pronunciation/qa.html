@@ -497,6 +497,7 @@
       <div class="button-row viewer-controls">
         <button id="prevPage" type="button" class="secondary">Previous page</button>
         <button id="nextPage" type="button" class="secondary">Next page</button>
+        <button id="playPage" type="button">Play whole page</button>
         <button id="stopPlayback" type="button" class="secondary">Stop</button>
       </div>
 
@@ -613,6 +614,7 @@
       notesInput: document.getElementById("notesInput"),
       pageCanvas: document.getElementById("pageCanvas"),
       pageTitle: document.getElementById("pageTitle"),
+      playPage: document.getElementById("playPage"),
       playLine: document.getElementById("playLine"),
       prevPage: document.getElementById("prevPage"),
       progressFill: document.getElementById("progressFill"),
@@ -904,6 +906,58 @@
       playNext();
     }
 
+    function playSegments(segments, label) {
+      const playable = (segments || []).filter(function (segment) {
+        return segment && segment.urls && segment.urls.length;
+      });
+      if (!playable.length) {
+        setStatus("No audio is available for " + label + ".");
+        return;
+      }
+
+      stopPlayback();
+      const token = state.playbackToken;
+      let segmentIndex = 0;
+      let urlIndex = 0;
+
+      function playCurrent() {
+        if (token !== state.playbackToken || segmentIndex >= playable.length) {
+          return;
+        }
+
+        const segment = playable[segmentIndex];
+        const audio = new Audio(segment.urls[urlIndex]);
+        state.playbackAudio = audio;
+        audio.addEventListener("ended", function () {
+          if (token !== state.playbackToken) {
+            return;
+          }
+          urlIndex += 1;
+          if (urlIndex < segment.urls.length) {
+            state.playbackTimer = window.setTimeout(playCurrent, segment.gapMs || 0);
+            return;
+          }
+          segmentIndex += 1;
+          urlIndex = 0;
+          if (segmentIndex >= playable.length) {
+            setStatus(label + " finished.");
+            return;
+          }
+          state.playbackTimer = window.setTimeout(playCurrent, segment.lineGapMs || 260);
+        });
+        audio.addEventListener("error", function () {
+          setStatus("Audio failed to load for " + label + ".");
+        });
+        audio.play().catch(function (error) {
+          console.error(error);
+          setStatus("Playback failed for " + label + ".");
+        });
+      }
+
+      setStatus("Playing " + label + "...");
+      playCurrent();
+    }
+
     function clamp(value, minimum, maximum) {
       return Math.min(maximum, Math.max(minimum, value));
     }
@@ -1135,6 +1189,28 @@
       });
     }
 
+    function pagePlaybackSegments(page) {
+      if (!page) {
+        return [];
+      }
+      return orderedLines(page).map(function (line) {
+        const playback = line.playback || {};
+        let urls = Array.isArray(playback.urls) ? playback.urls.slice() : [];
+        if (!urls.length && Array.isArray(line.wordPlayback) && line.wordPlayback.length) {
+          urls = line.wordPlayback
+            .map(function (word) { return word.url; })
+            .filter(Boolean);
+        }
+        return {
+          urls: urls,
+          gapMs: Number(playback.gapMs) || 0,
+          lineGapMs: 260
+        };
+      }).filter(function (segment) {
+        return segment.urls.length;
+      });
+    }
+
     function updateProgress() {
       const page = currentPage();
       if (!page) {
@@ -1143,6 +1219,9 @@
       const progress = pageCompletion(page);
       elements.progressText.textContent = progress.completed + " / " + progress.total + " complete";
       elements.progressFill.style.width = progress.total ? ((progress.completed / progress.total) * 100).toFixed(2) + "%" : "0%";
+      if (elements.playPage) {
+        elements.playPage.disabled = pagePlaybackSegments(page).length === 0;
+      }
     }
 
     function updateExport() {
@@ -1473,6 +1552,14 @@
 
     elements.nextPage.addEventListener("click", function () {
       movePage(1);
+    });
+
+    elements.playPage.addEventListener("click", function () {
+      const page = currentPage();
+      if (!page) {
+        return;
+      }
+      playSegments(pagePlaybackSegments(page), "Page " + page.page);
     });
 
     elements.playLine.addEventListener("click", function () {
