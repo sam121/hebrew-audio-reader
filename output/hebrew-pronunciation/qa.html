@@ -522,9 +522,17 @@
 
   <script>
     const REVIEW_STORAGE_KEY = "hebrew-reader-line-review-v2";
+    const DEFAULT_SYNC_CONFIG = {
+      enabled: false,
+      endpoint: "",
+      spreadsheetId: "",
+      sheetName: "backup",
+      saveTriggers: ["page_change", "page_signoff", "manual_save"]
+    };
 
     const state = {
       qa: null,
+      syncConfig: DEFAULT_SYNC_CONFIG,
       currentPageId: null,
       selectedLineId: null,
       image: null,
@@ -587,7 +595,8 @@
           reviewerName: parsed.reviewerName || "",
           lineReviews: parsed.lineReviews || {},
           pageSignOffs: parsed.pageSignOffs || {},
-          createdAt: parsed.createdAt || new Date().toISOString()
+          createdAt: parsed.createdAt || new Date().toISOString(),
+          updatedAt: parsed.updatedAt || ""
         };
       } catch (error) {
         console.error(error);
@@ -595,7 +604,8 @@
           reviewerName: "",
           lineReviews: {},
           pageSignOffs: {},
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
+          updatedAt: ""
         };
       }
     }
@@ -617,6 +627,67 @@
       return (state.qa.pages || []).slice().sort(function (a, b) {
         return a.page - b.page;
       });
+    }
+
+    function hasConfiguredRemoteSync() {
+      return Boolean(
+        state.syncConfig &&
+        state.syncConfig.enabled &&
+        state.syncConfig.endpoint
+      );
+    }
+
+    function buildLineReviewsArray() {
+      const lineReviews = [];
+      orderedPages().forEach(function (page) {
+        orderedLines(page).forEach(function (line) {
+          const review = reviewForLine(line.id);
+          lineReviews.push({
+            page: line.page,
+            lineId: line.id,
+            lineNumber: line.lineNumber,
+            anchorY: typeof review.anchorY === "number" ? review.anchorY : null,
+            status: review.status,
+            category: review.category || "",
+            note: review.note || ""
+          });
+        });
+      });
+      return lineReviews;
+    }
+
+    function normalizeLoadedReview(parsed) {
+      const normalizedPageSignOffs = {};
+      Object.entries(parsed.pageSignOffs || {}).forEach(function (entry) {
+        const key = entry[0];
+        const value = entry[1] || {};
+        const pageNumber = Number(value.page || String(key).replace(/[^\d]/g, ""));
+        if (!pageNumber) {
+          return;
+        }
+        const normalizedKey = "page-" + String(pageNumber).padStart(3, "0");
+        normalizedPageSignOffs[normalizedKey] = {
+          page: pageNumber,
+          signedOffAt: value.signedOffAt || ""
+        };
+      });
+      return {
+        reviewerName: parsed.reviewerName || "",
+        lineReviews: Object.fromEntries(
+          (parsed.lineReviews || []).map(function (review) {
+            return [review.lineId, {
+              lineId: review.lineId,
+              status: review.status || "pending",
+              anchorY: typeof review.anchorY === "number" ? review.anchorY : null,
+              category: review.category || "",
+              note: review.note || ""
+            }];
+          })
+        ),
+        pageSignOffs: normalizedPageSignOffs,
+        createdAt: parsed.createdAt || new Date().toISOString(),
+        updatedAt: parsed.updatedAt || ""
+      };
     }
 
     function currentPage() {
@@ -954,11 +1025,26 @@
     }
 
     function updateExport() {
-      const lineReviews = [];
-      orderedPages().forEach(function (page) {
-        orderedLines(page).forEach(function (line) {
+      const payload = {
+        version: "line-review-v1",
+        createdAt: state.review.createdAt,
+        updatedAt: new Date().toISOString(),
+        reviewerName: state.review.reviewerName || "",
+        pageSignOffs: state.review.pageSignOffs,
+        lineReviews: buildLineReviewsArray()
+      };
+      state.exportPayload = payload;
+    }
+
+    function buildPagePayload(page) {
+      return {
+        action: "savePage",
+        page: page.page,
+        reviewerName: state.review.reviewerName || "",
+        pageSignOff: state.review.pageSignOffs[page.id] || null,
+        lineReviews: orderedLines(page).map(function (line) {
           const review = reviewForLine(line.id);
-          lineReviews.push({
+          return {
             page: line.page,
             lineId: line.id,
             lineNumber: line.lineNumber,
@@ -966,19 +1052,95 @@
             status: review.status,
             category: review.category || "",
             note: review.note || ""
-          });
-        });
-      });
-
-      const payload = {
-        version: "line-review-v1",
-        createdAt: state.review.createdAt,
-        updatedAt: new Date().toISOString(),
-        reviewerName: state.review.reviewerName || "",
-        pageSignOffs: state.review.pageSignOffs,
-        lineReviews: lineReviews
+          };
+        })
       };
-      state.exportPayload = payload;
+    }
+
+    async function saveRemotePage(page, reason) {
+      if (!hasConfiguredRemoteSync() || !page) {
+        return;
+      }
+      try {
+        await fetch(state.syncConfig.endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(buildPagePayload(page))
+        });
+        setStatus("Saved progress to backup after " + reason + ".");
+      } catch (error) {
+        console.error(error);
+        setStatus("Remote backup save failed. Local progress is still saved in this browser.");
+      }
+    }
+
+    async function saveRemoteAll(reason) {
+      if (!hasConfiguredRemoteSync()) {
+        return false;
+      }
+      try {
+        updateExport();
+        await fetch(state.syncConfig.endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            action: "saveAll",
+            reviewerName: state.review.reviewerName || "",
+            pageSignOffs: state.review.pageSignOffs,
+            lineReviews: state.exportPayload.lineReviews || []
+          })
+        });
+        setStatus("Progress saved to the backup sheet.");
+        return true;
+      } catch (error) {
+        console.error(error);
+        setStatus("Shared save failed. Local browser progress is still intact.");
+        return false;
+      }
+    }
+
+    async function loadSyncConfig() {
+      try {
+        const response = await fetch("./data/qa-sync-config.json", { cache: "no-store" });
+        if (!response.ok) {
+          return DEFAULT_SYNC_CONFIG;
+        }
+        const config = await response.json();
+        return Object.assign({}, DEFAULT_SYNC_CONFIG, config || {});
+      } catch (error) {
+        console.error(error);
+        return DEFAULT_SYNC_CONFIG;
+      }
+    }
+
+    async function loadRemoteReview() {
+      if (!hasConfiguredRemoteSync()) {
+        return null;
+      }
+      try {
+        const response = await fetch(state.syncConfig.endpoint, { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error("Remote sync load failed: " + response.status);
+        }
+        const payload = await response.json();
+        if (!payload || payload.ok === false) {
+          return null;
+        }
+        return {
+          reviewerName: payload.reviewerName || "",
+          lineReviews: payload.lineReviews || [],
+          pageSignOffs: payload.pageSignOffs || {},
+          updatedAt: payload.updatedAt || ""
+        };
+      } catch (error) {
+        console.error(error);
+        setStatus("Could not load shared backup. Using browser-saved progress.");
+        return null;
+      }
     }
 
     async function setCurrentPage(pageId) {
@@ -1005,6 +1167,10 @@
     }
 
     function movePage(delta) {
+      const pageBeforeMove = currentPage();
+      if (pageBeforeMove) {
+        saveRemotePage(pageBeforeMove, "page change");
+      }
       const pages = orderedPages();
       const index = pages.findIndex(function (page) {
         return page.id === state.currentPageId;
@@ -1147,6 +1313,7 @@
         signedOffAt: new Date().toISOString()
       };
       saveReviewState();
+      saveRemotePage(page, "page signoff");
       setStatus("Page " + page.page + " signed off.");
     }
 
@@ -1156,6 +1323,22 @@
         throw new Error("QA data fetch failed: " + response.status);
       }
       state.qa = await response.json();
+      state.syncConfig = await loadSyncConfig();
+      const remote = await loadRemoteReview();
+      if (remote && ((remote.lineReviews && remote.lineReviews.length) || Object.keys(remote.pageSignOffs || {}).length)) {
+        const remoteReview = normalizeLoadedReview({
+          reviewerName: remote.reviewerName || "",
+          lineReviews: remote.lineReviews || [],
+          pageSignOffs: remote.pageSignOffs || {},
+          createdAt: state.review.createdAt,
+          updatedAt: remote.updatedAt || ""
+        });
+        const localUpdated = state.review.updatedAt || "";
+        if (!localUpdated || (remote.updatedAt && remote.updatedAt >= localUpdated)) {
+          state.review = remoteReview;
+          saveReviewState();
+        }
+      }
       const firstPage = orderedPages()[0];
       state.currentPageId = firstPage ? firstPage.id : null;
       if (state.currentPageId) {
@@ -1220,6 +1403,9 @@
     elements.saveProgress.addEventListener("click", async function () {
       try {
         updateExport();
+        if (await saveRemoteAll("manual save")) {
+          return;
+        }
         const payload = JSON.stringify(state.exportPayload || {}, null, 2);
         if ("showSaveFilePicker" in window) {
           const handle = await window.showSaveFilePicker({
@@ -1271,23 +1457,7 @@
       reader.onload = function () {
         try {
           const parsed = JSON.parse(String(reader.result));
-          state.review = {
-            reviewerName: parsed.reviewerName || "",
-            lineReviews: Object.fromEntries(
-              (parsed.lineReviews || []).map(function (review) {
-                return [review.lineId, {
-                  lineId: review.lineId,
-                  status: review.status || "pending",
-                  anchorY: typeof review.anchorY === "number" ? review.anchorY : null,
-                  category: review.category || "",
-                  note: review.note || ""
-                }];
-              })
-            ),
-            pageSignOffs: parsed.pageSignOffs || {},
-            createdAt: parsed.createdAt || new Date().toISOString(),
-            updatedAt: parsed.updatedAt || new Date().toISOString()
-          };
+          state.review = normalizeLoadedReview(parsed);
           saveReviewState();
           renderCanvas();
           setStatus("Progress loaded from file.");

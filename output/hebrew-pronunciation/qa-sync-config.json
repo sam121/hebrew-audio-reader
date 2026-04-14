@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "endpoint": "",
+  "spreadsheetId": "1lxL3hA8NR_rt8mTG848BXXjplBHj98OtIrWhe9lKLIg",
+  "sheetName": "backup",
+  "saveTriggers": [
+    "page_change",
+    "page_signoff",
+    "manual_save"
+  ]
+}

@@ -21,6 +21,7 @@ SOURCE_TRANSCRIPT = ROOT / "transcript.json"
 SOURCE_INDEX = ROOT / "index.html"
 SOURCE_QA = ROOT / "qa.html"
 SOURCE_ANNOTATE = ROOT / "annotate.html"
+SOURCE_QA_SYNC_CONFIG = ROOT / "qa-sync-config.json"
 SOURCE_PAGES = ROOT / "pages"
 SITE_ROOT = ROOT / "site"
 SITE_DATA = SITE_ROOT / "data"
@@ -67,6 +68,8 @@ def copy_static_assets() -> None:
         shutil.copy2(SOURCE_QA, SITE_ROOT / "qa.html")
     if SOURCE_ANNOTATE.exists():
         shutil.copy2(SOURCE_ANNOTATE, SITE_ROOT / "annotate.html")
+    if SOURCE_QA_SYNC_CONFIG.exists():
+        shutil.copy2(SOURCE_QA_SYNC_CONFIG, SITE_DATA / "qa-sync-config.json")
 
     if SOURCE_PAGES.exists():
         destination = SITE_ROOT / "pages"

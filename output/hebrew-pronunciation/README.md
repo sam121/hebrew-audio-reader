@@ -102,6 +102,8 @@ If verified items are missing audio and you want production-ready output, rerun 
 
 - `qa.html`: contractor-facing line review surface
 - `site/data/qa.json`: build-generated review dataset
+- `qa-sync-config.json`: shared-save configuration for Google Sheet backup sync
+- `scripts/google_sheet_review_sync.gs`: Google Apps Script web app that reads and writes QA progress into the `backup` tab
 - `scripts/apply_qa_review.py`: summarizes the exported line-review bundle into:
   - line arrow anchors
   - lines that need regeneration
@@ -122,6 +124,26 @@ Suggested cycle:
    - regeneration candidates
    - manual follow-up items
 7. Rebuild and re-review only the regenerated lines.
+
+### Shared Google Sheet backup
+
+The QA page supports shared progress via a small Google Apps Script web app.
+
+How it works:
+
+1. Deploy `scripts/google_sheet_review_sync.gs` as a web app in Google Apps Script.
+2. Set the deployed web app URL in `qa-sync-config.json` under `endpoint`.
+3. Rebuild the site.
+4. The reviewer page will then:
+   - load shared progress from the Google Sheet on page open
+   - save the current page to the `backup` tab on page changes and page signoff
+   - use `Save progress` to push the full review state to the sheet
+
+Notes:
+
+- The site still keeps local browser autosave as a fallback.
+- If shared sync is not configured, `Save progress` falls back to saving a JSON file.
+- The Apps Script will create the `backup` tab and header row automatically if they do not already exist.
 
 ## GitHub Pages
 
