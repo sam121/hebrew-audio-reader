@@ -236,7 +236,7 @@
 
     canvas {
       display: block;
-      width: auto;
+      width: 100%;
       height: auto;
       background: white;
       cursor: crosshair;
@@ -859,9 +859,14 @@
         return;
       }
 
-      state.scale = 1;
+      const scrollFrame = document.querySelector(".canvas-scroll");
+      const availableWidth = Math.max(320, scrollFrame.clientWidth - 2);
+      const displayScale = Math.min(1, availableWidth / state.imageWidth);
+      state.scale = displayScale;
       elements.pageCanvas.width = state.imageWidth;
       elements.pageCanvas.height = state.imageHeight;
+      elements.pageCanvas.style.width = Math.round(state.imageWidth * displayScale) + "px";
+      elements.pageCanvas.style.height = Math.round(state.imageHeight * displayScale) + "px";
 
       const ctx = elements.pageCanvas.getContext("2d");
       ctx.imageSmoothingEnabled = true;
