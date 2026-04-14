@@ -146,6 +146,11 @@
       color: #fffaf1;
     }
 
+    .button-state-saving {
+      background: #2f5f9c;
+      color: #f5faff;
+    }
+
     label {
       display: grid;
       gap: 6px;
@@ -492,7 +497,6 @@
       <div class="button-row viewer-controls">
         <button id="prevPage" type="button" class="secondary">Previous page</button>
         <button id="nextPage" type="button" class="secondary">Next page</button>
-        <button id="signOffPage" type="button">Sign off page</button>
         <button id="stopPlayback" type="button" class="secondary">Stop</button>
       </div>
 
@@ -622,12 +626,13 @@
       selectedLineText: document.getElementById("selectedLineText"),
       selectedLineTitle: document.getElementById("selectedLineTitle"),
       sheetGuidance: document.getElementById("sheetGuidance"),
-      signOffPage: document.getElementById("signOffPage"),
       syncStatus: document.getElementById("syncStatus"),
       status: document.getElementById("status"),
       stopPlayback: document.getElementById("stopPlayback"),
       wordButtonRow: document.getElementById("wordButtonRow")
     };
+
+    let saveButtonResetTimer = null;
 
     function loadReviewState() {
       try {
@@ -701,6 +706,25 @@
       if (elements.status) {
         elements.status.textContent = message;
       }
+    }
+
+    function setSaveButtonState(label, stateClass, disabled) {
+      if (!elements.saveProgress) {
+        return;
+      }
+      elements.saveProgress.textContent = label;
+      elements.saveProgress.className = stateClass || "";
+      elements.saveProgress.disabled = Boolean(disabled);
+    }
+
+    function flashSaveButton(label, stateClass) {
+      if (saveButtonResetTimer) {
+        window.clearTimeout(saveButtonResetTimer);
+      }
+      setSaveButtonState(label, stateClass, false);
+      saveButtonResetTimer = window.setTimeout(function () {
+        setSaveButtonState("Save progress", "", false);
+      }, 1800);
     }
 
     function orderedPages() {
@@ -1119,7 +1143,6 @@
       const progress = pageCompletion(page);
       elements.progressText.textContent = progress.completed + " / " + progress.total + " complete";
       elements.progressFill.style.width = progress.total ? ((progress.completed / progress.total) * 100).toFixed(2) + "%" : "0%";
-      elements.signOffPage.disabled = !progress.complete;
     }
 
     function updateExport() {
@@ -1176,6 +1199,7 @@
         return false;
       }
       try {
+        setStatus("Saving to backup sheet...", "sync-saving");
         updateExport();
         await fetch(state.syncConfig.endpoint, {
           method: "POST",
@@ -1394,25 +1418,6 @@
       setStatus(line.badgeLabel + " reset after clearing the arrow.");
     }
 
-    function signOffPage() {
-      const page = currentPage();
-      if (!page) {
-        return;
-      }
-      const progress = pageCompletion(page);
-      if (!progress.complete) {
-        setStatus("Finish every line on the page before signing it off.");
-        return;
-      }
-      state.review.pageSignOffs[page.id] = {
-        page: page.page,
-        signedOffAt: new Date().toISOString()
-      };
-      saveReviewState();
-      saveRemotePage(page, "page signoff");
-      setStatus("Page " + page.page + " signed off.");
-    }
-
     async function loadQa() {
       const response = await fetch("./data/qa.json", { cache: "no-store" });
       if (!response.ok) {
@@ -1484,7 +1489,6 @@
     elements.saveBadLine.addEventListener("click", saveBadLine);
     elements.resetLine.addEventListener("click", resetLine);
     elements.clearLocation.addEventListener("click", clearLocation);
-    elements.signOffPage.addEventListener("click", signOffPage);
 
     elements.reasonSelect.addEventListener("change", function () {
       elements.sheetGuidance.classList.toggle("visible", elements.reasonSelect.value === "Google Sheet error");
@@ -1493,8 +1497,10 @@
 
     elements.saveProgress.addEventListener("click", async function () {
       try {
+        setSaveButtonState("Saving...", "button-state-saving", true);
         updateExport();
         if (await saveRemoteAll("manual save")) {
+          flashSaveButton("Saved", "button-state-good");
           return;
         }
         const payload = JSON.stringify(state.exportPayload || {}, null, 2);
@@ -1512,6 +1518,7 @@
           await writable.write(payload);
           await writable.close();
           setStatus("Progress saved to file.");
+          flashSaveButton("Saved", "button-state-good");
           return;
         }
 
@@ -1525,13 +1532,16 @@
         link.remove();
         URL.revokeObjectURL(url);
         setStatus("Progress downloaded as a file.");
+        flashSaveButton("Saved", "button-state-good");
       } catch (error) {
         console.error(error);
         if (error && error.name === "AbortError") {
           setStatus("Save cancelled.");
+          setSaveButtonState("Save progress", "", false);
           return;
         }
         setStatus("Save failed.");
+        flashSaveButton("Save failed", "button-state-bad");
       }
     });
 
