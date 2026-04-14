@@ -1,6 +1,6 @@
 {
   "enabled": true,
-  "endpoint": "",
+  "endpoint": "https://script.google.com/macros/s/AKfycbxaYG3Ya99YMBRp6A7nDTtxRW3NwN_J6PxDqxN-1uEEWT2jmdLY2eyEm4J6RB4Pu-Q9/exec",
   "spreadsheetId": "1lxL3hA8NR_rt8mTG848BXXjplBHj98OtIrWhe9lKLIg",
   "sheetName": "backup",
   "saveTriggers": [
