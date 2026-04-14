@@ -19,6 +19,7 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_TRANSCRIPT = ROOT / "transcript.json"
 SOURCE_INDEX = ROOT / "index.html"
+SOURCE_QA = ROOT / "qa.html"
 SOURCE_ANNOTATE = ROOT / "annotate.html"
 SOURCE_PAGES = ROOT / "pages"
 SITE_ROOT = ROOT / "site"
@@ -32,6 +33,9 @@ DEFAULT_MIXED_SEGMENT_GAP_MS = 150
 TRAILING_PUNCTUATION = ",.;:!?\"'״׳…׃"
 HEBREW_CHAR_RE = re.compile(r"[\u0590-\u05FF]")
 LATIN_CHAR_RE = re.compile(r"[A-Za-z]")
+DOT_SENSITIVE_MARKERS = ("ּ", "ׁ", "ׂ")
+DOT_SENSITIVE_PATTERNS = ("וּ", "וֹ")
+QA_PRIORITY_PAGES = [1, 2, 12, 39, 48, 61]
 
 
 class BuildError(Exception):
@@ -59,6 +63,8 @@ def copy_static_assets() -> None:
     SITE_ROOT.mkdir(parents=True, exist_ok=True)
     SITE_DATA.mkdir(parents=True, exist_ok=True)
     shutil.copy2(SOURCE_INDEX, SITE_ROOT / "index.html")
+    if SOURCE_QA.exists():
+        shutil.copy2(SOURCE_QA, SITE_ROOT / "qa.html")
     if SOURCE_ANNOTATE.exists():
         shutil.copy2(SOURCE_ANNOTATE, SITE_ROOT / "annotate.html")
 
@@ -382,6 +388,218 @@ def ensure_mixed_audio_segments(
         )
 
     return output
+
+
+def dot_sensitive_tokens(tokens: List[str]) -> List[str]:
+    results: List[str] = []
+    seen = set()
+    for token in tokens:
+        if any(marker in token for marker in DOT_SENSITIVE_MARKERS) or any(pattern in token for pattern in DOT_SENSITIVE_PATTERNS):
+            if token not in seen:
+                results.append(token)
+                seen.add(token)
+    return results
+
+
+def current_spoken_words(line: Dict, words_by_id: Dict[str, Dict]) -> List[str]:
+    spoken: List[str] = []
+    for word_id in line.get("wordIds", []):
+        word = words_by_id.get(word_id)
+        if word and word.get("spokenText"):
+            spoken.append(word["spokenText"])
+    return spoken
+
+
+def current_display_words(line: Dict, words_by_id: Dict[str, Dict]) -> List[str]:
+    display_words = line.get("displayWords")
+    if isinstance(display_words, list) and display_words:
+        return list(display_words)
+
+    output: List[str] = []
+    for word_id in line.get("wordIds", []):
+        word = words_by_id.get(word_id)
+        if word and word.get("displayText"):
+            output.append(word["displayText"])
+    return output
+
+
+def qa_playback_for_line(line: Dict) -> Dict:
+    if line.get("playback"):
+        playback = line["playback"]
+        return {
+            "mode": line.get("currentAudioMode", "missing"),
+            "urls": list(playback.get("urls", [])),
+            "gapMs": playback.get("gapMs", 0),
+            "segments": line.get("mixedSegments", []),
+        }
+
+    audio = line.get("audio", {})
+    mixed_audio = audio.get("mixed", {}) if isinstance(audio.get("mixed"), dict) else {}
+    mixed_segments = [segment for segment in mixed_audio.get("segments", []) if segment.get("url")]
+    if mixed_segments:
+        return {
+            "mode": "mixed_segments",
+            "urls": [segment["url"] for segment in mixed_segments],
+            "gapMs": mixed_audio.get("gapMs", 0),
+            "segments": mixed_segments,
+        }
+
+    if mixed_audio.get("line"):
+        return {
+            "mode": "mixed_line",
+            "urls": [mixed_audio["line"]],
+            "gapMs": 0,
+            "segments": [],
+        }
+
+    if line.get("hebrewPlaybackMode") == "sequence" and line.get("hebrewAudioSequence"):
+        return {
+            "mode": "hebrew_sequence",
+            "urls": list(line.get("hebrewAudioSequence", [])),
+            "gapMs": sequence_gap_ms(line),
+            "segments": [],
+        }
+
+    he_audio = audio.get("he", {}) if isinstance(audio.get("he"), dict) else {}
+    if he_audio.get("line"):
+        return {
+            "mode": "hebrew_line",
+            "urls": [he_audio["line"]],
+            "gapMs": 0,
+            "segments": [],
+        }
+
+    en_audio = audio.get("en", {}) if isinstance(audio.get("en"), dict) else {}
+    if en_audio.get("line"):
+        return {
+            "mode": "english_line",
+            "urls": [en_audio["line"]],
+            "gapMs": 0,
+            "segments": [],
+        }
+
+    return {
+        "mode": "missing",
+        "urls": [],
+        "gapMs": 0,
+        "segments": [],
+    }
+
+
+def general_sample_line_ids(pages: List[Dict]) -> List[str]:
+    samples: List[str] = []
+    page_ids = set(QA_PRIORITY_PAGES)
+    if pages:
+        stride = max(1, len(pages) // 8)
+        for index in range(0, len(pages), stride):
+            page_ids.add(pages[index]["page"])
+
+    for page in pages:
+        if page["page"] not in page_ids:
+            continue
+        for line in page.get("lines", []):
+            playback = qa_playback_for_line(line)
+            if playback["urls"]:
+                samples.append(line["id"])
+                break
+    return samples
+
+
+def build_qa_payload(site_payload: Dict) -> Dict:
+    pages_out: List[Dict] = []
+    mixed_line_ids: List[str] = []
+    dot_sensitive_line_ids: List[str] = []
+    drill_line_ids: List[str] = []
+
+    for page in site_payload.get("pages", []):
+        words_by_id = {word["id"]: word for word in page.get("words", [])}
+        page_lines: List[Dict] = []
+        for line in ordered_lines(page):
+            display_words = current_display_words(line, words_by_id)
+            spoken_words = current_spoken_words(line, words_by_id)
+            risk_tokens = dot_sensitive_tokens(display_words)
+            playback = qa_playback_for_line(line)
+            word_playback = []
+            for word_id in line.get("wordIds", []):
+                word = words_by_id.get(word_id)
+                if not word:
+                    continue
+                word_playback.append(
+                    {
+                        "id": word["id"],
+                        "displayText": word.get("displayText", ""),
+                        "spokenText": word.get("spokenText", ""),
+                        "url": (((word.get("audio") or {}).get("he") or {}).get("word")),
+                    }
+                )
+            is_mixed = bool(line.get("contentMode") == "mixed" or line.get("mixedText"))
+            is_drill = bool(line.get("hebrewPlaybackMode") == "sequence" and line.get("wordIds"))
+            if is_mixed:
+                mixed_line_ids.append(line["id"])
+            if risk_tokens:
+                dot_sensitive_line_ids.append(line["id"])
+            if is_drill:
+                drill_line_ids.append(line["id"])
+
+            page_lines.append(
+                {
+                    "id": line["id"],
+                    "page": page["page"],
+                    "pageId": page["id"],
+                    "title": page["title"],
+                    "lineNumber": line["order"],
+                    "badgeLabel": line.get("badgeLabel") or line.get("label") or line["id"],
+                    "displayText": line.get("displayText", ""),
+                    "contentMode": line.get("contentMode", "other"),
+                    "displayWords": display_words,
+                    "currentSpokenWords": spoken_words,
+                    "currentSpokenSummary": " | ".join(spoken_words),
+                    "isMixedRisk": is_mixed,
+                    "isDotSensitiveRisk": bool(risk_tokens),
+                    "isDrill": is_drill,
+                    "hasRegion": bool(line.get("region") or line.get("overlay")),
+                    "riskTokens": risk_tokens,
+                    "wordPlayback": word_playback,
+                    "mixedSegments": playback["segments"],
+                    "currentAudioMode": playback["mode"],
+                    "playback": {
+                        "urls": playback["urls"],
+                        "gapMs": playback["gapMs"],
+                    },
+                    "region": resolved_region(line),
+                    "status": line.get("status"),
+                }
+            )
+
+        pages_out.append(
+            {
+                "id": page["id"],
+                "page": page["page"],
+                "title": page["title"],
+                "image": page["image"],
+                "lines": page_lines,
+            }
+        )
+
+    return {
+        "version": site_payload.get("version"),
+        "generatedAt": site_payload.get("generatedAt"),
+        "overview": {
+            "pageCount": len(pages_out),
+            "lineCount": sum(len(page["lines"]) for page in pages_out),
+            "mixedRiskCount": len(mixed_line_ids),
+            "dotSensitiveRiskCount": len(dot_sensitive_line_ids),
+            "drillCount": len(drill_line_ids),
+        },
+        "criticalPass": {
+            "priorityPages": [page["page"] for page in pages_out if page["page"] in QA_PRIORITY_PAGES],
+            "mixedLineIds": mixed_line_ids,
+            "dotSensitiveLineIds": dot_sensitive_line_ids,
+            "drillArrowLineIds": drill_line_ids,
+            "generalSampleLineIds": general_sample_line_ids(pages_out),
+        },
+        "pages": pages_out,
+    }
 
 
 def hebrew_line_text(line: Dict, words_by_id: Dict[str, Dict]) -> Optional[str]:
@@ -829,11 +1047,19 @@ def main(argv: Iterable[str]) -> int:
 
     source = load_json(SOURCE_TRANSCRIPT)
     site_payload, manifest = build_site_data(source, allow_missing_audio=args.allow_missing_audio)
+    qa_payload = build_qa_payload(site_payload)
 
     write_json(SITE_DATA / "reader.json", site_payload)
+    write_json(SITE_DATA / "qa.json", qa_payload)
     write_json(SITE_DATA / "audio-manifest.json", manifest)
 
     print(f"Built site data for {len(site_payload['pages'])} page(s).")
+    print(
+        "QA summary: "
+        f"{qa_payload['overview']['mixedRiskCount']} mixed-risk lines, "
+        f"{qa_payload['overview']['dotSensitiveRiskCount']} dot-sensitive lines, "
+        f"{qa_payload['overview']['drillCount']} drill lines."
+    )
     print(
         "Audio summary: "
         f"{manifest['summary']['generated']} generated, "

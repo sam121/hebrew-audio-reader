@@ -49,6 +49,26 @@ For contractor guidance and later QA, treat bet/vet as an explicit check:
 - plain `ב` without dagesh should be reviewed as a vet / `v` sound unless the page notes say otherwise.
 - If the scan is ambiguous, add a note instead of guessing.
 
+### Dot-sensitive Hebrew QA
+
+Do not treat every visible dot the same way. For audio QA, explicitly review words where a dot changes the consonant or syllable behavior:
+
+- `בּ` vs `ב`
+- `פּ` vs `פ`
+- `כּ` vs `כ`
+- `שׁ` vs `שׂ`
+- final-heh forms where a dot may indicate a sounded ending in context
+- any letter-vowel combination where ElevenLabs seems to collapse the printed distinction
+
+Recommended workflow:
+
+1. Keep `displayText` exactly as printed.
+2. If the dotted form changes pronunciation and ElevenLabs misses it, add or adjust `spokenText`.
+3. Bump the page `audioRevision`.
+4. Rebuild the page and listen to the affected clips directly.
+
+Do not add a blanket automatic rewrite for all dotted letters. Some dots are dagesh, some are shin/sin markers, and some are part of a vowel pattern, so they need explicit review rather than one global substitution rule.
+
 The rule is general: preserve the printed Hebrew for the reader, and use `spokenText` only to steer pronunciation.
 
 ## Environment variables
@@ -77,6 +97,20 @@ python3 '/Users/samueltaylor/Documents/New project/output/hebrew-pronunciation/s
 ```
 
 If verified items are missing audio and you want production-ready output, rerun the build without `--allow-missing-audio` after setting the ElevenLabs environment variables.
+
+## QA workflow
+
+- `qa.html`: reviewer-facing QA surface for mixed lines, dot-sensitive Hebrew, drill-arrow checks, and structured issue capture
+- `site/data/qa.json`: build-generated QA dataset with risk tags, playback metadata, and critical-pass queues
+- `scripts/apply_qa_review.py`: applies exported region overrides back to `transcript.json` and emits the remaining issue notes for manual follow-up
+
+Suggested cycle:
+
+1. Build and deploy a fresh review build.
+2. Open `qa.html` and work through mixed lines, dot-sensitive lines, and drill lines.
+3. Export the review bundle JSON from the QA page.
+4. Apply region overrides with `apply_qa_review.py`.
+5. Handle the remaining issue notes in one batch, then bump `audioRevision` for changed pages and rebuild.
 
 ## GitHub Pages
 
