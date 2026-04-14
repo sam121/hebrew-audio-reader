@@ -31,6 +31,7 @@ SITE_LINE_STRIPS = SITE_ROOT / "assets" / "line-strips"
 DEFAULT_OUTPUT_FORMAT = "mp3_44100_128"
 DEFAULT_SEQUENCE_GAP_MS = 220
 DEFAULT_MIXED_SEGMENT_GAP_MS = 150
+DEFAULT_BLOCK_SEGMENT_GAP_MS = 170
 TRAILING_PUNCTUATION = ",.;:!?\"'״׳…׃"
 HEBREW_CHAR_RE = re.compile(r"[\u0590-\u05FF]")
 LATIN_CHAR_RE = re.compile(r"[A-Za-z]")
@@ -76,6 +77,9 @@ ENGLISH_AUDIO_TEXT_REPLACEMENTS = (
     (re.compile(r"\bBerachah\b", re.IGNORECASE), "beh-rah-khah"),
     (re.compile(r"\bsiddur\b", re.IGNORECASE), "sid-door"),
 )
+LEADING_CONTINUATION_RE = re.compile(r'^[\s"\(\[\{“‘\'\-]*[a-z]')
+TITLE_CASE_RE = re.compile(r"^[A-Z][A-Za-z'’-]*$")
+HEADER_PREFIXES = ("blessing ", "read this", "read these", "the blessing")
 
 
 class BuildError(Exception):
@@ -274,6 +278,7 @@ def clone_line(line: Dict) -> Dict:
         }
     }
     clone["stripImage"] = None
+    clone["playback"] = {"urls": [], "gapMs": 0, "mode": "missing", "segments": []}
     return clone
 
 
@@ -286,6 +291,15 @@ def clone_section(section: Dict) -> Dict:
             "gapMs": 0,
         }
     }
+    return clone
+
+
+def clone_spoken_block(block: Dict) -> Dict:
+    clone = dict(block)
+    clone["lineIds"] = list(block.get("lineIds", []))
+    clone["lineNumbers"] = list(block.get("lineNumbers", []))
+    clone["playback"] = {"urls": [], "gapMs": 0, "mode": "missing"}
+    clone["segments"] = []
     return clone
 
 
@@ -566,6 +580,344 @@ def current_display_words(line: Dict, words_by_id: Dict[str, Dict]) -> List[str]
     return output
 
 
+def prose_grouping_override(line: Dict) -> str:
+    value = str(line.get("spokenGrouping") or "auto").strip().lower()
+    if value in {"auto", "single", "force_start", "continue"}:
+        return value
+    return "auto"
+
+
+def prose_group_key(line: Dict) -> str:
+    content_mode = line.get("contentMode", "other")
+    if content_mode == "hebrew":
+        return "hebrew"
+    if content_mode in {"english", "mixed"}:
+        return "latin"
+    return content_mode
+
+
+def starts_like_continuation(text: Optional[str]) -> bool:
+    return bool(LEADING_CONTINUATION_RE.match((text or "").strip()))
+
+
+def ends_with_strong_stop(text: Optional[str]) -> bool:
+    stripped = (text or "").strip()
+    if not stripped:
+        return False
+    return stripped[-1] in ".!?׃"
+
+
+def looks_like_header_line(line: Dict) -> bool:
+    text = (line.get("displayText") or "").strip()
+    if not text:
+        return False
+
+    lowered = text.lower()
+    if any(lowered.startswith(prefix) for prefix in HEADER_PREFIXES):
+        return True
+
+    if ":" in text and len(text.split()) <= 4 and not starts_like_continuation(text):
+        return True
+
+    words = [word for word in re.findall(r"[A-Za-z'’-]+", text) if word]
+    if words and len(words) <= 8 and all(TITLE_CASE_RE.match(word) for word in words):
+        return True
+
+    return False
+
+
+def looks_like_standalone_example(line: Dict, words_by_id: Dict[str, Dict]) -> bool:
+    override = prose_grouping_override(line)
+    if override == "single":
+        return True
+
+    text = (line.get("displayText") or "").strip()
+    display_words = current_display_words(line, words_by_id)
+    content_mode = line.get("contentMode", "other")
+
+    if content_mode == "hebrew" and 0 < len(display_words) <= 2:
+        return True
+
+    if content_mode == "mixed":
+        mixed_segments = split_mixed_text_segments(line.get("mixedText"))
+        if len(mixed_segments) <= 2 and len(text.split()) <= 4:
+            return True
+
+    standalone_token = text.split()[0] if text.split() else ""
+    if standalone_token in STANDALONE_VOWEL_NAMES:
+        return True
+
+    return False
+
+
+def is_groupable_prose_line(line: Dict, words_by_id: Dict[str, Dict]) -> bool:
+    if line.get("status") != "verified":
+        return False
+    if line.get("hebrewPlaybackMode") == "sequence":
+        return False
+    if not (line.get("displayText") or "").strip():
+        return False
+    if prose_grouping_override(line) == "single":
+        return True
+    return line.get("contentMode") in {"english", "mixed", "hebrew"} and not looks_like_header_line(line)
+
+
+def should_continue_spoken_block(previous_line: Dict, current_line: Dict, words_by_id: Dict[str, Dict]) -> bool:
+    current_override = prose_grouping_override(current_line)
+    previous_override = prose_grouping_override(previous_line)
+    if current_override == "force_start" or previous_override == "single":
+        return False
+    if current_override == "continue":
+        return True
+    if current_line.get("sectionId") != previous_line.get("sectionId"):
+        return False
+    if looks_like_header_line(current_line) or looks_like_standalone_example(current_line, words_by_id):
+        return False
+    if ends_with_strong_stop(previous_line.get("displayText")):
+        return False
+
+    previous_key = prose_group_key(previous_line)
+    current_key = prose_group_key(current_line)
+
+    if previous_key == "hebrew" and current_key == "hebrew":
+        return not looks_like_standalone_example(previous_line, words_by_id)
+
+    if current_key == "latin" and starts_like_continuation(current_line.get("displayText")):
+        return True
+
+    if previous_key == "latin" and current_key == "latin":
+        return True
+
+    return False
+
+
+def line_spoken_segments(line: Dict, words_by_id: Dict[str, Dict]) -> List[Dict[str, str]]:
+    content_mode = line.get("contentMode", "other")
+
+    if content_mode == "english":
+        text = normalize_english_audio_text(line.get("englishText"))
+        return [{"language": "en", "text": text}] if text else []
+
+    if content_mode == "mixed":
+        return normalize_mixed_audio_segments(split_mixed_text_segments(line.get("mixedText")))
+
+    if content_mode == "hebrew":
+        text = hebrew_line_text(line, words_by_id)
+        return [{"language": "he", "text": text}] if text else []
+
+    return []
+
+
+def merge_block_segments(segments: List[Dict[str, str]]) -> List[Dict[str, str]]:
+    merged: List[Dict[str, str]] = []
+    for segment in segments:
+        language = segment.get("language")
+        text = (segment.get("text") or "").strip()
+        if not language or not text:
+            continue
+        if merged and merged[-1]["language"] == language:
+            merged[-1]["text"] = (merged[-1]["text"] + " " + text).strip()
+        else:
+            merged.append({"language": language, "text": text})
+    return merged
+
+
+def build_spoken_blocks(page: Dict, words_by_id: Dict[str, Dict]) -> List[Dict]:
+    ordered_page_lines = ordered_lines(page)
+    blocks: List[List[Dict]] = []
+    current_block: List[Dict] = []
+    explicit_index: Dict[str, List[Dict]] = {}
+
+    for line in ordered_page_lines:
+        explicit_block_id = str(line.get("spokenBlockId") or "").strip()
+        if explicit_block_id:
+            explicit_index.setdefault(explicit_block_id, []).append(line)
+            continue
+
+        if not is_groupable_prose_line(line, words_by_id):
+            if current_block:
+                blocks.append(current_block)
+                current_block = []
+            continue
+
+        if not current_block:
+            current_block = [line]
+            continue
+
+        if should_continue_spoken_block(current_block[-1], line, words_by_id):
+            current_block.append(line)
+        else:
+            blocks.append(current_block)
+            current_block = [line]
+
+    if current_block:
+        blocks.append(current_block)
+
+    for _, lines in sorted(explicit_index.items(), key=lambda item: min(line["order"] for line in item[1])):
+        blocks.append(sorted(lines, key=lambda line: line["order"]))
+
+    blocks = sorted(blocks, key=lambda block_lines: block_lines[0]["order"])
+
+    spoken_blocks: List[Dict] = []
+    for index, block_lines in enumerate(blocks, start=1):
+        segments = merge_block_segments(
+            [
+                segment
+                for line in block_lines
+                for segment in line_spoken_segments(line, words_by_id)
+            ]
+        )
+        if not segments:
+            continue
+        spoken_blocks.append(
+            {
+                "id": f"{page['id']}-block-{index:02d}",
+                "page": page["page"],
+                "sectionId": block_lines[0].get("sectionId") or "default",
+                "order": block_lines[0]["order"],
+                "blockLabel": f"Block {index}",
+                "lineIds": [line["id"] for line in block_lines],
+                "lineNumbers": [line["order"] for line in block_lines],
+                "contentMode": "mixed" if len({segment["language"] for segment in segments}) > 1 else ("english" if segments[0]["language"] == "en" else "hebrew"),
+                "displayText": " ".join((line.get("displayText") or "").strip() for line in block_lines if (line.get("displayText") or "").strip()),
+                "summaryText": (block_lines[0].get("displayText") or "").strip(),
+                "segments": segments,
+            }
+        )
+
+    line_to_block = {}
+    for block in spoken_blocks:
+        line_count = len(block["lineIds"])
+        for offset, line_id in enumerate(block["lineIds"]):
+            if line_count == 1:
+                role = "single"
+            elif offset == 0:
+                role = "start"
+            elif offset == line_count - 1:
+                role = "end"
+            else:
+                role = "continue"
+            line_to_block[line_id] = (block["id"], block["blockLabel"], role)
+
+    for line in ordered_page_lines:
+        assignment = line_to_block.get(line["id"])
+        if not assignment:
+            continue
+        line["spokenBlockId"] = assignment[0]
+        line["spokenBlockLabel"] = assignment[1]
+        line["spokenBlockRole"] = assignment[2]
+
+    return spoken_blocks
+
+
+def build_spoken_block_audio(
+    *,
+    block: Dict,
+    hebrew_model: str,
+    hebrew_voice_id: Optional[str],
+    english_model: str,
+    english_voice_id: Optional[str],
+    api_key: Optional[str],
+    output_format: str,
+    allow_missing_audio: bool,
+    manifest_entries: List[Dict],
+    missing_items: List[Dict],
+    revision: Optional[str],
+) -> Dict:
+    segments = block.get("segments", [])
+    if not segments:
+        return {"urls": [], "gapMs": 0, "mode": "missing", "segments": []}
+
+    if len(segments) == 1:
+        segment = segments[0]
+        language = segment["language"]
+        text = segment["text"]
+        if language == "en":
+            url = ensure_audio(
+                category="blocks",
+                language="en",
+                language_code="en",
+                item_id=block["id"],
+                text=text,
+                model_id=english_model,
+                voice_id=hebrew_voice_id or english_voice_id,
+                voice_secret_name="ELEVENLABS_HEBREW_VOICE_ID",
+                api_key=api_key,
+                output_format=output_format,
+                allow_missing_audio=allow_missing_audio,
+                manifest_entries=manifest_entries,
+                missing_items=missing_items,
+                revision=revision,
+            )
+            return {"urls": [url] if url else [], "gapMs": 0, "mode": "english_block", "segments": [{"language": "en", "text": text, "url": url}] if url else []}
+
+        url = ensure_audio(
+            category="blocks",
+            language="he",
+            language_code="he",
+            item_id=block["id"],
+            text=text,
+            model_id=hebrew_model,
+            voice_id=hebrew_voice_id,
+            voice_secret_name="ELEVENLABS_HEBREW_VOICE_ID",
+            api_key=api_key,
+            output_format=output_format,
+            allow_missing_audio=allow_missing_audio,
+            manifest_entries=manifest_entries,
+            missing_items=missing_items,
+            revision=revision,
+        )
+        return {"urls": [url] if url else [], "gapMs": 0, "mode": "hebrew_block", "segments": [{"language": "he", "text": text, "url": url}] if url else []}
+
+    output_segments: List[Dict] = []
+    for index, segment in enumerate(segments):
+        language = segment["language"]
+        text = segment["text"]
+        if language == "en":
+            url = ensure_audio(
+                category="blocks",
+                language="en",
+                language_code="en",
+                item_id=f"{block['id']}-segment-{index+1:02d}",
+                text=text,
+                model_id=english_model,
+                voice_id=hebrew_voice_id or english_voice_id,
+                voice_secret_name="ELEVENLABS_HEBREW_VOICE_ID",
+                api_key=api_key,
+                output_format=output_format,
+                allow_missing_audio=allow_missing_audio,
+                manifest_entries=manifest_entries,
+                missing_items=missing_items,
+                revision=revision,
+            )
+        else:
+            url = ensure_audio(
+                category="blocks",
+                language="he",
+                language_code="he",
+                item_id=f"{block['id']}-segment-{index+1:02d}",
+                text=text,
+                model_id=hebrew_model,
+                voice_id=hebrew_voice_id,
+                voice_secret_name="ELEVENLABS_HEBREW_VOICE_ID",
+                api_key=api_key,
+                output_format=output_format,
+                allow_missing_audio=allow_missing_audio,
+                manifest_entries=manifest_entries,
+                missing_items=missing_items,
+                revision=revision,
+            )
+        output_segments.append({"language": language, "text": text, "url": url})
+
+    urls = [segment["url"] for segment in output_segments if segment.get("url")]
+    return {
+        "urls": urls,
+        "gapMs": DEFAULT_BLOCK_SEGMENT_GAP_MS if len(urls) > 1 else 0,
+        "mode": "mixed_block_segments",
+        "segments": output_segments,
+    }
+
+
 def qa_playback_for_line(line: Dict) -> Dict:
     if line.get("playback"):
         playback = line["playback"]
@@ -656,12 +1008,14 @@ def build_qa_payload(site_payload: Dict) -> Dict:
 
     for page in site_payload.get("pages", []):
         words_by_id = {word["id"]: word for word in page.get("words", [])}
+        spoken_blocks_by_id = {block["id"]: block for block in page.get("spokenBlocks", [])}
         page_lines: List[Dict] = []
         for line in ordered_lines(page):
             display_words = current_display_words(line, words_by_id)
             spoken_words = current_spoken_words(line, words_by_id)
             risk_tokens = dot_sensitive_tokens(display_words)
             playback = qa_playback_for_line(line)
+            spoken_block = spoken_blocks_by_id.get(line.get("spokenBlockId"))
             raw_mixed_segments = (
                 (((line.get("audio") or {}).get("mixed") or {}).get("segments") or [])
                 if isinstance(line.get("audio"), dict)
@@ -715,6 +1069,11 @@ def build_qa_payload(site_payload: Dict) -> Dict:
                         "urls": playback["urls"],
                         "gapMs": playback["gapMs"],
                     },
+                    "spokenBlockId": line.get("spokenBlockId"),
+                    "spokenBlockLabel": line.get("spokenBlockLabel", ""),
+                    "spokenBlockRole": line.get("spokenBlockRole", ""),
+                    "spokenBlockPlayback": spoken_block.get("playback") if spoken_block else None,
+                    "spokenBlockSummary": spoken_block.get("summaryText", "") if spoken_block else "",
                     "region": resolved_region(line),
                     "status": line.get("status"),
                     "reviewFingerprint": stable_hash(
@@ -729,6 +1088,11 @@ def build_qa_payload(site_payload: Dict) -> Dict:
                             "englishText": line.get("englishText", ""),
                             "englishAudioText": english_audio_text or "",
                             "mixedText": line.get("mixedText", ""),
+                            "spokenBlockId": line.get("spokenBlockId", ""),
+                            "spokenBlockRole": line.get("spokenBlockRole", ""),
+                            "spokenBlockDisplayText": spoken_block.get("displayText", "") if spoken_block else "",
+                            "spokenBlockSegments": spoken_block.get("segments", []) if spoken_block else [],
+                            "spokenBlockPlayback": spoken_block.get("playback", {}) if spoken_block else {},
                             "playbackMode": playback["mode"],
                             "playbackSegments": playback["segments"],
                             "rawMixedSegments": [
@@ -749,6 +1113,18 @@ def build_qa_payload(site_payload: Dict) -> Dict:
                 "page": page["page"],
                 "title": page["title"],
                 "image": page["image"],
+                "spokenBlocks": [
+                    {
+                        "id": block["id"],
+                        "blockLabel": block.get("blockLabel", block["id"]),
+                        "lineIds": list(block.get("lineIds", [])),
+                        "lineNumbers": list(block.get("lineNumbers", [])),
+                        "displayText": block.get("displayText", ""),
+                        "summaryText": block.get("summaryText", ""),
+                        "playback": dict(block.get("playback", {})),
+                    }
+                    for block in page.get("spokenBlocks", [])
+                ],
                 "lines": page_lines,
             }
         )
@@ -922,6 +1298,7 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
             },
             "fullPlaybackGroups": [],
             "drillPlaybackGroups": [],
+            "spokenBlocks": [],
             "lines": [],
             "words": [],
         }
@@ -1115,6 +1492,71 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
             page_sequence if len(page_sequence) == len(expected_page_word_ids) else []
         )
 
+        spoken_blocks = build_spoken_blocks(page_out, words_by_id)
+        for block in spoken_blocks:
+            block_out = clone_spoken_block(block)
+            block_playback = build_spoken_block_audio(
+                block=block,
+                hebrew_model=hebrew_model,
+                hebrew_voice_id=hebrew_voice_id,
+                english_model=english_model,
+                english_voice_id=english_voice_id,
+                api_key=api_key,
+                output_format=output_format,
+                allow_missing_audio=allow_missing_audio,
+                manifest_entries=manifest_entries,
+                missing_items=missing_items,
+                revision=page_audio_revision,
+            )
+            block_out["segments"] = block_playback["segments"]
+            block_out["playback"] = {
+                "urls": block_playback["urls"],
+                "gapMs": block_playback["gapMs"],
+                "mode": block_playback["mode"],
+            }
+            page_out["spokenBlocks"].append(block_out)
+
+        spoken_blocks_by_id = {block["id"]: block for block in page_out["spokenBlocks"]}
+        for line in page_out["lines"]:
+            block = spoken_blocks_by_id.get(line.get("spokenBlockId"))
+            if not block:
+                continue
+            line["playback"] = {
+                "urls": list((block.get("playback") or {}).get("urls", [])),
+                "gapMs": (block.get("playback") or {}).get("gapMs", 0),
+                "mode": (block.get("playback") or {}).get("mode", "missing"),
+                "segments": list(block.get("segments", [])),
+            }
+
+        playback_items: List[Dict] = []
+        for block in page_out["spokenBlocks"]:
+            urls = list((block.get("playback") or {}).get("urls", []))
+            if not urls:
+                continue
+            playback_items.append(
+                {
+                    "order": block.get("order", 0),
+                    "group": {
+                        "label": block.get("blockLabel") or block["id"],
+                        "lineId": block.get("lineIds", [None])[0],
+                        "spokenBlockId": block["id"],
+                        "urls": urls,
+                        "gapMs": (block.get("playback") or {}).get("gapMs", 0),
+                    },
+                }
+            )
+
+        for drill in page_out["drillPlaybackGroups"]:
+            line = next((item for item in page_out["lines"] if item["id"] == drill.get("lineId")), None)
+            playback_items.append(
+                {
+                    "order": line.get("order", 0) if line else 0,
+                    "group": dict(drill),
+                }
+            )
+
+        page_out["fullPlaybackGroups"] = [item["group"] for item in sorted(playback_items, key=lambda item: item["order"])]
+
         for section in page_out["sections"]:
             section_mixed_audio = section.get("audio", {}).get("mixed", {})
             section_segment_urls = [
@@ -1123,72 +1565,7 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                 if segment.get("url")
             ]
             if section.get("playbackMode") == "single_block" and (section_segment_urls or section_mixed_audio.get("block")):
-                page_out["fullPlaybackGroups"].append(
-                    {
-                        "label": section.get("playbackLabel") or section.get("title") or "Section",
-                        "lineId": None,
-                        "urls": section_segment_urls or [section_mixed_audio["block"]],
-                        "gapMs": section_mixed_audio.get("gapMs", 0),
-                    }
-                )
                 continue
-
-            section_lines = [
-                line
-                for line in page_out["lines"]
-                if (line.get("sectionId") or "default") == section["id"]
-                and line.get("status") == "verified"
-                and (
-                    line.get("audio", {}).get("mixed", {}).get("segments")
-                    or line.get("audio", {}).get("mixed", {}).get("line")
-                    or line.get("audio", {}).get("he", {}).get("line")
-                    or line.get("audio", {}).get("en", {}).get("line")
-                    or line.get("hebrewAudioSequence")
-                )
-            ]
-            for line in section_lines:
-                mixed_segment_urls = [
-                    segment.get("url")
-                    for segment in line.get("audio", {}).get("mixed", {}).get("segments", [])
-                    if segment.get("url")
-                ]
-                use_sequence = (
-                    line.get("hebrewPlaybackMode") == "sequence"
-                    or not line.get("audio", {}).get("he", {}).get("line")
-                )
-                if use_sequence and line.get("hebrewAudioSequence"):
-                    line_urls = list(line.get("hebrewAudioSequence", []))
-                    gap_ms = sequence_gap_ms(line)
-                elif mixed_segment_urls:
-                    line_urls = mixed_segment_urls
-                    gap_ms = line.get("audio", {}).get("mixed", {}).get("gapMs", 0)
-                    use_sequence = len(mixed_segment_urls) > 1
-                elif line.get("audio", {}).get("mixed", {}).get("line"):
-                    line_urls = [line["audio"]["mixed"]["line"]]
-                    gap_ms = 0
-                    use_sequence = False
-                elif line.get("audio", {}).get("he", {}).get("line"):
-                    line_urls = [line["audio"]["he"]["line"]]
-                    gap_ms = 0
-                    use_sequence = False
-                elif line.get("audio", {}).get("en", {}).get("line"):
-                    line_urls = [line["audio"]["en"]["line"]]
-                    gap_ms = 0
-                    use_sequence = False
-                else:
-                    line_urls = []
-                    gap_ms = 0
-
-                if not line_urls:
-                    continue
-                page_out["fullPlaybackGroups"].append(
-                    {
-                        "label": line.get("badgeLabel") or line.get("label") or line["id"],
-                        "lineId": line["id"],
-                        "urls": line_urls,
-                        "gapMs": gap_ms if use_sequence else 0,
-                    }
-                )
         site_payload["pages"].append(page_out)
 
     manifest = {

@@ -306,6 +306,52 @@
       box-shadow: 0 10px 22px rgba(147, 80, 54, 0.12);
     }
 
+    .block-card {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: rgba(255, 252, 247, 0.94);
+      margin-bottom: 14px;
+    }
+
+    .block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .block-header-main {
+      display: grid;
+      gap: 4px;
+    }
+
+    .block-header-main strong {
+      font-size: 1rem;
+    }
+
+    .block-header-main span {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.35;
+    }
+
+    .block-line-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .block-membership {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
     .status-dot {
       width: 14px;
       height: 14px;
@@ -533,6 +579,7 @@
 
         <div class="button-row">
           <button id="playLine" type="button">Play line</button>
+          <button id="playBlock" type="button" class="secondary">Play block</button>
           <button id="clearLocation" type="button" class="secondary">Clear location</button>
         </div>
 
@@ -630,6 +677,7 @@
       pageTitle: document.getElementById("pageTitle"),
       playPage: document.getElementById("playPage"),
       playLine: document.getElementById("playLine"),
+      playBlock: document.getElementById("playBlock"),
       prevPage: document.getElementById("prevPage"),
       progressFill: document.getElementById("progressFill"),
       progressText: document.getElementById("progressText"),
@@ -861,6 +909,44 @@
         return "changed";
       }
       return review.status;
+    }
+
+    function spokenBlocksForPage(page) {
+      return Array.isArray(page && page.spokenBlocks) ? page.spokenBlocks.slice().sort(function (a, b) {
+        const aOrder = Array.isArray(a.lineNumbers) && a.lineNumbers.length ? a.lineNumbers[0] : 0;
+        const bOrder = Array.isArray(b.lineNumbers) && b.lineNumbers.length ? b.lineNumbers[0] : 0;
+        return aOrder - bOrder;
+      }) : [];
+    }
+
+    function spokenBlockForLine(page, line) {
+      if (!page || !line || !line.spokenBlockId) {
+        return null;
+      }
+      return spokenBlocksForPage(page).find(function (block) {
+        return block.id === line.spokenBlockId;
+      }) || null;
+    }
+
+    function playbackForLine(line) {
+      if (!line) {
+        return { urls: [], gapMs: 0 };
+      }
+      const playback = line.playback || {};
+      const urls = Array.isArray(playback.urls) ? playback.urls.slice() : [];
+      if (urls.length) {
+        return {
+          urls: urls,
+          gapMs: Number(playback.gapMs) || 0
+        };
+      }
+      if (Array.isArray(line.wordPlayback) && line.wordPlayback.length) {
+        return {
+          urls: line.wordPlayback.map(function (word) { return word.url; }).filter(Boolean),
+          gapMs: 0
+        };
+      }
+      return { urls: [], gapMs: 0 };
     }
 
     function isLineComplete(line) {
@@ -1128,6 +1214,8 @@
 
       const review = reviewForLine(line.id);
       const effectiveStatus = effectiveStatusForLine(line);
+      const page = currentPage();
+      const spokenBlock = spokenBlockForLine(page, line);
       elements.selectedLineTitle.textContent = "Page " + line.page + " · " + line.badgeLabel;
       elements.selectedLineText.textContent = line.displayText;
       elements.reasonSelect.value = review.category || "";
@@ -1150,6 +1238,13 @@
         elements.selectedLineStatus.appendChild(chip);
       });
 
+      if (spokenBlock) {
+        const chip = document.createElement("span");
+        chip.className = "status-chip";
+        chip.textContent = spokenBlock.blockLabel;
+        elements.selectedLineStatus.appendChild(chip);
+      }
+
       elements.savedNote.innerHTML = "";
       const noteStrong = document.createElement("strong");
       noteStrong.textContent = review.note ? "Saved review note" : "No note saved";
@@ -1158,7 +1253,12 @@
       noteBody.textContent = review.note || "If this line is bad, write the exact wrong word or phrase and then describe the audio problem.";
       elements.savedNote.appendChild(noteBody);
 
-      elements.playLine.disabled = !(line.playback && line.playback.urls && line.playback.urls.length);
+      const linePlayback = playbackForLine(line);
+      const blockPlayback = spokenBlock && spokenBlock.playback ? spokenBlock.playback : { urls: [] };
+      elements.playLine.textContent = spokenBlock ? "Play line (plays " + spokenBlock.blockLabel + ")" : "Play line";
+      elements.playLine.disabled = !linePlayback.urls.length;
+      elements.playBlock.style.display = spokenBlock ? "" : "none";
+      elements.playBlock.disabled = !(blockPlayback.urls && blockPlayback.urls.length);
       elements.clearLocation.disabled = typeof review.anchorY !== "number";
 
       elements.wordButtonRow.replaceChildren();
@@ -1186,7 +1286,11 @@
         return;
       }
 
-      orderedLines(page).forEach(function (line) {
+      const linesById = new Map(orderedLines(page).map(function (line) { return [line.id, line]; }));
+      const spokenBlocks = spokenBlocksForPage(page);
+      const handledLineIds = new Set();
+
+      function buildLineRow(line) {
         const review = reviewForLine(line.id);
         const effectiveStatus = effectiveStatusForLine(line);
         const row = document.createElement("article");
@@ -1214,6 +1318,12 @@
           span.style.textAlign = "right";
         }
         main.appendChild(span);
+        if (line.spokenBlockLabel) {
+          const blockLabel = document.createElement("div");
+          blockLabel.className = "block-membership";
+          blockLabel.textContent = line.spokenBlockLabel;
+          main.appendChild(blockLabel);
+        }
         row.appendChild(main);
 
         const pill = document.createElement("span");
@@ -1234,8 +1344,62 @@
           pill.textContent = typeof review.anchorY === "number" ? "Arrow set" : "Pending";
         }
         row.appendChild(pill);
+        return row;
+      }
 
-        elements.lineList.appendChild(row);
+      spokenBlocks.forEach(function (block) {
+        const blockLines = (block.lineIds || []).map(function (lineId) {
+          handledLineIds.add(lineId);
+          return linesById.get(lineId);
+        }).filter(Boolean);
+        if (!blockLines.length) {
+          return;
+        }
+
+        const card = document.createElement("section");
+        card.className = "block-card";
+
+        const header = document.createElement("div");
+        header.className = "block-header";
+
+        const headerMain = document.createElement("div");
+        headerMain.className = "block-header-main";
+        const heading = document.createElement("strong");
+        heading.textContent = block.blockLabel;
+        headerMain.appendChild(heading);
+        const summary = document.createElement("span");
+        summary.textContent = block.summaryText || block.displayText || "";
+        headerMain.appendChild(summary);
+        header.appendChild(headerMain);
+
+        const playBlock = document.createElement("button");
+        playBlock.type = "button";
+        playBlock.className = "secondary";
+        playBlock.textContent = "Play block";
+        const blockPlayback = block.playback || {};
+        playBlock.disabled = !(Array.isArray(blockPlayback.urls) && blockPlayback.urls.length);
+        playBlock.addEventListener("click", function (event) {
+          event.stopPropagation();
+          playSequence((blockPlayback.urls || []).slice(), Number(blockPlayback.gapMs) || 0, block.blockLabel);
+        });
+        header.appendChild(playBlock);
+
+        card.appendChild(header);
+
+        const blockList = document.createElement("div");
+        blockList.className = "block-line-list";
+        blockLines.forEach(function (line) {
+          blockList.appendChild(buildLineRow(line));
+        });
+        card.appendChild(blockList);
+        elements.lineList.appendChild(card);
+      });
+
+      orderedLines(page).forEach(function (line) {
+        if (handledLineIds.has(line.id)) {
+          return;
+        }
+        elements.lineList.appendChild(buildLineRow(line));
       });
     }
 
@@ -1243,21 +1407,45 @@
       if (!page) {
         return [];
       }
-      return orderedLines(page).map(function (line) {
-        const playback = line.playback || {};
-        let urls = Array.isArray(playback.urls) ? playback.urls.slice() : [];
-        if (!urls.length && Array.isArray(line.wordPlayback) && line.wordPlayback.length) {
-          urls = line.wordPlayback
-            .map(function (word) { return word.url; })
-            .filter(Boolean);
+      const playbackItems = [];
+      spokenBlocksForPage(page).forEach(function (block) {
+        const playback = block.playback || {};
+        const urls = Array.isArray(playback.urls) ? playback.urls.slice() : [];
+        if (!urls.length) {
+          return;
         }
-        return {
-          urls: urls,
-          gapMs: Number(playback.gapMs) || 0,
-          lineGapMs: 260
-        };
-      }).filter(function (segment) {
-        return segment.urls.length;
+        playbackItems.push({
+          order: Array.isArray(block.lineNumbers) && block.lineNumbers.length ? block.lineNumbers[0] : 0,
+          segment: {
+            urls: urls,
+            gapMs: Number(playback.gapMs) || 0,
+            lineGapMs: 260
+          }
+        });
+      });
+
+      orderedLines(page).forEach(function (line) {
+        if (line.spokenBlockId) {
+          return;
+        }
+        const playback = playbackForLine(line);
+        if (!playback.urls.length) {
+          return;
+        }
+        playbackItems.push({
+          order: line.lineNumber,
+          segment: {
+            urls: playback.urls,
+            gapMs: playback.gapMs,
+            lineGapMs: 260
+          }
+        });
+      });
+
+      return playbackItems.sort(function (a, b) {
+        return a.order - b.order;
+      }).map(function (item) {
+        return item.segment;
       });
     }
 
@@ -1642,7 +1830,21 @@
       if (!line) {
         return;
       }
-      playSequence((line.playback || {}).urls || [], Number((line.playback || {}).gapMs) || 0, line.badgeLabel);
+      const playback = playbackForLine(line);
+      playSequence(playback.urls, playback.gapMs, line.badgeLabel);
+    });
+
+    elements.playBlock.addEventListener("click", function () {
+      const line = ensureSelectedLine();
+      if (!line) {
+        return;
+      }
+      const block = spokenBlockForLine(currentPage(), line);
+      if (!block) {
+        return;
+      }
+      const playback = block.playback || {};
+      playSequence((playback.urls || []).slice(), Number(playback.gapMs) || 0, block.blockLabel);
     });
 
     elements.stopPlayback.addEventListener("click", stopPlayback);
