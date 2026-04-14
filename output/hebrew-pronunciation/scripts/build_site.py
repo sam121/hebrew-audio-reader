@@ -69,6 +69,13 @@ ENGLISH_VOWEL_LABEL_HINTS = {
     "ֲ": ("chataf patach",),
     "ֳ": ("chataf kamatz",),
 }
+ISOLATED_HEBREW_AUDIO_OVERRIDES = {
+    "בּ": "בֶּה",
+}
+ENGLISH_AUDIO_TEXT_REPLACEMENTS = (
+    (re.compile(r"\bBerachah\b", re.IGNORECASE), "beh-rah-khah"),
+    (re.compile(r"\bsiddur\b", re.IGNORECASE), "sid-door"),
+)
 
 
 class BuildError(Exception):
@@ -406,10 +413,26 @@ def normalize_hebrew_mixed_segment(
             normalized_tokens.append("אֲדֹנָי")
             continue
 
+        if stripped in ISOLATED_HEBREW_AUDIO_OVERRIDES and len(raw_tokens) == 1:
+            normalized_tokens.append(ISOLATED_HEBREW_AUDIO_OVERRIDES[stripped])
+            continue
+
         normalized_tokens.append(token.strip())
 
     normalized_text = " ".join(token for token in normalized_tokens if token).strip()
     return normalized_text or None
+
+
+def normalize_english_audio_text(text: Optional[str]) -> Optional[str]:
+    normalized = (text or "").strip()
+    if not normalized:
+        return None
+
+    for pattern, replacement in ENGLISH_AUDIO_TEXT_REPLACEMENTS:
+        normalized = pattern.sub(replacement, normalized)
+
+    normalized = re.sub(r"\s+", " ", normalized).strip()
+    return normalized or None
 
 
 def normalize_mixed_audio_segments(segments: List[Dict[str, str]]) -> List[Dict[str, str]]:
@@ -428,6 +451,10 @@ def normalize_mixed_audio_segments(segments: List[Dict[str, str]]) -> List[Dict[
                 previous_english=previous_english,
                 next_english=next_english,
             ) or ""
+            if not text:
+                continue
+        else:
+            text = normalize_english_audio_text(text) or ""
             if not text:
                 continue
 
@@ -635,6 +662,12 @@ def build_qa_payload(site_payload: Dict) -> Dict:
             spoken_words = current_spoken_words(line, words_by_id)
             risk_tokens = dot_sensitive_tokens(display_words)
             playback = qa_playback_for_line(line)
+            raw_mixed_segments = (
+                (((line.get("audio") or {}).get("mixed") or {}).get("segments") or [])
+                if isinstance(line.get("audio"), dict)
+                else []
+            )
+            english_audio_text = normalize_english_audio_text(line.get("englishText"))
             word_playback = []
             for word_id in line.get("wordIds", []):
                 word = words_by_id.get(word_id)
@@ -694,9 +727,17 @@ def build_qa_payload(site_payload: Dict) -> Dict:
                             "displayWords": display_words,
                             "spokenWords": spoken_words,
                             "englishText": line.get("englishText", ""),
+                            "englishAudioText": english_audio_text or "",
                             "mixedText": line.get("mixedText", ""),
                             "playbackMode": playback["mode"],
                             "playbackSegments": playback["segments"],
+                            "rawMixedSegments": [
+                                {
+                                    "language": segment.get("language", ""),
+                                    "text": segment.get("text", ""),
+                                }
+                                for segment in raw_mixed_segments
+                            ],
                         }
                     ),
                 }
@@ -1018,12 +1059,13 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                         revision=page_audio_revision,
                     )
             if line.get("status") == "verified" and line.get("englishText"):
+                english_audio_text = normalize_english_audio_text(line.get("englishText"))
                 line_out["audio"]["en"]["line"] = ensure_audio(
                     category="lines",
                     language="en",
                     language_code="en",
                     item_id=line["id"],
-                    text=line.get("englishText"),
+                    text=english_audio_text,
                     model_id=english_model,
                     voice_id=hebrew_voice_id or english_voice_id,
                     voice_secret_name="ELEVENLABS_HEBREW_VOICE_ID",
