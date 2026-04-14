@@ -46,10 +46,10 @@
     .shell {
       max-width: 1920px;
       margin: 0 auto;
-      padding: 18px;
+      padding: 12px;
       display: grid;
       grid-template-columns: minmax(720px, 1.5fr) minmax(340px, 420px) minmax(360px, 460px);
-      gap: 18px;
+      gap: 14px;
       align-items: start;
     }
 
@@ -58,7 +58,7 @@
       border: 1px solid var(--border);
       border-radius: 24px;
       box-shadow: var(--shadow);
-      padding: 18px;
+      padding: 14px;
       min-height: 0;
     }
 
@@ -68,7 +68,7 @@
       display: grid;
       gap: 16px;
       min-height: 0;
-      height: calc(100vh - 36px);
+      height: calc(100vh - 24px);
     }
 
     .viewer-panel {
@@ -123,7 +123,7 @@
 
     .button-row {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
@@ -195,7 +195,7 @@
 
     .progress-strip {
       display: grid;
-      gap: 8px;
+      gap: 4px;
     }
 
     .progress-header {
@@ -206,7 +206,7 @@
     }
 
     .progress-bar {
-      height: 12px;
+      height: 8px;
       border-radius: 999px;
       background: rgba(200, 184, 167, 0.35);
       overflow: hidden;
@@ -220,18 +220,28 @@
 
     .canvas-wrap {
       display: grid;
-      gap: 10px;
       min-height: 0;
       align-content: start;
     }
 
     .canvas-scroll {
       overflow: auto;
-      max-height: calc(100vh - 300px);
+      max-height: calc(100vh - 200px);
       border-radius: 18px;
       border: 1px solid var(--border);
       box-shadow: 0 12px 28px rgba(73, 52, 36, 0.08);
       background: white;
+    }
+
+    .viewer-controls {
+      align-items: center;
+    }
+
+    .viewer-controls button,
+    .viewer-controls .mini-pill {
+      width: auto;
+      padding: 8px 12px;
+      font-size: 0.96rem;
     }
 
     canvas {
@@ -447,10 +457,9 @@
         </div>
       </div>
 
-      <div class="button-row">
+      <div class="button-row viewer-controls">
         <button id="prevPage" type="button" class="secondary">Previous page</button>
         <button id="nextPage" type="button" class="secondary">Next page</button>
-        <span id="pagePill" class="mini-pill">Page 1</span>
         <button id="signOffPage" type="button">Sign off page</button>
         <button id="stopPlayback" type="button" class="secondary">Stop</button>
       </div>
@@ -572,7 +581,6 @@
       nextPage: document.getElementById("nextPage"),
       notesInput: document.getElementById("notesInput"),
       pageCanvas: document.getElementById("pageCanvas"),
-      pagePill: document.getElementById("pagePill"),
       pageTitle: document.getElementById("pageTitle"),
       playLine: document.getElementById("playLine"),
       prevPage: document.getElementById("prevPage"),
@@ -1179,7 +1187,6 @@
         state.selectedLineId = lines[0] ? lines[0].id : null;
       }
       elements.pageTitle.textContent = "Page " + page.page + " · " + page.title;
-      elements.pagePill.textContent = "Page " + page.page;
       updateSelectedLine();
       renderLineList();
       renderCanvas();
