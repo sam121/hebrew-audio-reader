@@ -20,6 +20,7 @@ except ImportError:  # pragma: no cover - optional in some local shells
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT_PATH = ROOT / "transcript.json"
+DEFAULT_SYNC_CONFIG_PATH = ROOT / "qa-sync-config.json"
 DEFAULT_SHEET_CSV_URL = (
     "https://docs.google.com/spreadsheets/d/1JvDXB7bjEQV_wEO4YTUJJ-S6TXLt8VcqqClz8PetPzs/"
     "export?format=csv&gid=413834508"
@@ -62,6 +63,7 @@ REGION_DETECTION_CANDIDATES = [
     {"bottom": 0.92, "row_threshold": 10, "merge_gap": 4, "dark_threshold": 170, "min_height": 4},
     {"bottom": 0.94, "row_threshold": 8, "merge_gap": 4, "dark_threshold": 170, "min_height": 4},
 ]
+SELECTIVE_UPDATE_STATUSES = {"bad", "needs_regen"}
 
 
 def parse_args(argv: Iterable[str]) -> argparse.Namespace:
@@ -75,6 +77,16 @@ def parse_args(argv: Iterable[str]) -> argparse.Namespace:
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT_PATH))
     parser.add_argument("--pdf-path", default=DEFAULT_PDF_PATH)
     parser.add_argument("--audio-revision", default=DEFAULT_AUDIO_REVISION)
+    parser.add_argument(
+        "--review-sync-url",
+        default="",
+        help="Optional QA review backup endpoint. If omitted, qa-sync-config.json is used when available.",
+    )
+    parser.add_argument(
+        "--force-all-lines",
+        action="store_true",
+        help="Import all sheet lines even if reviewed good lines exist in the QA backup.",
+    )
     return parser.parse_args(list(argv))
 
 
@@ -256,6 +268,138 @@ def load_existing_transcript(path: Path) -> Dict:
         return json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
         return {}
+
+
+def deep_clone(value):
+    return json.loads(json.dumps(value, ensure_ascii=False))
+
+
+def load_default_review_sync_url() -> str:
+    if not DEFAULT_SYNC_CONFIG_PATH.exists():
+        return ""
+    try:
+        payload = json.loads(DEFAULT_SYNC_CONFIG_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return ""
+    if not payload.get("enabled"):
+        return ""
+    return str(payload.get("endpoint") or "").strip()
+
+
+def load_remote_review_state(review_sync_url: str) -> Dict[str, Dict]:
+    if not review_sync_url:
+        return {}
+    try:
+        with urlopen(review_sync_url, timeout=120) as response:
+            payload = json.load(response)
+    except Exception:
+        return {}
+
+    line_reviews = payload.get("lineReviews", []) if isinstance(payload, dict) else []
+    review_state: Dict[str, Dict] = {}
+    for review in line_reviews:
+        line_id = str(review.get("lineId") or "").strip()
+        if not line_id:
+            continue
+        review_state[line_id] = {
+            "status": str(review.get("status") or "pending").strip() or "pending",
+            "category": str(review.get("category") or "").strip(),
+            "note": str(review.get("note") or "").strip(),
+        }
+    return review_state
+
+
+def renumber_page_words(page_number: int, lines: List[Dict], words_by_line_id: Dict[str, List[Dict]]) -> List[Dict]:
+    words: List[Dict] = []
+    next_order = 1
+    for line in lines:
+        selected_words = [deep_clone(word) for word in words_by_line_id.get(line["id"], [])]
+        line["wordIds"] = []
+        line["displayWords"] = [word.get("displayText", "") for word in selected_words]
+        for word in selected_words:
+            word_id = f"p{page_number:02d}-word-{next_order:03d}"
+            word["id"] = word_id
+            word["page"] = page_number
+            word["lineId"] = line["id"]
+            word["order"] = next_order
+            words.append(word)
+            line["wordIds"].append(word_id)
+            next_order += 1
+    return words
+
+
+def merged_page_title(lines: List[Dict], fallback: str) -> str:
+    for line in lines:
+        content = str(line.get("displayText") or "").strip()
+        if content:
+            return content
+    return fallback
+
+
+def merge_page_with_review_filter(
+    new_page: Dict,
+    existing_page: Optional[Dict],
+    review_state: Dict[str, Dict],
+    *,
+    audio_revision: str,
+    force_all_lines: bool,
+) -> Dict:
+    if not existing_page or force_all_lines or not review_state:
+        page = deep_clone(new_page)
+        if existing_page and not force_all_lines:
+            page["audioRevision"] = existing_page.get("audioRevision") or audio_revision
+        return page
+
+    existing_lines_by_id = {line.get("id"): line for line in existing_page.get("lines", []) if line.get("id")}
+    existing_words_by_id = {word.get("id"): word for word in existing_page.get("words", []) if word.get("id")}
+    new_words_by_id = {word.get("id"): word for word in new_page.get("words", []) if word.get("id")}
+
+    selected_lines: List[Dict] = []
+    selected_words_by_line_id: Dict[str, List[Dict]] = {}
+    updated_line_count = 0
+
+    for candidate_line in sorted(new_page.get("lines", []), key=lambda item: item["order"]):
+        line_id = candidate_line["id"]
+        existing_line = existing_lines_by_id.get(line_id)
+        review = review_state.get(line_id, {})
+        status = review.get("status", "pending")
+        should_update = (
+            force_all_lines
+            or existing_line is None
+            or status in SELECTIVE_UPDATE_STATUSES
+        )
+
+        if should_update:
+            chosen_line = deep_clone(candidate_line)
+            source_words = [deep_clone(new_words_by_id[word_id]) for word_id in candidate_line.get("wordIds", []) if word_id in new_words_by_id]
+            updated_line_count += 1 if existing_line is not None else 0
+        else:
+            chosen_line = deep_clone(existing_line)
+            source_words = [deep_clone(existing_words_by_id[word_id]) for word_id in existing_line.get("wordIds", []) if word_id in existing_words_by_id]
+
+        selected_lines.append(chosen_line)
+        selected_words_by_line_id[line_id] = source_words
+
+    merged_page = deep_clone(existing_page)
+    merged_page["id"] = new_page["id"]
+    merged_page["page"] = new_page["page"]
+    merged_page["sourcePdfPage"] = new_page.get("sourcePdfPage", existing_page.get("sourcePdfPage"))
+    merged_page["image"] = new_page.get("image", existing_page.get("image"))
+    merged_page["status"] = new_page.get("status", existing_page.get("status"))
+    merged_page["title"] = merged_page_title(selected_lines, existing_page.get("title") or new_page.get("title", ""))
+    merged_page["audioRevision"] = existing_page.get("audioRevision") or audio_revision
+
+    existing_sections = deep_clone(existing_page.get("sections", []))
+    existing_section_ids = {section.get("id") for section in existing_sections}
+    if existing_sections and all((line.get("sectionId") in existing_section_ids) for line in selected_lines):
+        merged_page["sections"] = existing_sections
+    else:
+        merged_page["sections"] = deep_clone(new_page.get("sections", []))
+
+    merged_page["lines"] = selected_lines
+    merged_page["words"] = renumber_page_words(merged_page["page"], merged_page["lines"], selected_words_by_line_id)
+    merged_page["_updatedLineCount"] = updated_line_count
+    return merged_page
 
 
 def detect_candidate_bands(
@@ -675,7 +819,15 @@ def load_rows(csv_text: str) -> List[Dict]:
     return rows
 
 
-def build_transcript(rows: List[Dict], *, pdf_path: str, audio_revision: str, existing_transcript: Optional[Dict] = None) -> Dict:
+def build_transcript(
+    rows: List[Dict],
+    *,
+    pdf_path: str,
+    audio_revision: str,
+    existing_transcript: Optional[Dict] = None,
+    review_state: Optional[Dict[str, Dict]] = None,
+    force_all_lines: bool = False,
+) -> Dict:
     pages_by_number: Dict[int, List[Dict]] = defaultdict(list)
     for row in rows:
         pages_by_number[row["page"]].append(row)
@@ -685,26 +837,45 @@ def build_transcript(rows: List[Dict], *, pdf_path: str, audio_revision: str, ex
         if page.get("page") is not None
     }
 
-    pages = [
-        build_page(
+    pages = []
+    updated_line_count = 0
+    for page_number, page_rows in sorted(pages_by_number.items()):
+        new_page = build_page(
             page_number,
             sorted(page_rows, key=lambda item: item["line_number"]),
             pdf_path=pdf_path,
             audio_revision=audio_revision,
             existing_page=existing_pages.get(page_number),
         )
-        for page_number, page_rows in sorted(pages_by_number.items())
+        merged_page = merge_page_with_review_filter(
+            new_page,
+            existing_pages.get(page_number),
+            review_state or {},
+            audio_revision=audio_revision,
+            force_all_lines=force_all_lines,
+        )
+        updated_line_count += merged_page.pop("_updatedLineCount", 0)
+        pages.append(merged_page)
+
+    notes = [
+        "Imported from the Google Sheet submission tab.",
+        "Display text and generated audio text are sourced from the sheet export.",
+        "Drill rows play as word sequences with a short gap between clips.",
     ]
+    if review_state and not force_all_lines:
+        notes.append("Good QA-reviewed lines are preserved during sheet refreshes; only bad / needs-regeneration lines are updated.")
 
     return {
         "version": "2026-04-12",
         "pdfPath": pdf_path,
-        "notes": [
-            "Imported from the Google Sheet submission tab.",
-            "Display text and generated audio text are sourced from the sheet export.",
-            "Drill rows play as word sequences with a short gap between clips.",
-        ],
+        "notes": notes,
         "pages": pages,
+        "importSummary": {
+            "pageCount": len(pages),
+            "rowCount": len(rows),
+            "reviewAware": bool(review_state) and not force_all_lines,
+            "updatedReviewedLineCount": updated_line_count,
+        },
     }
 
 
@@ -721,14 +892,24 @@ def main(argv: Iterable[str]) -> int:
     rows = load_rows(csv_text)
     output_path = Path(args.output)
     existing_transcript = load_existing_transcript(output_path)
+    review_sync_url = (args.review_sync_url or load_default_review_sync_url()).strip()
+    review_state = {} if args.force_all_lines else load_remote_review_state(review_sync_url)
     payload = build_transcript(
         rows,
         pdf_path=args.pdf_path,
         audio_revision=args.audio_revision,
         existing_transcript=existing_transcript,
+        review_state=review_state,
+        force_all_lines=args.force_all_lines,
     )
     write_json(output_path, payload)
-    print(f"Imported {len(payload['pages'])} pages and {len(rows)} sheet rows into {args.output}.")
+    summary = payload.get("importSummary", {})
+    review_note = ""
+    if summary.get("reviewAware"):
+        review_note = f" Preserved reviewed good lines; updated {summary.get('updatedReviewedLineCount', 0)} previously reviewed bad/needs-regeneration line(s)."
+    elif args.force_all_lines:
+        review_note = " Forced full-line refresh."
+    print(f"Imported {len(payload['pages'])} pages and {len(rows)} sheet rows into {args.output}.{review_note}")
     return 0
 
 
