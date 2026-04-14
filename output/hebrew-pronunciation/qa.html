@@ -1256,6 +1256,14 @@
       elements.notesInput.value = review.note || "";
       elements.sheetGuidance.classList.toggle("visible", elements.reasonSelect.value === "Google Sheet error");
       updateActionButtons(review, elements.reasonSelect.value || "Pronunciation error");
+      window.requestAnimationFrame(function () {
+        elements.reasonCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        if (review.category) {
+          elements.notesInput.focus();
+        } else {
+          elements.reasonSelect.focus();
+        }
+      });
       setStatus("Choose a reason and add notes for " + line.badgeLabel + ".");
     }
 
