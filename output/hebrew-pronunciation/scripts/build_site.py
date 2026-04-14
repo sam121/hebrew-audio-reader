@@ -6,6 +6,7 @@ import hashlib
 import json
 import math
 import os
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -27,7 +28,10 @@ SITE_LINE_STRIPS = SITE_ROOT / "assets" / "line-strips"
 
 DEFAULT_OUTPUT_FORMAT = "mp3_44100_128"
 DEFAULT_SEQUENCE_GAP_MS = 220
+DEFAULT_MIXED_SEGMENT_GAP_MS = 150
 TRAILING_PUNCTUATION = ",.;:!?\"'״׳…׃"
+HEBREW_CHAR_RE = re.compile(r"[\u0590-\u05FF]")
+LATIN_CHAR_RE = re.compile(r"[A-Za-z]")
 
 
 class BuildError(Exception):
@@ -216,7 +220,9 @@ def clone_line(line: Dict) -> Dict:
             "line": None
         },
         "mixed": {
-            "line": None
+            "line": None,
+            "segments": [],
+            "gapMs": 0,
         }
     }
     clone["stripImage"] = None
@@ -227,7 +233,9 @@ def clone_section(section: Dict) -> Dict:
     clone = dict(section)
     clone["audio"] = {
         "mixed": {
-            "block": None
+            "block": None,
+            "segments": [],
+            "gapMs": 0,
         }
     }
     return clone
@@ -256,6 +264,124 @@ def trailing_punctuation(text: Optional[str]) -> str:
             break
         suffix.append(character)
     return "".join(reversed(suffix))
+
+
+def script_for_character(character: str) -> Optional[str]:
+    if HEBREW_CHAR_RE.search(character):
+        return "he"
+    if LATIN_CHAR_RE.search(character):
+        return "en"
+    return None
+
+
+def split_mixed_text_segments(text: Optional[str]) -> List[Dict[str, str]]:
+    raw_text = (text or "").strip()
+    if not raw_text:
+        return []
+
+    segments: List[Dict[str, str]] = []
+    current_script: Optional[str] = None
+    current_chars: List[str] = []
+    pending_prefix: List[str] = []
+
+    for character in raw_text:
+        script = script_for_character(character)
+        if script is None:
+            if current_script is None:
+                pending_prefix.append(character)
+            else:
+                current_chars.append(character)
+            continue
+
+        if current_script is None:
+            current_script = script
+            current_chars = pending_prefix + [character]
+            pending_prefix = []
+            continue
+
+        if script == current_script:
+            current_chars.append(character)
+            continue
+
+        segment_text = "".join(current_chars).strip()
+        if segment_text:
+            segments.append({"language": current_script, "text": segment_text})
+
+        current_script = script
+        current_chars = [character]
+
+    segment_text = "".join(current_chars).strip()
+    if segment_text and current_script:
+        segments.append({"language": current_script, "text": segment_text})
+
+    return segments
+
+
+def ensure_mixed_audio_segments(
+    *,
+    item_id: str,
+    text: Optional[str],
+    hebrew_model: str,
+    hebrew_voice_id: Optional[str],
+    english_model: str,
+    english_voice_id: Optional[str],
+    api_key: Optional[str],
+    output_format: str,
+    allow_missing_audio: bool,
+    manifest_entries: List[Dict],
+    missing_items: List[Dict],
+    revision: Optional[str],
+) -> List[Dict]:
+    segments = split_mixed_text_segments(text)
+    output: List[Dict] = []
+
+    for index, segment in enumerate(segments, start=1):
+        language = segment["language"]
+        segment_text = segment["text"]
+        if language == "he":
+            url = ensure_audio(
+                category="lines",
+                language="he",
+                language_code="he",
+                item_id=f"{item_id}-mixed-he-{index:02d}",
+                text=segment_text,
+                model_id=hebrew_model,
+                voice_id=hebrew_voice_id,
+                voice_secret_name="ELEVENLABS_HEBREW_VOICE_ID",
+                api_key=api_key,
+                output_format=output_format,
+                allow_missing_audio=allow_missing_audio,
+                manifest_entries=manifest_entries,
+                missing_items=missing_items,
+                revision=revision,
+            )
+        else:
+            url = ensure_audio(
+                category="lines",
+                language="en",
+                language_code="en",
+                item_id=f"{item_id}-mixed-en-{index:02d}",
+                text=segment_text,
+                model_id=english_model,
+                voice_id=hebrew_voice_id or english_voice_id,
+                voice_secret_name="ELEVENLABS_HEBREW_VOICE_ID",
+                api_key=api_key,
+                output_format=output_format,
+                allow_missing_audio=allow_missing_audio,
+                manifest_entries=manifest_entries,
+                missing_items=missing_items,
+                revision=revision,
+            )
+
+        output.append(
+            {
+                "language": language,
+                "text": segment_text,
+                "url": url,
+            }
+        )
+
+    return output
 
 
 def hebrew_line_text(line: Dict, words_by_id: Dict[str, Dict]) -> Optional[str]:
@@ -414,15 +540,13 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
         for section in ordered_sections(page):
             section_out = clone_section(section)
             if section.get("status") == "verified" and section.get("playbackMode") == "single_block" and section.get("mixedText"):
-                section_out["audio"]["mixed"]["block"] = ensure_audio(
-                    category="sections",
-                    language="mixed",
-                    language_code=None,
+                mixed_segments = ensure_mixed_audio_segments(
                     item_id=section["id"],
                     text=section.get("mixedText"),
-                    model_id=hebrew_model,
-                    voice_id=hebrew_voice_id,
-                    voice_secret_name="ELEVENLABS_HEBREW_VOICE_ID",
+                    hebrew_model=hebrew_model,
+                    hebrew_voice_id=hebrew_voice_id,
+                    english_model=english_model,
+                    english_voice_id=english_voice_id,
                     api_key=api_key,
                     output_format=output_format,
                     allow_missing_audio=allow_missing_audio,
@@ -430,6 +554,28 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                     missing_items=missing_items,
                     revision=page_audio_revision,
                 )
+                if mixed_segments:
+                    section_out["audio"]["mixed"]["segments"] = mixed_segments
+                    section_out["audio"]["mixed"]["gapMs"] = (
+                        DEFAULT_MIXED_SEGMENT_GAP_MS if len(mixed_segments) > 1 else 0
+                    )
+                else:
+                    section_out["audio"]["mixed"]["block"] = ensure_audio(
+                        category="sections",
+                        language="mixed",
+                        language_code=None,
+                        item_id=section["id"],
+                        text=section.get("mixedText"),
+                        model_id=hebrew_model,
+                        voice_id=hebrew_voice_id,
+                        voice_secret_name="ELEVENLABS_HEBREW_VOICE_ID",
+                        api_key=api_key,
+                        output_format=output_format,
+                        allow_missing_audio=allow_missing_audio,
+                        manifest_entries=manifest_entries,
+                        missing_items=missing_items,
+                        revision=page_audio_revision,
+                    )
             page_out["sections"].append(section_out)
 
         for word in ordered_words(page):
@@ -486,15 +632,13 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                     revision=page_audio_revision,
                 )
             if line.get("status") == "verified" and line.get("mixedText"):
-                line_out["audio"]["mixed"]["line"] = ensure_audio(
-                    category="lines",
-                    language="mixed",
-                    language_code=None,
+                mixed_segments = ensure_mixed_audio_segments(
                     item_id=line["id"],
                     text=line.get("mixedText"),
-                    model_id=hebrew_model,
-                    voice_id=hebrew_voice_id,
-                    voice_secret_name="ELEVENLABS_HEBREW_VOICE_ID",
+                    hebrew_model=hebrew_model,
+                    hebrew_voice_id=hebrew_voice_id,
+                    english_model=english_model,
+                    english_voice_id=english_voice_id,
                     api_key=api_key,
                     output_format=output_format,
                     allow_missing_audio=allow_missing_audio,
@@ -502,6 +646,28 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                     missing_items=missing_items,
                     revision=page_audio_revision,
                 )
+                if mixed_segments:
+                    line_out["audio"]["mixed"]["segments"] = mixed_segments
+                    line_out["audio"]["mixed"]["gapMs"] = (
+                        DEFAULT_MIXED_SEGMENT_GAP_MS if len(mixed_segments) > 1 else 0
+                    )
+                else:
+                    line_out["audio"]["mixed"]["line"] = ensure_audio(
+                        category="lines",
+                        language="mixed",
+                        language_code=None,
+                        item_id=line["id"],
+                        text=line.get("mixedText"),
+                        model_id=hebrew_model,
+                        voice_id=hebrew_voice_id,
+                        voice_secret_name="ELEVENLABS_HEBREW_VOICE_ID",
+                        api_key=api_key,
+                        output_format=output_format,
+                        allow_missing_audio=allow_missing_audio,
+                        manifest_entries=manifest_entries,
+                        missing_items=missing_items,
+                        revision=page_audio_revision,
+                    )
             if line.get("status") == "verified" and line.get("englishText"):
                 line_out["audio"]["en"]["line"] = ensure_audio(
                     category="lines",
@@ -559,12 +725,19 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
         )
 
         for section in page_out["sections"]:
-            if section.get("playbackMode") == "single_block" and section.get("audio", {}).get("mixed", {}).get("block"):
+            section_mixed_audio = section.get("audio", {}).get("mixed", {})
+            section_segment_urls = [
+                segment.get("url")
+                for segment in section_mixed_audio.get("segments", [])
+                if segment.get("url")
+            ]
+            if section.get("playbackMode") == "single_block" and (section_segment_urls or section_mixed_audio.get("block")):
                 page_out["fullPlaybackGroups"].append(
                     {
                         "label": section.get("playbackLabel") or section.get("title") or "Section",
                         "lineId": None,
-                        "urls": [section["audio"]["mixed"]["block"]],
+                        "urls": section_segment_urls or [section_mixed_audio["block"]],
+                        "gapMs": section_mixed_audio.get("gapMs", 0),
                     }
                 )
                 continue
@@ -575,30 +748,45 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                 if (line.get("sectionId") or "default") == section["id"]
                 and line.get("status") == "verified"
                 and (
-                    line.get("audio", {}).get("mixed", {}).get("line")
+                    line.get("audio", {}).get("mixed", {}).get("segments")
+                    or line.get("audio", {}).get("mixed", {}).get("line")
                     or line.get("audio", {}).get("he", {}).get("line")
                     or line.get("audio", {}).get("en", {}).get("line")
                     or line.get("hebrewAudioSequence")
                 )
             ]
             for line in section_lines:
+                mixed_segment_urls = [
+                    segment.get("url")
+                    for segment in line.get("audio", {}).get("mixed", {}).get("segments", [])
+                    if segment.get("url")
+                ]
                 use_sequence = (
                     line.get("hebrewPlaybackMode") == "sequence"
                     or not line.get("audio", {}).get("he", {}).get("line")
                 )
                 if use_sequence and line.get("hebrewAudioSequence"):
                     line_urls = list(line.get("hebrewAudioSequence", []))
+                    gap_ms = sequence_gap_ms(line)
+                elif mixed_segment_urls:
+                    line_urls = mixed_segment_urls
+                    gap_ms = line.get("audio", {}).get("mixed", {}).get("gapMs", 0)
+                    use_sequence = len(mixed_segment_urls) > 1
                 elif line.get("audio", {}).get("mixed", {}).get("line"):
                     line_urls = [line["audio"]["mixed"]["line"]]
+                    gap_ms = 0
                     use_sequence = False
                 elif line.get("audio", {}).get("he", {}).get("line"):
                     line_urls = [line["audio"]["he"]["line"]]
+                    gap_ms = 0
                     use_sequence = False
                 elif line.get("audio", {}).get("en", {}).get("line"):
                     line_urls = [line["audio"]["en"]["line"]]
+                    gap_ms = 0
                     use_sequence = False
                 else:
                     line_urls = []
+                    gap_ms = 0
 
                 if not line_urls:
                     continue
@@ -607,7 +795,7 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                         "label": line.get("badgeLabel") or line.get("label") or line["id"],
                         "lineId": line["id"],
                         "urls": line_urls,
-                        "gapMs": sequence_gap_ms(line) if use_sequence else 0,
+                        "gapMs": gap_ms if use_sequence else 0,
                     }
                 )
         site_payload["pages"].append(page_out)

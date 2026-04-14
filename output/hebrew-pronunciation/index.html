@@ -750,16 +750,27 @@
 
     function introPlaybackGroup(page) {
       const introSection = orderedSections(page).find(function (section) {
-        return section.playbackMode === "single_block" && section.audio && section.audio.mixed && section.audio.mixed.block;
+        return section.playbackMode === "single_block"
+          && section.audio
+          && section.audio.mixed
+          && (
+            (section.audio.mixed.segments && section.audio.mixed.segments.length)
+            || section.audio.mixed.block
+          );
       });
       if (!introSection) {
         return null;
       }
+      const segmentUrls = (introSection.audio.mixed.segments || [])
+        .map(function (segment) {
+          return segment.url;
+        })
+        .filter(Boolean);
       return {
         label: introSection.playbackLabel || "Introduction",
         lineId: null,
-        urls: [introSection.audio.mixed.block],
-        gapMs: 0,
+        urls: segmentUrls.length ? segmentUrls : [introSection.audio.mixed.block],
+        gapMs: segmentUrls.length > 1 ? Number(introSection.audio.mixed.gapMs) || 0 : 0,
       };
     }
 
@@ -789,6 +800,21 @@
           return !drillLineIds.has(line.id);
         })
         .map(function (line) {
+          if (line.audio && line.audio.mixed && line.audio.mixed.segments && line.audio.mixed.segments.length) {
+            const segmentUrls = line.audio.mixed.segments
+              .map(function (segment) {
+                return segment.url;
+              })
+              .filter(Boolean);
+            if (segmentUrls.length) {
+              return {
+                label: line.badgeLabel || line.label || line.id,
+                lineId: line.id,
+                urls: segmentUrls,
+                gapMs: segmentUrls.length > 1 ? Number(line.audio.mixed.gapMs) || 0 : 0,
+              };
+            }
+          }
           if (line.audio && line.audio.mixed && line.audio.mixed.line) {
             return {
               label: line.badgeLabel || line.label || line.id,
