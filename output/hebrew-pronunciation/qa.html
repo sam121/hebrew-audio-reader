@@ -437,13 +437,6 @@
 <body>
   <div class="shell">
     <section class="panel viewer-panel">
-      <div class="group">
-        <h1>Line Review</h1>
-        <p class="lede">
-          For each line: click where the line sits on the page, then mark the line good or bad. If bad, choose a reason and describe the exact wrong word or phrase and the audio problem.
-        </p>
-      </div>
-
       <div class="progress-strip">
         <div class="progress-header">
           <h2 id="pageTitle">Page</h2>
@@ -466,8 +459,6 @@
         <div class="canvas-scroll">
           <canvas id="pageCanvas"></canvas>
         </div>
-        <p id="canvasHint" class="hint">Click once on the page to place the arrow for the selected line.</p>
-        <p id="status" class="status">Loading review data...</p>
       </div>
     </section>
 
@@ -644,7 +635,9 @@
     }
 
     function setStatus(message) {
-      elements.status.textContent = message;
+      if (elements.status) {
+        elements.status.textContent = message;
+      }
     }
 
     function orderedPages() {
@@ -881,9 +874,13 @@
       const review = reviewForLine(line.id);
       if (typeof review.anchorY === "number") {
         drawArrow(ctx, review.anchorY);
-        elements.canvasHint.textContent = "Arrow placed. Click again if you want to move it for this line.";
+        if (elements.canvasHint) {
+          elements.canvasHint.textContent = "Arrow placed. Click again if you want to move it for this line.";
+        }
       } else {
-        elements.canvasHint.textContent = "Click once on the page to place the arrow for the selected line.";
+        if (elements.canvasHint) {
+          elements.canvasHint.textContent = "Click once on the page to place the arrow for the selected line.";
+        }
       }
     }
 
