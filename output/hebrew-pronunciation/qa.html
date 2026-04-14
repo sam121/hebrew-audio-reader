@@ -205,6 +205,14 @@
       align-items: center;
     }
 
+    .progress-meta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
     .progress-bar {
       height: 8px;
       border-radius: 999px;
@@ -345,6 +353,21 @@
       color: var(--regen);
     }
 
+    .mini-pill.sync-saving {
+      background: rgba(51, 108, 189, 0.12);
+      color: #2f5f9c;
+    }
+
+    .mini-pill.sync-saved {
+      background: var(--good-soft);
+      color: var(--good);
+    }
+
+    .mini-pill.sync-error {
+      background: var(--bad-soft);
+      color: var(--bad);
+    }
+
     .instruction-box,
     .line-text,
     .note-preview {
@@ -450,7 +473,10 @@
       <div class="progress-strip">
         <div class="progress-header">
           <h2 id="pageTitle">Page</h2>
-          <span id="progressText" class="mini-pill">0 / 0 complete</span>
+          <div class="progress-meta">
+            <span id="syncStatus" class="mini-pill">Ready</span>
+            <span id="progressText" class="mini-pill">0 / 0 complete</span>
+          </div>
         </div>
         <div class="progress-bar">
           <div id="progressFill" class="progress-fill"></div>
@@ -529,10 +555,7 @@
       <section class="actions-card group">
         <div class="button-row">
           <button id="saveProgress" type="button">Save progress</button>
-          <button id="loadReview" type="button" class="secondary">Load progress</button>
-          <button id="resetReview" type="button" class="secondary">Reset local review</button>
         </div>
-        <input id="loadReviewFile" type="file" accept="application/json" hidden>
       </section>
     </section>
 
@@ -574,8 +597,6 @@
       clearLocation: document.getElementById("clearLocation"),
       saveProgress: document.getElementById("saveProgress"),
       lineList: document.getElementById("lineList"),
-      loadReview: document.getElementById("loadReview"),
-      loadReviewFile: document.getElementById("loadReviewFile"),
       markBad: document.getElementById("markBad"),
       markGood: document.getElementById("markGood"),
       nextPage: document.getElementById("nextPage"),
@@ -589,7 +610,6 @@
       reasonCard: document.getElementById("reasonCard"),
       reasonSelect: document.getElementById("reasonSelect"),
       resetLine: document.getElementById("resetLine"),
-      resetReview: document.getElementById("resetReview"),
       savedNote: document.getElementById("savedNote"),
       saveBadLine: document.getElementById("saveBadLine"),
       selectedLineStatus: document.getElementById("selectedLineStatus"),
@@ -597,6 +617,7 @@
       selectedLineTitle: document.getElementById("selectedLineTitle"),
       sheetGuidance: document.getElementById("sheetGuidance"),
       signOffPage: document.getElementById("signOffPage"),
+      syncStatus: document.getElementById("syncStatus"),
       status: document.getElementById("status"),
       stopPlayback: document.getElementById("stopPlayback"),
       wordButtonRow: document.getElementById("wordButtonRow")
@@ -642,7 +663,35 @@
       updateExport();
     }
 
-    function setStatus(message) {
+    function statusToneFromMessage(message) {
+      const text = String(message || "").toLowerCase();
+      if (
+        text.includes("failed") ||
+        text.includes("could not") ||
+        text.includes("cancelled") ||
+        text.includes("select a line") ||
+        text.includes("place the arrow") ||
+        text.includes("choose a reason") ||
+        text.includes("add a note") ||
+        text.includes("finish every line")
+      ) {
+        return "sync-error";
+      }
+      if (
+        text.includes("saving") ||
+        text.includes("loading")
+      ) {
+        return "sync-saving";
+      }
+      return "sync-saved";
+    }
+
+    function setStatus(message, tone) {
+      const resolvedTone = tone || statusToneFromMessage(message);
+      if (elements.syncStatus) {
+        elements.syncStatus.textContent = message;
+        elements.syncStatus.className = "mini-pill " + resolvedTone;
+      }
       if (elements.status) {
         elements.status.textContent = message;
       }
@@ -1474,52 +1523,6 @@
         }
         setStatus("Save failed.");
       }
-    });
-
-    elements.loadReview.addEventListener("click", function () {
-      elements.loadReviewFile.click();
-    });
-
-    elements.loadReviewFile.addEventListener("change", function () {
-      const file = elements.loadReviewFile.files && elements.loadReviewFile.files[0];
-      if (!file) {
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = function () {
-        try {
-          const parsed = JSON.parse(String(reader.result));
-          state.review = normalizeLoadedReview(parsed);
-          saveReviewState();
-          renderCanvas();
-          setStatus("Progress loaded from file.");
-        } catch (error) {
-          console.error(error);
-          setStatus("That file could not be loaded.");
-        } finally {
-          elements.loadReviewFile.value = "";
-        }
-      };
-      reader.readAsText(file);
-    });
-
-    elements.resetReview.addEventListener("click", function () {
-      if (!window.confirm("Reset all locally saved review data?")) {
-        return;
-      }
-      state.review = {
-        reviewerName: "",
-        lineReviews: {},
-        pageSignOffs: {},
-        createdAt: new Date().toISOString()
-      };
-      elements.reasonCard.classList.remove("visible");
-      elements.reasonSelect.value = "";
-      elements.notesInput.value = "";
-      elements.sheetGuidance.classList.remove("visible");
-      saveReviewState();
-      renderCanvas();
-      setStatus("Local review data reset.");
     });
 
     loadQa().catch(function (error) {
