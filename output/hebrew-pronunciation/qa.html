@@ -225,13 +225,20 @@
       align-content: start;
     }
 
-    canvas {
-      width: 100%;
-      height: auto;
-      background: white;
+    .canvas-scroll {
+      overflow: auto;
+      max-height: calc(100vh - 300px);
       border-radius: 18px;
       border: 1px solid var(--border);
       box-shadow: 0 12px 28px rgba(73, 52, 36, 0.08);
+      background: white;
+    }
+
+    canvas {
+      display: block;
+      width: auto;
+      height: auto;
+      background: white;
       cursor: crosshair;
     }
 
@@ -311,6 +318,21 @@
       background: rgba(147, 80, 54, 0.12);
       color: var(--accent);
       white-space: nowrap;
+    }
+
+    .mini-pill.good {
+      background: var(--good-soft);
+      color: var(--good);
+    }
+
+    .mini-pill.bad {
+      background: var(--bad-soft);
+      color: var(--bad);
+    }
+
+    .mini-pill.needs_regen {
+      background: var(--regen-soft);
+      color: var(--regen);
     }
 
     .instruction-box,
@@ -441,7 +463,9 @@
       </div>
 
       <div class="canvas-wrap">
-        <canvas id="pageCanvas"></canvas>
+        <div class="canvas-scroll">
+          <canvas id="pageCanvas"></canvas>
+        </div>
         <p id="canvasHint" class="hint">Click once on the page to place the arrow for the selected line.</p>
         <p id="status" class="status">Loading review data...</p>
       </div>
@@ -835,13 +859,12 @@
         return;
       }
 
-      const maxWidth = Math.min(980, document.querySelector(".viewer-panel").clientWidth - 8);
-      const maxHeight = availableCanvasHeight();
-      state.scale = Math.min(1, maxWidth / state.imageWidth, maxHeight / state.imageHeight);
-      elements.pageCanvas.width = Math.round(state.imageWidth * state.scale);
-      elements.pageCanvas.height = Math.round(state.imageHeight * state.scale);
+      state.scale = 1;
+      elements.pageCanvas.width = state.imageWidth;
+      elements.pageCanvas.height = state.imageHeight;
 
       const ctx = elements.pageCanvas.getContext("2d");
+      ctx.imageSmoothingEnabled = true;
       ctx.clearRect(0, 0, elements.pageCanvas.width, elements.pageCanvas.height);
       ctx.drawImage(state.image, 0, 0, elements.pageCanvas.width, elements.pageCanvas.height);
 
@@ -999,10 +1022,13 @@
         const pill = document.createElement("span");
         pill.className = "mini-pill";
         if (review.status === "good") {
+          pill.classList.add("good");
           pill.textContent = "Good";
         } else if (review.status === "bad") {
+          pill.classList.add("bad");
           pill.textContent = review.category || "Bad";
         } else if (review.status === "needs_regen") {
+          pill.classList.add("needs_regen");
           pill.textContent = "Needs regen";
         } else {
           pill.textContent = typeof review.anchorY === "number" ? "Arrow set" : "Pending";
@@ -1346,11 +1372,6 @@
       }
     }
 
-    function availableCanvasHeight() {
-      const reserved = 270;
-      return Math.max(420, window.innerHeight - reserved);
-    }
-
     elements.pageCanvas.addEventListener("click", function (event) {
       const line = ensureSelectedLine();
       if (!line) {
@@ -1493,10 +1514,6 @@
     loadQa().catch(function (error) {
       console.error(error);
       setStatus("Review data could not be loaded. Build the site first.");
-    });
-
-    window.addEventListener("resize", function () {
-      renderCanvas();
     });
   </script>
 </body>
