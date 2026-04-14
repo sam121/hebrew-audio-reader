@@ -684,6 +684,21 @@ def build_qa_payload(site_payload: Dict) -> Dict:
                     },
                     "region": resolved_region(line),
                     "status": line.get("status"),
+                    "reviewFingerprint": stable_hash(
+                        {
+                            "page": page["page"],
+                            "audioRevision": page.get("audioRevision"),
+                            "lineId": line["id"],
+                            "displayText": line.get("displayText", ""),
+                            "contentMode": line.get("contentMode", "other"),
+                            "displayWords": display_words,
+                            "spokenWords": spoken_words,
+                            "englishText": line.get("englishText", ""),
+                            "mixedText": line.get("mixedText", ""),
+                            "playbackMode": playback["mode"],
+                            "playbackSegments": playback["segments"],
+                        }
+                    ),
                 }
             )
 

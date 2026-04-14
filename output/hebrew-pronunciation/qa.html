@@ -17,10 +17,12 @@
       --good: #2d7f45;
       --bad: #a63d34;
       --regen: #d6851c;
+      --changed: #2f5f9c;
       --neutral: #c8b8a7;
       --good-soft: rgba(45, 127, 69, 0.12);
       --bad-soft: rgba(166, 61, 52, 0.12);
       --regen-soft: rgba(214, 133, 28, 0.16);
+      --changed-soft: rgba(47, 95, 156, 0.14);
       --neutral-soft: rgba(200, 184, 167, 0.24);
     }
 
@@ -316,6 +318,7 @@
     .status-dot.good { background: var(--good); }
     .status-dot.bad { background: var(--bad); }
     .status-dot.needs_regen { background: var(--regen); }
+    .status-dot.changed { background: var(--changed); }
     .status-dot.pending { background: var(--neutral); }
 
     .line-main {
@@ -356,6 +359,11 @@
     .mini-pill.needs_regen {
       background: var(--regen-soft);
       color: var(--regen);
+    }
+
+    .mini-pill.changed {
+      background: var(--changed-soft);
+      color: var(--changed);
     }
 
     .mini-pill.sync-saving {
@@ -423,6 +431,12 @@
     .status-chip.needs_regen {
       background: var(--regen-soft);
       color: var(--regen);
+    }
+
+    .status-chip.changed {
+      background: var(--changed-soft);
+      color: var(--changed);
+      border: 1px solid rgba(47, 95, 156, 0.18);
     }
 
     .word-button-row {
@@ -755,7 +769,8 @@
             anchorY: typeof review.anchorY === "number" ? review.anchorY : null,
             status: review.status,
             category: review.category || "",
-            note: review.note || ""
+            note: review.note || "",
+            reviewedFingerprint: review.reviewedFingerprint || ""
           });
         });
       });
@@ -786,7 +801,8 @@
               status: review.status || "pending",
               anchorY: typeof review.anchorY === "number" ? review.anchorY : null,
               category: review.category || "",
-              note: review.note || ""
+              note: review.note || "",
+              reviewedFingerprint: review.reviewedFingerprint || ""
             }];
           })
         ),
@@ -824,12 +840,34 @@
         status: "pending",
         anchorY: null,
         category: "",
-        note: ""
+        note: "",
+        reviewedFingerprint: ""
       };
+    }
+
+    function lineHasChangedSinceReview(line, review) {
+      if (!line || !review || !review.status || review.status === "pending") {
+        return false;
+      }
+      if (!review.reviewedFingerprint || !line.reviewFingerprint) {
+        return false;
+      }
+      return review.reviewedFingerprint !== line.reviewFingerprint;
+    }
+
+    function effectiveStatusForLine(line) {
+      const review = reviewForLine(line.id);
+      if (lineHasChangedSinceReview(line, review)) {
+        return "changed";
+      }
+      return review.status;
     }
 
     function isLineComplete(line) {
       const review = reviewForLine(line.id);
+      if (lineHasChangedSinceReview(line, review)) {
+        return false;
+      }
       if (typeof review.anchorY !== "number") {
         return false;
       }
@@ -1046,6 +1084,9 @@
       if (status === "needs_regen") {
         return "Needs regen";
       }
+      if (status === "changed") {
+        return "Changed";
+      }
       return "Pending";
     }
 
@@ -1086,18 +1127,23 @@
       }
 
       const review = reviewForLine(line.id);
+      const effectiveStatus = effectiveStatusForLine(line);
       elements.selectedLineTitle.textContent = "Page " + line.page + " · " + line.badgeLabel;
       elements.selectedLineText.textContent = line.displayText;
       elements.reasonSelect.value = review.category || "";
       elements.notesInput.value = review.note || "";
-      elements.reasonCard.classList.toggle("visible", review.status === "bad" || review.status === "needs_regen");
+      elements.reasonCard.classList.toggle("visible", effectiveStatus === "bad" || effectiveStatus === "needs_regen");
       elements.sheetGuidance.classList.toggle("visible", elements.reasonSelect.value === "Google Sheet error");
 
       elements.selectedLineStatus.replaceChildren();
-      [
-        { label: "Status: " + lineStatusText(review.status), className: review.status === "pending" ? "" : review.status },
+      const statusItems = [
+        { label: "Status: " + lineStatusText(effectiveStatus), className: effectiveStatus === "pending" ? "" : effectiveStatus },
         { label: typeof review.anchorY === "number" ? "Arrow set" : "Arrow required", className: typeof review.anchorY === "number" ? "good" : "missing-arrow" }
-      ].forEach(function (item) {
+      ];
+      if (effectiveStatus === "changed") {
+        statusItems.push({ label: "Changed since review", className: "changed" });
+      }
+      statusItems.forEach(function (item) {
         const chip = document.createElement("span");
         chip.className = "status-chip" + (item.className ? " " + item.className : "");
         chip.textContent = item.label;
@@ -1142,6 +1188,7 @@
 
       orderedLines(page).forEach(function (line) {
         const review = reviewForLine(line.id);
+        const effectiveStatus = effectiveStatusForLine(line);
         const row = document.createElement("article");
         row.className = "line-row" + (line.id === state.selectedLineId ? " selected" : "");
         row.addEventListener("click", function () {
@@ -1152,7 +1199,7 @@
         });
 
         const dot = document.createElement("div");
-        dot.className = "status-dot " + review.status;
+        dot.className = "status-dot " + effectiveStatus;
         row.appendChild(dot);
 
         const main = document.createElement("div");
@@ -1171,15 +1218,18 @@
 
         const pill = document.createElement("span");
         pill.className = "mini-pill";
-        if (review.status === "good") {
+        if (effectiveStatus === "good") {
           pill.classList.add("good");
           pill.textContent = "Good";
-        } else if (review.status === "bad") {
+        } else if (effectiveStatus === "bad") {
           pill.classList.add("bad");
           pill.textContent = review.category || "Bad";
-        } else if (review.status === "needs_regen") {
+        } else if (effectiveStatus === "needs_regen") {
           pill.classList.add("needs_regen");
           pill.textContent = "Needs regen";
+        } else if (effectiveStatus === "changed") {
+          pill.classList.add("changed");
+          pill.textContent = "Changed";
         } else {
           pill.textContent = typeof review.anchorY === "number" ? "Arrow set" : "Pending";
         }
@@ -1251,7 +1301,8 @@
             anchorY: typeof review.anchorY === "number" ? review.anchorY : null,
             status: review.status,
             category: review.category || "",
-            note: review.note || ""
+            note: review.note || "",
+            reviewedFingerprint: review.reviewedFingerprint || ""
           };
         })
       };
@@ -1338,6 +1389,24 @@
       }
     }
 
+    function backfillMissingReviewFingerprints() {
+      let changed = false;
+      orderedPages().forEach(function (page) {
+        orderedLines(page).forEach(function (line) {
+          const review = state.review.lineReviews[line.id];
+          if (!review || !review.status || review.status === "pending") {
+            return;
+          }
+          if (review.reviewedFingerprint || !line.reviewFingerprint) {
+            return;
+          }
+          review.reviewedFingerprint = line.reviewFingerprint;
+          changed = true;
+        });
+      });
+      return changed;
+    }
+
     async function setCurrentPage(pageId) {
       state.currentPageId = pageId;
       const page = currentPage();
@@ -1403,7 +1472,8 @@
         status: "good",
         anchorY: review.anchorY,
         category: "",
-        note: ""
+        note: "",
+        reviewedFingerprint: line.reviewFingerprint || ""
       };
       saveReviewState();
       setStatus(line.badgeLabel + " marked good.");
@@ -1460,7 +1530,8 @@
         status: category === "Google Sheet error" ? "needs_regen" : "bad",
         anchorY: review.anchorY,
         category: category,
-        note: note
+        note: note,
+        reviewedFingerprint: line.reviewFingerprint || ""
       };
       saveReviewState();
       setStatus(line.badgeLabel + " saved as " + (category === "Google Sheet error" ? "needs regen." : "bad."));
@@ -1519,6 +1590,9 @@
           saveReviewState();
         }
       }
+      if (backfillMissingReviewFingerprints()) {
+        saveReviewState();
+      }
       const firstPage = orderedPages()[0];
       state.currentPageId = firstPage ? firstPage.id : null;
       if (state.currentPageId) {
@@ -1539,7 +1613,8 @@
         status: review.status,
         anchorY: y,
         category: review.category || "",
-        note: review.note || ""
+        note: review.note || "",
+        reviewedFingerprint: review.reviewedFingerprint || ""
       };
       saveReviewState();
       renderCanvas();

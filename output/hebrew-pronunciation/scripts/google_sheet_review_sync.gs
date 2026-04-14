@@ -9,6 +9,7 @@ const HEADERS = [
   'anchor_y',
   'category',
   'note',
+  'reviewed_fingerprint',
   'page_signed_off',
   'page_signed_off_at',
   'reviewer_name',
@@ -101,10 +102,11 @@ function rowToObject_(row) {
     anchor_y: row[5],
     category: row[6],
     note: row[7],
-    page_signed_off: row[8],
-    page_signed_off_at: row[9],
-    reviewer_name: row[10],
-    updated_at: row[11],
+    reviewed_fingerprint: row[8],
+    page_signed_off: row[9],
+    page_signed_off_at: row[10],
+    reviewer_name: row[11],
+    updated_at: row[12],
   };
 }
 
@@ -118,6 +120,7 @@ function objectToRow_(record) {
     record.anchor_y === null || typeof record.anchor_y === 'undefined' ? '' : record.anchor_y,
     record.category || '',
     record.note || '',
+    record.reviewed_fingerprint || '',
     record.page_signed_off || '',
     record.page_signed_off_at || '',
     record.reviewer_name || '',
@@ -166,6 +169,7 @@ function loadReviewState_() {
       status: row.status || 'pending',
       category: row.category || '',
       note: row.note || '',
+      reviewedFingerprint: row.reviewed_fingerprint || '',
     });
   });
 
@@ -201,6 +205,7 @@ function savePageReview_(payload) {
       anchor_y: typeof review.anchorY === 'number' ? review.anchorY : '',
       category: review.category || '',
       note: review.note || '',
+      reviewed_fingerprint: review.reviewedFingerprint || '',
       reviewer_name: reviewerName,
       updated_at: updatedAt,
     };
@@ -242,6 +247,7 @@ function saveAllReviews_(payload) {
       anchor_y: typeof review.anchorY === 'number' ? review.anchorY : '',
       category: review.category || '',
       note: review.note || '',
+      reviewed_fingerprint: review.reviewedFingerprint || '',
       reviewer_name: reviewerName,
       updated_at: updatedAt,
     });
