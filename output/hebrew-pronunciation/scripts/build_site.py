@@ -37,6 +37,38 @@ LATIN_CHAR_RE = re.compile(r"[A-Za-z]")
 DOT_SENSITIVE_MARKERS = ("ּ", "ׁ", "ׂ")
 DOT_SENSITIVE_PATTERNS = ("וּ", "וֹ")
 QA_PRIORITY_PAGES = [1, 2, 12, 39, 48, 61]
+HEBREW_MARKS_ONLY_RE = re.compile(r"^[\u0591-\u05C7]+$")
+HEBREW_LETTER_AND_MARKS_RE = re.compile(r"^[\u05D0-\u05EA\u0591-\u05C7]+$")
+STANDALONE_VOWEL_NAMES = {
+    "ַ": "פַּתָּח",
+    "ָ": "קָמָץ",
+    "ֶ": "סֶגוֹל",
+    "ֵ": "צֵירֵי",
+    "ִ": "חִירִיק",
+    "ֻ": "קֻבּוּץ",
+    "ֹ": "חוֹלָם",
+    "וֹ": "חוֹלָם",
+    "וּ": "שׁוּרוּק",
+    "ְ": "שְׁוָה",
+    "ֱ": "חֲטַף סֶגּוֹל",
+    "ֲ": "חֲטַף פַּתָּח",
+    "ֳ": "חֲטַף קָמָץ",
+}
+ENGLISH_VOWEL_LABEL_HINTS = {
+    "ַ": ("patach",),
+    "ָ": ("kamatz",),
+    "ֶ": ("segol",),
+    "ֵ": ("tzeiri", "tzere", "tzeirei"),
+    "ִ": ("chirik", "hirik"),
+    "ֻ": ("kubutz", "qubuts", "kubuts"),
+    "ֹ": ("cholam", "holam"),
+    "וֹ": ("cholam", "holam"),
+    "וּ": ("shuruk", "shuruk"),
+    "ְ": ("sheva", "shva"),
+    "ֱ": ("chataf segol",),
+    "ֲ": ("chataf patach",),
+    "ֳ": ("chataf kamatz",),
+}
 
 
 class BuildError(Exception):
@@ -326,6 +358,87 @@ def split_mixed_text_segments(text: Optional[str]) -> List[Dict[str, str]]:
     return segments
 
 
+def segment_contains_named_vowel(text: str) -> bool:
+    tokens = [token for token in re.split(r"\s+", (text or "").strip()) if token]
+    meaningful_tokens = []
+    for token in tokens:
+        stripped = token.strip(TRAILING_PUNCTUATION)
+        if not stripped:
+            continue
+        if stripped in STANDALONE_VOWEL_NAMES:
+            continue
+        meaningful_tokens.append(stripped)
+    return bool(meaningful_tokens)
+
+
+def english_segment_mentions_vowel(text: str, token: str) -> bool:
+    hints = ENGLISH_VOWEL_LABEL_HINTS.get(token, ())
+    lowered = (text or "").lower()
+    return any(hint in lowered for hint in hints)
+
+
+def normalize_hebrew_mixed_segment(
+    text: str,
+    *,
+    previous_english: Optional[str],
+    next_english: Optional[str],
+) -> Optional[str]:
+    raw_tokens = [token for token in re.split(r"\s+", (text or "").strip()) if token]
+    if not raw_tokens:
+        return None
+
+    has_named_token = segment_contains_named_vowel(text)
+    normalized_tokens: List[str] = []
+    for token in raw_tokens:
+        stripped = token.strip(TRAILING_PUNCTUATION)
+        if not stripped:
+            continue
+
+        if stripped in STANDALONE_VOWEL_NAMES:
+            if has_named_token:
+                continue
+            if english_segment_mentions_vowel(previous_english, stripped) or english_segment_mentions_vowel(next_english, stripped):
+                continue
+            normalized_tokens.append(STANDALONE_VOWEL_NAMES[stripped])
+            continue
+
+        if stripped == "יְיָ":
+            normalized_tokens.append("אֲדֹנָי")
+            continue
+
+        normalized_tokens.append(token.strip())
+
+    normalized_text = " ".join(token for token in normalized_tokens if token).strip()
+    return normalized_text or None
+
+
+def normalize_mixed_audio_segments(segments: List[Dict[str, str]]) -> List[Dict[str, str]]:
+    normalized: List[Dict[str, str]] = []
+    for index, segment in enumerate(segments):
+        language = segment["language"]
+        text = segment["text"].strip()
+        if not text:
+            continue
+
+        if language == "he":
+            previous_english = segments[index - 1]["text"] if index > 0 and segments[index - 1]["language"] == "en" else ""
+            next_english = segments[index + 1]["text"] if index + 1 < len(segments) and segments[index + 1]["language"] == "en" else ""
+            text = normalize_hebrew_mixed_segment(
+                text,
+                previous_english=previous_english,
+                next_english=next_english,
+            ) or ""
+            if not text:
+                continue
+
+        if normalized and normalized[-1]["language"] == language:
+            normalized[-1]["text"] = (normalized[-1]["text"] + " " + text).strip()
+        else:
+            normalized.append({"language": language, "text": text})
+
+    return normalized
+
+
 def ensure_mixed_audio_segments(
     *,
     item_id: str,
@@ -341,7 +454,7 @@ def ensure_mixed_audio_segments(
     missing_items: List[Dict],
     revision: Optional[str],
 ) -> List[Dict]:
-    segments = split_mixed_text_segments(text)
+    segments = normalize_mixed_audio_segments(split_mixed_text_segments(text))
     output: List[Dict] = []
 
     for index, segment in enumerate(segments, start=1):

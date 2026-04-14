@@ -1288,7 +1288,7 @@
           "badgeLabel": "Line 10",
           "sectionId": "main",
           "status": "verified",
-          "displayText": "בָּ בָּ בָּ בָּ :Read this line",
+          "displayText": "Read this line: בָּ בָּ בָּ בָּ",
           "contentMode": "mixed",
           "notes": [],
           "wordIds": [
@@ -1315,7 +1315,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "בָּ בָּ בָּ בָּ :Read this line"
+          "mixedText": "Read this line: בָּ בָּ בָּ בָּ"
         }
       ],
       "words": [
@@ -1361,7 +1361,7 @@
           "lineId": "p02-line-004",
           "order": 5,
           "displayText": "ָ",
-          "spokenText": "ָ",
+          "spokenText": "קָמָץ",
           "status": "verified"
         },
         {
@@ -1379,7 +1379,7 @@
           "lineId": "p02-line-008",
           "order": 7,
           "displayText": "ָ",
-          "spokenText": "ָ",
+          "spokenText": "קָמָץ",
           "status": "verified"
         },
         {
@@ -2281,7 +2281,7 @@
           "lineId": "p04-line-002",
           "order": 4,
           "displayText": "וּ",
-          "spokenText": "וּ",
+          "spokenText": "שׁוּרוּק",
           "status": "verified"
         },
         {
@@ -2990,7 +2990,7 @@
           "lineId": "p05-line-002",
           "order": 4,
           "displayText": "ְ",
-          "spokenText": "ְ",
+          "spokenText": "שְׁוָה",
           "status": "verified"
         },
         {
@@ -5032,7 +5032,7 @@
           "lineId": "p08-line-002",
           "order": 4,
           "displayText": "ַ",
-          "spokenText": "ַ",
+          "spokenText": "פַּתָּח",
           "status": "verified"
         },
         {
@@ -5041,7 +5041,7 @@
           "lineId": "p08-line-003",
           "order": 5,
           "displayText": "ָ",
-          "spokenText": "ָ",
+          "spokenText": "קָמָץ",
           "status": "verified"
         },
         {
@@ -7256,7 +7256,7 @@
           "lineId": "p11-line-008",
           "order": 23,
           "displayText": "ַ",
-          "spokenText": "ַ",
+          "spokenText": "פַּתָּח",
           "status": "verified"
         },
         {
@@ -7292,7 +7292,7 @@
           "lineId": "p11-line-010",
           "order": 27,
           "displayText": "ַ",
-          "spokenText": "ַ",
+          "spokenText": "פַּתָּח",
           "status": "verified"
         },
         {
@@ -9023,7 +9023,7 @@
           "lineId": "p14-line-002",
           "order": 7,
           "displayText": "ֶ",
-          "spokenText": "ֶ",
+          "spokenText": "סֶגוֹל",
           "status": "verified"
         },
         {
@@ -9275,7 +9275,7 @@
           "lineId": "p14-line-010",
           "order": 35,
           "displayText": "ֱ",
-          "spokenText": "ֱ",
+          "spokenText": "חֲטַף סֶגּוֹל",
           "status": "verified"
         },
         {
@@ -9284,7 +9284,7 @@
           "lineId": "p14-line-010",
           "order": 36,
           "displayText": "ֶ",
-          "spokenText": "ֶ",
+          "spokenText": "סֶגוֹל",
           "status": "verified"
         },
         {
@@ -10541,7 +10541,7 @@
           "lineId": "p16-line-002",
           "order": 7,
           "displayText": "ֹ",
-          "spokenText": "ֹ",
+          "spokenText": "חוֹלָם",
           "status": "verified"
         },
         {
@@ -10550,7 +10550,7 @@
           "lineId": "p16-line-003",
           "order": 8,
           "displayText": "ֹ",
-          "spokenText": "ֹ",
+          "spokenText": "חוֹלָם",
           "status": "verified"
         },
         {
@@ -10559,7 +10559,7 @@
           "lineId": "p16-line-003",
           "order": 9,
           "displayText": "וֹ",
-          "spokenText": "וֹ",
+          "spokenText": "חוֹלָם",
           "status": "verified"
         },
         {
@@ -11395,7 +11395,7 @@
           "lineId": "p17-line-002",
           "order": 8,
           "displayText": "ֵ",
-          "spokenText": "ֵ",
+          "spokenText": "צֵירֵי",
           "status": "verified"
         },
         {
@@ -11404,7 +11404,7 @@
           "lineId": "p17-line-002",
           "order": 9,
           "displayText": "ֵ",
-          "spokenText": "ֵ",
+          "spokenText": "צֵירֵי",
           "status": "verified"
         },
         {
@@ -16527,7 +16527,7 @@
           "lineId": "p23-line-003",
           "order": 11,
           "displayText": "ִ",
-          "spokenText": "ִ",
+          "spokenText": "חִירִיק",
           "status": "verified"
         },
         {
@@ -16536,7 +16536,7 @@
           "lineId": "p23-line-003",
           "order": 12,
           "displayText": "ִ",
-          "spokenText": "ִ",
+          "spokenText": "חִירִיק",
           "status": "verified"
         },
         {
@@ -23513,7 +23513,7 @@
           "lineId": "p31-line-011",
           "order": 43,
           "displayText": "ֲ",
-          "spokenText": "ֲ",
+          "spokenText": "חֲטַף פַּתָּח",
           "status": "verified"
         },
         {
@@ -23522,7 +23522,7 @@
           "lineId": "p31-line-011",
           "order": 44,
           "displayText": "ַ",
-          "spokenText": "ַ",
+          "spokenText": "פַּתָּח",
           "status": "verified"
         },
         {
@@ -26012,7 +26012,7 @@
           "lineId": "p34-line-005",
           "order": 18,
           "displayText": "וֹ",
-          "spokenText": "וֹ",
+          "spokenText": "חוֹלָם",
           "status": "verified"
         },
         {
@@ -26559,7 +26559,7 @@
           "badgeLabel": "Line 10",
           "sectionId": "main",
           "status": "verified",
-          "displayText": "תָיו = תָו :Note",
+          "displayText": "Note: תָיו = תָו",
           "contentMode": "mixed",
           "notes": [],
           "wordIds": [
@@ -26582,7 +26582,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "תָיו = תָו :Note"
+          "mixedText": "Note: תָיו = תָו"
         },
         {
           "id": "p35-line-011",
@@ -32163,7 +32163,7 @@
           "lineId": "p41-line-005",
           "order": 15,
           "displayText": "ֻ",
-          "spokenText": "ֻ",
+          "spokenText": "קֻבּוּץ",
           "status": "verified"
         },
         {
@@ -38992,7 +38992,7 @@
           "lineId": "p49-line-005",
           "order": 5,
           "displayText": "ָ",
-          "spokenText": "ָ",
+          "spokenText": "קָמָץ",
           "status": "verified"
         },
         {
@@ -39001,7 +39001,7 @@
           "lineId": "p49-line-007",
           "order": 6,
           "displayText": "ֳ",
-          "spokenText": "ֳ",
+          "spokenText": "חֲטַף קָמָץ",
           "status": "verified"
         },
         {
@@ -39064,7 +39064,7 @@
           "lineId": "p49-line-011",
           "order": 13,
           "displayText": "ֶ",
-          "spokenText": "ֶ",
+          "spokenText": "סֶגוֹל",
           "status": "verified"
         },
         {
@@ -54215,7 +54215,7 @@
           "lineId": "p61-line-003",
           "order": 2,
           "displayText": "ַ",
-          "spokenText": "ַ",
+          "spokenText": "פַּתָּח",
           "status": "verified"
         },
         {
@@ -54233,7 +54233,7 @@
           "lineId": "p61-line-004",
           "order": 4,
           "displayText": "ֻ",
-          "spokenText": "ֻ",
+          "spokenText": "קֻבּוּץ",
           "status": "verified"
         },
         {
@@ -54251,7 +54251,7 @@
           "lineId": "p61-line-005",
           "order": 6,
           "displayText": "ִ",
-          "spokenText": "ִ",
+          "spokenText": "חִירִיק",
           "status": "verified"
         },
         {
@@ -54269,7 +54269,7 @@
           "lineId": "p61-line-006",
           "order": 8,
           "displayText": "ֶ",
-          "spokenText": "ֶ",
+          "spokenText": "סֶגוֹל",
           "status": "verified"
         },
         {
@@ -54287,7 +54287,7 @@
           "lineId": "p61-line-007",
           "order": 10,
           "displayText": "ָ",
-          "spokenText": "ָ",
+          "spokenText": "קָמָץ",
           "status": "verified"
         },
         {
@@ -54305,7 +54305,7 @@
           "lineId": "p61-line-008",
           "order": 12,
           "displayText": "ֵ",
-          "spokenText": "ֵ",
+          "spokenText": "צֵירֵי",
           "status": "verified"
         },
         {
@@ -54314,7 +54314,7 @@
           "lineId": "p61-line-009",
           "order": 13,
           "displayText": "וֹ",
-          "spokenText": "וֹ",
+          "spokenText": "חוֹלָם",
           "status": "verified"
         },
         {
@@ -54332,7 +54332,7 @@
           "lineId": "p61-line-009",
           "order": 15,
           "displayText": "ֹ",
-          "spokenText": "ֹ",
+          "spokenText": "חוֹלָם",
           "status": "verified"
         },
         {
@@ -54341,7 +54341,7 @@
           "lineId": "p61-line-010",
           "order": 16,
           "displayText": "וּ",
-          "spokenText": "וּ",
+          "spokenText": "שׁוּרוּק",
           "status": "verified"
         },
         {
@@ -54368,7 +54368,7 @@
           "lineId": "p61-line-011",
           "order": 19,
           "displayText": "ְ",
-          "spokenText": "ְ",
+          "spokenText": "שְׁוָה",
           "status": "verified"
         },
         {
@@ -54395,7 +54395,7 @@
           "lineId": "p61-line-012",
           "order": 22,
           "displayText": "ֲ",
-          "spokenText": "ֲ",
+          "spokenText": "חֲטַף פַּתָּח",
           "status": "verified"
         },
         {
@@ -54422,7 +54422,7 @@
           "lineId": "p61-line-013",
           "order": 25,
           "displayText": "ֱ",
-          "spokenText": "ֱ",
+          "spokenText": "חֲטַף סֶגּוֹל",
           "status": "verified"
         },
         {
@@ -54449,7 +54449,7 @@
           "lineId": "p61-line-014",
           "order": 28,
           "displayText": "ֳ",
-          "spokenText": "ֳ",
+          "spokenText": "חֲטַף קָמָץ",
           "status": "verified"
         },
         {
@@ -54476,7 +54476,7 @@
           "lineId": "p61-line-015",
           "order": 31,
           "displayText": "ָ",
-          "spokenText": "ָ",
+          "spokenText": "קָמָץ",
           "status": "verified"
         }
       ]

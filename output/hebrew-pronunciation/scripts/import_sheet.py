@@ -33,6 +33,24 @@ WORD_SPLIT_RE = re.compile(r"\s+")
 INVISIBLE_RE = re.compile(r"[\u200e\u200f\ufeff]")
 DIVINE_NAME_RE = re.compile(r"(יְיָ|יְהוָה|יהוה)")
 ISOLATED_SHEVA_RE = re.compile(r"^([א-ת])(\u05bc)?\u05b0$")
+TRAILING_ENGLISH_AFTER_COLON_RE = re.compile(
+    r"^\s*(?P<before>[\u0590-\u05FF\s.,!?\"'״׳()=\-־]+?)\s*:\s*(?P<english>[A-Za-z][^:]*)\s*$"
+)
+STANDALONE_VOWEL_SPOKEN_FORMS = {
+    "ַ": "פַּתָּח",
+    "ָ": "קָמָץ",
+    "ֶ": "סֶגוֹל",
+    "ֵ": "צֵירֵי",
+    "ִ": "חִירִיק",
+    "ֻ": "קֻבּוּץ",
+    "ֹ": "חוֹלָם",
+    "וֹ": "חוֹלָם",
+    "וּ": "שׁוּרוּק",
+    "ְ": "שְׁוָה",
+    "ֱ": "חֲטַף סֶגּוֹל",
+    "ֲ": "חֲטַף פַּתָּח",
+    "ֳ": "חֲטַף קָמָץ",
+}
 REGION_DETECTION_CANDIDATES = [
     {"bottom": 0.88, "row_threshold": 8, "merge_gap": 4, "dark_threshold": 170, "min_height": 4},
     {"bottom": 0.88, "row_threshold": 10, "merge_gap": 4, "dark_threshold": 170, "min_height": 4},
@@ -75,6 +93,21 @@ def load_csv_text(args: argparse.Namespace) -> str:
 
 def clean_text(text: str) -> str:
     return INVISIBLE_RE.sub("", (text or "")).strip()
+
+
+def reorder_mixed_display_text(text: str) -> str:
+    cleaned = clean_text(text)
+    if not (has_hebrew(cleaned) and has_latin(cleaned)):
+        return cleaned
+
+    match = TRAILING_ENGLISH_AFTER_COLON_RE.match(cleaned)
+    if match:
+        before = clean_text(match.group("before"))
+        english = clean_text(match.group("english"))
+        if before and english:
+            return f"{english}: {before}"
+
+    return cleaned
 
 
 def has_hebrew(text: str) -> bool:
@@ -130,6 +163,7 @@ def apply_page_pronunciation_rules(text: str, *, page_context: Dict) -> str:
 
 def normalize_word_for_speech(token: str, *, drill_line: bool, page_context: Dict) -> str:
     spoken = clean_text(token)
+    spoken = STANDALONE_VOWEL_SPOKEN_FORMS.get(spoken, spoken)
     spoken = DIVINE_NAME_RE.sub("אֲדֹנָי", spoken)
     spoken = spoken.replace("־", " ")
     spoken = apply_page_pronunciation_rules(spoken, page_context=page_context)
@@ -213,6 +247,15 @@ def page_title(page_rows: List[Dict], page_number: int) -> str:
 
 def page_image_path(page_number: int) -> Path:
     return ROOT / "pages" / f"page-{page_number:03d}.png"
+
+
+def load_existing_transcript(path: Path) -> Dict:
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
 
 
 def detect_candidate_bands(
@@ -496,11 +539,23 @@ def suggest_line_regions(page_number: int, page_rows: List[Dict], sections: List
         return regions
 
 
-def build_page(page_number: int, page_rows: List[Dict], *, pdf_path: str, audio_revision: str) -> Dict:
+def build_page(
+    page_number: int,
+    page_rows: List[Dict],
+    *,
+    pdf_path: str,
+    audio_revision: str,
+    existing_page: Optional[Dict] = None,
+) -> Dict:
     page_context = infer_page_context(page_rows)
     sections = build_sections(page_rows, page_context=page_context)
     assign_section_id(page_rows, sections)
     line_regions = suggest_line_regions(page_number, page_rows, sections)
+    existing_lines = {
+        line.get("id"): line
+        for line in (existing_page or {}).get("lines", [])
+        if line.get("id")
+    }
 
     words: List[Dict] = []
     lines: List[Dict] = []
@@ -508,7 +563,8 @@ def build_page(page_number: int, page_rows: List[Dict], *, pdf_path: str, audio_
 
     for row in page_rows:
         line_id = f"p{page_number:02d}-line-{row['line_number']:03d}"
-        tokens = tokenize_hebrew_words(row["line_content"])
+        display_text = reorder_mixed_display_text(row["line_content"])
+        tokens = tokenize_hebrew_words(display_text)
         word_ids: List[str] = []
 
         for token in tokens:
@@ -544,15 +600,22 @@ def build_page(page_number: int, page_rows: List[Dict], *, pdf_path: str, audio_
             "badgeLabel": f"Line {row['line_number']}",
             "sectionId": row["sectionId"],
             "status": "verified",
-            "displayText": row["line_content"],
+            "displayText": display_text,
             "contentMode": content_mode,
             "notes": row["notes"],
             "wordIds": word_ids,
             "displayWords": tokens,
         }
 
-        if row["line_number"] in line_regions:
+        existing_line = existing_lines.get(line_id, {})
+        if "region" in existing_line:
+            line["region"] = existing_line["region"]
+        elif row["line_number"] in line_regions:
             line["region"] = line_regions[row["line_number"]]
+
+        if "matchMode" in existing_line:
+            line["matchMode"] = existing_line["matchMode"]
+        elif "region" in line:
             line["matchMode"] = "hybrid"
 
         if row["is_drill"] and word_ids:
@@ -560,9 +623,9 @@ def build_page(page_number: int, page_rows: List[Dict], *, pdf_path: str, audio_
             line["sequenceGapMs"] = 220
 
         if content_mode == "english":
-            line["englishText"] = row["line_content"]
+            line["englishText"] = display_text
         elif content_mode == "mixed":
-            line["mixedText"] = normalize_line_for_speech(row["line_content"], page_context=page_context)
+            line["mixedText"] = normalize_line_for_speech(display_text, page_context=page_context)
 
         lines.append(line)
 
@@ -612,13 +675,24 @@ def load_rows(csv_text: str) -> List[Dict]:
     return rows
 
 
-def build_transcript(rows: List[Dict], *, pdf_path: str, audio_revision: str) -> Dict:
+def build_transcript(rows: List[Dict], *, pdf_path: str, audio_revision: str, existing_transcript: Optional[Dict] = None) -> Dict:
     pages_by_number: Dict[int, List[Dict]] = defaultdict(list)
     for row in rows:
         pages_by_number[row["page"]].append(row)
+    existing_pages = {
+        page.get("page"): page
+        for page in (existing_transcript or {}).get("pages", [])
+        if page.get("page") is not None
+    }
 
     pages = [
-        build_page(page_number, sorted(page_rows, key=lambda item: item["line_number"]), pdf_path=pdf_path, audio_revision=audio_revision)
+        build_page(
+            page_number,
+            sorted(page_rows, key=lambda item: item["line_number"]),
+            pdf_path=pdf_path,
+            audio_revision=audio_revision,
+            existing_page=existing_pages.get(page_number),
+        )
         for page_number, page_rows in sorted(pages_by_number.items())
     ]
 
@@ -645,8 +719,15 @@ def main(argv: Iterable[str]) -> int:
     args = parse_args(argv)
     csv_text = load_csv_text(args)
     rows = load_rows(csv_text)
-    payload = build_transcript(rows, pdf_path=args.pdf_path, audio_revision=args.audio_revision)
-    write_json(Path(args.output), payload)
+    output_path = Path(args.output)
+    existing_transcript = load_existing_transcript(output_path)
+    payload = build_transcript(
+        rows,
+        pdf_path=args.pdf_path,
+        audio_revision=args.audio_revision,
+        existing_transcript=existing_transcript,
+    )
+    write_json(output_path, payload)
     print(f"Imported {len(payload['pages'])} pages and {len(rows)} sheet rows into {args.output}.")
     return 0
 
