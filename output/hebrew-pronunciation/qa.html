@@ -1095,9 +1095,6 @@
       try {
         await fetch(state.syncConfig.endpoint, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
           body: JSON.stringify(buildPagePayload(page))
         });
         setStatus("Saved progress to backup after " + reason + ".");
@@ -1115,9 +1112,6 @@
         updateExport();
         await fetch(state.syncConfig.endpoint, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
           body: JSON.stringify({
             action: "saveAll",
             reviewerName: state.review.reviewerName || "",
