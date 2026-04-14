@@ -409,6 +409,12 @@
       color: var(--bad);
     }
 
+    .status-chip.missing-arrow {
+      background: var(--bad-soft);
+      color: var(--bad);
+      border: 1px solid rgba(166, 61, 52, 0.2);
+    }
+
     .status-chip.needs_regen {
       background: var(--regen-soft);
       color: var(--regen);
@@ -966,10 +972,17 @@
     }
 
     function updateActionButtons(review, draftReason) {
+      const hasArrow = typeof review.anchorY === "number";
+      elements.markGood.disabled = !hasArrow;
+      elements.markBad.disabled = !hasArrow;
       elements.markGood.className =
-        review.status === "good" && !elements.reasonCard.classList.contains("visible")
+        hasArrow && review.status === "good" && !elements.reasonCard.classList.contains("visible")
           ? "button-state-good"
           : "";
+      if (!hasArrow) {
+        elements.markBad.className = "";
+        return;
+      }
       if (review.status === "needs_regen" || draftReason === "Google Sheet error") {
         elements.markBad.className = "button-state-regen";
         return;
@@ -1005,7 +1018,7 @@
       elements.selectedLineStatus.replaceChildren();
       [
         { label: "Status: " + lineStatusText(review.status), className: review.status === "pending" ? "" : review.status },
-        { label: typeof review.anchorY === "number" ? "Arrow set" : "Arrow not set", className: typeof review.anchorY === "number" ? "good" : "" }
+        { label: typeof review.anchorY === "number" ? "Arrow set" : "Arrow required", className: typeof review.anchorY === "number" ? "good" : "missing-arrow" }
       ].forEach(function (item) {
         const chip = document.createElement("span");
         chip.className = "status-chip" + (item.className ? " " + item.className : "");
@@ -1371,17 +1384,14 @@
       if (!line) {
         return;
       }
-      const review = reviewForLine(line.id);
-      state.review.lineReviews[line.id] = {
-        lineId: line.id,
-        status: review.status,
-        anchorY: null,
-        category: review.category || "",
-        note: review.note || ""
-      };
+      delete state.review.lineReviews[line.id];
+      elements.reasonCard.classList.remove("visible");
+      elements.reasonSelect.value = "";
+      elements.notesInput.value = "";
+      elements.sheetGuidance.classList.remove("visible");
       saveReviewState();
       renderCanvas();
-      setStatus("Cleared arrow location for " + line.badgeLabel + ".");
+      setStatus(line.badgeLabel + " reset after clearing the arrow.");
     }
 
     function signOffPage() {
