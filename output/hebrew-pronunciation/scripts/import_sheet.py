@@ -303,22 +303,28 @@ def load_remote_review_state(review_sync_url: str) -> Dict[str, Dict]:
             continue
         page_value = review.get("page")
         line_number_value = review.get("lineNumber")
-        block_start_value = review.get("blockStartLine")
-        block_end_value = review.get("blockEndLine")
+        flow_start_value = review.get("flowStartLine")
+        flow_end_value = review.get("flowEndLine")
+        legacy_block_start_value = review.get("blockStartLine")
+        legacy_block_end_value = review.get("blockEndLine")
+        flow_issue = bool(review.get("flowIssue") or review.get("flowAction") or review.get("blockAction"))
+        flow_action = str(review.get("flowAction") or review.get("blockAction") or "").strip()
         review_state[line_id] = {
             "page": int(page_value) if str(page_value).strip().isdigit() else None,
             "lineNumber": int(line_number_value) if str(line_number_value).strip().isdigit() else None,
             "status": str(review.get("status") or "pending").strip() or "pending",
             "category": str(review.get("category") or "").strip(),
             "note": str(review.get("note") or "").strip(),
-            "blockAction": str(review.get("blockAction") or "").strip(),
-            "blockStartLine": int(block_start_value) if str(block_start_value).strip().isdigit() else None,
-            "blockEndLine": int(block_end_value) if str(block_end_value).strip().isdigit() else None,
+            "flowIssue": flow_issue,
+            "flowAction": flow_action,
+            "flowStartLine": int(flow_start_value) if str(flow_start_value).strip().isdigit() else (int(legacy_block_start_value) if str(legacy_block_start_value).strip().isdigit() else None),
+            "flowEndLine": int(flow_end_value) if str(flow_end_value).strip().isdigit() else (int(legacy_block_end_value) if str(legacy_block_end_value).strip().isdigit() else None),
+            "flowNote": str(review.get("flowNote") or "").strip(),
         }
     return review_state
 
 
-def apply_block_grouping_overrides(pages: List[Dict], review_state: Dict[str, Dict]) -> int:
+def apply_flow_grouping_overrides(pages: List[Dict], review_state: Dict[str, Dict]) -> int:
     if not review_state:
         return 0
 
@@ -326,9 +332,7 @@ def apply_block_grouping_overrides(pages: List[Dict], review_state: Dict[str, Di
     applied = 0
 
     for line_id, review in review_state.items():
-        if review.get("category") != "Block grouping error":
-            continue
-        if review.get("status") not in SELECTIVE_UPDATE_STATUSES:
+        if not review.get("flowIssue"):
             continue
 
         page_number = review.get("page")
@@ -345,10 +349,10 @@ def apply_block_grouping_overrides(pages: List[Dict], review_state: Dict[str, Di
         if not line:
             continue
 
-        action = review.get("blockAction")
-        if action == "merge":
-            start_line = review.get("blockStartLine")
-            end_line = review.get("blockEndLine")
+        action = review.get("flowAction")
+        if action == "join_paragraph":
+            start_line = review.get("flowStartLine")
+            end_line = review.get("flowEndLine")
             if not isinstance(start_line, int) or not isinstance(end_line, int) or start_line > end_line:
                 continue
             for target_number in range(start_line, end_line + 1):
@@ -933,7 +937,7 @@ def build_transcript(
         updated_line_count += merged_page.pop("_updatedLineCount", 0)
         pages.append(merged_page)
 
-    block_override_count = apply_block_grouping_overrides(pages, review_state or {})
+    flow_override_count = apply_flow_grouping_overrides(pages, review_state or {})
 
     notes = [
         "Imported from the Google Sheet submission tab.",
@@ -953,7 +957,7 @@ def build_transcript(
             "rowCount": len(rows),
             "reviewAware": bool(review_state) and not force_all_lines,
             "updatedReviewedLineCount": updated_line_count,
-            "appliedBlockOverrideCount": block_override_count,
+            "appliedFlowOverrideCount": flow_override_count,
         },
     }
 

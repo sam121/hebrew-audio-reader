@@ -599,6 +599,10 @@
         <div id="wordButtonRow" class="word-button-row"></div>
 
         <div class="button-row">
+          <button id="reportFlowIssue" type="button" class="secondary">Report flow issue</button>
+        </div>
+
+        <div class="button-row">
           <button id="markGood" type="button">Mark line good</button>
           <button id="markBad" type="button">Mark line bad</button>
           <button id="resetLine" type="button" class="secondary">Reset line</button>
@@ -611,7 +615,6 @@
               <select id="reasonSelect">
                 <option value="">Choose a reason</option>
                 <option value="Google Sheet error">Google Sheet error</option>
-                <option value="Block grouping error">Block grouping error</option>
                 <option value="Dot error">Dot error</option>
                 <option value="English/Hebrew mix error">English/Hebrew mix error</option>
                 <option value="Pronunciation error">Pronunciation error</option>
@@ -622,32 +625,6 @@
 
           <div id="sheetGuidance" class="sheet-guidance">
             Fix this in the Google Sheet, then write exactly which word or phrase was wrong and what you changed. This line will need regeneration and re-review afterward.
-          </div>
-
-          <div id="blockOverrideFields" class="block-override-fields">
-            <div class="grid">
-              <label>
-                Block action
-                <select id="blockActionSelect">
-                  <option value="">Choose a block action</option>
-                  <option value="merge">Merge lines into one block</option>
-                  <option value="single">Split this line into its own block</option>
-                  <option value="force_start">Start a new block here</option>
-                  <option value="continue">Continue previous block</option>
-                </select>
-              </label>
-              <label id="blockStartLabel">
-                Start line
-                <input id="blockStartLineInput" type="number" min="1" step="1" inputmode="numeric">
-              </label>
-              <label id="blockEndLabel">
-                End line
-                <input id="blockEndLineInput" type="number" min="1" step="1" inputmode="numeric">
-              </label>
-            </div>
-            <div class="instruction-box block-override-note">
-              For merge ranges, select the first affected line, then enter the full line range. Example: page 2 lines 8 to 10 should play as one continuous paragraph block.
-            </div>
           </div>
 
           <label>
@@ -661,6 +638,40 @@
         <div class="group">
           <h3>Saved note</h3>
           <div id="savedNote" class="note-preview">No note saved for this line yet.</div>
+        </div>
+
+        <div id="flowCard" class="reason-card">
+          <div class="grid">
+            <label>
+              Flow action
+              <select id="flowActionSelect">
+                <option value="">Choose a flow action</option>
+                <option value="join_paragraph">Join lines into one paragraph</option>
+                <option value="force_start">This line starts a new paragraph</option>
+                <option value="continue">This line continues the previous paragraph</option>
+                <option value="single">This line should stand alone</option>
+              </select>
+            </label>
+            <label id="flowStartLabel">
+              Start line
+              <input id="flowStartLineInput" type="number" min="1" step="1" inputmode="numeric">
+            </label>
+            <label id="flowEndLabel">
+              End line
+              <input id="flowEndLineInput" type="number" min="1" step="1" inputmode="numeric">
+            </label>
+          </div>
+          <div class="instruction-box block-override-note">
+            Use this only when the paragraph flow is wrong but the pronunciation itself is fine. For joined paragraphs, file the issue from the first affected line.
+          </div>
+          <label>
+            Flow note
+            <textarea id="flowNotesInput" placeholder="Example: Lines 8-10 are one continuous explanation and should play together."></textarea>
+          </label>
+          <div class="button-row">
+            <button id="saveFlowIssue" type="button">Save flow issue</button>
+            <button id="clearFlowIssue" type="button" class="secondary">Clear flow issue</button>
+          </div>
         </div>
       </section>
 
@@ -705,14 +716,16 @@
     };
 
     const elements = {
-      blockActionSelect: document.getElementById("blockActionSelect"),
-      blockEndLabel: document.getElementById("blockEndLabel"),
-      blockEndLineInput: document.getElementById("blockEndLineInput"),
-      blockOverrideFields: document.getElementById("blockOverrideFields"),
-      blockStartLabel: document.getElementById("blockStartLabel"),
-      blockStartLineInput: document.getElementById("blockStartLineInput"),
+      clearFlowIssue: document.getElementById("clearFlowIssue"),
       canvasHint: document.getElementById("canvasHint"),
       clearLocation: document.getElementById("clearLocation"),
+      flowActionSelect: document.getElementById("flowActionSelect"),
+      flowCard: document.getElementById("flowCard"),
+      flowEndLabel: document.getElementById("flowEndLabel"),
+      flowEndLineInput: document.getElementById("flowEndLineInput"),
+      flowNotesInput: document.getElementById("flowNotesInput"),
+      flowStartLabel: document.getElementById("flowStartLabel"),
+      flowStartLineInput: document.getElementById("flowStartLineInput"),
       saveProgress: document.getElementById("saveProgress"),
       lineList: document.getElementById("lineList"),
       markBad: document.getElementById("markBad"),
@@ -728,9 +741,11 @@
       progressText: document.getElementById("progressText"),
       reasonCard: document.getElementById("reasonCard"),
       reasonSelect: document.getElementById("reasonSelect"),
+      reportFlowIssue: document.getElementById("reportFlowIssue"),
       resetLine: document.getElementById("resetLine"),
       savedNote: document.getElementById("savedNote"),
       saveBadLine: document.getElementById("saveBadLine"),
+      saveFlowIssue: document.getElementById("saveFlowIssue"),
       selectedLineStatus: document.getElementById("selectedLineStatus"),
       selectedLineText: document.getElementById("selectedLineText"),
       selectedLineTitle: document.getElementById("selectedLineTitle"),
@@ -855,6 +870,10 @@
       orderedPages().forEach(function (page) {
         orderedLines(page).forEach(function (line) {
           const review = reviewForLine(line.id);
+          const flowIssue = Boolean(review.flowIssue && review.flowAction);
+          const flowAction = review.flowAction || "";
+          const flowStartLine = typeof review.flowStartLine === "number" ? review.flowStartLine : null;
+          const flowEndLine = typeof review.flowEndLine === "number" ? review.flowEndLine : null;
           lineReviews.push({
             page: line.page,
             lineId: line.id,
@@ -864,9 +883,14 @@
             category: review.category || "",
             note: review.note || "",
             reviewedFingerprint: review.reviewedFingerprint || "",
-            blockAction: review.blockAction || "",
-            blockStartLine: typeof review.blockStartLine === "number" ? review.blockStartLine : null,
-            blockEndLine: typeof review.blockEndLine === "number" ? review.blockEndLine : null
+            flowIssue: flowIssue,
+            flowAction: flowAction,
+            flowStartLine: flowStartLine,
+            flowEndLine: flowEndLine,
+            flowNote: review.flowNote || "",
+            blockAction: flowAction,
+            blockStartLine: flowStartLine,
+            blockEndLine: flowEndLine
           });
         });
       });
@@ -899,9 +923,19 @@
               category: review.category || "",
               note: review.note || "",
               reviewedFingerprint: review.reviewedFingerprint || "",
-              blockAction: review.blockAction || "",
-              blockStartLine: Number.isInteger(review.blockStartLine) ? review.blockStartLine : (String(review.blockStartLine || "").trim() && Number.isInteger(Number(review.blockStartLine)) ? Number(review.blockStartLine) : null),
-              blockEndLine: Number.isInteger(review.blockEndLine) ? review.blockEndLine : (String(review.blockEndLine || "").trim() && Number.isInteger(Number(review.blockEndLine)) ? Number(review.blockEndLine) : null)
+              flowIssue: Boolean(
+                review.flowIssue ||
+                review.flowAction ||
+                review.blockAction
+              ),
+              flowAction: review.flowAction || review.blockAction || "",
+              flowStartLine: Number.isInteger(review.flowStartLine)
+                ? review.flowStartLine
+                : (String(review.flowStartLine || review.blockStartLine || "").trim() && Number.isInteger(Number(review.flowStartLine || review.blockStartLine)) ? Number(review.flowStartLine || review.blockStartLine) : null),
+              flowEndLine: Number.isInteger(review.flowEndLine)
+                ? review.flowEndLine
+                : (String(review.flowEndLine || review.blockEndLine || "").trim() && Number.isInteger(Number(review.flowEndLine || review.blockEndLine)) ? Number(review.flowEndLine || review.blockEndLine) : null),
+              flowNote: review.flowNote || ""
             }];
           })
         ),
@@ -941,9 +975,11 @@
         category: "",
         note: "",
         reviewedFingerprint: "",
-        blockAction: "",
-        blockStartLine: null,
-        blockEndLine: null
+        flowIssue: false,
+        flowAction: "",
+        flowStartLine: null,
+        flowEndLine: null,
+        flowNote: ""
       };
     }
 
@@ -953,57 +989,58 @@
         : (String(value || "").trim() && Number.isInteger(Number(value)) ? Number(value) : null);
     }
 
-    function isBlockGroupingCategory(category) {
-      return category === "Block grouping error";
-    }
-
-    function blockActionText(action) {
-      if (action === "merge") {
-        return "Merge lines into one block";
+    function flowActionText(action) {
+      if (action === "join_paragraph") {
+        return "Join lines into one paragraph";
       }
       if (action === "single") {
-        return "Split this line into its own block";
+        return "This line should stand alone";
       }
       if (action === "force_start") {
-        return "Start a new block here";
+        return "This line starts a new paragraph";
       }
       if (action === "continue") {
-        return "Continue previous block";
+        return "This line continues the previous paragraph";
       }
       return "";
     }
 
-    function updateReasonFields(category, review, line) {
-      const blockReview = review || {};
-      const selectedLine = line || currentLine();
-      const showSheet = category === "Google Sheet error";
-      const showBlock = isBlockGroupingCategory(category);
-      elements.sheetGuidance.classList.toggle("visible", showSheet);
-      elements.blockOverrideFields.classList.toggle("visible", showBlock);
-      if (!showBlock) {
-        elements.blockActionSelect.value = "";
-        elements.blockStartLineInput.value = "";
-        elements.blockEndLineInput.value = "";
-        elements.blockStartLabel.style.display = "";
-        elements.blockEndLabel.style.display = "";
-        return;
-      }
+    function isFlowEligibleLine(line) {
+      return Boolean(
+        line &&
+        !line.isDrill &&
+        line.hebrewPlaybackMode !== "sequence"
+      );
+    }
 
-      const action = blockReview.blockAction || elements.blockActionSelect.value || "";
-      elements.blockActionSelect.value = action;
+    function hasSavedFlowIssue(review) {
+      return Boolean(review && review.flowIssue && review.flowAction);
+    }
+
+    function updateReasonFields(category) {
+      const showSheet = category === "Google Sheet error";
+      elements.sheetGuidance.classList.toggle("visible", showSheet);
+    }
+
+    function updateFlowFields(review, line) {
+      const flowReview = review || {};
+      const selectedLine = line || currentLine();
       const defaultLineNumber = selectedLine ? selectedLine.lineNumber : null;
-      const startLine = typeof blockReview.blockStartLine === "number" ? blockReview.blockStartLine : defaultLineNumber;
-      const endLine = typeof blockReview.blockEndLine === "number" ? blockReview.blockEndLine : defaultLineNumber;
-      if (action === "merge") {
-        elements.blockStartLabel.style.display = "";
-        elements.blockEndLabel.style.display = "";
-        elements.blockStartLineInput.value = typeof startLine === "number" ? String(startLine) : "";
-        elements.blockEndLineInput.value = typeof endLine === "number" ? String(endLine) : "";
+      const action = flowReview.flowAction || "";
+      const startLine = typeof flowReview.flowStartLine === "number" ? flowReview.flowStartLine : defaultLineNumber;
+      const endLine = typeof flowReview.flowEndLine === "number" ? flowReview.flowEndLine : defaultLineNumber;
+
+      elements.flowActionSelect.value = action;
+      elements.flowNotesInput.value = flowReview.flowNote || "";
+      const showRange = action === "join_paragraph";
+      elements.flowStartLabel.style.display = showRange ? "" : "none";
+      elements.flowEndLabel.style.display = showRange ? "" : "none";
+      if (showRange) {
+        elements.flowStartLineInput.value = typeof startLine === "number" ? String(startLine) : "";
+        elements.flowEndLineInput.value = typeof endLine === "number" ? String(endLine) : "";
       } else {
-        elements.blockStartLabel.style.display = "none";
-        elements.blockEndLabel.style.display = "none";
-        elements.blockStartLineInput.value = typeof defaultLineNumber === "number" ? String(defaultLineNumber) : "";
-        elements.blockEndLineInput.value = typeof defaultLineNumber === "number" ? String(defaultLineNumber) : "";
+        elements.flowStartLineInput.value = typeof defaultLineNumber === "number" ? String(defaultLineNumber) : "";
+        elements.flowEndLineInput.value = typeof defaultLineNumber === "number" ? String(defaultLineNumber) : "";
       }
     }
 
@@ -1079,17 +1116,6 @@
         return true;
       }
       if ((review.status === "bad" || review.status === "needs_regen") && review.category && review.note.trim()) {
-        if (!isBlockGroupingCategory(review.category)) {
-          return true;
-        }
-        if (!review.blockAction) {
-          return false;
-        }
-        if (review.blockAction === "merge") {
-          const startLine = numericReviewValue(review.blockStartLine);
-          const endLine = numericReviewValue(review.blockEndLine);
-          return startLine !== null && endLine !== null && startLine <= endLine;
-        }
         return true;
       }
       return false;
@@ -1351,7 +1377,9 @@
       elements.reasonSelect.value = review.category || "";
       elements.notesInput.value = review.note || "";
       elements.reasonCard.classList.toggle("visible", effectiveStatus === "bad" || effectiveStatus === "needs_regen");
-      updateReasonFields(elements.reasonSelect.value, review, line);
+      elements.flowCard.classList.toggle("visible", false);
+      updateReasonFields(elements.reasonSelect.value);
+      updateFlowFields(review, line);
 
       elements.selectedLineStatus.replaceChildren();
       const statusItems = [
@@ -1374,6 +1402,12 @@
         chip.textContent = spokenBlock.blockLabel;
         elements.selectedLineStatus.appendChild(chip);
       }
+      if (hasSavedFlowIssue(review)) {
+        const chip = document.createElement("span");
+        chip.className = "status-chip changed";
+        chip.textContent = "Flow issue saved";
+        elements.selectedLineStatus.appendChild(chip);
+      }
       if (line.manualBlockOverride) {
         const chip = document.createElement("span");
         chip.className = "status-chip changed";
@@ -1382,26 +1416,47 @@
       }
 
       elements.savedNote.innerHTML = "";
-      const noteStrong = document.createElement("strong");
-      noteStrong.textContent = review.note ? "Saved review note" : "No note saved";
-      elements.savedNote.appendChild(noteStrong);
-      const noteBody = document.createElement("div");
-      const extraBlockNote = isBlockGroupingCategory(review.category) && review.blockAction
-        ? " " + blockActionText(review.blockAction) + (
-            review.blockAction === "merge" && typeof review.blockStartLine === "number" && typeof review.blockEndLine === "number"
-              ? " (" + review.blockStartLine + " to " + review.blockEndLine + ")."
-              : "."
-          )
-        : "";
-      noteBody.textContent = review.note
-        ? review.note + extraBlockNote
-        : "If this line is bad, write the exact wrong word or phrase and then describe the audio problem.";
-      elements.savedNote.appendChild(noteBody);
+      const hasReviewNote = Boolean(review.note);
+      const hasFlowNote = hasSavedFlowIssue(review) && Boolean(review.flowNote);
+      if (!hasReviewNote && !hasFlowNote) {
+        const noteStrong = document.createElement("strong");
+        noteStrong.textContent = "No note saved";
+        elements.savedNote.appendChild(noteStrong);
+        const noteBody = document.createElement("div");
+        noteBody.textContent = "If this line is bad, write the exact wrong word or phrase and then describe the audio problem. Use Report flow issue if the paragraph flow is wrong but the pronunciation is fine.";
+        elements.savedNote.appendChild(noteBody);
+      } else {
+        if (hasReviewNote) {
+          const noteStrong = document.createElement("strong");
+          noteStrong.textContent = "Saved review note";
+          elements.savedNote.appendChild(noteStrong);
+          const noteBody = document.createElement("div");
+          noteBody.textContent = review.note;
+          elements.savedNote.appendChild(noteBody);
+        }
+        if (hasFlowNote) {
+          const flowStrong = document.createElement("strong");
+          flowStrong.textContent = "Saved flow issue";
+          elements.savedNote.appendChild(flowStrong);
+          const flowBody = document.createElement("div");
+          const rangeText =
+            review.flowAction === "join_paragraph" &&
+            typeof review.flowStartLine === "number" &&
+            typeof review.flowEndLine === "number"
+              ? " (" + review.flowStartLine + " to " + review.flowEndLine + ")"
+              : "";
+          flowBody.textContent = flowActionText(review.flowAction) + rangeText + (review.flowNote ? ": " + review.flowNote : "");
+          elements.savedNote.appendChild(flowBody);
+        }
+      }
 
       const linePlayback = playbackForLine(line);
       elements.playLine.textContent = "Play line";
       elements.playLine.disabled = !linePlayback.urls.length;
       elements.clearLocation.disabled = typeof review.anchorY !== "number";
+      elements.reportFlowIssue.classList.toggle("visible", isFlowEligibleLine(line));
+      elements.reportFlowIssue.style.display = isFlowEligibleLine(line) ? "" : "none";
+      elements.reportFlowIssue.disabled = !isFlowEligibleLine(line);
 
       elements.wordButtonRow.replaceChildren();
       if (line.wordPlayback && line.wordPlayback.length) {
@@ -1428,9 +1483,21 @@
         return;
       }
 
-      const linesById = new Map(orderedLines(page).map(function (line) { return [line.id, line]; }));
+      const orderedPageLines = orderedLines(page);
+      const linesById = new Map(orderedPageLines.map(function (line) { return [line.id, line]; }));
       const spokenBlocks = spokenBlocksForPage(page);
       const handledLineIds = new Set();
+      const blockByStartLineId = new Map();
+
+      spokenBlocks.forEach(function (block) {
+        if (!isVisibleMultiLineBlock(block)) {
+          return;
+        }
+        const firstLineId = Array.isArray(block.lineIds) && block.lineIds.length ? block.lineIds[0] : "";
+        if (firstLineId) {
+          blockByStartLineId.set(firstLineId, block);
+        }
+      });
 
       function buildLineRow(line) {
         const review = reviewForLine(line.id);
@@ -1466,6 +1533,12 @@
           blockLabel.textContent = line.spokenBlockLabel + (line.manualBlockOverride ? " · manual override" : "");
           main.appendChild(blockLabel);
         }
+        if (hasSavedFlowIssue(review)) {
+          const flowLabel = document.createElement("div");
+          flowLabel.className = "block-membership";
+          flowLabel.textContent = "Flow issue saved";
+          main.appendChild(flowLabel);
+        }
         row.appendChild(main);
 
         const pill = document.createElement("span");
@@ -1489,15 +1562,22 @@
         return row;
       }
 
-      spokenBlocks.forEach(function (block) {
-        if (!isVisibleMultiLineBlock(block)) {
+      orderedPageLines.forEach(function (line) {
+        if (handledLineIds.has(line.id)) {
           return;
         }
+        const block = blockByStartLineId.get(line.id);
+        if (!block) {
+          elements.lineList.appendChild(buildLineRow(line));
+          return;
+        }
+
         const blockLines = (block.lineIds || []).map(function (lineId) {
           handledLineIds.add(lineId);
           return linesById.get(lineId);
         }).filter(Boolean);
         if (!blockLines.length) {
+          elements.lineList.appendChild(buildLineRow(line));
           return;
         }
 
@@ -1539,18 +1619,11 @@
 
         const blockList = document.createElement("div");
         blockList.className = "block-line-list";
-        blockLines.forEach(function (line) {
-          blockList.appendChild(buildLineRow(line));
+        blockLines.forEach(function (blockLine) {
+          blockList.appendChild(buildLineRow(blockLine));
         });
         card.appendChild(blockList);
         elements.lineList.appendChild(card);
-      });
-
-      orderedLines(page).forEach(function (line) {
-        if (handledLineIds.has(line.id)) {
-          return;
-        }
-        elements.lineList.appendChild(buildLineRow(line));
       });
     }
 
@@ -1642,9 +1715,14 @@
             category: review.category || "",
             note: review.note || "",
             reviewedFingerprint: review.reviewedFingerprint || "",
-            blockAction: review.blockAction || "",
-            blockStartLine: typeof review.blockStartLine === "number" ? review.blockStartLine : null,
-            blockEndLine: typeof review.blockEndLine === "number" ? review.blockEndLine : null
+            flowIssue: Boolean(review.flowIssue && review.flowAction),
+            flowAction: review.flowAction || "",
+            flowStartLine: typeof review.flowStartLine === "number" ? review.flowStartLine : null,
+            flowEndLine: typeof review.flowEndLine === "number" ? review.flowEndLine : null,
+            flowNote: review.flowNote || "",
+            blockAction: review.flowAction || "",
+            blockStartLine: typeof review.flowStartLine === "number" ? review.flowStartLine : null,
+            blockEndLine: typeof review.flowEndLine === "number" ? review.flowEndLine : null
           };
         })
       };
@@ -1816,9 +1894,11 @@
         category: "",
         note: "",
         reviewedFingerprint: line.reviewFingerprint || "",
-        blockAction: "",
-        blockStartLine: null,
-        blockEndLine: null
+        flowIssue: review.flowIssue || false,
+        flowAction: review.flowAction || "",
+        flowStartLine: typeof review.flowStartLine === "number" ? review.flowStartLine : null,
+        flowEndLine: typeof review.flowEndLine === "number" ? review.flowEndLine : null,
+        flowNote: review.flowNote || ""
       };
       saveReviewState();
       setStatus(line.badgeLabel + " marked good.");
@@ -1837,13 +1917,11 @@
       elements.reasonCard.classList.add("visible");
       elements.reasonSelect.value = review.category || "";
       elements.notesInput.value = review.note || "";
-      updateReasonFields(elements.reasonSelect.value, review, line);
+      updateReasonFields(elements.reasonSelect.value);
       updateActionButtons(review, elements.reasonSelect.value || "Pronunciation error");
       window.requestAnimationFrame(function () {
         elements.reasonCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        if (isBlockGroupingCategory(review.category) && !review.blockAction) {
-          elements.blockActionSelect.focus();
-        } else if (review.category) {
+        if (review.category) {
           elements.notesInput.focus();
         } else {
           elements.reasonSelect.focus();
@@ -1864,9 +1942,6 @@
       }
       const category = elements.reasonSelect.value;
       const note = elements.notesInput.value.trim();
-      let blockAction = "";
-      let blockStartLine = null;
-      let blockEndLine = null;
       if (!category) {
         setStatus("Choose a reason before saving the line.");
         return;
@@ -1875,32 +1950,6 @@
         setStatus("Add a note naming the exact wrong word or phrase and the audio problem.");
         return;
       }
-      if (isBlockGroupingCategory(category)) {
-        blockAction = elements.blockActionSelect.value;
-        if (!blockAction) {
-          setStatus("Choose a block action before saving the line.");
-          return;
-        }
-        if (blockAction === "merge") {
-          blockStartLine = Number(elements.blockStartLineInput.value);
-          blockEndLine = Number(elements.blockEndLineInput.value);
-          if (!Number.isInteger(blockStartLine) || !Number.isInteger(blockEndLine)) {
-            setStatus("Enter a valid start line and end line for the block merge.");
-            return;
-          }
-          if (blockStartLine > blockEndLine) {
-            setStatus("The block start line cannot come after the end line.");
-            return;
-          }
-          if (blockStartLine !== line.lineNumber) {
-            setStatus("For a block merge, select the first affected line before saving.");
-            return;
-          }
-        } else {
-          blockStartLine = line.lineNumber;
-          blockEndLine = line.lineNumber;
-        }
-      }
       state.review.lineReviews[line.id] = {
         lineId: line.id,
         status: category === "Google Sheet error" ? "needs_regen" : "bad",
@@ -1908,12 +1957,119 @@
         category: category,
         note: note,
         reviewedFingerprint: line.reviewFingerprint || "",
-        blockAction: blockAction,
-        blockStartLine: blockStartLine,
-        blockEndLine: blockEndLine
+        flowIssue: review.flowIssue || false,
+        flowAction: review.flowAction || "",
+        flowStartLine: typeof review.flowStartLine === "number" ? review.flowStartLine : null,
+        flowEndLine: typeof review.flowEndLine === "number" ? review.flowEndLine : null,
+        flowNote: review.flowNote || ""
       };
       saveReviewState();
       setStatus(line.badgeLabel + " saved as " + (category === "Google Sheet error" ? "needs regen." : "bad."));
+    }
+
+    function beginFlowIssueReview() {
+      const line = ensureSelectedLine();
+      if (!line) {
+        return;
+      }
+      if (!isFlowEligibleLine(line)) {
+        setStatus("Flow issues are only available on prose lines.");
+        return;
+      }
+      const review = reviewForLine(line.id);
+      elements.flowCard.classList.add("visible");
+      updateFlowFields(review, line);
+      window.requestAnimationFrame(function () {
+        elements.flowCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        if (review.flowAction) {
+          elements.flowNotesInput.focus();
+        } else {
+          elements.flowActionSelect.focus();
+        }
+      });
+      setStatus("Record the paragraph flow issue for " + line.badgeLabel + ".");
+    }
+
+    function saveFlowIssue() {
+      const line = ensureSelectedLine();
+      if (!line) {
+        return;
+      }
+      if (!isFlowEligibleLine(line)) {
+        setStatus("Flow issues are only available on prose lines.");
+        return;
+      }
+      const review = reviewForLine(line.id);
+      const flowAction = elements.flowActionSelect.value;
+      const flowNote = elements.flowNotesInput.value.trim();
+      let flowStartLine = line.lineNumber;
+      let flowEndLine = line.lineNumber;
+
+      if (!flowAction) {
+        setStatus("Choose a flow action before saving the issue.");
+        return;
+      }
+      if (!flowNote) {
+        setStatus("Add a short note explaining the paragraph flow problem.");
+        return;
+      }
+      if (flowAction === "join_paragraph") {
+        flowStartLine = Number(elements.flowStartLineInput.value);
+        flowEndLine = Number(elements.flowEndLineInput.value);
+        if (!Number.isInteger(flowStartLine) || !Number.isInteger(flowEndLine)) {
+          setStatus("Enter a valid start line and end line for the paragraph join.");
+          return;
+        }
+        if (flowStartLine > flowEndLine) {
+          setStatus("The flow start line cannot come after the end line.");
+          return;
+        }
+        if (flowStartLine !== line.lineNumber) {
+          setStatus("For a joined paragraph, file the issue from the first affected line.");
+          return;
+        }
+      }
+
+      state.review.lineReviews[line.id] = {
+        lineId: line.id,
+        status: review.status || "pending",
+        anchorY: typeof review.anchorY === "number" ? review.anchorY : null,
+        category: review.category || "",
+        note: review.note || "",
+        reviewedFingerprint: review.reviewedFingerprint || "",
+        flowIssue: true,
+        flowAction: flowAction,
+        flowStartLine: flowStartLine,
+        flowEndLine: flowEndLine,
+        flowNote: flowNote
+      };
+      saveReviewState();
+      elements.flowCard.classList.remove("visible");
+      setStatus("Flow issue saved for " + line.badgeLabel + ".");
+    }
+
+    function clearFlowIssue() {
+      const line = ensureSelectedLine();
+      if (!line) {
+        return;
+      }
+      const review = reviewForLine(line.id);
+      state.review.lineReviews[line.id] = {
+        lineId: line.id,
+        status: review.status || "pending",
+        anchorY: typeof review.anchorY === "number" ? review.anchorY : null,
+        category: review.category || "",
+        note: review.note || "",
+        reviewedFingerprint: review.reviewedFingerprint || "",
+        flowIssue: false,
+        flowAction: "",
+        flowStartLine: null,
+        flowEndLine: null,
+        flowNote: ""
+      };
+      saveReviewState();
+      elements.flowCard.classList.remove("visible");
+      setStatus("Flow issue cleared for " + line.badgeLabel + ".");
     }
 
     function resetLine() {
@@ -1923,9 +2079,11 @@
       }
       delete state.review.lineReviews[line.id];
       elements.reasonCard.classList.remove("visible");
+      elements.flowCard.classList.remove("visible");
       elements.reasonSelect.value = "";
       elements.notesInput.value = "";
-      updateReasonFields("", {}, line);
+      updateReasonFields("");
+      updateFlowFields({}, line);
       saveReviewState();
       renderCanvas();
       updateActionButtons({ status: "pending" }, "");
@@ -1939,9 +2097,11 @@
       }
       delete state.review.lineReviews[line.id];
       elements.reasonCard.classList.remove("visible");
+      elements.flowCard.classList.remove("visible");
       elements.reasonSelect.value = "";
       elements.notesInput.value = "";
-      updateReasonFields("", {}, line);
+      updateReasonFields("");
+      updateFlowFields({}, line);
       saveReviewState();
       renderCanvas();
       setStatus(line.badgeLabel + " reset after clearing the arrow.");
@@ -1994,9 +2154,11 @@
         category: review.category || "",
         note: review.note || "",
         reviewedFingerprint: review.reviewedFingerprint || "",
-        blockAction: review.blockAction || "",
-        blockStartLine: typeof review.blockStartLine === "number" ? review.blockStartLine : null,
-        blockEndLine: typeof review.blockEndLine === "number" ? review.blockEndLine : null
+        flowIssue: review.flowIssue || false,
+        flowAction: review.flowAction || "",
+        flowStartLine: typeof review.flowStartLine === "number" ? review.flowStartLine : null,
+        flowEndLine: typeof review.flowEndLine === "number" ? review.flowEndLine : null,
+        flowNote: review.flowNote || ""
       };
       saveReviewState();
       renderCanvas();
@@ -2031,21 +2193,24 @@
     elements.stopPlayback.addEventListener("click", stopPlayback);
     elements.markGood.addEventListener("click", setLineGood);
     elements.markBad.addEventListener("click", beginBadReview);
+    elements.reportFlowIssue.addEventListener("click", beginFlowIssueReview);
     elements.saveBadLine.addEventListener("click", saveBadLine);
+    elements.saveFlowIssue.addEventListener("click", saveFlowIssue);
+    elements.clearFlowIssue.addEventListener("click", clearFlowIssue);
     elements.resetLine.addEventListener("click", resetLine);
     elements.clearLocation.addEventListener("click", clearLocation);
 
     elements.reasonSelect.addEventListener("change", function () {
-      updateReasonFields(elements.reasonSelect.value, reviewForLine(state.selectedLineId || ""), currentLine());
+      updateReasonFields(elements.reasonSelect.value);
       updateActionButtons(reviewForLine(state.selectedLineId || ""), elements.reasonSelect.value);
     });
 
-    elements.blockActionSelect.addEventListener("change", function () {
-      const review = reviewForLine(state.selectedLineId || "");
-      updateReasonFields(elements.reasonSelect.value, {
-        blockAction: elements.blockActionSelect.value,
-        blockStartLine: review.blockStartLine,
-        blockEndLine: review.blockEndLine
+    elements.flowActionSelect.addEventListener("change", function () {
+      updateFlowFields({
+        flowAction: elements.flowActionSelect.value,
+        flowStartLine: numericReviewValue(elements.flowStartLineInput.value),
+        flowEndLine: numericReviewValue(elements.flowEndLineInput.value),
+        flowNote: elements.flowNotesInput.value
       }, currentLine());
     });
 
