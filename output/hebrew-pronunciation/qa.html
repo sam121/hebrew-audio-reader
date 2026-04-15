@@ -382,6 +382,13 @@
       line-height: 1.35;
     }
 
+    .line-status-pills {
+      display: grid;
+      gap: 8px;
+      justify-items: end;
+      align-content: center;
+    }
+
     .mini-pill {
       border-radius: 999px;
       padding: 4px 10px;
@@ -599,10 +606,6 @@
         <div id="wordButtonRow" class="word-button-row"></div>
 
         <div class="button-row">
-          <button id="reportFlowIssue" type="button" class="secondary">Report flow issue</button>
-        </div>
-
-        <div class="button-row">
           <button id="markGood" type="button">Mark line good</button>
           <button id="markBad" type="button">Mark line bad</button>
           <button id="resetLine" type="button" class="secondary">Reset line</button>
@@ -638,40 +641,6 @@
         <div class="group">
           <h3>Saved note</h3>
           <div id="savedNote" class="note-preview">No note saved for this line yet.</div>
-        </div>
-
-        <div id="flowCard" class="reason-card">
-          <div class="grid">
-            <label>
-              Flow action
-              <select id="flowActionSelect">
-                <option value="">Choose a flow action</option>
-                <option value="join_paragraph">Join lines into one paragraph</option>
-                <option value="force_start">This line starts a new paragraph</option>
-                <option value="continue">This line continues the previous paragraph</option>
-                <option value="single">This line should stand alone</option>
-              </select>
-            </label>
-            <label id="flowStartLabel">
-              Start line
-              <input id="flowStartLineInput" type="number" min="1" step="1" inputmode="numeric">
-            </label>
-            <label id="flowEndLabel">
-              End line
-              <input id="flowEndLineInput" type="number" min="1" step="1" inputmode="numeric">
-            </label>
-          </div>
-          <div class="instruction-box block-override-note">
-            Use this only when the paragraph flow is wrong but the pronunciation itself is fine. For joined paragraphs, file the issue from the first affected line.
-          </div>
-          <label>
-            Flow note
-            <textarea id="flowNotesInput" placeholder="Example: Lines 8-10 are one continuous explanation and should play together."></textarea>
-          </label>
-          <div class="button-row">
-            <button id="saveFlowIssue" type="button">Save flow issue</button>
-            <button id="clearFlowIssue" type="button" class="secondary">Clear flow issue</button>
-          </div>
         </div>
       </section>
 
@@ -716,16 +685,8 @@
     };
 
     const elements = {
-      clearFlowIssue: document.getElementById("clearFlowIssue"),
       canvasHint: document.getElementById("canvasHint"),
       clearLocation: document.getElementById("clearLocation"),
-      flowActionSelect: document.getElementById("flowActionSelect"),
-      flowCard: document.getElementById("flowCard"),
-      flowEndLabel: document.getElementById("flowEndLabel"),
-      flowEndLineInput: document.getElementById("flowEndLineInput"),
-      flowNotesInput: document.getElementById("flowNotesInput"),
-      flowStartLabel: document.getElementById("flowStartLabel"),
-      flowStartLineInput: document.getElementById("flowStartLineInput"),
       saveProgress: document.getElementById("saveProgress"),
       lineList: document.getElementById("lineList"),
       markBad: document.getElementById("markBad"),
@@ -741,11 +702,9 @@
       progressText: document.getElementById("progressText"),
       reasonCard: document.getElementById("reasonCard"),
       reasonSelect: document.getElementById("reasonSelect"),
-      reportFlowIssue: document.getElementById("reportFlowIssue"),
       resetLine: document.getElementById("resetLine"),
       savedNote: document.getElementById("savedNote"),
       saveBadLine: document.getElementById("saveBadLine"),
-      saveFlowIssue: document.getElementById("saveFlowIssue"),
       selectedLineStatus: document.getElementById("selectedLineStatus"),
       selectedLineText: document.getElementById("selectedLineText"),
       selectedLineTitle: document.getElementById("selectedLineTitle"),
@@ -989,59 +948,9 @@
         : (String(value || "").trim() && Number.isInteger(Number(value)) ? Number(value) : null);
     }
 
-    function flowActionText(action) {
-      if (action === "join_paragraph") {
-        return "Join lines into one paragraph";
-      }
-      if (action === "single") {
-        return "This line should stand alone";
-      }
-      if (action === "force_start") {
-        return "This line starts a new paragraph";
-      }
-      if (action === "continue") {
-        return "This line continues the previous paragraph";
-      }
-      return "";
-    }
-
-    function isFlowEligibleLine(line) {
-      return Boolean(
-        line &&
-        !line.isDrill &&
-        line.hebrewPlaybackMode !== "sequence"
-      );
-    }
-
-    function hasSavedFlowIssue(review) {
-      return Boolean(review && review.flowIssue && review.flowAction);
-    }
-
     function updateReasonFields(category) {
       const showSheet = category === "Google Sheet error";
       elements.sheetGuidance.classList.toggle("visible", showSheet);
-    }
-
-    function updateFlowFields(review, line) {
-      const flowReview = review || {};
-      const selectedLine = line || currentLine();
-      const defaultLineNumber = selectedLine ? selectedLine.lineNumber : null;
-      const action = flowReview.flowAction || "";
-      const startLine = typeof flowReview.flowStartLine === "number" ? flowReview.flowStartLine : defaultLineNumber;
-      const endLine = typeof flowReview.flowEndLine === "number" ? flowReview.flowEndLine : defaultLineNumber;
-
-      elements.flowActionSelect.value = action;
-      elements.flowNotesInput.value = flowReview.flowNote || "";
-      const showRange = action === "join_paragraph";
-      elements.flowStartLabel.style.display = showRange ? "" : "none";
-      elements.flowEndLabel.style.display = showRange ? "" : "none";
-      if (showRange) {
-        elements.flowStartLineInput.value = typeof startLine === "number" ? String(startLine) : "";
-        elements.flowEndLineInput.value = typeof endLine === "number" ? String(endLine) : "";
-      } else {
-        elements.flowStartLineInput.value = typeof defaultLineNumber === "number" ? String(defaultLineNumber) : "";
-        elements.flowEndLineInput.value = typeof defaultLineNumber === "number" ? String(defaultLineNumber) : "";
-      }
     }
 
     function lineHasChangedSinceReview(line, review) {
@@ -1369,17 +1278,12 @@
 
       const review = reviewForLine(line.id);
       const effectiveStatus = effectiveStatusForLine(line);
-      const page = currentPage();
-      const spokenBlock = spokenBlockForLine(page, line);
-      const multiLineBlock = isVisibleMultiLineBlock(spokenBlock);
       elements.selectedLineTitle.textContent = "Page " + line.page + " · " + line.badgeLabel;
       elements.selectedLineText.textContent = line.displayText;
       elements.reasonSelect.value = review.category || "";
       elements.notesInput.value = review.note || "";
       elements.reasonCard.classList.toggle("visible", effectiveStatus === "bad" || effectiveStatus === "needs_regen");
-      elements.flowCard.classList.toggle("visible", false);
       updateReasonFields(elements.reasonSelect.value);
-      updateFlowFields(review, line);
 
       elements.selectedLineStatus.replaceChildren();
       const statusItems = [
@@ -1396,67 +1300,27 @@
         elements.selectedLineStatus.appendChild(chip);
       });
 
-      if (multiLineBlock) {
-        const chip = document.createElement("span");
-        chip.className = "status-chip";
-        chip.textContent = spokenBlock.blockLabel;
-        elements.selectedLineStatus.appendChild(chip);
-      }
-      if (hasSavedFlowIssue(review)) {
-        const chip = document.createElement("span");
-        chip.className = "status-chip changed";
-        chip.textContent = "Flow issue saved";
-        elements.selectedLineStatus.appendChild(chip);
-      }
-      if (line.manualBlockOverride) {
-        const chip = document.createElement("span");
-        chip.className = "status-chip changed";
-        chip.textContent = "Manual block override";
-        elements.selectedLineStatus.appendChild(chip);
-      }
-
       elements.savedNote.innerHTML = "";
-      const hasReviewNote = Boolean(review.note);
-      const hasFlowNote = hasSavedFlowIssue(review) && Boolean(review.flowNote);
-      if (!hasReviewNote && !hasFlowNote) {
+      if (!review.note) {
         const noteStrong = document.createElement("strong");
         noteStrong.textContent = "No note saved";
         elements.savedNote.appendChild(noteStrong);
         const noteBody = document.createElement("div");
-        noteBody.textContent = "If this line is bad, write the exact wrong word or phrase and then describe the audio problem. Use Report flow issue if the paragraph flow is wrong but the pronunciation is fine.";
+        noteBody.textContent = "If this line is bad, write the exact wrong word or phrase and then describe the audio problem.";
         elements.savedNote.appendChild(noteBody);
       } else {
-        if (hasReviewNote) {
-          const noteStrong = document.createElement("strong");
-          noteStrong.textContent = "Saved review note";
-          elements.savedNote.appendChild(noteStrong);
-          const noteBody = document.createElement("div");
-          noteBody.textContent = review.note;
-          elements.savedNote.appendChild(noteBody);
-        }
-        if (hasFlowNote) {
-          const flowStrong = document.createElement("strong");
-          flowStrong.textContent = "Saved flow issue";
-          elements.savedNote.appendChild(flowStrong);
-          const flowBody = document.createElement("div");
-          const rangeText =
-            review.flowAction === "join_paragraph" &&
-            typeof review.flowStartLine === "number" &&
-            typeof review.flowEndLine === "number"
-              ? " (" + review.flowStartLine + " to " + review.flowEndLine + ")"
-              : "";
-          flowBody.textContent = flowActionText(review.flowAction) + rangeText + (review.flowNote ? ": " + review.flowNote : "");
-          elements.savedNote.appendChild(flowBody);
-        }
+        const noteStrong = document.createElement("strong");
+        noteStrong.textContent = "Saved review note";
+        elements.savedNote.appendChild(noteStrong);
+        const noteBody = document.createElement("div");
+        noteBody.textContent = review.note;
+        elements.savedNote.appendChild(noteBody);
       }
 
       const linePlayback = playbackForLine(line);
       elements.playLine.textContent = "Play line";
       elements.playLine.disabled = !linePlayback.urls.length;
       elements.clearLocation.disabled = typeof review.anchorY !== "number";
-      elements.reportFlowIssue.classList.toggle("visible", isFlowEligibleLine(line));
-      elements.reportFlowIssue.style.display = isFlowEligibleLine(line) ? "" : "none";
-      elements.reportFlowIssue.disabled = !isFlowEligibleLine(line);
 
       elements.wordButtonRow.replaceChildren();
       if (line.wordPlayback && line.wordPlayback.length) {
@@ -1482,22 +1346,6 @@
       if (!page) {
         return;
       }
-
-      const orderedPageLines = orderedLines(page);
-      const linesById = new Map(orderedPageLines.map(function (line) { return [line.id, line]; }));
-      const spokenBlocks = spokenBlocksForPage(page);
-      const handledLineIds = new Set();
-      const blockByStartLineId = new Map();
-
-      spokenBlocks.forEach(function (block) {
-        if (!isVisibleMultiLineBlock(block)) {
-          return;
-        }
-        const firstLineId = Array.isArray(block.lineIds) && block.lineIds.length ? block.lineIds[0] : "";
-        if (firstLineId) {
-          blockByStartLineId.set(firstLineId, block);
-        }
-      });
 
       function buildLineRow(line) {
         const review = reviewForLine(line.id);
@@ -1527,103 +1375,47 @@
           span.style.textAlign = "right";
         }
         main.appendChild(span);
-        if (Number(line.spokenBlockLineCount || 0) > 1 && line.spokenBlockLabel) {
-          const blockLabel = document.createElement("div");
-          blockLabel.className = "block-membership";
-          blockLabel.textContent = line.spokenBlockLabel + (line.manualBlockOverride ? " · manual override" : "");
-          main.appendChild(blockLabel);
-        }
-        if (hasSavedFlowIssue(review)) {
-          const flowLabel = document.createElement("div");
-          flowLabel.className = "block-membership";
-          flowLabel.textContent = "Flow issue saved";
-          main.appendChild(flowLabel);
-        }
         row.appendChild(main);
 
-        const pill = document.createElement("span");
-        pill.className = "mini-pill";
-        if (effectiveStatus === "good") {
-          pill.classList.add("good");
-          pill.textContent = "Good";
-        } else if (effectiveStatus === "bad") {
-          pill.classList.add("bad");
-          pill.textContent = review.category || "Bad";
-        } else if (effectiveStatus === "needs_regen") {
-          pill.classList.add("needs_regen");
-          pill.textContent = "Needs regen";
-        } else if (effectiveStatus === "changed") {
-          pill.classList.add("changed");
-          pill.textContent = "Changed";
+        const pillGroup = document.createElement("div");
+        pillGroup.className = "line-status-pills";
+
+        const arrowPill = document.createElement("span");
+        arrowPill.className = "mini-pill";
+        if (typeof review.anchorY === "number") {
+          arrowPill.classList.add("good");
+          arrowPill.textContent = "Arrow set";
         } else {
-          pill.textContent = typeof review.anchorY === "number" ? "Arrow set" : "Pending";
+          arrowPill.classList.add("bad");
+          arrowPill.textContent = "Arrow not set";
         }
-        row.appendChild(pill);
+        pillGroup.appendChild(arrowPill);
+
+        const reviewPill = document.createElement("span");
+        reviewPill.className = "mini-pill";
+        if (effectiveStatus === "good") {
+          reviewPill.classList.add("good");
+          reviewPill.textContent = "Good";
+        } else if (effectiveStatus === "bad") {
+          reviewPill.classList.add("bad");
+          reviewPill.textContent = "Bad";
+        } else if (effectiveStatus === "needs_regen") {
+          reviewPill.classList.add("needs_regen");
+          reviewPill.textContent = "Needs regen";
+        } else if (effectiveStatus === "changed") {
+          reviewPill.classList.add("changed");
+          reviewPill.textContent = "Changed";
+        } else {
+          reviewPill.textContent = "Review pending";
+        }
+        pillGroup.appendChild(reviewPill);
+
+        row.appendChild(pillGroup);
         return row;
       }
 
-      orderedPageLines.forEach(function (line) {
-        if (handledLineIds.has(line.id)) {
-          return;
-        }
-        const block = blockByStartLineId.get(line.id);
-        if (!block) {
-          elements.lineList.appendChild(buildLineRow(line));
-          return;
-        }
-
-        const blockLines = (block.lineIds || []).map(function (lineId) {
-          handledLineIds.add(lineId);
-          return linesById.get(lineId);
-        }).filter(Boolean);
-        if (!blockLines.length) {
-          elements.lineList.appendChild(buildLineRow(line));
-          return;
-        }
-
-        const card = document.createElement("section");
-        card.className = "block-card";
-
-        const header = document.createElement("div");
-        header.className = "block-header";
-
-        const headerMain = document.createElement("div");
-        headerMain.className = "block-header-main";
-        const heading = document.createElement("strong");
-        heading.textContent = block.blockLabel;
-        headerMain.appendChild(heading);
-        if (block.manualOverride) {
-          const overridePill = document.createElement("span");
-          overridePill.className = "mini-pill changed";
-          overridePill.textContent = "Manual override";
-          headerMain.appendChild(overridePill);
-        }
-        const summary = document.createElement("span");
-        summary.textContent = block.summaryText || block.displayText || "";
-        headerMain.appendChild(summary);
-        header.appendChild(headerMain);
-
-        const playBlock = document.createElement("button");
-        playBlock.type = "button";
-        playBlock.className = "secondary";
-        playBlock.textContent = "Play block";
-        const blockPlayback = block.playback || {};
-        playBlock.disabled = !(Array.isArray(blockPlayback.urls) && blockPlayback.urls.length);
-        playBlock.addEventListener("click", function (event) {
-          event.stopPropagation();
-          playSequence((blockPlayback.urls || []).slice(), Number(blockPlayback.gapMs) || 0, block.blockLabel);
-        });
-        header.appendChild(playBlock);
-
-        card.appendChild(header);
-
-        const blockList = document.createElement("div");
-        blockList.className = "block-line-list";
-        blockLines.forEach(function (blockLine) {
-          blockList.appendChild(buildLineRow(blockLine));
-        });
-        card.appendChild(blockList);
-        elements.lineList.appendChild(card);
+      orderedLines(page).forEach(function (line) {
+        elements.lineList.appendChild(buildLineRow(line));
       });
     }
 
@@ -1967,111 +1759,6 @@
       setStatus(line.badgeLabel + " saved as " + (category === "Google Sheet error" ? "needs regen." : "bad."));
     }
 
-    function beginFlowIssueReview() {
-      const line = ensureSelectedLine();
-      if (!line) {
-        return;
-      }
-      if (!isFlowEligibleLine(line)) {
-        setStatus("Flow issues are only available on prose lines.");
-        return;
-      }
-      const review = reviewForLine(line.id);
-      elements.flowCard.classList.add("visible");
-      updateFlowFields(review, line);
-      window.requestAnimationFrame(function () {
-        elements.flowCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        if (review.flowAction) {
-          elements.flowNotesInput.focus();
-        } else {
-          elements.flowActionSelect.focus();
-        }
-      });
-      setStatus("Record the paragraph flow issue for " + line.badgeLabel + ".");
-    }
-
-    function saveFlowIssue() {
-      const line = ensureSelectedLine();
-      if (!line) {
-        return;
-      }
-      if (!isFlowEligibleLine(line)) {
-        setStatus("Flow issues are only available on prose lines.");
-        return;
-      }
-      const review = reviewForLine(line.id);
-      const flowAction = elements.flowActionSelect.value;
-      const flowNote = elements.flowNotesInput.value.trim();
-      let flowStartLine = line.lineNumber;
-      let flowEndLine = line.lineNumber;
-
-      if (!flowAction) {
-        setStatus("Choose a flow action before saving the issue.");
-        return;
-      }
-      if (!flowNote) {
-        setStatus("Add a short note explaining the paragraph flow problem.");
-        return;
-      }
-      if (flowAction === "join_paragraph") {
-        flowStartLine = Number(elements.flowStartLineInput.value);
-        flowEndLine = Number(elements.flowEndLineInput.value);
-        if (!Number.isInteger(flowStartLine) || !Number.isInteger(flowEndLine)) {
-          setStatus("Enter a valid start line and end line for the paragraph join.");
-          return;
-        }
-        if (flowStartLine > flowEndLine) {
-          setStatus("The flow start line cannot come after the end line.");
-          return;
-        }
-        if (flowStartLine !== line.lineNumber) {
-          setStatus("For a joined paragraph, file the issue from the first affected line.");
-          return;
-        }
-      }
-
-      state.review.lineReviews[line.id] = {
-        lineId: line.id,
-        status: review.status || "pending",
-        anchorY: typeof review.anchorY === "number" ? review.anchorY : null,
-        category: review.category || "",
-        note: review.note || "",
-        reviewedFingerprint: review.reviewedFingerprint || "",
-        flowIssue: true,
-        flowAction: flowAction,
-        flowStartLine: flowStartLine,
-        flowEndLine: flowEndLine,
-        flowNote: flowNote
-      };
-      saveReviewState();
-      elements.flowCard.classList.remove("visible");
-      setStatus("Flow issue saved for " + line.badgeLabel + ".");
-    }
-
-    function clearFlowIssue() {
-      const line = ensureSelectedLine();
-      if (!line) {
-        return;
-      }
-      const review = reviewForLine(line.id);
-      state.review.lineReviews[line.id] = {
-        lineId: line.id,
-        status: review.status || "pending",
-        anchorY: typeof review.anchorY === "number" ? review.anchorY : null,
-        category: review.category || "",
-        note: review.note || "",
-        reviewedFingerprint: review.reviewedFingerprint || "",
-        flowIssue: false,
-        flowAction: "",
-        flowStartLine: null,
-        flowEndLine: null,
-        flowNote: ""
-      };
-      saveReviewState();
-      elements.flowCard.classList.remove("visible");
-      setStatus("Flow issue cleared for " + line.badgeLabel + ".");
-    }
-
     function resetLine() {
       const line = ensureSelectedLine();
       if (!line) {
@@ -2079,11 +1766,9 @@
       }
       delete state.review.lineReviews[line.id];
       elements.reasonCard.classList.remove("visible");
-      elements.flowCard.classList.remove("visible");
       elements.reasonSelect.value = "";
       elements.notesInput.value = "";
       updateReasonFields("");
-      updateFlowFields({}, line);
       saveReviewState();
       renderCanvas();
       updateActionButtons({ status: "pending" }, "");
@@ -2097,11 +1782,9 @@
       }
       delete state.review.lineReviews[line.id];
       elements.reasonCard.classList.remove("visible");
-      elements.flowCard.classList.remove("visible");
       elements.reasonSelect.value = "";
       elements.notesInput.value = "";
       updateReasonFields("");
-      updateFlowFields({}, line);
       saveReviewState();
       renderCanvas();
       setStatus(line.badgeLabel + " reset after clearing the arrow.");
@@ -2193,25 +1876,13 @@
     elements.stopPlayback.addEventListener("click", stopPlayback);
     elements.markGood.addEventListener("click", setLineGood);
     elements.markBad.addEventListener("click", beginBadReview);
-    elements.reportFlowIssue.addEventListener("click", beginFlowIssueReview);
     elements.saveBadLine.addEventListener("click", saveBadLine);
-    elements.saveFlowIssue.addEventListener("click", saveFlowIssue);
-    elements.clearFlowIssue.addEventListener("click", clearFlowIssue);
     elements.resetLine.addEventListener("click", resetLine);
     elements.clearLocation.addEventListener("click", clearLocation);
 
     elements.reasonSelect.addEventListener("change", function () {
       updateReasonFields(elements.reasonSelect.value);
       updateActionButtons(reviewForLine(state.selectedLineId || ""), elements.reasonSelect.value);
-    });
-
-    elements.flowActionSelect.addEventListener("change", function () {
-      updateFlowFields({
-        flowAction: elements.flowActionSelect.value,
-        flowStartLine: numericReviewValue(elements.flowStartLineInput.value),
-        flowEndLine: numericReviewValue(elements.flowEndLineInput.value),
-        flowNote: elements.flowNotesInput.value
-      }, currentLine());
     });
 
     elements.saveProgress.addEventListener("click", async function () {
