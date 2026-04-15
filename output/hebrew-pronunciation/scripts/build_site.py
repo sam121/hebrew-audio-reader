@@ -657,7 +657,7 @@ def is_groupable_prose_line(line: Dict, words_by_id: Dict[str, Dict]) -> bool:
         return False
     if not (line.get("displayText") or "").strip():
         return False
-    if prose_grouping_override(line) == "single":
+    if prose_grouping_override(line) in {"single", "force_start", "continue"}:
         return True
     return line.get("contentMode") in {"english", "mixed", "hebrew"} and not looks_like_header_line(line)
 
@@ -769,6 +769,10 @@ def build_spoken_blocks(page: Dict, words_by_id: Dict[str, Dict]) -> List[Dict]:
         )
         if not segments:
             continue
+        manual_override = any(
+            prose_grouping_override(line) != "auto" or str(line.get("spokenBlockId") or "").strip()
+            for line in block_lines
+        )
         spoken_blocks.append(
             {
                 "id": f"{page['id']}-block-{index:02d}",
@@ -782,6 +786,7 @@ def build_spoken_blocks(page: Dict, words_by_id: Dict[str, Dict]) -> List[Dict]:
                 "displayText": " ".join((line.get("displayText") or "").strip() for line in block_lines if (line.get("displayText") or "").strip()),
                 "summaryText": (block_lines[0].get("displayText") or "").strip(),
                 "segments": segments,
+                "manualOverride": manual_override,
             }
         )
 
@@ -806,6 +811,10 @@ def build_spoken_blocks(page: Dict, words_by_id: Dict[str, Dict]) -> List[Dict]:
         line["spokenBlockId"] = assignment[0]
         line["spokenBlockLabel"] = assignment[1]
         line["spokenBlockRole"] = assignment[2]
+        line["manualBlockOverride"] = any(
+            block["id"] == assignment[0] and block.get("manualOverride")
+            for block in spoken_blocks
+        )
 
     return spoken_blocks
 
@@ -1072,6 +1081,8 @@ def build_qa_payload(site_payload: Dict) -> Dict:
                     "spokenBlockId": line.get("spokenBlockId"),
                     "spokenBlockLabel": line.get("spokenBlockLabel", ""),
                     "spokenBlockRole": line.get("spokenBlockRole", ""),
+                    "spokenBlockLineCount": len(spoken_block.get("lineIds", [])) if spoken_block else 0,
+                    "manualBlockOverride": bool(line.get("manualBlockOverride")),
                     "spokenBlockPlayback": spoken_block.get("playback") if spoken_block else None,
                     "spokenBlockSummary": spoken_block.get("summaryText", "") if spoken_block else "",
                     "region": resolved_region(line),
@@ -1122,6 +1133,7 @@ def build_qa_payload(site_payload: Dict) -> Dict:
                         "displayText": block.get("displayText", ""),
                         "summaryText": block.get("summaryText", ""),
                         "playback": dict(block.get("playback", {})),
+                        "manualOverride": bool(block.get("manualOverride")),
                     }
                     for block in page.get("spokenBlocks", [])
                 ],

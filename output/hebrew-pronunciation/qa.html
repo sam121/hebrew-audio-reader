@@ -524,6 +524,20 @@
       display: block;
     }
 
+    .block-override-fields {
+      display: none;
+      gap: 10px;
+    }
+
+    .block-override-fields.visible {
+      display: grid;
+    }
+
+    .block-override-note {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
     @media (max-width: 1120px) {
       .shell {
         grid-template-columns: 1fr;
@@ -579,7 +593,6 @@
 
         <div class="button-row">
           <button id="playLine" type="button">Play line</button>
-          <button id="playBlock" type="button" class="secondary">Play block</button>
           <button id="clearLocation" type="button" class="secondary">Clear location</button>
         </div>
 
@@ -598,6 +611,7 @@
               <select id="reasonSelect">
                 <option value="">Choose a reason</option>
                 <option value="Google Sheet error">Google Sheet error</option>
+                <option value="Block grouping error">Block grouping error</option>
                 <option value="Dot error">Dot error</option>
                 <option value="English/Hebrew mix error">English/Hebrew mix error</option>
                 <option value="Pronunciation error">Pronunciation error</option>
@@ -608,6 +622,32 @@
 
           <div id="sheetGuidance" class="sheet-guidance">
             Fix this in the Google Sheet, then write exactly which word or phrase was wrong and what you changed. This line will need regeneration and re-review afterward.
+          </div>
+
+          <div id="blockOverrideFields" class="block-override-fields">
+            <div class="grid">
+              <label>
+                Block action
+                <select id="blockActionSelect">
+                  <option value="">Choose a block action</option>
+                  <option value="merge">Merge lines into one block</option>
+                  <option value="single">Split this line into its own block</option>
+                  <option value="force_start">Start a new block here</option>
+                  <option value="continue">Continue previous block</option>
+                </select>
+              </label>
+              <label id="blockStartLabel">
+                Start line
+                <input id="blockStartLineInput" type="number" min="1" step="1" inputmode="numeric">
+              </label>
+              <label id="blockEndLabel">
+                End line
+                <input id="blockEndLineInput" type="number" min="1" step="1" inputmode="numeric">
+              </label>
+            </div>
+            <div class="instruction-box block-override-note">
+              For merge ranges, select the first affected line, then enter the full line range. Example: page 2 lines 8 to 10 should play as one continuous paragraph block.
+            </div>
           </div>
 
           <label>
@@ -665,6 +705,12 @@
     };
 
     const elements = {
+      blockActionSelect: document.getElementById("blockActionSelect"),
+      blockEndLabel: document.getElementById("blockEndLabel"),
+      blockEndLineInput: document.getElementById("blockEndLineInput"),
+      blockOverrideFields: document.getElementById("blockOverrideFields"),
+      blockStartLabel: document.getElementById("blockStartLabel"),
+      blockStartLineInput: document.getElementById("blockStartLineInput"),
       canvasHint: document.getElementById("canvasHint"),
       clearLocation: document.getElementById("clearLocation"),
       saveProgress: document.getElementById("saveProgress"),
@@ -677,7 +723,6 @@
       pageTitle: document.getElementById("pageTitle"),
       playPage: document.getElementById("playPage"),
       playLine: document.getElementById("playLine"),
-      playBlock: document.getElementById("playBlock"),
       prevPage: document.getElementById("prevPage"),
       progressFill: document.getElementById("progressFill"),
       progressText: document.getElementById("progressText"),
@@ -818,7 +863,10 @@
             status: review.status,
             category: review.category || "",
             note: review.note || "",
-            reviewedFingerprint: review.reviewedFingerprint || ""
+            reviewedFingerprint: review.reviewedFingerprint || "",
+            blockAction: review.blockAction || "",
+            blockStartLine: typeof review.blockStartLine === "number" ? review.blockStartLine : null,
+            blockEndLine: typeof review.blockEndLine === "number" ? review.blockEndLine : null
           });
         });
       });
@@ -850,7 +898,10 @@
               anchorY: typeof review.anchorY === "number" ? review.anchorY : null,
               category: review.category || "",
               note: review.note || "",
-              reviewedFingerprint: review.reviewedFingerprint || ""
+              reviewedFingerprint: review.reviewedFingerprint || "",
+              blockAction: review.blockAction || "",
+              blockStartLine: Number.isInteger(review.blockStartLine) ? review.blockStartLine : (String(review.blockStartLine || "").trim() && Number.isInteger(Number(review.blockStartLine)) ? Number(review.blockStartLine) : null),
+              blockEndLine: Number.isInteger(review.blockEndLine) ? review.blockEndLine : (String(review.blockEndLine || "").trim() && Number.isInteger(Number(review.blockEndLine)) ? Number(review.blockEndLine) : null)
             }];
           })
         ),
@@ -889,8 +940,71 @@
         anchorY: null,
         category: "",
         note: "",
-        reviewedFingerprint: ""
+        reviewedFingerprint: "",
+        blockAction: "",
+        blockStartLine: null,
+        blockEndLine: null
       };
+    }
+
+    function numericReviewValue(value) {
+      return Number.isInteger(value)
+        ? value
+        : (String(value || "").trim() && Number.isInteger(Number(value)) ? Number(value) : null);
+    }
+
+    function isBlockGroupingCategory(category) {
+      return category === "Block grouping error";
+    }
+
+    function blockActionText(action) {
+      if (action === "merge") {
+        return "Merge lines into one block";
+      }
+      if (action === "single") {
+        return "Split this line into its own block";
+      }
+      if (action === "force_start") {
+        return "Start a new block here";
+      }
+      if (action === "continue") {
+        return "Continue previous block";
+      }
+      return "";
+    }
+
+    function updateReasonFields(category, review, line) {
+      const blockReview = review || {};
+      const selectedLine = line || currentLine();
+      const showSheet = category === "Google Sheet error";
+      const showBlock = isBlockGroupingCategory(category);
+      elements.sheetGuidance.classList.toggle("visible", showSheet);
+      elements.blockOverrideFields.classList.toggle("visible", showBlock);
+      if (!showBlock) {
+        elements.blockActionSelect.value = "";
+        elements.blockStartLineInput.value = "";
+        elements.blockEndLineInput.value = "";
+        elements.blockStartLabel.style.display = "";
+        elements.blockEndLabel.style.display = "";
+        return;
+      }
+
+      const action = blockReview.blockAction || elements.blockActionSelect.value || "";
+      elements.blockActionSelect.value = action;
+      const defaultLineNumber = selectedLine ? selectedLine.lineNumber : null;
+      const startLine = typeof blockReview.blockStartLine === "number" ? blockReview.blockStartLine : defaultLineNumber;
+      const endLine = typeof blockReview.blockEndLine === "number" ? blockReview.blockEndLine : defaultLineNumber;
+      if (action === "merge") {
+        elements.blockStartLabel.style.display = "";
+        elements.blockEndLabel.style.display = "";
+        elements.blockStartLineInput.value = typeof startLine === "number" ? String(startLine) : "";
+        elements.blockEndLineInput.value = typeof endLine === "number" ? String(endLine) : "";
+      } else {
+        elements.blockStartLabel.style.display = "none";
+        elements.blockEndLabel.style.display = "none";
+        elements.blockStartLineInput.value = typeof defaultLineNumber === "number" ? String(defaultLineNumber) : "";
+        elements.blockEndLineInput.value = typeof defaultLineNumber === "number" ? String(defaultLineNumber) : "";
+      }
     }
 
     function lineHasChangedSinceReview(line, review) {
@@ -928,6 +1042,10 @@
       }) || null;
     }
 
+    function isVisibleMultiLineBlock(block) {
+      return Boolean(block && Array.isArray(block.lineIds) && block.lineIds.length > 1);
+    }
+
     function playbackForLine(line) {
       if (!line) {
         return { urls: [], gapMs: 0 };
@@ -961,6 +1079,17 @@
         return true;
       }
       if ((review.status === "bad" || review.status === "needs_regen") && review.category && review.note.trim()) {
+        if (!isBlockGroupingCategory(review.category)) {
+          return true;
+        }
+        if (!review.blockAction) {
+          return false;
+        }
+        if (review.blockAction === "merge") {
+          const startLine = numericReviewValue(review.blockStartLine);
+          const endLine = numericReviewValue(review.blockEndLine);
+          return startLine !== null && endLine !== null && startLine <= endLine;
+        }
         return true;
       }
       return false;
@@ -1216,12 +1345,13 @@
       const effectiveStatus = effectiveStatusForLine(line);
       const page = currentPage();
       const spokenBlock = spokenBlockForLine(page, line);
+      const multiLineBlock = isVisibleMultiLineBlock(spokenBlock);
       elements.selectedLineTitle.textContent = "Page " + line.page + " · " + line.badgeLabel;
       elements.selectedLineText.textContent = line.displayText;
       elements.reasonSelect.value = review.category || "";
       elements.notesInput.value = review.note || "";
       elements.reasonCard.classList.toggle("visible", effectiveStatus === "bad" || effectiveStatus === "needs_regen");
-      elements.sheetGuidance.classList.toggle("visible", elements.reasonSelect.value === "Google Sheet error");
+      updateReasonFields(elements.reasonSelect.value, review, line);
 
       elements.selectedLineStatus.replaceChildren();
       const statusItems = [
@@ -1238,10 +1368,16 @@
         elements.selectedLineStatus.appendChild(chip);
       });
 
-      if (spokenBlock) {
+      if (multiLineBlock) {
         const chip = document.createElement("span");
         chip.className = "status-chip";
         chip.textContent = spokenBlock.blockLabel;
+        elements.selectedLineStatus.appendChild(chip);
+      }
+      if (line.manualBlockOverride) {
+        const chip = document.createElement("span");
+        chip.className = "status-chip changed";
+        chip.textContent = "Manual block override";
         elements.selectedLineStatus.appendChild(chip);
       }
 
@@ -1250,15 +1386,21 @@
       noteStrong.textContent = review.note ? "Saved review note" : "No note saved";
       elements.savedNote.appendChild(noteStrong);
       const noteBody = document.createElement("div");
-      noteBody.textContent = review.note || "If this line is bad, write the exact wrong word or phrase and then describe the audio problem.";
+      const extraBlockNote = isBlockGroupingCategory(review.category) && review.blockAction
+        ? " " + blockActionText(review.blockAction) + (
+            review.blockAction === "merge" && typeof review.blockStartLine === "number" && typeof review.blockEndLine === "number"
+              ? " (" + review.blockStartLine + " to " + review.blockEndLine + ")."
+              : "."
+          )
+        : "";
+      noteBody.textContent = review.note
+        ? review.note + extraBlockNote
+        : "If this line is bad, write the exact wrong word or phrase and then describe the audio problem.";
       elements.savedNote.appendChild(noteBody);
 
       const linePlayback = playbackForLine(line);
-      const blockPlayback = spokenBlock && spokenBlock.playback ? spokenBlock.playback : { urls: [] };
-      elements.playLine.textContent = spokenBlock ? "Play line (plays " + spokenBlock.blockLabel + ")" : "Play line";
+      elements.playLine.textContent = "Play line";
       elements.playLine.disabled = !linePlayback.urls.length;
-      elements.playBlock.style.display = spokenBlock ? "" : "none";
-      elements.playBlock.disabled = !(blockPlayback.urls && blockPlayback.urls.length);
       elements.clearLocation.disabled = typeof review.anchorY !== "number";
 
       elements.wordButtonRow.replaceChildren();
@@ -1318,10 +1460,10 @@
           span.style.textAlign = "right";
         }
         main.appendChild(span);
-        if (line.spokenBlockLabel) {
+        if (Number(line.spokenBlockLineCount || 0) > 1 && line.spokenBlockLabel) {
           const blockLabel = document.createElement("div");
           blockLabel.className = "block-membership";
-          blockLabel.textContent = line.spokenBlockLabel;
+          blockLabel.textContent = line.spokenBlockLabel + (line.manualBlockOverride ? " · manual override" : "");
           main.appendChild(blockLabel);
         }
         row.appendChild(main);
@@ -1348,6 +1490,9 @@
       }
 
       spokenBlocks.forEach(function (block) {
+        if (!isVisibleMultiLineBlock(block)) {
+          return;
+        }
         const blockLines = (block.lineIds || []).map(function (lineId) {
           handledLineIds.add(lineId);
           return linesById.get(lineId);
@@ -1367,6 +1512,12 @@
         const heading = document.createElement("strong");
         heading.textContent = block.blockLabel;
         headerMain.appendChild(heading);
+        if (block.manualOverride) {
+          const overridePill = document.createElement("span");
+          overridePill.className = "mini-pill changed";
+          overridePill.textContent = "Manual override";
+          headerMain.appendChild(overridePill);
+        }
         const summary = document.createElement("span");
         summary.textContent = block.summaryText || block.displayText || "";
         headerMain.appendChild(summary);
@@ -1490,7 +1641,10 @@
             status: review.status,
             category: review.category || "",
             note: review.note || "",
-            reviewedFingerprint: review.reviewedFingerprint || ""
+            reviewedFingerprint: review.reviewedFingerprint || "",
+            blockAction: review.blockAction || "",
+            blockStartLine: typeof review.blockStartLine === "number" ? review.blockStartLine : null,
+            blockEndLine: typeof review.blockEndLine === "number" ? review.blockEndLine : null
           };
         })
       };
@@ -1661,7 +1815,10 @@
         anchorY: review.anchorY,
         category: "",
         note: "",
-        reviewedFingerprint: line.reviewFingerprint || ""
+        reviewedFingerprint: line.reviewFingerprint || "",
+        blockAction: "",
+        blockStartLine: null,
+        blockEndLine: null
       };
       saveReviewState();
       setStatus(line.badgeLabel + " marked good.");
@@ -1680,11 +1837,13 @@
       elements.reasonCard.classList.add("visible");
       elements.reasonSelect.value = review.category || "";
       elements.notesInput.value = review.note || "";
-      elements.sheetGuidance.classList.toggle("visible", elements.reasonSelect.value === "Google Sheet error");
+      updateReasonFields(elements.reasonSelect.value, review, line);
       updateActionButtons(review, elements.reasonSelect.value || "Pronunciation error");
       window.requestAnimationFrame(function () {
         elements.reasonCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        if (review.category) {
+        if (isBlockGroupingCategory(review.category) && !review.blockAction) {
+          elements.blockActionSelect.focus();
+        } else if (review.category) {
           elements.notesInput.focus();
         } else {
           elements.reasonSelect.focus();
@@ -1705,6 +1864,9 @@
       }
       const category = elements.reasonSelect.value;
       const note = elements.notesInput.value.trim();
+      let blockAction = "";
+      let blockStartLine = null;
+      let blockEndLine = null;
       if (!category) {
         setStatus("Choose a reason before saving the line.");
         return;
@@ -1713,13 +1875,42 @@
         setStatus("Add a note naming the exact wrong word or phrase and the audio problem.");
         return;
       }
+      if (isBlockGroupingCategory(category)) {
+        blockAction = elements.blockActionSelect.value;
+        if (!blockAction) {
+          setStatus("Choose a block action before saving the line.");
+          return;
+        }
+        if (blockAction === "merge") {
+          blockStartLine = Number(elements.blockStartLineInput.value);
+          blockEndLine = Number(elements.blockEndLineInput.value);
+          if (!Number.isInteger(blockStartLine) || !Number.isInteger(blockEndLine)) {
+            setStatus("Enter a valid start line and end line for the block merge.");
+            return;
+          }
+          if (blockStartLine > blockEndLine) {
+            setStatus("The block start line cannot come after the end line.");
+            return;
+          }
+          if (blockStartLine !== line.lineNumber) {
+            setStatus("For a block merge, select the first affected line before saving.");
+            return;
+          }
+        } else {
+          blockStartLine = line.lineNumber;
+          blockEndLine = line.lineNumber;
+        }
+      }
       state.review.lineReviews[line.id] = {
         lineId: line.id,
         status: category === "Google Sheet error" ? "needs_regen" : "bad",
         anchorY: review.anchorY,
         category: category,
         note: note,
-        reviewedFingerprint: line.reviewFingerprint || ""
+        reviewedFingerprint: line.reviewFingerprint || "",
+        blockAction: blockAction,
+        blockStartLine: blockStartLine,
+        blockEndLine: blockEndLine
       };
       saveReviewState();
       setStatus(line.badgeLabel + " saved as " + (category === "Google Sheet error" ? "needs regen." : "bad."));
@@ -1734,7 +1925,7 @@
       elements.reasonCard.classList.remove("visible");
       elements.reasonSelect.value = "";
       elements.notesInput.value = "";
-      elements.sheetGuidance.classList.remove("visible");
+      updateReasonFields("", {}, line);
       saveReviewState();
       renderCanvas();
       updateActionButtons({ status: "pending" }, "");
@@ -1750,7 +1941,7 @@
       elements.reasonCard.classList.remove("visible");
       elements.reasonSelect.value = "";
       elements.notesInput.value = "";
-      elements.sheetGuidance.classList.remove("visible");
+      updateReasonFields("", {}, line);
       saveReviewState();
       renderCanvas();
       setStatus(line.badgeLabel + " reset after clearing the arrow.");
@@ -1802,7 +1993,10 @@
         anchorY: y,
         category: review.category || "",
         note: review.note || "",
-        reviewedFingerprint: review.reviewedFingerprint || ""
+        reviewedFingerprint: review.reviewedFingerprint || "",
+        blockAction: review.blockAction || "",
+        blockStartLine: typeof review.blockStartLine === "number" ? review.blockStartLine : null,
+        blockEndLine: typeof review.blockEndLine === "number" ? review.blockEndLine : null
       };
       saveReviewState();
       renderCanvas();
@@ -1834,19 +2028,6 @@
       playSequence(playback.urls, playback.gapMs, line.badgeLabel);
     });
 
-    elements.playBlock.addEventListener("click", function () {
-      const line = ensureSelectedLine();
-      if (!line) {
-        return;
-      }
-      const block = spokenBlockForLine(currentPage(), line);
-      if (!block) {
-        return;
-      }
-      const playback = block.playback || {};
-      playSequence((playback.urls || []).slice(), Number(playback.gapMs) || 0, block.blockLabel);
-    });
-
     elements.stopPlayback.addEventListener("click", stopPlayback);
     elements.markGood.addEventListener("click", setLineGood);
     elements.markBad.addEventListener("click", beginBadReview);
@@ -1855,8 +2036,17 @@
     elements.clearLocation.addEventListener("click", clearLocation);
 
     elements.reasonSelect.addEventListener("change", function () {
-      elements.sheetGuidance.classList.toggle("visible", elements.reasonSelect.value === "Google Sheet error");
+      updateReasonFields(elements.reasonSelect.value, reviewForLine(state.selectedLineId || ""), currentLine());
       updateActionButtons(reviewForLine(state.selectedLineId || ""), elements.reasonSelect.value);
+    });
+
+    elements.blockActionSelect.addEventListener("change", function () {
+      const review = reviewForLine(state.selectedLineId || "");
+      updateReasonFields(elements.reasonSelect.value, {
+        blockAction: elements.blockActionSelect.value,
+        blockStartLine: review.blockStartLine,
+        blockEndLine: review.blockEndLine
+      }, currentLine());
     });
 
     elements.saveProgress.addEventListener("click", async function () {

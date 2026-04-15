@@ -301,12 +301,83 @@ def load_remote_review_state(review_sync_url: str) -> Dict[str, Dict]:
         line_id = str(review.get("lineId") or "").strip()
         if not line_id:
             continue
+        page_value = review.get("page")
+        line_number_value = review.get("lineNumber")
+        block_start_value = review.get("blockStartLine")
+        block_end_value = review.get("blockEndLine")
         review_state[line_id] = {
+            "page": int(page_value) if str(page_value).strip().isdigit() else None,
+            "lineNumber": int(line_number_value) if str(line_number_value).strip().isdigit() else None,
             "status": str(review.get("status") or "pending").strip() or "pending",
             "category": str(review.get("category") or "").strip(),
             "note": str(review.get("note") or "").strip(),
+            "blockAction": str(review.get("blockAction") or "").strip(),
+            "blockStartLine": int(block_start_value) if str(block_start_value).strip().isdigit() else None,
+            "blockEndLine": int(block_end_value) if str(block_end_value).strip().isdigit() else None,
         }
     return review_state
+
+
+def apply_block_grouping_overrides(pages: List[Dict], review_state: Dict[str, Dict]) -> int:
+    if not review_state:
+        return 0
+
+    pages_by_number = {page.get("page"): page for page in pages if page.get("page") is not None}
+    applied = 0
+
+    for line_id, review in review_state.items():
+        if review.get("category") != "Block grouping error":
+            continue
+        if review.get("status") not in SELECTIVE_UPDATE_STATUSES:
+            continue
+
+        page_number = review.get("page")
+        page = pages_by_number.get(page_number)
+        if not page:
+            continue
+
+        lines_by_number = {
+            line.get("order"): line
+            for line in page.get("lines", [])
+            if line.get("order") is not None
+        }
+        line = next((candidate for candidate in page.get("lines", []) if candidate.get("id") == line_id), None)
+        if not line:
+            continue
+
+        action = review.get("blockAction")
+        if action == "merge":
+            start_line = review.get("blockStartLine")
+            end_line = review.get("blockEndLine")
+            if not isinstance(start_line, int) or not isinstance(end_line, int) or start_line > end_line:
+                continue
+            for target_number in range(start_line, end_line + 1):
+                target = lines_by_number.get(target_number)
+                if not target:
+                    continue
+                target["spokenGrouping"] = "force_start" if target_number == start_line else "continue"
+                target.pop("spokenBlockId", None)
+                applied += 1
+            continue
+
+        if action == "single":
+            line["spokenGrouping"] = "single"
+            line.pop("spokenBlockId", None)
+            applied += 1
+            continue
+
+        if action == "force_start":
+            line["spokenGrouping"] = "force_start"
+            line.pop("spokenBlockId", None)
+            applied += 1
+            continue
+
+        if action == "continue":
+            line["spokenGrouping"] = "continue"
+            line.pop("spokenBlockId", None)
+            applied += 1
+
+    return applied
 
 
 def renumber_page_words(page_number: int, lines: List[Dict], words_by_line_id: Dict[str, List[Dict]]) -> List[Dict]:
@@ -762,6 +833,11 @@ def build_page(
         elif "region" in line:
             line["matchMode"] = "hybrid"
 
+        if "spokenGrouping" in existing_line:
+            line["spokenGrouping"] = existing_line["spokenGrouping"]
+        if "spokenBlockId" in existing_line:
+            line["spokenBlockId"] = existing_line["spokenBlockId"]
+
         if row["is_drill"] and word_ids:
             line["hebrewPlaybackMode"] = "sequence"
             line["sequenceGapMs"] = 220
@@ -857,6 +933,8 @@ def build_transcript(
         updated_line_count += merged_page.pop("_updatedLineCount", 0)
         pages.append(merged_page)
 
+    block_override_count = apply_block_grouping_overrides(pages, review_state or {})
+
     notes = [
         "Imported from the Google Sheet submission tab.",
         "Display text and generated audio text are sourced from the sheet export.",
@@ -875,6 +953,7 @@ def build_transcript(
             "rowCount": len(rows),
             "reviewAware": bool(review_state) and not force_all_lines,
             "updatedReviewedLineCount": updated_line_count,
+            "appliedBlockOverrideCount": block_override_count,
         },
     }
 
@@ -907,6 +986,8 @@ def main(argv: Iterable[str]) -> int:
     review_note = ""
     if summary.get("reviewAware"):
         review_note = f" Preserved reviewed good lines; updated {summary.get('updatedReviewedLineCount', 0)} previously reviewed bad/needs-regeneration line(s)."
+        if summary.get("appliedBlockOverrideCount", 0):
+            review_note += f" Applied {summary.get('appliedBlockOverrideCount', 0)} line-level block override(s)."
     elif args.force_all_lines:
         review_note = " Forced full-line refresh."
     print(f"Imported {len(payload['pages'])} pages and {len(rows)} sheet rows into {args.output}.{review_note}")
