@@ -196,7 +196,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "בּ Bet"
+          "mixedText": "Bet"
         },
         {
           "id": "p01-line-007",
@@ -222,7 +222,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "englishText": "which has the sound of \"B\" as in Berachah."
+          "englishText": "which has the sound of \"B\" as in \"buh-rah-khah\"."
         },
         {
           "id": "p01-line-008",
@@ -252,7 +252,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "Locate the בּ throughout this paragraph from the siddur"
+          "mixedText": "Locate the bet throughout this paragraph from the sid-oor"
         },
         {
           "id": "p01-line-009",
@@ -278,7 +278,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "englishText": "(\"prayer book\"). Pronounce the \"B\" sound each time in order to"
+          "englishText": "(\"prayer book\"). Pronounce the letter \"B\" as \"bee\" each time in order to"
         },
         {
           "id": "p01-line-010",
@@ -626,7 +626,7 @@
           "lineId": "p01-line-006",
           "order": 5,
           "displayText": "בּ",
-          "spokenText": "בּ",
+          "spokenText": "בֵּט",
           "status": "verified"
         },
         {
@@ -635,7 +635,7 @@
           "lineId": "p01-line-008",
           "order": 6,
           "displayText": "בּ",
-          "spokenText": "בּ",
+          "spokenText": "בֵּט",
           "status": "verified"
         },
         {
