@@ -100,14 +100,11 @@ If verified items are missing audio and you want production-ready output, rerun 
 
 ## QA workflow
 
-- `qa.html`: contractor-facing line review surface
-- `site/data/qa.json`: build-generated review dataset
+- `qa.html`: contractor-facing arrow placement and listening surface
+- `site/data/qa.json`: build-generated QA dataset
 - `qa-sync-config.json`: shared-save configuration for Google Sheet backup sync
-- `scripts/google_sheet_review_sync.gs`: Google Apps Script web app that reads and writes QA progress into the `backup` tab
-- `scripts/apply_qa_review.py`: summarizes the exported line-review bundle into:
-  - line arrow anchors
-  - lines that need regeneration
-  - manual pronunciation follow-up notes
+- `scripts/google_sheet_review_sync.gs`: Google Apps Script web app that reads and writes QA arrow progress into the `backup` tab
+- [CONTRACTOR_INSTRUCTIONS.md](/Users/samueltaylor/Documents/New%20project/output/hebrew-pronunciation/CONTRACTOR_INSTRUCTIONS.md): full instructions for using the QA reader and logging issues in the Google Sheet
 
 Suggested cycle:
 
@@ -115,19 +112,15 @@ Suggested cycle:
 2. Open `qa.html`.
 3. For each line:
    - click once on the page to place the arrow vertically
-   - mark the line good or bad
-   - if bad, choose a reason and write the exact wrong word or phrase plus the audio problem
-4. If the reason is `Google Sheet error`, fix the sheet and save the line; it will export as `needs_regen`.
-5. Export the review bundle JSON from the QA page.
-6. Run `apply_qa_review.py` on that bundle to split out:
-   - arrow anchors
-   - regeneration candidates
-   - manual follow-up items
-7. Rebuild and re-review only the regenerated lines.
+   - press `Play line` to listen
+   - if the line is fine, leave the Google Sheet issue fields blank
+   - if the line has a problem, record it in the Google Sheet using `Issue Category` and `Issue Note`
+4. Use `Save progress` in the QA page to save arrow positions.
+5. Re-import from the Google Sheet so only issue-marked lines are updated.
 
 ### Shared Google Sheet backup
 
-The QA page supports shared progress via a small Google Apps Script web app.
+The QA page supports shared progress for arrow positions via a small Google Apps Script web app.
 
 How it works:
 
@@ -136,8 +129,8 @@ How it works:
 3. Rebuild the site.
 4. The reviewer page will then:
    - load shared progress from the Google Sheet on page open
-   - save the current page to the `backup` tab on page changes and page signoff
-   - use `Save progress` to push the full review state to the sheet
+   - save arrow progress to the `backup` tab
+   - use `Save progress` to push the latest arrow state to the sheet
 
 Notes:
 
