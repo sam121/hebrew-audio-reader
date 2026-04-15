@@ -64,6 +64,24 @@ REGION_DETECTION_CANDIDATES = [
     {"bottom": 0.94, "row_threshold": 8, "merge_gap": 4, "dark_threshold": 170, "min_height": 4},
 ]
 SELECTIVE_UPDATE_STATUSES = {"bad", "needs_regen"}
+ISSUE_CATEGORY_TEXT_ERROR = "Google Sheet text error"
+ISSUE_CATEGORY_HEBREW = "Hebrew pronunciation error"
+ISSUE_CATEGORY_ENGLISH = "English pronunciation error"
+ISSUE_CATEGORY_TRANSLITERATION = "Transliteration pronunciation error"
+ISSUE_CATEGORY_OTHER = "Other"
+SHEET_ISSUE_CATEGORIES = {
+    ISSUE_CATEGORY_TEXT_ERROR,
+    ISSUE_CATEGORY_HEBREW,
+    ISSUE_CATEGORY_ENGLISH,
+    ISSUE_CATEGORY_TRANSLITERATION,
+    ISSUE_CATEGORY_OTHER,
+}
+ISSUE_MAPPING_PATTERNS = [
+    re.compile(r"^\s*(?P<source>.+?)\s*(?:->|=>|→)\s*(?P<target>.+?)\s*$"),
+    re.compile(r'^\s*(?:pronounce\s+)?(?P<source>.+?)\s+as\s+["“”\']?(?P<target>.+?)["“”\']?\s*$', re.IGNORECASE),
+    re.compile(r'^\s*(?P<source>.+?)\s+should(?:\s+be)?\s+pronounced\s+["“”\']?(?P<target>.+?)["“”\']?\s*$', re.IGNORECASE),
+]
+LEADING_NOTE_BULLET_RE = re.compile(r"^\s*(?:[-*]|\d+[.)])\s*")
 
 
 def parse_args(argv: Iterable[str]) -> argparse.Namespace:
@@ -274,6 +292,98 @@ def deep_clone(value):
     return json.loads(json.dumps(value, ensure_ascii=False))
 
 
+def first_present_value(raw: Dict, *keys: str) -> str:
+    for key in keys:
+        value = clean_text(raw.get(key, ""))
+        if value:
+            return value
+    return ""
+
+
+def issue_present(category: str, note: str) -> bool:
+    return bool(category or note)
+
+
+def split_issue_note_parts(note: str) -> List[str]:
+    parts: List[str] = []
+    for raw_line in re.split(r"[\n;]+", note or ""):
+        cleaned = LEADING_NOTE_BULLET_RE.sub("", raw_line).strip()
+        if cleaned:
+            parts.append(cleaned)
+    return parts
+
+
+def parse_issue_mappings(note: str) -> List[Dict[str, str]]:
+    mappings: List[Dict[str, str]] = []
+    for part in split_issue_note_parts(note):
+        for pattern in ISSUE_MAPPING_PATTERNS:
+            match = pattern.match(part)
+            if not match:
+                continue
+            source = clean_text(match.group("source"))
+            target = clean_text(match.group("target"))
+            if source and target:
+                mappings.append({"source": source, "target": target})
+            break
+    return mappings
+
+
+def apply_text_mappings(text: str, mappings: List[Dict[str, str]]) -> str:
+    updated = text
+    for mapping in sorted(mappings, key=lambda item: len(item["source"]), reverse=True):
+        updated = updated.replace(mapping["source"], mapping["target"])
+    return updated
+
+
+def apply_mappings_to_words(words: List[Dict], mappings: List[Dict[str, str]]) -> bool:
+    changed = False
+    for word in words:
+        display_text = clean_text(word.get("displayText", ""))
+        spoken_text = clean_text(word.get("spokenText", ""))
+        for mapping in mappings:
+            source = mapping["source"]
+            target = mapping["target"]
+            if source and source in {display_text, spoken_text}:
+                word["spokenText"] = target
+                changed = True
+                break
+    return changed
+
+
+def apply_issue_override_to_line(line: Dict, words: List[Dict], *, category: str, note: str) -> None:
+    line.pop("sheetIssueCategory", None)
+    line.pop("sheetIssueNote", None)
+
+    if not issue_present(category, note) or category == ISSUE_CATEGORY_TEXT_ERROR:
+        return
+
+    mappings = parse_issue_mappings(note)
+    if not mappings:
+        return
+
+    content_mode = line.get("contentMode", "other")
+    base_english = line.get("englishText") or line.get("displayText") or ""
+    base_mixed = line.get("mixedText") or line.get("displayText") or ""
+
+    if category == ISSUE_CATEGORY_HEBREW:
+        word_changed = apply_mappings_to_words(words, mappings)
+        if content_mode == "mixed":
+            line["mixedText"] = apply_text_mappings(base_mixed, mappings)
+        elif content_mode == "english":
+            line["englishText"] = apply_text_mappings(base_english, mappings)
+        elif content_mode == "hebrew" and not word_changed and words:
+            apply_mappings_to_words(words, mappings)
+        return
+
+    if category in {ISSUE_CATEGORY_ENGLISH, ISSUE_CATEGORY_TRANSLITERATION, ISSUE_CATEGORY_OTHER}:
+        if content_mode == "mixed":
+            line["mixedText"] = apply_text_mappings(base_mixed, mappings)
+        elif content_mode == "english":
+            line["englishText"] = apply_text_mappings(base_english, mappings)
+        elif content_mode == "hebrew":
+            apply_mappings_to_words(words, mappings)
+
+
 def load_default_review_sync_url() -> str:
     if not DEFAULT_SYNC_CONFIG_PATH.exists():
         return ""
@@ -411,22 +521,15 @@ def merged_page_title(lines: List[Dict], fallback: str) -> str:
     return fallback
 
 
-def merge_page_with_review_filter(
+def merge_page_with_issue_filter(
     new_page: Dict,
     existing_page: Optional[Dict],
-    review_state: Dict[str, Dict],
     *,
     audio_revision: str,
     force_all_lines: bool,
 ) -> Dict:
-    if not existing_page or force_all_lines or not review_state:
-        page = deep_clone(new_page)
-        if existing_page and not force_all_lines:
-            page["audioRevision"] = existing_page.get("audioRevision") or audio_revision
-        return page
-
-    existing_lines_by_id = {line.get("id"): line for line in existing_page.get("lines", []) if line.get("id")}
-    existing_words_by_id = {word.get("id"): word for word in existing_page.get("words", []) if word.get("id")}
+    existing_lines_by_id = {line.get("id"): line for line in (existing_page or {}).get("lines", []) if line.get("id")}
+    existing_words_by_id = {word.get("id"): word for word in (existing_page or {}).get("words", []) if word.get("id")}
     new_words_by_id = {word.get("id"): word for word in new_page.get("words", []) if word.get("id")}
 
     selected_lines: List[Dict] = []
@@ -436,35 +539,38 @@ def merge_page_with_review_filter(
     for candidate_line in sorted(new_page.get("lines", []), key=lambda item: item["order"]):
         line_id = candidate_line["id"]
         existing_line = existing_lines_by_id.get(line_id)
-        review = review_state.get(line_id, {})
-        status = review.get("status", "pending")
+        issue_category = str(candidate_line.get("sheetIssueCategory") or "").strip()
+        issue_note = str(candidate_line.get("sheetIssueNote") or "").strip()
         should_update = (
             force_all_lines
             or existing_line is None
-            or status in SELECTIVE_UPDATE_STATUSES
+            or issue_present(issue_category, issue_note)
         )
 
         if should_update:
             chosen_line = deep_clone(candidate_line)
             source_words = [deep_clone(new_words_by_id[word_id]) for word_id in candidate_line.get("wordIds", []) if word_id in new_words_by_id]
+            apply_issue_override_to_line(chosen_line, source_words, category=issue_category, note=issue_note)
             updated_line_count += 1 if existing_line is not None else 0
         else:
             chosen_line = deep_clone(existing_line)
             source_words = [deep_clone(existing_words_by_id[word_id]) for word_id in existing_line.get("wordIds", []) if word_id in existing_words_by_id]
 
+        chosen_line.pop("sheetIssueCategory", None)
+        chosen_line.pop("sheetIssueNote", None)
         selected_lines.append(chosen_line)
         selected_words_by_line_id[line_id] = source_words
 
-    merged_page = deep_clone(existing_page)
+    merged_page = deep_clone(existing_page) if existing_page else deep_clone(new_page)
     merged_page["id"] = new_page["id"]
     merged_page["page"] = new_page["page"]
-    merged_page["sourcePdfPage"] = new_page.get("sourcePdfPage", existing_page.get("sourcePdfPage"))
-    merged_page["image"] = new_page.get("image", existing_page.get("image"))
-    merged_page["status"] = new_page.get("status", existing_page.get("status"))
-    merged_page["title"] = merged_page_title(selected_lines, existing_page.get("title") or new_page.get("title", ""))
-    merged_page["audioRevision"] = existing_page.get("audioRevision") or audio_revision
+    merged_page["sourcePdfPage"] = new_page.get("sourcePdfPage", (existing_page or {}).get("sourcePdfPage"))
+    merged_page["image"] = new_page.get("image", (existing_page or {}).get("image"))
+    merged_page["status"] = new_page.get("status", (existing_page or {}).get("status"))
+    merged_page["title"] = merged_page_title(selected_lines, (existing_page or {}).get("title") or new_page.get("title", ""))
+    merged_page["audioRevision"] = (existing_page or {}).get("audioRevision") or audio_revision
 
-    existing_sections = deep_clone(existing_page.get("sections", []))
+    existing_sections = deep_clone((existing_page or {}).get("sections", []))
     existing_section_ids = {section.get("id") for section in existing_sections}
     if existing_sections and all((line.get("sectionId") in existing_section_ids) for line in selected_lines):
         merged_page["sections"] = existing_sections
@@ -824,6 +930,8 @@ def build_page(
             "notes": row["notes"],
             "wordIds": word_ids,
             "displayWords": tokens,
+            "sheetIssueCategory": row.get("issue_category", ""),
+            "sheetIssueNote": row.get("issue_note", ""),
         }
 
         existing_line = existing_lines.get(line_id, {})
@@ -890,6 +998,8 @@ def load_rows(csv_text: str) -> List[Dict]:
                 "page": int(page_value),
                 "line_number": int(line_value),
                 "line_content": line_content,
+                "issue_category": first_present_value(raw, "Issue Category", "issue_category", "Issue category"),
+                "issue_note": first_present_value(raw, "Issue Note", "issue_note", "Issue note"),
                 "notes": notes,
                 "is_drill": bool(DRILL_RE.match(line_content)),
                 "has_hebrew": has_hebrew(line_content),
@@ -905,7 +1015,6 @@ def build_transcript(
     pdf_path: str,
     audio_revision: str,
     existing_transcript: Optional[Dict] = None,
-    review_state: Optional[Dict[str, Dict]] = None,
     force_all_lines: bool = False,
 ) -> Dict:
     pages_by_number: Dict[int, List[Dict]] = defaultdict(list)
@@ -927,25 +1036,21 @@ def build_transcript(
             audio_revision=audio_revision,
             existing_page=existing_pages.get(page_number),
         )
-        merged_page = merge_page_with_review_filter(
+        merged_page = merge_page_with_issue_filter(
             new_page,
             existing_pages.get(page_number),
-            review_state or {},
             audio_revision=audio_revision,
             force_all_lines=force_all_lines,
         )
         updated_line_count += merged_page.pop("_updatedLineCount", 0)
         pages.append(merged_page)
 
-    flow_override_count = apply_flow_grouping_overrides(pages, review_state or {})
-
     notes = [
         "Imported from the Google Sheet submission tab.",
         "Display text and generated audio text are sourced from the sheet export.",
         "Drill rows play as word sequences with a short gap between clips.",
+        "Issue Category and Issue Note columns drive selective sheet updates and pronunciation overrides.",
     ]
-    if review_state and not force_all_lines:
-        notes.append("Good QA-reviewed lines are preserved during sheet refreshes; only bad / needs-regeneration lines are updated.")
 
     return {
         "version": "2026-04-12",
@@ -955,9 +1060,8 @@ def build_transcript(
         "importSummary": {
             "pageCount": len(pages),
             "rowCount": len(rows),
-            "reviewAware": bool(review_state) and not force_all_lines,
-            "updatedReviewedLineCount": updated_line_count,
-            "appliedFlowOverrideCount": flow_override_count,
+            "issueAware": not force_all_lines,
+            "updatedIssueLineCount": updated_line_count,
         },
     }
 
@@ -975,23 +1079,18 @@ def main(argv: Iterable[str]) -> int:
     rows = load_rows(csv_text)
     output_path = Path(args.output)
     existing_transcript = load_existing_transcript(output_path)
-    review_sync_url = (args.review_sync_url or load_default_review_sync_url()).strip()
-    review_state = {} if args.force_all_lines else load_remote_review_state(review_sync_url)
     payload = build_transcript(
         rows,
         pdf_path=args.pdf_path,
         audio_revision=args.audio_revision,
         existing_transcript=existing_transcript,
-        review_state=review_state,
         force_all_lines=args.force_all_lines,
     )
     write_json(output_path, payload)
     summary = payload.get("importSummary", {})
     review_note = ""
-    if summary.get("reviewAware"):
-        review_note = f" Preserved reviewed good lines; updated {summary.get('updatedReviewedLineCount', 0)} previously reviewed bad/needs-regeneration line(s)."
-        if summary.get("appliedBlockOverrideCount", 0):
-            review_note += f" Applied {summary.get('appliedBlockOverrideCount', 0)} line-level block override(s)."
+    if summary.get("issueAware"):
+        review_note = f" Preserved issue-free lines; updated {summary.get('updatedIssueLineCount', 0)} issue-marked line(s)."
     elif args.force_all_lines:
         review_note = " Forced full-line refresh."
     print(f"Imported {len(payload['pages'])} pages and {len(rows)} sheet rows into {args.output}.{review_note}")

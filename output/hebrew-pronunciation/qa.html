@@ -602,46 +602,6 @@
           <button id="playLine" type="button">Play line</button>
           <button id="clearLocation" type="button" class="secondary">Clear location</button>
         </div>
-
-        <div id="wordButtonRow" class="word-button-row"></div>
-
-        <div class="button-row">
-          <button id="markGood" type="button">Mark line good</button>
-          <button id="markBad" type="button">Mark line bad</button>
-          <button id="resetLine" type="button" class="secondary">Reset line</button>
-        </div>
-
-        <div id="reasonCard" class="reason-card">
-          <div class="grid">
-            <label>
-              Reason
-              <select id="reasonSelect">
-                <option value="">Choose a reason</option>
-                <option value="Google Sheet error">Google Sheet error</option>
-                <option value="Dot error">Dot error</option>
-                <option value="English/Hebrew mix error">English/Hebrew mix error</option>
-                <option value="Pronunciation error">Pronunciation error</option>
-                <option value="Other">Other</option>
-              </select>
-            </label>
-          </div>
-
-          <div id="sheetGuidance" class="sheet-guidance">
-            Fix this in the Google Sheet, then write exactly which word or phrase was wrong and what you changed. This line will need regeneration and re-review afterward.
-          </div>
-
-          <label>
-            Notes
-            <textarea id="notesInput" placeholder="Name the exact word or phrase that is wrong, then describe the audio problem. Example: בָּרוּךְ starts with v sound but should start with b sound."></textarea>
-          </label>
-
-          <button id="saveBadLine" type="button">Save bad line</button>
-        </div>
-
-        <div class="group">
-          <h3>Saved note</h3>
-          <div id="savedNote" class="note-preview">No note saved for this line yet.</div>
-        </div>
       </section>
 
       <section class="actions-card group">
@@ -689,10 +649,7 @@
       clearLocation: document.getElementById("clearLocation"),
       saveProgress: document.getElementById("saveProgress"),
       lineList: document.getElementById("lineList"),
-      markBad: document.getElementById("markBad"),
-      markGood: document.getElementById("markGood"),
       nextPage: document.getElementById("nextPage"),
-      notesInput: document.getElementById("notesInput"),
       pageCanvas: document.getElementById("pageCanvas"),
       pageTitle: document.getElementById("pageTitle"),
       playPage: document.getElementById("playPage"),
@@ -700,19 +657,12 @@
       prevPage: document.getElementById("prevPage"),
       progressFill: document.getElementById("progressFill"),
       progressText: document.getElementById("progressText"),
-      reasonCard: document.getElementById("reasonCard"),
-      reasonSelect: document.getElementById("reasonSelect"),
-      resetLine: document.getElementById("resetLine"),
-      savedNote: document.getElementById("savedNote"),
-      saveBadLine: document.getElementById("saveBadLine"),
       selectedLineStatus: document.getElementById("selectedLineStatus"),
       selectedLineText: document.getElementById("selectedLineText"),
       selectedLineTitle: document.getElementById("selectedLineTitle"),
-      sheetGuidance: document.getElementById("sheetGuidance"),
       syncStatus: document.getElementById("syncStatus"),
       status: document.getElementById("status"),
-      stopPlayback: document.getElementById("stopPlayback"),
-      wordButtonRow: document.getElementById("wordButtonRow")
+      stopPlayback: document.getElementById("stopPlayback")
     };
 
     let saveButtonResetTimer = null;
@@ -722,26 +672,20 @@
         const raw = window.localStorage.getItem(REVIEW_STORAGE_KEY);
         if (!raw) {
           return {
-            reviewerName: "",
             lineReviews: {},
-            pageSignOffs: {},
             createdAt: new Date().toISOString()
           };
         }
         const parsed = JSON.parse(raw);
         return {
-          reviewerName: parsed.reviewerName || "",
           lineReviews: parsed.lineReviews || {},
-          pageSignOffs: parsed.pageSignOffs || {},
           createdAt: parsed.createdAt || new Date().toISOString(),
           updatedAt: parsed.updatedAt || ""
         };
       } catch (error) {
         console.error(error);
         return {
-          reviewerName: "",
           lineReviews: {},
-          pageSignOffs: {},
           createdAt: new Date().toISOString(),
           updatedAt: ""
         };
@@ -829,27 +773,11 @@
       orderedPages().forEach(function (page) {
         orderedLines(page).forEach(function (line) {
           const review = reviewForLine(line.id);
-          const flowIssue = Boolean(review.flowIssue && review.flowAction);
-          const flowAction = review.flowAction || "";
-          const flowStartLine = typeof review.flowStartLine === "number" ? review.flowStartLine : null;
-          const flowEndLine = typeof review.flowEndLine === "number" ? review.flowEndLine : null;
           lineReviews.push({
             page: line.page,
             lineId: line.id,
             lineNumber: line.lineNumber,
-            anchorY: typeof review.anchorY === "number" ? review.anchorY : null,
-            status: review.status,
-            category: review.category || "",
-            note: review.note || "",
-            reviewedFingerprint: review.reviewedFingerprint || "",
-            flowIssue: flowIssue,
-            flowAction: flowAction,
-            flowStartLine: flowStartLine,
-            flowEndLine: flowEndLine,
-            flowNote: review.flowNote || "",
-            blockAction: flowAction,
-            blockStartLine: flowStartLine,
-            blockEndLine: flowEndLine
+            anchorY: typeof review.anchorY === "number" ? review.anchorY : null
           });
         });
       });
@@ -857,48 +785,15 @@
     }
 
     function normalizeLoadedReview(parsed) {
-      const normalizedPageSignOffs = {};
-      Object.entries(parsed.pageSignOffs || {}).forEach(function (entry) {
-        const key = entry[0];
-        const value = entry[1] || {};
-        const pageNumber = Number(value.page || String(key).replace(/[^\d]/g, ""));
-        if (!pageNumber) {
-          return;
-        }
-        const normalizedKey = "page-" + String(pageNumber).padStart(3, "0");
-        normalizedPageSignOffs[normalizedKey] = {
-          page: pageNumber,
-          signedOffAt: value.signedOffAt || ""
-        };
-      });
       return {
-        reviewerName: parsed.reviewerName || "",
         lineReviews: Object.fromEntries(
           (parsed.lineReviews || []).map(function (review) {
             return [review.lineId, {
               lineId: review.lineId,
-              status: review.status || "pending",
-              anchorY: typeof review.anchorY === "number" ? review.anchorY : null,
-              category: review.category || "",
-              note: review.note || "",
-              reviewedFingerprint: review.reviewedFingerprint || "",
-              flowIssue: Boolean(
-                review.flowIssue ||
-                review.flowAction ||
-                review.blockAction
-              ),
-              flowAction: review.flowAction || review.blockAction || "",
-              flowStartLine: Number.isInteger(review.flowStartLine)
-                ? review.flowStartLine
-                : (String(review.flowStartLine || review.blockStartLine || "").trim() && Number.isInteger(Number(review.flowStartLine || review.blockStartLine)) ? Number(review.flowStartLine || review.blockStartLine) : null),
-              flowEndLine: Number.isInteger(review.flowEndLine)
-                ? review.flowEndLine
-                : (String(review.flowEndLine || review.blockEndLine || "").trim() && Number.isInteger(Number(review.flowEndLine || review.blockEndLine)) ? Number(review.flowEndLine || review.blockEndLine) : null),
-              flowNote: review.flowNote || ""
+              anchorY: typeof review.anchorY === "number" ? review.anchorY : null
             }];
           })
         ),
-        pageSignOffs: normalizedPageSignOffs,
         createdAt: parsed.createdAt || new Date().toISOString(),
         updatedAt: parsed.updatedAt || ""
       };
@@ -929,58 +824,8 @@
     function reviewForLine(lineId) {
       return state.review.lineReviews[lineId] || {
         lineId: lineId,
-        status: "pending",
-        anchorY: null,
-        category: "",
-        note: "",
-        reviewedFingerprint: "",
-        flowIssue: false,
-        flowAction: "",
-        flowStartLine: null,
-        flowEndLine: null,
-        flowNote: ""
+        anchorY: null
       };
-    }
-
-    function numericReviewValue(value) {
-      return Number.isInteger(value)
-        ? value
-        : (String(value || "").trim() && Number.isInteger(Number(value)) ? Number(value) : null);
-    }
-
-    function updateReasonFields(category) {
-      const showSheet = category === "Google Sheet error";
-      elements.sheetGuidance.classList.toggle("visible", showSheet);
-    }
-
-    function lineHasChangedSinceReview(line, review) {
-      if (!line || !review || !review.status || review.status === "pending") {
-        return false;
-      }
-      if (!review.reviewedFingerprint || !line.reviewFingerprint) {
-        return false;
-      }
-      return review.reviewedFingerprint !== line.reviewFingerprint;
-    }
-
-    function effectiveStatusForLine(line) {
-      const review = reviewForLine(line.id);
-      if (lineHasChangedSinceReview(line, review)) {
-        return "changed";
-      }
-      return review.status;
-    }
-
-    function displayReviewForLine(line) {
-      const review = reviewForLine(line.id);
-      if (!lineHasChangedSinceReview(line, review)) {
-        return review;
-      }
-      return Object.assign({}, review, {
-        status: "pending",
-        category: "",
-        note: ""
-      });
     }
 
     function spokenBlocksForPage(page) {
@@ -1027,19 +872,7 @@
 
     function isLineComplete(line) {
       const review = reviewForLine(line.id);
-      if (lineHasChangedSinceReview(line, review)) {
-        return false;
-      }
-      if (typeof review.anchorY !== "number") {
-        return false;
-      }
-      if (review.status === "good") {
-        return true;
-      }
-      if ((review.status === "bad" || review.status === "needs_regen") && review.category && review.note.trim()) {
-        return true;
-      }
-      return false;
+      return typeof review.anchorY === "number";
     }
 
     function pageCompletion(page) {
@@ -1236,125 +1069,29 @@
       });
     }
 
-    function lineStatusText(status) {
-      if (status === "good") {
-        return "Good";
-      }
-      if (status === "bad") {
-        return "Bad";
-      }
-      if (status === "needs_regen") {
-        return "Needs regen";
-      }
-      if (status === "changed") {
-        return "Changed";
-      }
-      return "Pending";
-    }
-
-    function updateActionButtons(review, draftReason, line) {
-      const hasArrow = typeof review.anchorY === "number";
-      const effectiveStatus = line ? effectiveStatusForLine(line) : review.status;
-      elements.markGood.disabled = !hasArrow;
-      elements.markBad.disabled = !hasArrow;
-      elements.markGood.className =
-        hasArrow && effectiveStatus === "good" && !elements.reasonCard.classList.contains("visible")
-          ? "button-state-good"
-          : "";
-      if (!hasArrow) {
-        elements.markBad.className = "";
-        return;
-      }
-      if (effectiveStatus === "changed" || effectiveStatus === "pending") {
-        elements.markBad.className = "";
-        return;
-      }
-      if (review.status === "needs_regen" || draftReason === "Google Sheet error") {
-        elements.markBad.className = "button-state-regen";
-        return;
-      }
-      if (review.status === "bad" || elements.reasonCard.classList.contains("visible")) {
-        elements.markBad.className = "button-state-bad";
-        return;
-      }
-      elements.markBad.className = "";
-    }
-
     function updateSelectedLine() {
       const line = currentLine();
       if (!line) {
         elements.selectedLineTitle.textContent = "Select a line";
         elements.selectedLineText.textContent = "Choose a line below.";
         elements.selectedLineStatus.replaceChildren();
-        elements.wordButtonRow.replaceChildren();
-        elements.savedNote.textContent = "No note saved for this line yet.";
-        elements.reasonCard.classList.remove("visible");
-        updateActionButtons({ status: "pending" }, "", null);
         return;
       }
 
-      const review = displayReviewForLine(line);
-      const effectiveStatus = effectiveStatusForLine(line);
+      const review = reviewForLine(line.id);
       elements.selectedLineTitle.textContent = "Page " + line.page + " · " + line.badgeLabel;
       elements.selectedLineText.textContent = line.displayText;
-      elements.reasonSelect.value = review.category || "";
-      elements.notesInput.value = review.note || "";
-      elements.reasonCard.classList.toggle("visible", effectiveStatus === "bad" || effectiveStatus === "needs_regen");
-      updateReasonFields(elements.reasonSelect.value);
 
       elements.selectedLineStatus.replaceChildren();
-      const statusItems = [
-        { label: "Status: " + lineStatusText(effectiveStatus), className: effectiveStatus === "pending" ? "" : effectiveStatus },
-        { label: typeof review.anchorY === "number" ? "Arrow set" : "Arrow required", className: typeof review.anchorY === "number" ? "good" : "missing-arrow" }
-      ];
-      if (effectiveStatus === "changed") {
-        statusItems.push({ label: "Changed since review", className: "changed" });
-      }
-      statusItems.forEach(function (item) {
-        const chip = document.createElement("span");
-        chip.className = "status-chip" + (item.className ? " " + item.className : "");
-        chip.textContent = item.label;
-        elements.selectedLineStatus.appendChild(chip);
-      });
-
-      elements.savedNote.innerHTML = "";
-      if (!review.note) {
-        const noteStrong = document.createElement("strong");
-        noteStrong.textContent = "No note saved";
-        elements.savedNote.appendChild(noteStrong);
-        const noteBody = document.createElement("div");
-        noteBody.textContent = "If this line is bad, write the exact wrong word or phrase and then describe the audio problem.";
-        elements.savedNote.appendChild(noteBody);
-      } else {
-        const noteStrong = document.createElement("strong");
-        noteStrong.textContent = "Saved review note";
-        elements.savedNote.appendChild(noteStrong);
-        const noteBody = document.createElement("div");
-        noteBody.textContent = review.note;
-        elements.savedNote.appendChild(noteBody);
-      }
+      const chip = document.createElement("span");
+      chip.className = "status-chip " + (typeof review.anchorY === "number" ? "good" : "missing-arrow");
+      chip.textContent = typeof review.anchorY === "number" ? "Arrow set" : "Arrow required";
+      elements.selectedLineStatus.appendChild(chip);
 
       const linePlayback = playbackForLine(line);
       elements.playLine.textContent = "Play line";
       elements.playLine.disabled = !linePlayback.urls.length;
       elements.clearLocation.disabled = typeof review.anchorY !== "number";
-
-      elements.wordButtonRow.replaceChildren();
-      if (line.wordPlayback && line.wordPlayback.length) {
-        line.wordPlayback.forEach(function (word) {
-          const button = document.createElement("button");
-          button.type = "button";
-          button.textContent = word.displayText;
-          button.disabled = !word.url;
-          button.title = word.spokenText || word.displayText;
-          button.addEventListener("click", function () {
-            playSequence([word.url], 0, word.displayText);
-          });
-          elements.wordButtonRow.appendChild(button);
-        });
-      }
-
-      updateActionButtons(review, elements.reasonSelect.value, line);
     }
 
     function renderLineList() {
@@ -1366,7 +1103,6 @@
 
       function buildLineRow(line) {
         const review = reviewForLine(line.id);
-        const effectiveStatus = effectiveStatusForLine(line);
         const row = document.createElement("article");
         row.className = "line-row" + (line.id === state.selectedLineId ? " selected" : "");
         row.addEventListener("click", function () {
@@ -1377,7 +1113,7 @@
         });
 
         const dot = document.createElement("div");
-        dot.className = "status-dot " + effectiveStatus;
+        dot.className = "status-dot " + (typeof review.anchorY === "number" ? "good" : "pending");
         row.appendChild(dot);
 
         const main = document.createElement("div");
@@ -1394,40 +1130,10 @@
         main.appendChild(span);
         row.appendChild(main);
 
-        const pillGroup = document.createElement("div");
-        pillGroup.className = "line-status-pills";
-
         const arrowPill = document.createElement("span");
-        arrowPill.className = "mini-pill";
-        if (typeof review.anchorY === "number") {
-          arrowPill.classList.add("good");
-          arrowPill.textContent = "Arrow set";
-        } else {
-          arrowPill.classList.add("bad");
-          arrowPill.textContent = "Arrow not set";
-        }
-        pillGroup.appendChild(arrowPill);
-
-        const reviewPill = document.createElement("span");
-        reviewPill.className = "mini-pill";
-        if (effectiveStatus === "good") {
-          reviewPill.classList.add("good");
-          reviewPill.textContent = "Good";
-        } else if (effectiveStatus === "bad") {
-          reviewPill.classList.add("bad");
-          reviewPill.textContent = "Bad";
-        } else if (effectiveStatus === "needs_regen") {
-          reviewPill.classList.add("needs_regen");
-          reviewPill.textContent = "Needs regen";
-        } else if (effectiveStatus === "changed") {
-          reviewPill.classList.add("changed");
-          reviewPill.textContent = "Changed";
-        } else {
-          reviewPill.textContent = "Review pending";
-        }
-        pillGroup.appendChild(reviewPill);
-
-        row.appendChild(pillGroup);
+        arrowPill.className = "mini-pill " + (typeof review.anchorY === "number" ? "good" : "bad");
+        arrowPill.textContent = typeof review.anchorY === "number" ? "Arrow set" : "Arrow not set";
+        row.appendChild(arrowPill);
         return row;
       }
 
@@ -1488,7 +1194,7 @@
         return;
       }
       const progress = pageCompletion(page);
-      elements.progressText.textContent = progress.completed + " / " + progress.total + " complete";
+      elements.progressText.textContent = progress.completed + " / " + progress.total + " arrows set";
       elements.progressFill.style.width = progress.total ? ((progress.completed / progress.total) * 100).toFixed(2) + "%" : "0%";
       if (elements.playPage) {
         elements.playPage.disabled = pagePlaybackSegments(page).length === 0;
@@ -1497,11 +1203,9 @@
 
     function updateExport() {
       const payload = {
-        version: "line-review-v1",
+        version: "arrow-review-v1",
         createdAt: state.review.createdAt,
         updatedAt: new Date().toISOString(),
-        reviewerName: state.review.reviewerName || "",
-        pageSignOffs: state.review.pageSignOffs,
         lineReviews: buildLineReviewsArray()
       };
       state.exportPayload = payload;
@@ -1511,27 +1215,13 @@
       return {
         action: "savePage",
         page: page.page,
-        reviewerName: state.review.reviewerName || "",
-        pageSignOff: state.review.pageSignOffs[page.id] || null,
         lineReviews: orderedLines(page).map(function (line) {
           const review = reviewForLine(line.id);
           return {
             page: line.page,
             lineId: line.id,
             lineNumber: line.lineNumber,
-            anchorY: typeof review.anchorY === "number" ? review.anchorY : null,
-            status: review.status,
-            category: review.category || "",
-            note: review.note || "",
-            reviewedFingerprint: review.reviewedFingerprint || "",
-            flowIssue: Boolean(review.flowIssue && review.flowAction),
-            flowAction: review.flowAction || "",
-            flowStartLine: typeof review.flowStartLine === "number" ? review.flowStartLine : null,
-            flowEndLine: typeof review.flowEndLine === "number" ? review.flowEndLine : null,
-            flowNote: review.flowNote || "",
-            blockAction: review.flowAction || "",
-            blockStartLine: typeof review.flowStartLine === "number" ? review.flowStartLine : null,
-            blockEndLine: typeof review.flowEndLine === "number" ? review.flowEndLine : null
+            anchorY: typeof review.anchorY === "number" ? review.anchorY : null
           };
         })
       };
@@ -1564,8 +1254,6 @@
           method: "POST",
           body: JSON.stringify({
             action: "saveAll",
-            reviewerName: state.review.reviewerName || "",
-            pageSignOffs: state.review.pageSignOffs,
             lineReviews: state.exportPayload.lineReviews || []
           })
         });
@@ -1606,9 +1294,7 @@
           return null;
         }
         return {
-          reviewerName: payload.reviewerName || "",
           lineReviews: payload.lineReviews || [],
-          pageSignOffs: payload.pageSignOffs || {},
           updatedAt: payload.updatedAt || ""
         };
       } catch (error) {
@@ -1619,21 +1305,7 @@
     }
 
     function backfillMissingReviewFingerprints() {
-      let changed = false;
-      orderedPages().forEach(function (page) {
-        orderedLines(page).forEach(function (line) {
-          const review = state.review.lineReviews[line.id];
-          if (!review || !review.status || review.status === "pending") {
-            return;
-          }
-          if (review.reviewedFingerprint || !line.reviewFingerprint) {
-            return;
-          }
-          review.reviewedFingerprint = line.reviewFingerprint;
-          changed = true;
-        });
-      });
-      return changed;
+      return false;
     }
 
     async function setCurrentPage(pageId) {
@@ -1686,125 +1358,15 @@
       return line;
     }
 
-    function setLineGood() {
-      const line = ensureSelectedLine();
-      if (!line) {
-        return;
-      }
-      const review = reviewForLine(line.id);
-      if (typeof review.anchorY !== "number") {
-        setStatus("Place the arrow for this line first.");
-        return;
-      }
-      state.review.lineReviews[line.id] = {
-        lineId: line.id,
-        status: "good",
-        anchorY: review.anchorY,
-        category: "",
-        note: "",
-        reviewedFingerprint: line.reviewFingerprint || "",
-        flowIssue: review.flowIssue || false,
-        flowAction: review.flowAction || "",
-        flowStartLine: typeof review.flowStartLine === "number" ? review.flowStartLine : null,
-        flowEndLine: typeof review.flowEndLine === "number" ? review.flowEndLine : null,
-        flowNote: review.flowNote || ""
-      };
-      saveReviewState();
-      setStatus(line.badgeLabel + " marked good.");
-    }
-
-    function beginBadReview() {
-      const line = ensureSelectedLine();
-      if (!line) {
-        return;
-      }
-      const review = reviewForLine(line.id);
-      if (typeof review.anchorY !== "number") {
-        setStatus("Place the arrow for this line first.");
-        return;
-      }
-      elements.reasonCard.classList.add("visible");
-      elements.reasonSelect.value = review.category || "";
-      elements.notesInput.value = review.note || "";
-      updateReasonFields(elements.reasonSelect.value);
-      updateActionButtons(review, elements.reasonSelect.value || "Pronunciation error", line);
-      window.requestAnimationFrame(function () {
-        elements.reasonCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        if (review.category) {
-          elements.notesInput.focus();
-        } else {
-          elements.reasonSelect.focus();
-        }
-      });
-      setStatus("Choose a reason and add notes for " + line.badgeLabel + ".");
-    }
-
-    function saveBadLine() {
-      const line = ensureSelectedLine();
-      if (!line) {
-        return;
-      }
-      const review = reviewForLine(line.id);
-      if (typeof review.anchorY !== "number") {
-        setStatus("Place the arrow for this line first.");
-        return;
-      }
-      const category = elements.reasonSelect.value;
-      const note = elements.notesInput.value.trim();
-      if (!category) {
-        setStatus("Choose a reason before saving the line.");
-        return;
-      }
-      if (!note) {
-        setStatus("Add a note naming the exact wrong word or phrase and the audio problem.");
-        return;
-      }
-      state.review.lineReviews[line.id] = {
-        lineId: line.id,
-        status: category === "Google Sheet error" ? "needs_regen" : "bad",
-        anchorY: review.anchorY,
-        category: category,
-        note: note,
-        reviewedFingerprint: line.reviewFingerprint || "",
-        flowIssue: review.flowIssue || false,
-        flowAction: review.flowAction || "",
-        flowStartLine: typeof review.flowStartLine === "number" ? review.flowStartLine : null,
-        flowEndLine: typeof review.flowEndLine === "number" ? review.flowEndLine : null,
-        flowNote: review.flowNote || ""
-      };
-      saveReviewState();
-      setStatus(line.badgeLabel + " saved as " + (category === "Google Sheet error" ? "needs regen." : "bad."));
-    }
-
-    function resetLine() {
-      const line = ensureSelectedLine();
-      if (!line) {
-        return;
-      }
-      delete state.review.lineReviews[line.id];
-      elements.reasonCard.classList.remove("visible");
-      elements.reasonSelect.value = "";
-      elements.notesInput.value = "";
-      updateReasonFields("");
-      saveReviewState();
-      renderCanvas();
-      updateActionButtons({ status: "pending" }, "");
-      setStatus(line.badgeLabel + " reset.");
-    }
-
     function clearLocation() {
       const line = ensureSelectedLine();
       if (!line) {
         return;
       }
       delete state.review.lineReviews[line.id];
-      elements.reasonCard.classList.remove("visible");
-      elements.reasonSelect.value = "";
-      elements.notesInput.value = "";
-      updateReasonFields("");
       saveReviewState();
       renderCanvas();
-      setStatus(line.badgeLabel + " reset after clearing the arrow.");
+      setStatus("Cleared arrow for " + line.badgeLabel + ".");
     }
 
     async function loadQa() {
@@ -1815,11 +1377,9 @@
       state.qa = await response.json();
       state.syncConfig = await loadSyncConfig();
       const remote = await loadRemoteReview();
-      if (remote && ((remote.lineReviews && remote.lineReviews.length) || Object.keys(remote.pageSignOffs || {}).length)) {
+      if (remote && remote.lineReviews && remote.lineReviews.length) {
         const remoteReview = normalizeLoadedReview({
-          reviewerName: remote.reviewerName || "",
           lineReviews: remote.lineReviews || [],
-          pageSignOffs: remote.pageSignOffs || {},
           createdAt: state.review.createdAt,
           updatedAt: remote.updatedAt || ""
         });
@@ -1828,9 +1388,6 @@
           state.review = remoteReview;
           saveReviewState();
         }
-      }
-      if (backfillMissingReviewFingerprints()) {
-        saveReviewState();
       }
       const firstPage = orderedPages()[0];
       state.currentPageId = firstPage ? firstPage.id : null;
@@ -1846,19 +1403,9 @@
       }
       const rect = elements.pageCanvas.getBoundingClientRect();
       const y = clamp(((event.clientY - rect.top) / rect.height) * 100, 0, 100);
-      const review = reviewForLine(line.id);
       state.review.lineReviews[line.id] = {
         lineId: line.id,
-        status: review.status,
-        anchorY: y,
-        category: review.category || "",
-        note: review.note || "",
-        reviewedFingerprint: review.reviewedFingerprint || "",
-        flowIssue: review.flowIssue || false,
-        flowAction: review.flowAction || "",
-        flowStartLine: typeof review.flowStartLine === "number" ? review.flowStartLine : null,
-        flowEndLine: typeof review.flowEndLine === "number" ? review.flowEndLine : null,
-        flowNote: review.flowNote || ""
+        anchorY: y
       };
       saveReviewState();
       renderCanvas();
@@ -1891,21 +1438,7 @@
     });
 
     elements.stopPlayback.addEventListener("click", stopPlayback);
-    elements.markGood.addEventListener("click", setLineGood);
-    elements.markBad.addEventListener("click", beginBadReview);
-    elements.saveBadLine.addEventListener("click", saveBadLine);
-    elements.resetLine.addEventListener("click", resetLine);
     elements.clearLocation.addEventListener("click", clearLocation);
-
-    elements.reasonSelect.addEventListener("change", function () {
-      updateReasonFields(elements.reasonSelect.value);
-      const line = currentLine();
-      updateActionButtons(
-        line ? displayReviewForLine(line) : reviewForLine(state.selectedLineId || ""),
-        elements.reasonSelect.value,
-        line
-      );
-    });
 
     elements.saveProgress.addEventListener("click", async function () {
       try {
@@ -1918,10 +1451,10 @@
         const payload = JSON.stringify(state.exportPayload || {}, null, 2);
         if ("showSaveFilePicker" in window) {
           const handle = await window.showSaveFilePicker({
-            suggestedName: "hebrew-reader-review-progress.json",
+            suggestedName: "hebrew-reader-arrow-progress.json",
             types: [
               {
-                description: "JSON review progress",
+                description: "JSON arrow progress",
                 accept: { "application/json": [".json"] }
               }
             ]
@@ -1938,7 +1471,7 @@
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = "hebrew-reader-review-progress.json";
+        link.download = "hebrew-reader-arrow-progress.json";
         document.body.appendChild(link);
         link.click();
         link.remove();
