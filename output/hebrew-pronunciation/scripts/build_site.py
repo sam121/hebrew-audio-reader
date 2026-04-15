@@ -927,14 +927,18 @@ def build_spoken_block_audio(
     }
 
 
-def qa_playback_for_line(line: Dict) -> Dict:
-    if line.get("playback"):
-        playback = line["playback"]
+def resolved_line_playback(line: Dict) -> Dict:
+    playback = line.get("playback") if isinstance(line.get("playback"), dict) else None
+    if playback and (
+        playback.get("urls")
+        or playback.get("segments")
+        or playback.get("mode") not in ("", "missing", None)
+    ):
         return {
-            "mode": line.get("currentAudioMode", "missing"),
+            "mode": playback.get("mode", line.get("currentAudioMode", "missing")),
             "urls": list(playback.get("urls", [])),
             "gapMs": playback.get("gapMs", 0),
-            "segments": line.get("mixedSegments", []),
+            "segments": list(playback.get("segments", line.get("mixedSegments", []))),
         }
 
     audio = line.get("audio", {})
@@ -988,6 +992,10 @@ def qa_playback_for_line(line: Dict) -> Dict:
         "gapMs": 0,
         "segments": [],
     }
+
+
+def qa_playback_for_line(line: Dict) -> Dict:
+    return resolved_line_playback(line)
 
 
 def general_sample_line_ids(pages: List[Dict]) -> List[str]:
@@ -1531,14 +1539,15 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
         spoken_blocks_by_id = {block["id"]: block for block in page_out["spokenBlocks"]}
         for line in page_out["lines"]:
             block = spoken_blocks_by_id.get(line.get("spokenBlockId"))
-            if not block:
-                continue
-            line["playback"] = {
-                "urls": list((block.get("playback") or {}).get("urls", [])),
-                "gapMs": (block.get("playback") or {}).get("gapMs", 0),
-                "mode": (block.get("playback") or {}).get("mode", "missing"),
-                "segments": list(block.get("segments", [])),
-            }
+            if block:
+                line["playback"] = {
+                    "urls": list((block.get("playback") or {}).get("urls", [])),
+                    "gapMs": (block.get("playback") or {}).get("gapMs", 0),
+                    "mode": (block.get("playback") or {}).get("mode", "missing"),
+                    "segments": list(block.get("segments", [])),
+                }
+            else:
+                line["playback"] = resolved_line_playback(line)
 
         playback_items: List[Dict] = []
         for block in page_out["spokenBlocks"]:
@@ -1554,6 +1563,26 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                         "spokenBlockId": block["id"],
                         "urls": urls,
                         "gapMs": (block.get("playback") or {}).get("gapMs", 0),
+                    },
+                }
+            )
+
+        for line in page_out["lines"]:
+            if line.get("spokenBlockId"):
+                continue
+            if line.get("hebrewPlaybackMode") == "sequence":
+                continue
+            playback = resolved_line_playback(line)
+            if not playback.get("urls"):
+                continue
+            playback_items.append(
+                {
+                    "order": line.get("order", 0),
+                    "group": {
+                        "label": line.get("badgeLabel") or line.get("label") or line["id"],
+                        "lineId": line["id"],
+                        "urls": list(playback.get("urls", [])),
+                        "gapMs": playback.get("gapMs", 0),
                     },
                 }
             )
