@@ -927,20 +927,7 @@ def build_spoken_block_audio(
     }
 
 
-def resolved_line_playback(line: Dict) -> Dict:
-    playback = line.get("playback") if isinstance(line.get("playback"), dict) else None
-    if playback and (
-        playback.get("urls")
-        or playback.get("segments")
-        or playback.get("mode") not in ("", "missing", None)
-    ):
-        return {
-            "mode": playback.get("mode", line.get("currentAudioMode", "missing")),
-            "urls": list(playback.get("urls", [])),
-            "gapMs": playback.get("gapMs", 0),
-            "segments": list(playback.get("segments", line.get("mixedSegments", []))),
-        }
-
+def intrinsic_line_playback(line: Dict) -> Dict:
     audio = line.get("audio", {})
     mixed_audio = audio.get("mixed", {}) if isinstance(audio.get("mixed"), dict) else {}
     mixed_segments = [segment for segment in mixed_audio.get("segments", []) if segment.get("url")]
@@ -994,8 +981,26 @@ def resolved_line_playback(line: Dict) -> Dict:
     }
 
 
+def resolved_line_playback(line: Dict) -> Dict:
+    playback = line.get("playback") if isinstance(line.get("playback"), dict) else None
+    if playback and (
+        playback.get("urls")
+        or playback.get("segments")
+        or playback.get("mode") not in ("", "missing", None)
+    ):
+        return {
+            "mode": playback.get("mode", line.get("currentAudioMode", "missing")),
+            "urls": list(playback.get("urls", [])),
+            "gapMs": playback.get("gapMs", 0),
+            "segments": list(playback.get("segments", line.get("mixedSegments", []))),
+        }
+
+    return intrinsic_line_playback(line)
+
+
 def qa_playback_for_line(line: Dict) -> Dict:
-    return resolved_line_playback(line)
+    return intrinsic_line_playback(line)
+
 
 
 def general_sample_line_ids(pages: List[Dict]) -> List[str]:

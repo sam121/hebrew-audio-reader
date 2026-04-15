@@ -971,6 +971,18 @@
       return review.status;
     }
 
+    function displayReviewForLine(line) {
+      const review = reviewForLine(line.id);
+      if (!lineHasChangedSinceReview(line, review)) {
+        return review;
+      }
+      return Object.assign({}, review, {
+        status: "pending",
+        category: "",
+        note: ""
+      });
+    }
+
     function spokenBlocksForPage(page) {
       return Array.isArray(page && page.spokenBlocks) ? page.spokenBlocks.slice().sort(function (a, b) {
         const aOrder = Array.isArray(a.lineNumbers) && a.lineNumbers.length ? a.lineNumbers[0] : 0;
@@ -1240,15 +1252,20 @@
       return "Pending";
     }
 
-    function updateActionButtons(review, draftReason) {
+    function updateActionButtons(review, draftReason, line) {
       const hasArrow = typeof review.anchorY === "number";
+      const effectiveStatus = line ? effectiveStatusForLine(line) : review.status;
       elements.markGood.disabled = !hasArrow;
       elements.markBad.disabled = !hasArrow;
       elements.markGood.className =
-        hasArrow && review.status === "good" && !elements.reasonCard.classList.contains("visible")
+        hasArrow && effectiveStatus === "good" && !elements.reasonCard.classList.contains("visible")
           ? "button-state-good"
           : "";
       if (!hasArrow) {
+        elements.markBad.className = "";
+        return;
+      }
+      if (effectiveStatus === "changed" || effectiveStatus === "pending") {
         elements.markBad.className = "";
         return;
       }
@@ -1272,11 +1289,11 @@
         elements.wordButtonRow.replaceChildren();
         elements.savedNote.textContent = "No note saved for this line yet.";
         elements.reasonCard.classList.remove("visible");
-        updateActionButtons({ status: "pending" }, "");
+        updateActionButtons({ status: "pending" }, "", null);
         return;
       }
 
-      const review = reviewForLine(line.id);
+      const review = displayReviewForLine(line);
       const effectiveStatus = effectiveStatusForLine(line);
       elements.selectedLineTitle.textContent = "Page " + line.page + " · " + line.badgeLabel;
       elements.selectedLineText.textContent = line.displayText;
@@ -1337,7 +1354,7 @@
         });
       }
 
-      updateActionButtons(review, elements.reasonSelect.value);
+      updateActionButtons(review, elements.reasonSelect.value, line);
     }
 
     function renderLineList() {
@@ -1710,7 +1727,7 @@
       elements.reasonSelect.value = review.category || "";
       elements.notesInput.value = review.note || "";
       updateReasonFields(elements.reasonSelect.value);
-      updateActionButtons(review, elements.reasonSelect.value || "Pronunciation error");
+      updateActionButtons(review, elements.reasonSelect.value || "Pronunciation error", line);
       window.requestAnimationFrame(function () {
         elements.reasonCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
         if (review.category) {
@@ -1882,7 +1899,12 @@
 
     elements.reasonSelect.addEventListener("change", function () {
       updateReasonFields(elements.reasonSelect.value);
-      updateActionButtons(reviewForLine(state.selectedLineId || ""), elements.reasonSelect.value);
+      const line = currentLine();
+      updateActionButtons(
+        line ? displayReviewForLine(line) : reviewForLine(state.selectedLineId || ""),
+        elements.reasonSelect.value,
+        line
+      );
     });
 
     elements.saveProgress.addEventListener("click", async function () {
