@@ -77,7 +77,7 @@ SHEET_ISSUE_CATEGORIES = {
     ISSUE_CATEGORY_OTHER,
 }
 ISSUE_MAPPING_PATTERNS = [
-    re.compile(r"^\s*(?P<source>.+?)\s*(?:->|=>|→)\s*(?P<target>.+?)\s*$"),
+    re.compile(r"^\s*(?P<source>.+?)\s*(?:->|=>|→|>)\s*(?P<target>.+?)\s*$"),
     re.compile(r'^\s*(?:pronounce\s+)?(?P<source>.+?)\s+as\s+["“”\']?(?P<target>.+?)["“”\']?\s*$', re.IGNORECASE),
     re.compile(r'^\s*(?P<source>.+?)\s+should(?:\s+be)?\s+pronounced\s+["“”\']?(?P<target>.+?)["“”\']?\s*$', re.IGNORECASE),
 ]
@@ -354,7 +354,7 @@ def apply_issue_override_to_line(line: Dict, words: List[Dict], *, category: str
     line.pop("sheetIssueCategory", None)
     line.pop("sheetIssueNote", None)
 
-    if not issue_present(category, note) or category == ISSUE_CATEGORY_TEXT_ERROR:
+    if not issue_present(category, note):
         return
 
     mappings = parse_issue_mappings(note)
@@ -365,7 +365,7 @@ def apply_issue_override_to_line(line: Dict, words: List[Dict], *, category: str
     base_english = line.get("englishText") or line.get("displayText") or ""
     base_mixed = line.get("mixedText") or line.get("displayText") or ""
 
-    if category == ISSUE_CATEGORY_HEBREW:
+    if category in {ISSUE_CATEGORY_HEBREW, ISSUE_CATEGORY_TEXT_ERROR}:
         word_changed = apply_mappings_to_words(words, mappings)
         if content_mode == "mixed":
             line["mixedText"] = apply_text_mappings(base_mixed, mappings)
@@ -531,6 +531,13 @@ def merge_page_with_issue_filter(
     existing_lines_by_id = {line.get("id"): line for line in (existing_page or {}).get("lines", []) if line.get("id")}
     existing_words_by_id = {word.get("id"): word for word in (existing_page or {}).get("words", []) if word.get("id")}
     new_words_by_id = {word.get("id"): word for word in new_page.get("words", []) if word.get("id")}
+    page_has_issues = any(
+        issue_present(
+            str(candidate_line.get("sheetIssueCategory") or "").strip(),
+            str(candidate_line.get("sheetIssueNote") or "").strip(),
+        )
+        for candidate_line in new_page.get("lines", [])
+    )
 
     selected_lines: List[Dict] = []
     selected_words_by_line_id: Dict[str, List[Dict]] = {}
@@ -568,7 +575,11 @@ def merge_page_with_issue_filter(
     merged_page["image"] = new_page.get("image", (existing_page or {}).get("image"))
     merged_page["status"] = new_page.get("status", (existing_page or {}).get("status"))
     merged_page["title"] = merged_page_title(selected_lines, (existing_page or {}).get("title") or new_page.get("title", ""))
-    merged_page["audioRevision"] = (existing_page or {}).get("audioRevision") or audio_revision
+    merged_page["audioRevision"] = (
+        audio_revision
+        if page_has_issues or existing_page is None
+        else (existing_page or {}).get("audioRevision") or audio_revision
+    )
 
     existing_sections = deep_clone((existing_page or {}).get("sections", []))
     existing_section_ids = {section.get("id") for section in existing_sections}
@@ -993,13 +1004,32 @@ def load_rows(csv_text: str) -> List[Dict]:
         ]
         notes = [note for note in notes if note]
 
+        issue_category = first_present_value(
+            raw,
+            "issue_category_review_1",
+            "Issue Category Review 1",
+            "Issue Category",
+            "issue_category",
+            "Issue category",
+        )
+        issue_note = first_present_value(
+            raw,
+            "issue_note_review_1",
+            "Issue Note Review 1",
+            "Issue Note",
+            "issue_note",
+            "Issue note",
+        )
+        if issue_note and not issue_category:
+            issue_category = ISSUE_CATEGORY_OTHER
+
         rows.append(
             {
                 "page": int(page_value),
                 "line_number": int(line_value),
                 "line_content": line_content,
-                "issue_category": first_present_value(raw, "Issue Category", "issue_category", "Issue category"),
-                "issue_note": first_present_value(raw, "Issue Note", "issue_note", "Issue note"),
+                "issue_category": issue_category,
+                "issue_note": issue_note,
                 "notes": notes,
                 "is_drill": bool(DRILL_RE.match(line_content)),
                 "has_hebrew": has_hebrew(line_content),

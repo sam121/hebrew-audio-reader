@@ -4,7 +4,8 @@
   "notes": [
     "Imported from the Google Sheet submission tab.",
     "Display text and generated audio text are sourced from the sheet export.",
-    "Drill rows play as word sequences with a short gap between clips."
+    "Drill rows play as word sequences with a short gap between clips.",
+    "Issue Category and Issue Note columns drive selective sheet updates and pronunciation overrides."
   ],
   "pages": [
     {
@@ -13,7 +14,7 @@
       "sourcePdfPage": 1,
       "title": "Blessing 1: The Blessing over the Fruit of the Vine",
       "status": "verified",
-      "audioRevision": "2026-04-26-contractor-p1-5-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-001.png",
       "notes": [],
       "sections": [
@@ -196,7 +197,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "Bet"
+          "mixedText": "bet Bet"
         },
         {
           "id": "p01-line-007",
@@ -222,7 +223,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "englishText": "which has the sound of \"B\" as in \"buh-rah-khah\"."
+          "englishText": "which has the sound of \"B\" as in buh-rah-khah."
         },
         {
           "id": "p01-line-008",
@@ -252,7 +253,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "Locate the bet throughout this paragraph from the sid-door"
+          "mixedText": "Locate the בּ throughout this paragraph from the sid-door"
         },
         {
           "id": "p01-line-009",
@@ -278,7 +279,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "englishText": "(\"prayer book\"). Pronounce the letter \"B\" as \"bee\" each time in order to"
+          "englishText": "(\"prayer book\"). Pronounce the \"bee\" sound each time in order to"
         },
         {
           "id": "p01-line-010",
@@ -626,7 +627,7 @@
           "lineId": "p01-line-006",
           "order": 5,
           "displayText": "בּ",
-          "spokenText": "בֵּט",
+          "spokenText": "bet",
           "status": "verified"
         },
         {
@@ -635,7 +636,7 @@
           "lineId": "p01-line-008",
           "order": 6,
           "displayText": "בּ",
-          "spokenText": "בֵּט",
+          "spokenText": "בּ",
           "status": "verified"
         },
         {
@@ -986,7 +987,7 @@
           "lineId": "p01-line-016",
           "order": 45,
           "displayText": "וְרֽוּחַ",
-          "spokenText": "וְרוּאַךְ",
+          "spokenText": "וְרֽוּחַ",
           "status": "verified"
         },
         {
@@ -1435,7 +1436,7 @@
       "sourcePdfPage": 3,
       "title": "בָּרוּךְ אַתָּה יְיָ",
       "status": "verified",
-      "audioRevision": "2026-04-26-contractor-p1-5-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-003.png",
       "notes": [],
       "sections": [
@@ -1974,7 +1975,7 @@
       "sourcePdfPage": 4,
       "title": "בָּרוּךְ אַתָּה יְיָ",
       "status": "verified",
-      "audioRevision": "2026-04-26-contractor-p1-5-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-004.png",
       "notes": [],
       "sections": [
@@ -2517,7 +2518,7 @@
       "sourcePdfPage": 5,
       "title": "בָּרוּךְ אַתָּה יְיָ",
       "status": "verified",
-      "audioRevision": "2026-04-26-contractor-p1-5-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-005.png",
       "notes": [],
       "sections": [
@@ -2580,7 +2581,7 @@
           "displayWords": [
             "ְ"
           ],
-          "mixedText": "shva"
+          "mixedText": "shva ְ"
         },
         {
           "id": "p05-line-003",
@@ -3082,7 +3083,7 @@
           "lineId": "p05-line-009",
           "order": 14,
           "displayText": "בָּרְבָּר",
-          "spokenText": "בָּרְבָּר",
+          "spokenText": "bar-BAR",
           "status": "verified"
         },
         {
@@ -3289,7 +3290,7 @@
           "lineId": "p05-line-014",
           "order": 37,
           "displayText": "בָּרוּ",
-          "spokenText": "בָּרוּ",
+          "spokenText": "ba-roo",
           "status": "verified"
         },
         {
@@ -3309,7 +3310,7 @@
       "sourcePdfPage": 6,
       "title": "בָּרוּךְ אַתָּה יְיָ",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-006.png",
       "notes": [],
       "sections": [
@@ -3374,7 +3375,7 @@
             "כ",
             "ך"
           ],
-          "mixedText": "Final Chaf כ ך Chaf \n(appears only at the end of a word)"
+          "mixedText": "Final khaf כ ך khaf \n(appears only at the end of a word)"
         },
         {
           "id": "p06-line-003",
@@ -3388,7 +3389,7 @@
           "notes": [],
           "wordIds": [],
           "displayWords": [],
-          "englishText": "have the guttural sound of \"Ch\" as in Chanukah."
+          "englishText": "have the guttural sound of \"Ch\" as in cha-nu-KAH."
         },
         {
           "id": "p06-line-004",
@@ -3845,7 +3846,7 @@
           "lineId": "p06-line-006",
           "order": 14,
           "displayText": "בְּךָ",
-          "spokenText": "בְּךָ",
+          "spokenText": "be-CHA",
           "status": "verified"
         },
         {
@@ -3881,7 +3882,7 @@
           "lineId": "p06-line-007",
           "order": 18,
           "displayText": "בּוּךָ",
-          "spokenText": "בּוּךָ",
+          "spokenText": "boo-CHA",
           "status": "verified"
         },
         {
@@ -3944,7 +3945,7 @@
           "lineId": "p06-line-008",
           "order": 25,
           "displayText": "רְבּוּךָ",
-          "spokenText": "רְבּוּךָ",
+          "spokenText": "re-boo-CHA",
           "status": "verified"
         },
         {
@@ -3971,7 +3972,7 @@
           "lineId": "p06-line-009",
           "order": 28,
           "displayText": "בָּרְכוּ",
-          "spokenText": "בָּרְכוּ",
+          "spokenText": "bar-KHOO",
           "status": "verified"
         },
         {
@@ -4007,7 +4008,7 @@
           "lineId": "p06-line-010",
           "order": 32,
           "displayText": "בְּרָךְ",
-          "spokenText": "בְּרָךְ",
+          "spokenText": "be-RACH",
           "status": "verified"
         },
         {
@@ -4016,7 +4017,7 @@
           "lineId": "p06-line-010",
           "order": 33,
           "displayText": "בָּרְכוּ",
-          "spokenText": "בָּרְכוּ",
+          "spokenText": "bar-KHOO",
           "status": "verified"
         },
         {
@@ -4054,7 +4055,7 @@
       "sourcePdfPage": 7,
       "title": "בָּרוּךְ אַתָּה יְיָ",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-007.png",
       "notes": [],
       "sections": [
@@ -4481,7 +4482,7 @@
           "lineId": "p07-line-005",
           "order": 13,
           "displayText": "אָבָּא",
-          "spokenText": "אָבָּא",
+          "spokenText": "a-BA",
           "status": "verified"
         },
         {
@@ -4490,7 +4491,7 @@
           "lineId": "p07-line-005",
           "order": 14,
           "displayText": "בָּאָ",
-          "spokenText": "בָּאָ",
+          "spokenText": "ba-A",
           "status": "verified"
         },
         {
@@ -4580,7 +4581,7 @@
           "lineId": "p07-line-007",
           "order": 24,
           "displayText": "בָּרְכוּ",
-          "spokenText": "בָּרְכוּ",
+          "spokenText": "bar-KHOO",
           "status": "verified"
         },
         {
@@ -4607,7 +4608,7 @@
           "lineId": "p07-line-008",
           "order": 27,
           "displayText": "אָבְּךָ",
-          "spokenText": "אָבְּךָ",
+          "spokenText": "av-CHA",
           "status": "verified"
         },
         {
@@ -4616,7 +4617,7 @@
           "lineId": "p07-line-008",
           "order": 28,
           "displayText": "אָבָּא",
-          "spokenText": "אָבָּא",
+          "spokenText": "a-BA",
           "status": "verified"
         },
         {
@@ -4634,7 +4635,7 @@
           "lineId": "p07-line-009",
           "order": 30,
           "displayText": "בְּאָ",
-          "spokenText": "בְּאָ",
+          "spokenText": "be-A",
           "status": "verified"
         },
         {
@@ -4670,7 +4671,7 @@
           "lineId": "p07-line-009",
           "order": 34,
           "displayText": "אָרוּבָּא",
-          "spokenText": "אָרוּבָּא",
+          "spokenText": "a-roo-BA",
           "status": "verified"
         }
       ]
@@ -4681,7 +4682,7 @@
       "sourcePdfPage": 8,
       "title": "בָּרוּךְ אַתָּה יְיָ",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-008.png",
       "notes": [],
       "sections": [
@@ -4744,7 +4745,7 @@
           "displayWords": [
             "ַ"
           ],
-          "mixedText": "ַ Patach"
+          "mixedText": "ַ Patakh"
         },
         {
           "id": "p08-line-003",
@@ -4902,7 +4903,7 @@
           "badgeLabel": "Line 8",
           "sectionId": "exercise",
           "status": "verified",
-          "displayText": "4. רוךָ רַבְּךָ רְבַּךְ אַרְבָּא",
+          "displayText": "4. רוּךָ רַבְּךָ רְבַּךְ אַרְבָּא",
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
@@ -4912,7 +4913,7 @@
             "p08-word-023"
           ],
           "displayWords": [
-            "רוךָ",
+            "רוּךָ",
             "רַבְּךָ",
             "רְבַּךְ",
             "אַרְבָּא"
@@ -5169,7 +5170,7 @@
           "lineId": "p08-line-007",
           "order": 18,
           "displayText": "אָרַכָא",
-          "spokenText": "אָרַכָא",
+          "spokenText": "a-ra-CHA",
           "status": "verified"
         },
         {
@@ -5186,8 +5187,8 @@
           "page": 8,
           "lineId": "p08-line-008",
           "order": 20,
-          "displayText": "רוךָ",
-          "spokenText": "רוךָ",
+          "displayText": "רוּךָ",
+          "spokenText": "roo-CHA",
           "status": "verified"
         },
         {
@@ -5259,7 +5260,7 @@
           "lineId": "p08-line-009",
           "order": 28,
           "displayText": "וּרַכוּ",
-          "spokenText": "אוּרַכוּ",
+          "spokenText": "oo-ra-KHOO",
           "status": "verified"
         },
         {
@@ -5306,7 +5307,7 @@
       "sourcePdfPage": 9,
       "title": "בָּרוּךְ אַתָּה יְיָ",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-009.png",
       "notes": [],
       "sections": [
@@ -5674,7 +5675,7 @@
           "lineId": "p09-line-004",
           "order": 6,
           "displayText": "תָ",
-          "spokenText": "תָ",
+          "spokenText": "ta",
           "status": "verified"
         },
         {
@@ -5692,7 +5693,7 @@
           "lineId": "p09-line-004",
           "order": 8,
           "displayText": "תְ",
-          "spokenText": "תְ",
+          "spokenText": "te",
           "status": "verified"
         },
         {
@@ -5701,7 +5702,7 @@
           "lineId": "p09-line-004",
           "order": 9,
           "displayText": "תַ",
-          "spokenText": "תַ",
+          "spokenText": "ta",
           "status": "verified"
         },
         {
@@ -5710,7 +5711,7 @@
           "lineId": "p09-line-004",
           "order": 10,
           "displayText": "תּוּ",
-          "spokenText": "תּוּ",
+          "spokenText": "too",
           "status": "verified"
         },
         {
@@ -5719,7 +5720,7 @@
           "lineId": "p09-line-004",
           "order": 11,
           "displayText": "תָ",
-          "spokenText": "תָ",
+          "spokenText": "ta",
           "status": "verified"
         },
         {
@@ -5728,7 +5729,7 @@
           "lineId": "p09-line-004",
           "order": 12,
           "displayText": "תְּ",
-          "spokenText": "תְּ",
+          "spokenText": "te",
           "status": "verified"
         },
         {
@@ -5782,7 +5783,7 @@
           "lineId": "p09-line-006",
           "order": 18,
           "displayText": "תָּבּוּר",
-          "spokenText": "תָּבּוּר",
+          "spokenText": "ta-BOOR",
           "status": "verified"
         },
         {
@@ -5863,7 +5864,7 @@
           "lineId": "p09-line-008",
           "order": 27,
           "displayText": "תָּבַּת",
-          "spokenText": "תָּבַּת",
+          "spokenText": "ta-BAT",
           "status": "verified"
         },
         {
@@ -5881,7 +5882,7 @@
           "lineId": "p09-line-008",
           "order": 29,
           "displayText": "אַרְבַּת",
-          "spokenText": "אַרְבַּת",
+          "spokenText": "ar-BAT",
           "status": "verified"
         },
         {
@@ -5908,7 +5909,7 @@
           "lineId": "p09-line-009",
           "order": 32,
           "displayText": "תְּרָכוּ",
-          "spokenText": "תְּרָכוּ",
+          "spokenText": "te-ra-KHOO",
           "status": "verified"
         },
         {
@@ -5955,7 +5956,7 @@
       "sourcePdfPage": 10,
       "title": "בָּרוּךְ אַתָּה יְיָ",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-010.png",
       "notes": [],
       "sections": [
@@ -6030,7 +6031,7 @@
           "notes": [],
           "wordIds": [],
           "displayWords": [],
-          "englishText": "has the sound of \"H\" as in Haggadah."
+          "englishText": "has the sound of \"H\" as in ha-ga-DA."
         },
         {
           "id": "p10-line-004",
@@ -6491,7 +6492,7 @@
           "lineId": "p10-line-007",
           "order": 20,
           "displayText": "הָבָּא",
-          "spokenText": "הָבָּא",
+          "spokenText": "ha-BA",
           "status": "verified"
         },
         {
@@ -6500,7 +6501,7 @@
           "lineId": "p10-line-008",
           "order": 21,
           "displayText": "אָבָּה",
-          "spokenText": "אָבָּה",
+          "spokenText": "a-BA",
           "status": "verified"
         },
         {
@@ -6518,7 +6519,7 @@
           "lineId": "p10-line-008",
           "order": 23,
           "displayText": "בְּכָה",
-          "spokenText": "בְּכָה",
+          "spokenText": "be-CHA",
           "status": "verified"
         },
         {
@@ -6527,7 +6528,7 @@
           "lineId": "p10-line-008",
           "order": 24,
           "displayText": "רָכַה",
-          "spokenText": "רָכַה",
+          "spokenText": "ra-CHA",
           "status": "verified"
         },
         {
@@ -6545,7 +6546,7 @@
           "lineId": "p10-line-009",
           "order": 26,
           "displayText": "תָּהוּר",
-          "spokenText": "תָּהוּר",
+          "spokenText": "ta-HOOR",
           "status": "verified"
         },
         {
@@ -6581,7 +6582,7 @@
           "lineId": "p10-line-009",
           "order": 30,
           "displayText": "בָּאָה",
-          "spokenText": "בָּאָה",
+          "spokenText": "ba-A",
           "status": "verified"
         },
         {
@@ -6590,7 +6591,7 @@
           "lineId": "p10-line-010",
           "order": 31,
           "displayText": "הָבָּאָה",
-          "spokenText": "הָבָּאָה",
+          "spokenText": "ha-ba-A",
           "status": "verified"
         },
         {
@@ -6637,7 +6638,7 @@
       "sourcePdfPage": 11,
       "title": "בָּרוּךְ אַתָּה יְיָ",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-011.png",
       "notes": [],
       "sections": [
@@ -6698,7 +6699,7 @@
           "displayWords": [
             "י"
           ],
-          "mixedText": "Yod י"
+          "mixedText": "Yod yod"
         },
         {
           "id": "p11-line-003",
@@ -6957,7 +6958,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "treated like part of the vowel. For example, י ַ is pronounced like"
+          "mixedText": "treated like part of the vowel. For example, י Patakh is pronounced like"
         },
         {
           "id": "p11-line-011",
@@ -6983,7 +6984,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "englishText": "the \"ay\" in the Hebrew salute to life, Lechayim."
+          "englishText": "the \"ay\" in the Hebrew salute to life, le-kha-YIM."
         },
         {
           "id": "p11-line-012",
@@ -7096,7 +7097,7 @@
           "lineId": "p11-line-002",
           "order": 4,
           "displayText": "י",
-          "spokenText": "י",
+          "spokenText": "yod",
           "status": "verified"
         },
         {
@@ -7114,7 +7115,7 @@
           "lineId": "p11-line-004",
           "order": 6,
           "displayText": "יַ",
-          "spokenText": "יַ",
+          "spokenText": "ya",
           "status": "verified"
         },
         {
@@ -7123,7 +7124,7 @@
           "lineId": "p11-line-004",
           "order": 7,
           "displayText": "יְ",
-          "spokenText": "יְ",
+          "spokenText": "ye",
           "status": "verified"
         },
         {
@@ -7132,7 +7133,7 @@
           "lineId": "p11-line-004",
           "order": 8,
           "displayText": "יַ",
-          "spokenText": "יַ",
+          "spokenText": "ya",
           "status": "verified"
         },
         {
@@ -7141,7 +7142,7 @@
           "lineId": "p11-line-004",
           "order": 9,
           "displayText": "יוּ",
-          "spokenText": "יוּ",
+          "spokenText": "yoo",
           "status": "verified"
         },
         {
@@ -7177,7 +7178,7 @@
           "lineId": "p11-line-005",
           "order": 13,
           "displayText": "יָה",
-          "spokenText": "יָה",
+          "spokenText": "yah",
           "status": "verified"
         },
         {
@@ -7186,7 +7187,7 @@
           "lineId": "p11-line-005",
           "order": 14,
           "displayText": "יָבָּ",
-          "spokenText": "יָבָּ",
+          "spokenText": "ya-BA",
           "status": "verified"
         },
         {
@@ -7195,7 +7196,7 @@
           "lineId": "p11-line-006",
           "order": 15,
           "displayText": "יָאָה",
-          "spokenText": "יָאָה",
+          "spokenText": "ya-A",
           "status": "verified"
         },
         {
@@ -7213,7 +7214,7 @@
           "lineId": "p11-line-006",
           "order": 17,
           "displayText": "יָכַר",
-          "spokenText": "יָכַר",
+          "spokenText": "ya-KHAR",
           "status": "verified"
         },
         {
@@ -7222,7 +7223,7 @@
           "lineId": "p11-line-006",
           "order": 18,
           "displayText": "יוּכָר",
-          "spokenText": "יוּכָר",
+          "spokenText": "yoo-KHAR",
           "status": "verified"
         },
         {
@@ -7240,7 +7241,7 @@
           "lineId": "p11-line-007",
           "order": 20,
           "displayText": "יָבּוּ",
-          "spokenText": "יָבּוּ",
+          "spokenText": "ya-BOO",
           "status": "verified"
         },
         {
@@ -7258,7 +7259,7 @@
           "lineId": "p11-line-007",
           "order": 22,
           "displayText": "יַרְכוּ",
-          "spokenText": "יַרְכוּ",
+          "spokenText": "yar-KHOO",
           "status": "verified"
         },
         {
@@ -7759,7 +7760,7 @@
       "sourcePdfPage": 13,
       "title": "REVIEW",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-013.png",
       "notes": [],
       "sections": [
@@ -8171,7 +8172,7 @@
           "lineId": "p13-line-002",
           "order": 2,
           "displayText": "רַבַּי",
-          "spokenText": "רַבַּי",
+          "spokenText": "ra-BAI",
           "status": "verified"
         },
         {
@@ -8180,7 +8181,7 @@
           "lineId": "p13-line-002",
           "order": 3,
           "displayText": "יְרָכַי",
-          "spokenText": "יְרָכַי",
+          "spokenText": "ye-ra-KHAI",
           "status": "verified"
         },
         {
@@ -8324,7 +8325,7 @@
           "lineId": "p13-line-005",
           "order": 19,
           "displayText": "יָבַּךְ",
-          "spokenText": "יָבַּךְ",
+          "spokenText": "ya-BAKH",
           "status": "verified"
         },
         {
@@ -8351,7 +8352,7 @@
           "lineId": "p13-line-005",
           "order": 22,
           "displayText": "אָרוּכָה",
-          "spokenText": "אָרוּכָה",
+          "spokenText": "a-roo-KHA",
           "status": "verified"
         },
         {
@@ -8558,7 +8559,7 @@
           "lineId": "p13-line-010",
           "order": 45,
           "displayText": "אַתָּרַי",
-          "spokenText": "אַתָּרַי",
+          "spokenText": "a-ta-RAI",
           "status": "verified"
         },
         {
@@ -8596,7 +8597,7 @@
       "sourcePdfPage": 14,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-014.png",
       "notes": [],
       "sections": [
@@ -9142,7 +9143,7 @@
           "lineId": "p14-line-006",
           "order": 19,
           "displayText": "רֶכֶת",
-          "spokenText": "רֶכֶת",
+          "spokenText": "RE-khet",
           "status": "verified"
         },
         {
@@ -9151,7 +9152,7 @@
           "lineId": "p14-line-006",
           "order": 20,
           "displayText": "תֶּכֶת",
-          "spokenText": "תֶּכֶת",
+          "spokenText": "TE-khet",
           "status": "verified"
         },
         {
@@ -9223,7 +9224,7 @@
           "lineId": "p14-line-008",
           "order": 28,
           "displayText": "אָרְכֶה",
-          "spokenText": "אָרְכֶה",
+          "spokenText": "ar-KHE",
           "status": "verified"
         },
         {
@@ -9241,7 +9242,7 @@
           "lineId": "p14-line-008",
           "order": 30,
           "displayText": "תָּבָּכֶת",
-          "spokenText": "תָּבָּכֶת",
+          "spokenText": "ta-ba-KHET",
           "status": "verified"
         },
         {
@@ -9250,7 +9251,7 @@
           "lineId": "p14-line-009",
           "order": 31,
           "displayText": "הָרֶכֶת",
-          "spokenText": "הָרֶכֶת",
+          "spokenText": "ha-RE-khet",
           "status": "verified"
         },
         {
@@ -9259,7 +9260,7 @@
           "lineId": "p14-line-009",
           "order": 32,
           "displayText": "בָּרְכוּ",
-          "spokenText": "בָּרְכוּ",
+          "spokenText": "bar-KHOO",
           "status": "verified"
         },
         {
@@ -9324,7 +9325,7 @@
       "sourcePdfPage": 15,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-015.png",
       "notes": [],
       "sections": [
@@ -9391,7 +9392,7 @@
           "displayWords": [
             "ל"
           ],
-          "mixedText": "Lamed ל"
+          "mixedText": "Lamed lamed"
         },
         {
           "id": "p15-line-003",
@@ -9796,7 +9797,7 @@
           "lineId": "p15-line-004",
           "order": 13,
           "displayText": "אֱ",
-          "spokenText": "אֱ",
+          "spokenText": "e",
           "status": "verified"
         },
         {
@@ -9859,7 +9860,7 @@
           "lineId": "p15-line-006",
           "order": 20,
           "displayText": "בָּבּוּל",
-          "spokenText": "בָּבּוּל",
+          "spokenText": "ba-BOOL",
           "status": "verified"
         },
         {
@@ -9886,7 +9887,7 @@
           "lineId": "p15-line-006",
           "order": 23,
           "displayText": "אֱל",
-          "spokenText": "אֱל",
+          "spokenText": "el",
           "status": "verified"
         },
         {
@@ -9922,7 +9923,7 @@
           "lineId": "p15-line-007",
           "order": 27,
           "displayText": "בָּרְכוּ",
-          "spokenText": "בָּרְכוּ",
+          "spokenText": "bar-KHOO",
           "status": "verified"
         },
         {
@@ -10068,7 +10069,7 @@
       "sourcePdfPage": 16,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-016.png",
       "notes": [],
       "sections": [
@@ -10813,7 +10814,7 @@
           "lineId": "p16-line-009",
           "order": 36,
           "displayText": "יוּבַּל",
-          "spokenText": "יוּבַּל",
+          "spokenText": "yoo-BAL",
           "status": "verified"
         },
         {
@@ -10939,7 +10940,7 @@
           "lineId": "p16-line-012",
           "order": 50,
           "displayText": "אָרוּכָה",
-          "spokenText": "אָרוּכָה",
+          "spokenText": "a-roo-KHA",
           "status": "verified"
         },
         {
@@ -10977,7 +10978,7 @@
       "sourcePdfPage": 17,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-017.png",
       "notes": [],
       "sections": [
@@ -11059,12 +11060,12 @@
           "badgeLabel": "Line 3",
           "sectionId": "intro",
           "status": "verified",
-          "displayText": "has the sound of \"ay\" as in Aleiny.",
+          "displayText": "has the sound of \"ay\" as in Aleinu.",
           "contentMode": "english",
           "notes": [],
           "wordIds": [],
           "displayWords": [],
-          "englishText": "has the sound of \"ay\" as in Aleiny."
+          "englishText": "has the sound of \"ay\" as in e-lo-HEI-noo."
         },
         {
           "id": "p17-line-004",
@@ -11649,7 +11650,7 @@
           "lineId": "p17-line-009",
           "order": 35,
           "displayText": "בְּאֹהֶל",
-          "spokenText": "בְּאֹהֶל",
+          "spokenText": "be-O-hel",
           "status": "verified"
         },
         {
@@ -11658,7 +11659,7 @@
           "lineId": "p17-line-009",
           "order": 36,
           "displayText": "לְאֹהֶל",
-          "spokenText": "לְאֹהֶל",
+          "spokenText": "le-O-hel",
           "status": "verified"
         },
         {
@@ -11712,7 +11713,7 @@
           "lineId": "p17-line-010",
           "order": 42,
           "displayText": "אַרֵךָ",
-          "spokenText": "אַרֵךָ",
+          "spokenText": "a-rei-KHA",
           "status": "verified"
         }
       ]
@@ -11723,7 +11724,7 @@
       "sourcePdfPage": 18,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-018.png",
       "notes": [],
       "sections": [
@@ -12216,7 +12217,7 @@
           "lineId": "p18-line-004",
           "order": 15,
           "displayText": "נוּן",
-          "spokenText": "נוּן",
+          "spokenText": "NOON",
           "status": "verified"
         },
         {
@@ -12270,7 +12271,7 @@
           "lineId": "p18-line-005",
           "order": 21,
           "displayText": "נוּן",
-          "spokenText": "נוּן",
+          "spokenText": "NOON",
           "status": "verified"
         },
         {
@@ -12342,7 +12343,7 @@
           "lineId": "p18-line-007",
           "order": 29,
           "displayText": "לְהַכֵן",
-          "spokenText": "לְהַכֵן",
+          "spokenText": "le-ha-KHEIN",
           "status": "verified"
         },
         {
@@ -12488,7 +12489,7 @@
       "sourcePdfPage": 19,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-019.png",
       "notes": [],
       "sections": [
@@ -13137,7 +13138,7 @@
           "lineId": "p19-line-006",
           "order": 28,
           "displayText": "לְמַאֵן",
-          "spokenText": "לְמַאֵן",
+          "spokenText": "le-ma-EIN",
           "status": "verified"
         },
         {
@@ -13200,7 +13201,7 @@
           "lineId": "p19-line-008",
           "order": 35,
           "displayText": "נֵלְכָה",
-          "spokenText": "נֵלְכָה",
+          "spokenText": "neil-KHA",
           "status": "verified"
         },
         {
@@ -13227,7 +13228,7 @@
           "lineId": "p19-line-008",
           "order": 38,
           "displayText": "לְכֶם",
-          "spokenText": "לְכֶם",
+          "spokenText": "le-KHEM",
           "status": "verified"
         },
         {
@@ -13308,7 +13309,7 @@
           "lineId": "p19-line-010",
           "order": 47,
           "displayText": "רַמְבָּן",
-          "spokenText": "רַמְבָּן",
+          "spokenText": "ram-BAN",
           "status": "verified"
         },
         {
@@ -13337,7 +13338,7 @@
       "sourcePdfPage": 20,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-020.png",
       "notes": [],
       "sections": [
@@ -14238,7 +14239,7 @@
       "sourcePdfPage": 21,
       "title": "REVIEW",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-021.png",
       "notes": [],
       "sections": [
@@ -14909,7 +14910,7 @@
           "lineId": "p21-line-006",
           "order": 26,
           "displayText": "רוֹמְמוּ",
-          "spokenText": "רוֹמְמוּ",
+          "spokenText": "ro-me-MOO",
           "status": "verified"
         },
         {
@@ -14945,7 +14946,7 @@
           "lineId": "p21-line-007",
           "order": 30,
           "displayText": "וּמְתַי",
-          "spokenText": "אוּמְתַי",
+          "spokenText": "oo-me-TAI",
           "status": "verified"
         },
         {
@@ -15181,7 +15182,7 @@
       "sourcePdfPage": 22,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-022.png",
       "notes": [],
       "sections": [
@@ -15736,7 +15737,7 @@
           "lineId": "p22-line-006",
           "order": 19,
           "displayText": "פֶּן",
-          "spokenText": "פֶּן",
+          "spokenText": "PEN",
           "status": "verified"
         },
         {
@@ -15799,7 +15800,7 @@
           "lineId": "p22-line-007",
           "order": 26,
           "displayText": "מַפָּה",
-          "spokenText": "מַפָּה",
+          "spokenText": "ma-PA",
           "status": "verified"
         },
         {
@@ -15808,7 +15809,7 @@
           "lineId": "p22-line-007",
           "order": 27,
           "displayText": "וּמַפָּה",
-          "spokenText": "אוּמַפָּה",
+          "spokenText": "oo-ma-PA",
           "status": "verified"
         },
         {
@@ -15862,7 +15863,7 @@
           "lineId": "p22-line-008",
           "order": 33,
           "displayText": "מַפָּם",
-          "spokenText": "מַפָּם",
+          "spokenText": "ma-PAM",
           "status": "verified"
         },
         {
@@ -15871,7 +15872,7 @@
           "lineId": "p22-line-008",
           "order": 34,
           "displayText": "לְפַּרָן",
-          "spokenText": "לְפַּרָן",
+          "spokenText": "le-pa-RAN",
           "status": "verified"
         },
         {
@@ -15979,7 +15980,7 @@
           "lineId": "p22-line-011",
           "order": 46,
           "displayText": "מַפַּתְךָ",
-          "spokenText": "מַפַּתְךָ",
+          "spokenText": "ma-pat-KHA",
           "status": "verified"
         },
         {
@@ -16017,7 +16018,7 @@
       "sourcePdfPage": 23,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-023.png",
       "notes": [],
       "sections": [
@@ -16111,7 +16112,7 @@
             "ִ",
             "ִ"
           ],
-          "mixedText": "י ִ or ִ Chirik"
+          "mixedText": "י ִ or ִ Khirik"
         },
         {
           "id": "p23-line-004",
@@ -16889,7 +16890,7 @@
           "lineId": "p23-line-011",
           "order": 50,
           "displayText": "אֹרְכִים",
-          "spokenText": "אֹרְכִים",
+          "spokenText": "or-KHIM",
           "status": "verified"
         },
         {
@@ -16927,7 +16928,7 @@
       "sourcePdfPage": 24,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-024.png",
       "notes": [],
       "sections": [
@@ -17574,7 +17575,7 @@
           "lineId": "p24-line-007",
           "order": 29,
           "displayText": "פְּלוֹנִי",
-          "spokenText": "פְּלוֹנִי",
+          "spokenText": "pe-lo-NI",
           "status": "verified"
         },
         {
@@ -17655,7 +17656,7 @@
           "lineId": "p24-line-009",
           "order": 38,
           "displayText": "גֵאֶה",
-          "spokenText": "גֵאֶה",
+          "spokenText": "gei-E",
           "status": "verified"
         },
         {
@@ -17682,7 +17683,7 @@
           "lineId": "p24-line-010",
           "order": 41,
           "displayText": "גָאַל",
-          "spokenText": "גָאַל",
+          "spokenText": "ga-AL",
           "status": "verified"
         },
         {
@@ -17727,7 +17728,7 @@
           "lineId": "p24-line-011",
           "order": 46,
           "displayText": "גָאוֹן",
-          "spokenText": "גָאוֹן",
+          "spokenText": "ga-ON",
           "status": "verified"
         },
         {
@@ -17736,7 +17737,7 @@
           "lineId": "p24-line-011",
           "order": 47,
           "displayText": "גוֹמֵל",
-          "spokenText": "גוֹמֵל",
+          "spokenText": "go-MEIL",
           "status": "verified"
         },
         {
@@ -17774,7 +17775,7 @@
       "sourcePdfPage": 25,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-025.png",
       "notes": [],
       "sections": [
@@ -17864,7 +17865,7 @@
             "ף",
             "פ"
           ],
-          "mixedText": "Final Fei ף פ  Fei"
+          "mixedText": "Final Fei ף Fei  Fei"
         },
         {
           "id": "p25-line-004",
@@ -18299,7 +18300,7 @@
           "lineId": "p25-line-003",
           "order": 11,
           "displayText": "פ",
-          "spokenText": "פ",
+          "spokenText": "Fei",
           "status": "verified"
         },
         {
@@ -18443,7 +18444,7 @@
           "lineId": "p25-line-007",
           "order": 27,
           "displayText": "רֶפֶת",
-          "spokenText": "רֶפֶת",
+          "spokenText": "RE-fet",
           "status": "verified"
         },
         {
@@ -18479,7 +18480,7 @@
           "lineId": "p25-line-007",
           "order": 31,
           "displayText": "לְפַרְעֹה",
-          "spokenText": "לְפַרְעֹה",
+          "spokenText": "le-far-O",
           "status": "verified"
         },
         {
@@ -18596,7 +18597,7 @@
           "lineId": "p25-line-010",
           "order": 44,
           "displayText": "הִפְעַל",
-          "spokenText": "הִפְעַל",
+          "spokenText": "hif-AL",
           "status": "verified"
         },
         {
@@ -18605,7 +18606,7 @@
           "lineId": "p25-line-010",
           "order": 45,
           "displayText": "לְרוֹפֵף",
-          "spokenText": "לְרוֹפֵף",
+          "spokenText": "le-ro-FEIF",
           "status": "verified"
         },
         {
@@ -18706,7 +18707,7 @@
       "sourcePdfPage": 26,
       "title": "Kol Hakavod! Congratulations!",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-026.png",
       "notes": [],
       "sections": [
@@ -18796,7 +18797,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "englishText": "the Kiddush or the blessing over the wine."
+          "englishText": "the ki-DOOSH or the blessing over the wine."
         },
         {
           "id": "p26-line-004",
@@ -19125,7 +19126,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "englishText": "Lechayim"
+          "englishText": "le-khai-YIM"
         },
         {
           "id": "p26-line-015",
@@ -19325,7 +19326,7 @@
       "sourcePdfPage": 27,
       "title": "Blessing 2: The Blessing over the Bread",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-027.png",
       "notes": [],
       "sections": [
@@ -19892,7 +19893,7 @@
           "lineId": "p27-line-007",
           "order": 23,
           "displayText": "עַץ",
-          "spokenText": "עַץ",
+          "spokenText": "ATS",
           "status": "verified"
         },
         {
@@ -20101,7 +20102,7 @@
       "sourcePdfPage": 28,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-028.png",
       "notes": [],
       "sections": [
@@ -20191,7 +20192,7 @@
           "displayWords": [
             "ח"
           ],
-          "mixedText": "Chet ח"
+          "mixedText": "khet ח"
         },
         {
           "id": "p28-line-004",
@@ -20223,7 +20224,7 @@
           "notes": [],
           "wordIds": [],
           "displayWords": [],
-          "englishText": "It sounds like \"Ch\" as in Chalah."
+          "englishText": "It sounds like \"Ch\" as in kha-LA."
         },
         {
           "id": "p28-line-006",
@@ -20738,7 +20739,7 @@
           "lineId": "p28-line-006",
           "order": 21,
           "displayText": "חֱ",
-          "spokenText": "חֱ",
+          "spokenText": "khe",
           "status": "verified"
         },
         {
@@ -20747,7 +20748,7 @@
           "lineId": "p28-line-006",
           "order": 22,
           "displayText": "הֱ",
-          "spokenText": "הֱ",
+          "spokenText": "he",
           "status": "verified"
         },
         {
@@ -21035,7 +21036,7 @@
           "lineId": "p28-line-012",
           "order": 54,
           "displayText": "תֶּכֶף",
-          "spokenText": "תֶּכֶף",
+          "spokenText": "TE-khef",
           "status": "verified"
         },
         {
@@ -21091,7 +21092,7 @@
       "sourcePdfPage": 29,
       "title": "חַ",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-029.png",
       "notes": [],
       "sections": [
@@ -21144,7 +21145,7 @@
           "notes": [],
           "wordIds": [],
           "displayWords": [],
-          "englishText": "When a Patach appears under a Chet at the end of a word, it is"
+          "englishText": "When a Patakh appears under a Khet at the end of a word, it is"
         },
         {
           "id": "p29-line-003",
@@ -21524,7 +21525,7 @@
           "lineId": "p29-line-004",
           "order": 4,
           "displayText": "רֵחַ",
-          "spokenText": "רֵחַ",
+          "spokenText": "REI-akh",
           "status": "verified"
         },
         {
@@ -21542,7 +21543,7 @@
           "lineId": "p29-line-004",
           "order": 6,
           "displayText": "לוּחַ",
-          "spokenText": "לוּחַ",
+          "spokenText": "LOO-akh",
           "status": "verified"
         },
         {
@@ -21596,7 +21597,7 @@
           "lineId": "p29-line-005",
           "order": 12,
           "displayText": "רְצוּחַ",
-          "spokenText": "רְצוּחַ",
+          "spokenText": "re-tsoo-AKH",
           "status": "verified"
         },
         {
@@ -21695,7 +21696,7 @@
           "lineId": "p29-line-007",
           "order": 23,
           "displayText": "צוֹמֵחַ",
-          "spokenText": "צוֹמֵחַ",
+          "spokenText": "tso-MEI-akh",
           "status": "verified"
         },
         {
@@ -21713,7 +21714,7 @@
           "lineId": "p29-line-008",
           "order": 25,
           "displayText": "מֹחַ",
-          "spokenText": "מֹחַ",
+          "spokenText": "MO-akh",
           "status": "verified"
         },
         {
@@ -21850,7 +21851,7 @@
       "sourcePdfPage": 30,
       "title": "REVIEW",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-030.png",
       "notes": [],
       "sections": [
@@ -22333,7 +22334,7 @@
           "lineId": "p30-line-003",
           "order": 6,
           "displayText": "נֹחַ",
-          "spokenText": "נֹחַ",
+          "spokenText": "NO-akh",
           "status": "verified"
         },
         {
@@ -22369,7 +22370,7 @@
           "lineId": "p30-line-003",
           "order": 10,
           "displayText": "רוּחַ",
-          "spokenText": "רוּחַ",
+          "spokenText": "ROO-akh",
           "status": "verified"
         },
         {
@@ -22477,7 +22478,7 @@
           "lineId": "p30-line-005",
           "order": 22,
           "displayText": "יָאֶה",
-          "spokenText": "יָאֶה",
+          "spokenText": "ya-E",
           "status": "verified"
         },
         {
@@ -22513,7 +22514,7 @@
           "lineId": "p30-line-006",
           "order": 26,
           "displayText": "גָמַרְתְּ",
-          "spokenText": "גָמַרְתְּ",
+          "spokenText": "ga-MART",
           "status": "verified"
         },
         {
@@ -22749,7 +22750,7 @@
       "sourcePdfPage": 31,
       "title": "Blessing 3: The Blessing for Kindling the Sabbath Lights",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-031.png",
       "notes": [],
       "sections": [
@@ -23553,7 +23554,7 @@
       "sourcePdfPage": 32,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-032.png",
       "notes": [],
       "sections": [
@@ -23643,7 +23644,7 @@
           "displayWords": [
             "ק"
           ],
-          "mixedText": "Kof ק"
+          "mixedText": "Koof ק"
         },
         {
           "id": "p32-line-004",
@@ -24010,7 +24011,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "cholam if there is no other vowel, so that מֹשֶה = Mosheh."
+          "mixedText": "Kholam if there is no other vowel, so that מֹשֶה = Mosheh."
         }
       ],
       "words": [
@@ -24544,7 +24545,7 @@
       "sourcePdfPage": 33,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-033.png",
       "notes": [],
       "sections": [
@@ -25195,7 +25196,7 @@
           "lineId": "p33-line-006",
           "order": 25,
           "displayText": "דֹר",
-          "spokenText": "דֹר",
+          "spokenText": "DOR",
           "status": "verified"
         },
         {
@@ -25485,7 +25486,7 @@
       "sourcePdfPage": 34,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-034.png",
       "notes": [],
       "sections": [
@@ -26023,7 +26024,7 @@
           "lineId": "p34-line-005",
           "order": 18,
           "displayText": "וֹ",
-          "spokenText": "חוֹלָם",
+          "spokenText": "o",
           "status": "verified"
         },
         {
@@ -26149,7 +26150,7 @@
           "lineId": "p34-line-008",
           "order": 32,
           "displayText": "רֶוַח",
-          "spokenText": "רֶוַח",
+          "spokenText": "RE-vakh",
           "status": "verified"
         },
         {
@@ -26158,7 +26159,7 @@
           "lineId": "p34-line-008",
           "order": 33,
           "displayText": "רוֹוֵחַ",
-          "spokenText": "רוֹוֵחַ",
+          "spokenText": "ro-VEI-akh",
           "status": "verified"
         },
         {
@@ -26277,7 +26278,7 @@
       "sourcePdfPage": 35,
       "title": "מִצְוָה commandment",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-035.png",
       "notes": [],
       "sections": [
@@ -26469,7 +26470,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "read as a consonant and then as the vowel cholam (וֹ)."
+          "mixedText": "read as a consonant and then as the vowel Kholam (וֹ)."
         },
         {
           "id": "p35-line-007",
@@ -27985,7 +27986,7 @@
       "sourcePdfPage": 37,
       "title": "REVIEW",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-037.png",
       "notes": [],
       "sections": [
@@ -28429,7 +28430,7 @@
           "lineId": "p37-line-002",
           "order": 1,
           "displayText": "מִיץ",
-          "spokenText": "מִיץ",
+          "spokenText": "MITS",
           "status": "verified"
         },
         {
@@ -28519,7 +28520,7 @@
           "lineId": "p37-line-004",
           "order": 11,
           "displayText": "לוּחַ",
-          "spokenText": "לוּחַ",
+          "spokenText": "LOO-akh",
           "status": "verified"
         },
         {
@@ -28609,7 +28610,7 @@
           "lineId": "p37-line-006",
           "order": 21,
           "displayText": "מַקִיף",
-          "spokenText": "מַקִיף",
+          "spokenText": "ma-KIF",
           "status": "verified"
         },
         {
@@ -28672,7 +28673,7 @@
           "lineId": "p37-line-007",
           "order": 28,
           "displayText": "שֶׁדְבֵּר",
-          "spokenText": "שֶׁדְבֵּר",
+          "spokenText": "sheh-dee-BEHR",
           "status": "verified"
         },
         {
@@ -28917,7 +28918,7 @@
       "sourcePdfPage": 38,
       "title": "Blessing 4: The Blessing for Kindling the Festival Lights",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-038.png",
       "notes": [],
       "sections": [
@@ -29559,7 +29560,7 @@
           "lineId": "p38-line-008",
           "order": 28,
           "displayText": "מִטָה",
-          "spokenText": "מִטָה",
+          "spokenText": "mi-TA",
           "status": "verified"
         },
         {
@@ -29694,7 +29695,7 @@
           "lineId": "p38-line-011",
           "order": 43,
           "displayText": "פַּטָר",
-          "spokenText": "פַּטָר",
+          "spokenText": "pa-TAR",
           "status": "verified"
         },
         {
@@ -29777,7 +29778,7 @@
       "sourcePdfPage": 39,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם אֲשֶׁר",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-039.png",
       "notes": [],
       "sections": [
@@ -29906,7 +29907,7 @@
           "notes": [],
           "wordIds": [],
           "displayWords": [],
-          "englishText": "has the sound of the \"v\" in Havdalah."
+          "englishText": "has the sound of the \"v\" in hav-da-LAH."
         },
         {
           "id": "p39-line-006",
@@ -30206,7 +30207,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "englishText": "Translation: Blessed are You, Adonai our God,"
+          "englishText": "trans-LAY-shun: Blessed are You, Adonai our God,"
         },
         {
           "id": "p39-line-014",
@@ -30466,7 +30467,7 @@
           "lineId": "p39-line-006",
           "order": 23,
           "displayText": "בַי",
-          "spokenText": "וַי",
+          "spokenText": "VAI",
           "status": "verified"
         },
         {
@@ -30493,7 +30494,7 @@
           "lineId": "p39-line-007",
           "order": 26,
           "displayText": "לֵבָב",
-          "spokenText": "לֵוָו",
+          "spokenText": "lei-VAV",
           "status": "verified"
         },
         {
@@ -30574,7 +30575,7 @@
           "lineId": "p39-line-008",
           "order": 35,
           "displayText": "שָׁוֶה",
-          "spokenText": "שָׁוֶה",
+          "spokenText": "sha-VEH",
           "status": "verified"
         },
         {
@@ -30592,7 +30593,7 @@
           "lineId": "p39-line-009",
           "order": 37,
           "displayText": "רוֹבֶה",
-          "spokenText": "רוֹוֶה",
+          "spokenText": "ro-VEH",
           "status": "verified"
         },
         {
@@ -30619,7 +30620,7 @@
           "lineId": "p39-line-009",
           "order": 40,
           "displayText": "שׁוֹבְבוּת",
-          "spokenText": "שׁוֹוְווּת",
+          "spokenText": "sho-ve-VOOT",
           "status": "verified"
         },
         {
@@ -30664,7 +30665,7 @@
           "lineId": "p39-line-010",
           "order": 45,
           "displayText": "עִרְבֵּב",
-          "spokenText": "עִרְבֵּו",
+          "spokenText": "eer-BEV",
           "status": "verified"
         },
         {
@@ -30673,7 +30674,7 @@
           "lineId": "p39-line-010",
           "order": 46,
           "displayText": "רָכַב",
-          "spokenText": "רָכַו",
+          "spokenText": "ra-KHAV",
           "status": "verified"
         },
         {
@@ -30682,7 +30683,7 @@
           "lineId": "p39-line-011",
           "order": 47,
           "displayText": "לְהַבְדִיל",
-          "spokenText": "לְהַוְדִיל",
+          "spokenText": "le-hav-DIL",
           "status": "verified"
         },
         {
@@ -30700,7 +30701,7 @@
           "lineId": "p39-line-011",
           "order": 49,
           "displayText": "הֶבְדֵל",
-          "spokenText": "הֶוְדֵל",
+          "spokenText": "hev-DEL",
           "status": "verified"
         },
         {
@@ -30709,7 +30710,7 @@
           "lineId": "p39-line-011",
           "order": 50,
           "displayText": "שָׁבוּעַ",
-          "spokenText": "שָׁווּעַ",
+          "spokenText": "sha-VOO-ah",
           "status": "verified"
         },
         {
@@ -30718,7 +30719,7 @@
           "lineId": "p39-line-011",
           "order": 51,
           "displayText": "טוֹב",
-          "spokenText": "טוֹו",
+          "spokenText": "TOV",
           "status": "verified"
         },
         {
@@ -30738,7 +30739,7 @@
       "sourcePdfPage": 40,
       "title": "REVIEW",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-040.png",
       "notes": [],
       "sections": [
@@ -31220,7 +31221,7 @@
           "lineId": "p40-line-003",
           "order": 7,
           "displayText": "שָׁכַב",
-          "spokenText": "שָׁכַב",
+          "spokenText": "sha-KHAV",
           "status": "verified"
         },
         {
@@ -31283,7 +31284,7 @@
           "lineId": "p40-line-004",
           "order": 14,
           "displayText": "גְנֵבָה",
-          "spokenText": "גְנֵבָה",
+          "spokenText": "geh-nei-VAH",
           "status": "verified"
         },
         {
@@ -31319,7 +31320,7 @@
           "lineId": "p40-line-005",
           "order": 18,
           "displayText": "טִיחַ",
-          "spokenText": "טִיחַ",
+          "spokenText": "TI-akh",
           "status": "verified"
         },
         {
@@ -31427,7 +31428,7 @@
           "lineId": "p40-line-008",
           "order": 30,
           "displayText": "אַבְרָהָם",
-          "spokenText": "אַבְרָהָם",
+          "spokenText": "av-ra-HAM",
           "status": "verified"
         },
         {
@@ -31535,7 +31536,7 @@
           "lineId": "p40-line-010",
           "order": 42,
           "displayText": "וּבְשָׁכְבְּךָ",
-          "spokenText": "אוּבְשָׁכְבְּךָ",
+          "spokenText": "oo-ve-shakh-BE-kha",
           "status": "verified"
         },
         {
@@ -31582,7 +31583,7 @@
       "sourcePdfPage": 41,
       "title": "Blessing 5: The Blessing for Kindling the Chanukah Lights",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-041.png",
       "notes": [],
       "sections": [
@@ -31618,7 +31619,7 @@
           "notes": [],
           "wordIds": [],
           "displayWords": [],
-          "englishText": "Blessing 5: The Blessing for Kindling the Chanukah Lights"
+          "englishText": "Blessing 5: The Blessing for Kindling the kha-noo-KA Lights"
         },
         {
           "id": "p41-line-002",
@@ -31846,7 +31847,7 @@
           "badgeLabel": "Line 10",
           "sectionId": "exercise",
           "status": "verified",
-          "displayText": "3. וְלֻן תֻּל פֻּעַל רֻךָ רֻךָ רוּחַ חֻפָּה",
+          "displayText": "3. וְלֻן תֻּל פֻּעַל רֻךָ רוּחַ חֻפָּה",
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
@@ -31855,14 +31856,12 @@
             "p41-word-037",
             "p41-word-038",
             "p41-word-039",
-            "p41-word-040",
-            "p41-word-041"
+            "p41-word-040"
           ],
           "displayWords": [
             "וְלֻן",
             "תֻּל",
             "פֻּעַל",
-            "רֻךָ",
             "רֻךָ",
             "רוּחַ",
             "חֻפָּה"
@@ -31893,12 +31892,12 @@
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
+            "p41-word-041",
             "p41-word-042",
             "p41-word-043",
             "p41-word-044",
             "p41-word-045",
-            "p41-word-046",
-            "p41-word-047"
+            "p41-word-046"
           ],
           "displayWords": [
             "מָלוֹן",
@@ -31934,11 +31933,11 @@
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
+            "p41-word-047",
             "p41-word-048",
             "p41-word-049",
             "p41-word-050",
-            "p41-word-051",
-            "p41-word-052"
+            "p41-word-051"
           ],
           "displayWords": [
             "שְׁטֻף",
@@ -31973,11 +31972,11 @@
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
+            "p41-word-052",
             "p41-word-053",
             "p41-word-054",
             "p41-word-055",
-            "p41-word-056",
-            "p41-word-057"
+            "p41-word-056"
           ],
           "displayWords": [
             "לַחַץ",
@@ -32012,11 +32011,11 @@
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
+            "p41-word-057",
             "p41-word-058",
             "p41-word-059",
             "p41-word-060",
-            "p41-word-061",
-            "p41-word-062"
+            "p41-word-061"
           ],
           "displayWords": [
             "מְכִירָה",
@@ -32165,7 +32164,7 @@
           "lineId": "p41-line-004",
           "order": 14,
           "displayText": "חֲנֻכָּה",
-          "spokenText": "חֲנֻכָּה",
+          "spokenText": "kha-noo-KA",
           "status": "verified"
         },
         {
@@ -32210,7 +32209,7 @@
           "lineId": "p41-line-008",
           "order": 19,
           "displayText": "עֻ",
-          "spokenText": "עֻ",
+          "spokenText": "oo",
           "status": "verified"
         },
         {
@@ -32381,7 +32380,7 @@
           "lineId": "p41-line-010",
           "order": 38,
           "displayText": "רֻךָ",
-          "spokenText": "רֻךָ",
+          "spokenText": "roo-KHA",
           "status": "verified"
         },
         {
@@ -32389,8 +32388,8 @@
           "page": 41,
           "lineId": "p41-line-010",
           "order": 39,
-          "displayText": "רֻךָ",
-          "spokenText": "רֻךָ",
+          "displayText": "רוּחַ",
+          "spokenText": "ROO-akh",
           "status": "verified"
         },
         {
@@ -32398,17 +32397,17 @@
           "page": 41,
           "lineId": "p41-line-010",
           "order": 40,
-          "displayText": "רוּחַ",
-          "spokenText": "רוּחַ",
+          "displayText": "חֻפָּה",
+          "spokenText": "חֻפָּה",
           "status": "verified"
         },
         {
           "id": "p41-word-041",
           "page": 41,
-          "lineId": "p41-line-010",
+          "lineId": "p41-line-011",
           "order": 41,
-          "displayText": "חֻפָּה",
-          "spokenText": "חֻפָּה",
+          "displayText": "מָלוֹן",
+          "spokenText": "מָלוֹן",
           "status": "verified"
         },
         {
@@ -32416,8 +32415,8 @@
           "page": 41,
           "lineId": "p41-line-011",
           "order": 42,
-          "displayText": "מָלוֹן",
-          "spokenText": "מָלוֹן",
+          "displayText": "חָתוּל",
+          "spokenText": "חָתוּל",
           "status": "verified"
         },
         {
@@ -32425,8 +32424,8 @@
           "page": 41,
           "lineId": "p41-line-011",
           "order": 43,
-          "displayText": "חָתוּל",
-          "spokenText": "חָתוּל",
+          "displayText": "צֻרָה",
+          "spokenText": "צֻרָה",
           "status": "verified"
         },
         {
@@ -32434,8 +32433,8 @@
           "page": 41,
           "lineId": "p41-line-011",
           "order": 44,
-          "displayText": "צֻרָה",
-          "spokenText": "צֻרָה",
+          "displayText": "חֻקַת",
+          "spokenText": "חֻקַת",
           "status": "verified"
         },
         {
@@ -32443,8 +32442,8 @@
           "page": 41,
           "lineId": "p41-line-011",
           "order": 45,
-          "displayText": "חֻקַת",
-          "spokenText": "חֻקַת",
+          "displayText": "שִׁירָה",
+          "spokenText": "שִׁירָה",
           "status": "verified"
         },
         {
@@ -32452,17 +32451,17 @@
           "page": 41,
           "lineId": "p41-line-011",
           "order": 46,
-          "displayText": "שִׁירָה",
-          "spokenText": "שִׁירָה",
+          "displayText": "טֶבַע",
+          "spokenText": "טֶבַע",
           "status": "verified"
         },
         {
           "id": "p41-word-047",
           "page": 41,
-          "lineId": "p41-line-011",
+          "lineId": "p41-line-012",
           "order": 47,
-          "displayText": "טֶבַע",
-          "spokenText": "טֶבַע",
+          "displayText": "שְׁטֻף",
+          "spokenText": "שְׁטֻף",
           "status": "verified"
         },
         {
@@ -32470,8 +32469,8 @@
           "page": 41,
           "lineId": "p41-line-012",
           "order": 48,
-          "displayText": "שְׁטֻף",
-          "spokenText": "שְׁטֻף",
+          "displayText": "תִּרְדֹף",
+          "spokenText": "תִּרְדֹף",
           "status": "verified"
         },
         {
@@ -32479,8 +32478,8 @@
           "page": 41,
           "lineId": "p41-line-012",
           "order": 49,
-          "displayText": "תִּרְדֹף",
-          "spokenText": "תִּרְדֹף",
+          "displayText": "פִּצֻץ",
+          "spokenText": "פִּצֻץ",
           "status": "verified"
         },
         {
@@ -32488,8 +32487,8 @@
           "page": 41,
           "lineId": "p41-line-012",
           "order": 50,
-          "displayText": "פִּצֻץ",
-          "spokenText": "פִּצֻץ",
+          "displayText": "אֲבְקָה",
+          "spokenText": "אֲבְקָה",
           "status": "verified"
         },
         {
@@ -32497,17 +32496,17 @@
           "page": 41,
           "lineId": "p41-line-012",
           "order": 51,
-          "displayText": "אֲבְקָה",
-          "spokenText": "אֲבְקָה",
+          "displayText": "רְכֻלָה",
+          "spokenText": "רְכֻלָה",
           "status": "verified"
         },
         {
           "id": "p41-word-052",
           "page": 41,
-          "lineId": "p41-line-012",
+          "lineId": "p41-line-013",
           "order": 52,
-          "displayText": "רְכֻלָה",
-          "spokenText": "רְכֻלָה",
+          "displayText": "לַחַץ",
+          "spokenText": "לַחַץ",
           "status": "verified"
         },
         {
@@ -32515,8 +32514,8 @@
           "page": 41,
           "lineId": "p41-line-013",
           "order": 53,
-          "displayText": "לַחַץ",
-          "spokenText": "לַחַץ",
+          "displayText": "מֻנַח",
+          "spokenText": "מֻנַח",
           "status": "verified"
         },
         {
@@ -32524,8 +32523,8 @@
           "page": 41,
           "lineId": "p41-line-013",
           "order": 54,
-          "displayText": "מֻנַח",
-          "spokenText": "מֻנַח",
+          "displayText": "קֻבּוּץ",
+          "spokenText": "קֻבּוּץ",
           "status": "verified"
         },
         {
@@ -32533,8 +32532,8 @@
           "page": 41,
           "lineId": "p41-line-013",
           "order": 55,
-          "displayText": "קֻבּוּץ",
-          "spokenText": "קֻבּוּץ",
+          "displayText": "שׁוּרוּק",
+          "spokenText": "שׁוּרוּק",
           "status": "verified"
         },
         {
@@ -32542,17 +32541,17 @@
           "page": 41,
           "lineId": "p41-line-013",
           "order": 56,
-          "displayText": "שׁוּרוּק",
-          "spokenText": "שׁוּרוּק",
+          "displayText": "חִירִיק",
+          "spokenText": "חִירִיק",
           "status": "verified"
         },
         {
           "id": "p41-word-057",
           "page": 41,
-          "lineId": "p41-line-013",
+          "lineId": "p41-line-014",
           "order": 57,
-          "displayText": "חִירִיק",
-          "spokenText": "חִירִיק",
+          "displayText": "מְכִירָה",
+          "spokenText": "מְכִירָה",
           "status": "verified"
         },
         {
@@ -32560,8 +32559,8 @@
           "page": 41,
           "lineId": "p41-line-014",
           "order": 58,
-          "displayText": "מְכִירָה",
-          "spokenText": "מְכִירָה",
+          "displayText": "שָׁבַץ",
+          "spokenText": "שָׁבַץ",
           "status": "verified"
         },
         {
@@ -32569,8 +32568,8 @@
           "page": 41,
           "lineId": "p41-line-014",
           "order": 59,
-          "displayText": "שָׁבַץ",
-          "spokenText": "שָׁבַץ",
+          "displayText": "אָנֹכִי",
+          "spokenText": "אָנֹכִי",
           "status": "verified"
         },
         {
@@ -32578,8 +32577,8 @@
           "page": 41,
           "lineId": "p41-line-014",
           "order": 60,
-          "displayText": "אָנֹכִי",
-          "spokenText": "אָנֹכִי",
+          "displayText": "מְתֻיָל",
+          "spokenText": "מְתֻיָל",
           "status": "verified"
         },
         {
@@ -32587,15 +32586,6 @@
           "page": 41,
           "lineId": "p41-line-014",
           "order": 61,
-          "displayText": "מְתֻיָל",
-          "spokenText": "מְתֻיָל",
-          "status": "verified"
-        },
-        {
-          "id": "p41-word-062",
-          "page": 41,
-          "lineId": "p41-line-014",
-          "order": 62,
           "displayText": "טִיוּלִים",
           "spokenText": "טִיוּלִים",
           "status": "verified"
@@ -32608,7 +32598,7 @@
       "sourcePdfPage": 42,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם אֲשֶׁר",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-042.png",
       "notes": [],
       "sections": [
@@ -32721,7 +32711,7 @@
           "displayWords": [
             "כּ"
           ],
-          "mixedText": "כּ Kaf"
+          "mixedText": "Kaf Kaf"
         },
         {
           "id": "p42-line-005",
@@ -32739,7 +32729,7 @@
           "displayWords": [
             "ק"
           ],
-          "mixedText": "like ק has the sound of \"k\" as in Chanukah."
+          "mixedText": "like kof has the sound of \"k\" as in kha-noo-KA."
         },
         {
           "id": "p42-line-006",
@@ -33155,7 +33145,7 @@
           "lineId": "p42-line-003",
           "order": 14,
           "displayText": "חֲנֻכָּה",
-          "spokenText": "חֲנֻכָּה",
+          "spokenText": "kha-noo-KA",
           "status": "verified"
         },
         {
@@ -33164,7 +33154,7 @@
           "lineId": "p42-line-004",
           "order": 15,
           "displayText": "כּ",
-          "spokenText": "כּ",
+          "spokenText": "Kaf",
           "status": "verified"
         },
         {
@@ -33380,7 +33370,7 @@
           "lineId": "p42-line-009",
           "order": 39,
           "displayText": "בַּטֻר",
-          "spokenText": "בַּטֻר",
+          "spokenText": "ba-TOOR",
           "status": "verified"
         },
         {
@@ -33461,7 +33451,7 @@
           "lineId": "p42-line-010",
           "order": 48,
           "displayText": "גְנֵבָה",
-          "spokenText": "גְנֵבָה",
+          "spokenText": "geh-nei-VAH",
           "status": "verified"
         },
         {
@@ -33488,7 +33478,7 @@
           "lineId": "p42-line-011",
           "order": 51,
           "displayText": "כַּוָנָה",
-          "spokenText": "כַּוָנָה",
+          "spokenText": "ka-va-NA",
           "status": "verified"
         },
         {
@@ -33497,7 +33487,7 @@
           "lineId": "p42-line-011",
           "order": 52,
           "displayText": "כִּיווּן",
-          "spokenText": "כִּיווּן",
+          "spokenText": "ki-VOON",
           "status": "verified"
         },
         {
@@ -33542,7 +33532,7 @@
           "lineId": "p42-line-012",
           "order": 57,
           "displayText": "כֹּחַ",
-          "spokenText": "כֹּחַ",
+          "spokenText": "KO-akh",
           "status": "verified"
         },
         {
@@ -33571,7 +33561,7 @@
       "sourcePdfPage": 43,
       "title": "The blessing over the Chanukah candles:",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-043.png",
       "notes": [],
       "sections": [
@@ -33609,7 +33599,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "englishText": "The blessing over the Chanukah candles:"
+          "englishText": "The blessing over the kha-noo-KA candles:"
         },
         {
           "id": "p43-line-002",
@@ -33954,7 +33944,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "Adonai חֲנֻכָּה"
+          "mixedText": "Adonai kha-noo-KA"
         },
         {
           "id": "p43-line-013",
@@ -34291,7 +34281,7 @@
           "lineId": "p43-line-004",
           "order": 14,
           "displayText": "חֲנֻכָּה",
-          "spokenText": "חֲנֻכָּה",
+          "spokenText": "kha-noo-KA",
           "status": "verified"
         },
         {
@@ -34354,7 +34344,7 @@
           "lineId": "p43-line-012",
           "order": 21,
           "displayText": "חֲנֻכָּה",
-          "spokenText": "חֲנֻכָּה",
+          "spokenText": "kha-noo-KA",
           "status": "verified"
         },
         {
@@ -34428,7 +34418,7 @@
       "sourcePdfPage": 44,
       "title": "REVIEW",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-044.png",
       "notes": [],
       "sections": [
@@ -34880,7 +34870,7 @@
           "lineId": "p44-line-002",
           "order": 3,
           "displayText": "רַב",
-          "spokenText": "רַב",
+          "spokenText": "RAV",
           "status": "verified"
         },
         {
@@ -34898,7 +34888,7 @@
           "lineId": "p44-line-002",
           "order": 5,
           "displayText": "מְכַלְכֵּל",
-          "spokenText": "מְכַלְכֵּל",
+          "spokenText": "me-khal-KEL",
           "status": "verified"
         },
         {
@@ -34988,7 +34978,7 @@
           "lineId": "p44-line-005",
           "order": 15,
           "displayText": "חֲנֻכָּה",
-          "spokenText": "חֲנֻכָּה",
+          "spokenText": "kha-noo-KA",
           "status": "verified"
         },
         {
@@ -35186,7 +35176,7 @@
           "lineId": "p44-line-009",
           "order": 37,
           "displayText": "הַלְלוּיָה",
-          "spokenText": "הַלְלוּיָה",
+          "spokenText": "ha-le-loo-YA",
           "status": "verified"
         },
         {
@@ -35222,7 +35212,7 @@
           "lineId": "p44-line-010",
           "order": 41,
           "displayText": "חֶלְקֵנוּ",
-          "spokenText": "חֶלְקֵנוּ",
+          "spokenText": "khel-KEI-noo",
           "status": "verified"
         },
         {
@@ -35249,7 +35239,7 @@
           "lineId": "p44-line-010",
           "order": 44,
           "displayText": "שֻׁתָּפוּת",
-          "spokenText": "שֻׁתָּפוּת",
+          "spokenText": "shoo-ta-FOOT",
           "status": "verified"
         },
         {
@@ -35305,7 +35295,7 @@
       "sourcePdfPage": 45,
       "title": "Blessing 6: The Second Blessing for Chanukah",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-045.png",
       "notes": [],
       "sections": [
@@ -35341,7 +35331,7 @@
           "notes": [],
           "wordIds": [],
           "displayWords": [],
-          "englishText": "Blessing 6: The Second Blessing for Chanukah"
+          "englishText": "Blessing 6: The Second Blessing for kha-noo-KA"
         },
         {
           "id": "p45-line-002",
@@ -35604,7 +35594,7 @@
           "badgeLabel": "Line 10",
           "sectionId": "exercise",
           "status": "verified",
-          "displayText": "5. שָׂוָה שׂבֶה שִׁטוּף שָׁעוֹן שָׂדֶה",
+          "displayText": "5. שָָׁוָה שׂבֶה שִׁטוּף שָׁעוֹן שָׂדֶה",
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
@@ -35615,7 +35605,7 @@
             "p45-word-044"
           ],
           "displayWords": [
-            "שָׂוָה",
+            "שָָׁוָה",
             "שׂבֶה",
             "שִׁטוּף",
             "שָׁעוֹן",
@@ -36016,7 +36006,7 @@
           "lineId": "p45-line-009",
           "order": 38,
           "displayText": "שַׁדְכָן",
-          "spokenText": "שַׁדְכָן",
+          "spokenText": "shad-KHAN",
           "status": "verified"
         },
         {
@@ -36025,7 +36015,7 @@
           "lineId": "p45-line-009",
           "order": 39,
           "displayText": "הִשְׂכִּיר",
-          "spokenText": "הִשְׂכִּיר",
+          "spokenText": "his-KEER",
           "status": "verified"
         },
         {
@@ -36033,8 +36023,8 @@
           "page": 45,
           "lineId": "p45-line-010",
           "order": 40,
-          "displayText": "שָׂוָה",
-          "spokenText": "שָׂוָה",
+          "displayText": "שָָׁוָה",
+          "spokenText": "שָָׁוָה",
           "status": "verified"
         },
         {
@@ -36070,7 +36060,7 @@
           "lineId": "p45-line-010",
           "order": 44,
           "displayText": "שָׂדֶה",
-          "spokenText": "שָׂדֶה",
+          "spokenText": "sa-DEH",
           "status": "verified"
         },
         {
@@ -36115,7 +36105,7 @@
           "lineId": "p45-line-011",
           "order": 49,
           "displayText": "שׂוֹרֵק",
-          "spokenText": "שׂוֹרֵק",
+          "spokenText": "so-REIK",
           "status": "verified"
         }
       ]
@@ -36126,7 +36116,7 @@
       "sourcePdfPage": 46,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם שֶׁעָשָׂה",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-046.png",
       "notes": [],
       "sections": [
@@ -36240,7 +36230,7 @@
           "displayWords": [
             "שׂ"
           ],
-          "mixedText": "like שׂ has the sound of \"S\" as in Sukah."
+          "mixedText": "like שׂ has the sound of \"S\" as in soo-KA."
         },
         {
           "id": "p46-line-005",
@@ -36899,7 +36889,7 @@
           "lineId": "p46-line-008",
           "order": 41,
           "displayText": "סְכָךְ",
-          "spokenText": "סְכָךְ",
+          "spokenText": "se-KHAKH",
           "status": "verified"
         },
         {
@@ -37063,7 +37053,7 @@
       "sourcePdfPage": 47,
       "title": "בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם שֶׁעָשָׂה",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-047.png",
       "notes": [],
       "sections": [
@@ -38065,7 +38055,7 @@
       "sourcePdfPage": 48,
       "title": "Blessing 7: The Shehecheyanu",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-048.png",
       "notes": [],
       "sections": [
@@ -38103,7 +38093,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "englishText": "Blessing 7: The Shehecheyanu"
+          "englishText": "Blessing 7: The sheh-heh-kheh-YA-noo"
         },
         {
           "id": "p48-line-002",
@@ -38211,7 +38201,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "of חֲנֻכָּה : the Shehecheyanu."
+          "mixedText": "of kha-noo-KA : the sheh-heh-kheh-YA-noo."
         },
         {
           "id": "p48-line-006",
@@ -38378,7 +38368,7 @@
           "lineId": "p48-line-005",
           "order": 1,
           "displayText": "חֲנֻכָּה",
-          "spokenText": "חֲנֻכָּה",
+          "spokenText": "kha-noo-KA",
           "status": "verified"
         },
         {
@@ -38497,7 +38487,7 @@
       "sourcePdfPage": 49,
       "title": "HELPFUL HINTS",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-049.png",
       "notes": [],
       "sections": [
@@ -38597,7 +38587,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "ב כ פ ת. With these exceptions, the dagesh is a matter of"
+          "mixedText": "ב כ Fei ת. With these exceptions, the dagesh is a matter of"
         },
         {
           "id": "p49-line-004",
@@ -38713,7 +38703,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "Kamatz Katan. (There is also a Chataf Kamatz ֳ which sounds"
+          "mixedText": "Kamatz Katan. (There is also a Khataf Kamatz ֳ which sounds"
         },
         {
           "id": "p49-line-008",
@@ -38869,7 +38859,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "If there is a dagesh (dot) in a Final Chaf,ךָּ, it is pronounced like a"
+          "mixedText": "If there is a dagesh (dot) in a Final Khaf,ךָּ, it is pronounced like a"
         },
         {
           "id": "p49-line-013",
@@ -38901,7 +38891,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "כּ as in the word וִיחֻנֶךָּ ,“vichuneka.”"
+          "mixedText": "כּ as in the word וִיחֻנֶךָּ ,“וִיחֻנֶךָּ -> vi-khoo-NEH-ka.”"
         },
         {
           "id": "p49-line-014",
@@ -38985,7 +38975,7 @@
           "lineId": "p49-line-003",
           "order": 3,
           "displayText": "פ",
-          "spokenText": "פ",
+          "spokenText": "Fei",
           "status": "verified"
         },
         {
@@ -41415,7 +41405,7 @@
       "sourcePdfPage": 52,
       "title": "Blessing 18: On Seeing Trees in Blossom",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-052.png",
       "notes": [],
       "sections": [
@@ -41772,7 +41762,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "englishText": "HAVDALAH BLESSINGS"
+          "englishText": "hav-da-LAH BLESSINGS"
         },
         {
           "id": "p52-line-012",
@@ -41798,7 +41788,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "englishText": "Blessing 20: Over the Havdalah Wine"
+          "englishText": "Blessing 20: Over the hav-da-LAH Wine"
         },
         {
           "id": "p52-line-013",
@@ -42418,7 +42408,7 @@
       "sourcePdfPage": 53,
       "title": "Blessing 18: On Seeing Trees in Blossom",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-053.png",
       "notes": [],
       "sections": [
@@ -42810,27 +42800,11 @@
           "badgeLabel": "Line 13",
           "sectionId": "main",
           "status": "verified",
-          "displayText": "בָּרוּךְ אַתָּה, יְיָ, הַמַּבְדִּיל בֵּין קֹֽדֶשׁ לְחוֹל.",
-          "contentMode": "hebrew",
+          "displayText": "Blessed is Adonai who separates the sacred from profane.",
+          "contentMode": "english",
           "notes": [],
-          "wordIds": [
-            "p53-word-029",
-            "p53-word-030",
-            "p53-word-031",
-            "p53-word-032",
-            "p53-word-033",
-            "p53-word-034",
-            "p53-word-035"
-          ],
-          "displayWords": [
-            "בָּרוּךְ",
-            "אַתָּה,",
-            "יְיָ,",
-            "הַמַּבְדִּיל",
-            "בֵּין",
-            "קֹֽדֶשׁ",
-            "לְחוֹל."
-          ],
+          "wordIds": [],
+          "displayWords": [],
           "region": {
             "top": 43.64,
             "left": 67.97,
@@ -42842,7 +42816,8 @@
             "padLeft": 1.2,
             "confidence": 0.92
           },
-          "matchMode": "hybrid"
+          "matchMode": "hybrid",
+          "englishText": "Blessed is Adonai who separates the sacred from profane."
         },
         {
           "id": "p53-line-014",
@@ -42881,15 +42856,15 @@
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
+            "p53-word-029",
+            "p53-word-030",
+            "p53-word-031",
+            "p53-word-032",
+            "p53-word-033",
+            "p53-word-034",
+            "p53-word-035",
             "p53-word-036",
-            "p53-word-037",
-            "p53-word-038",
-            "p53-word-039",
-            "p53-word-040",
-            "p53-word-041",
-            "p53-word-042",
-            "p53-word-043",
-            "p53-word-044"
+            "p53-word-037"
           ],
           "displayWords": [
             "בָּרוּךְ",
@@ -42926,17 +42901,17 @@
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
+            "p53-word-038",
+            "p53-word-039",
+            "p53-word-040",
+            "p53-word-041",
+            "p53-word-042",
+            "p53-word-043",
+            "p53-word-044",
             "p53-word-045",
             "p53-word-046",
             "p53-word-047",
-            "p53-word-048",
-            "p53-word-049",
-            "p53-word-050",
-            "p53-word-051",
-            "p53-word-052",
-            "p53-word-053",
-            "p53-word-054",
-            "p53-word-055"
+            "p53-word-048"
           ],
           "displayWords": [
             "בָּרוּךְ",
@@ -42975,16 +42950,16 @@
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
+            "p53-word-049",
+            "p53-word-050",
+            "p53-word-051",
+            "p53-word-052",
+            "p53-word-053",
+            "p53-word-054",
+            "p53-word-055",
             "p53-word-056",
             "p53-word-057",
-            "p53-word-058",
-            "p53-word-059",
-            "p53-word-060",
-            "p53-word-061",
-            "p53-word-062",
-            "p53-word-063",
-            "p53-word-064",
-            "p53-word-065"
+            "p53-word-058"
           ],
           "displayWords": [
             "וְשַׁבַּת",
@@ -43022,13 +42997,13 @@
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
-            "p53-word-066",
-            "p53-word-067",
-            "p53-word-068",
-            "p53-word-069",
-            "p53-word-070",
-            "p53-word-071",
-            "p53-word-072"
+            "p53-word-059",
+            "p53-word-060",
+            "p53-word-061",
+            "p53-word-062",
+            "p53-word-063",
+            "p53-word-064",
+            "p53-word-065"
           ],
           "displayWords": [
             "יוֹם",
@@ -43059,18 +43034,18 @@
           "badgeLabel": "Line 19",
           "sectionId": "main",
           "status": "verified",
-          "displayText": "כִּי־בָֽנוּ בָחַֽרְתָּ וְאוֹתָֽנוּ קִדַּֽשְׁתָּ מִכָּל־הָעַמִּים, וְשַׁבַּת קָדְשְׁךְ בְּאַהֲבָה",
+          "displayText": "כִּי־בָֽנוּ בָחַֽרְתָּ וְאוֹתָֽנוּ קִדַּֽשְׁתָּ מִכָּל־הָעַמִּים, וְשַׁבַּת קָדְשְׁךָ בְּאַהֲבָה",
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
-            "p53-word-073",
-            "p53-word-074",
-            "p53-word-075",
-            "p53-word-076",
-            "p53-word-077",
-            "p53-word-078",
-            "p53-word-079",
-            "p53-word-080"
+            "p53-word-066",
+            "p53-word-067",
+            "p53-word-068",
+            "p53-word-069",
+            "p53-word-070",
+            "p53-word-071",
+            "p53-word-072",
+            "p53-word-073"
           ],
           "displayWords": [
             "כִּי־בָֽנוּ",
@@ -43079,7 +43054,7 @@
             "קִדַּֽשְׁתָּ",
             "מִכָּל־הָעַמִּים,",
             "וְשַׁבַּת",
-            "קָדְשְׁךְ",
+            "קָדְשְׁךָ",
             "בְּאַהֲבָה"
           ],
           "region": {
@@ -43106,13 +43081,13 @@
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
-            "p53-word-081",
-            "p53-word-082",
-            "p53-word-083",
-            "p53-word-084",
-            "p53-word-085",
-            "p53-word-086",
-            "p53-word-087"
+            "p53-word-074",
+            "p53-word-075",
+            "p53-word-076",
+            "p53-word-077",
+            "p53-word-078",
+            "p53-word-079",
+            "p53-word-080"
           ],
           "displayWords": [
             "וּבְרָצוֹן",
@@ -43627,7 +43602,7 @@
         {
           "id": "p53-word-029",
           "page": 53,
-          "lineId": "p53-line-013",
+          "lineId": "p53-line-015",
           "order": 29,
           "displayText": "בָּרוּךְ",
           "spokenText": "בָּרוּךְ",
@@ -43636,7 +43611,7 @@
         {
           "id": "p53-word-030",
           "page": 53,
-          "lineId": "p53-line-013",
+          "lineId": "p53-line-015",
           "order": 30,
           "displayText": "אַתָּה,",
           "spokenText": "אַתָּה,",
@@ -43645,46 +43620,46 @@
         {
           "id": "p53-word-031",
           "page": 53,
-          "lineId": "p53-line-013",
+          "lineId": "p53-line-015",
           "order": 31,
-          "displayText": "יְיָ,",
-          "spokenText": "אֲדֹנָי,",
+          "displayText": "יְיָ",
+          "spokenText": "אֲדֹנָי",
           "status": "verified"
         },
         {
           "id": "p53-word-032",
           "page": 53,
-          "lineId": "p53-line-013",
+          "lineId": "p53-line-015",
           "order": 32,
-          "displayText": "הַמַּבְדִּיל",
-          "spokenText": "הַמַּבְדִּיל",
+          "displayText": "אֱלֹהֵֽינוּ,",
+          "spokenText": "אֱלֹהֵֽינוּ,",
           "status": "verified"
         },
         {
           "id": "p53-word-033",
           "page": 53,
-          "lineId": "p53-line-013",
+          "lineId": "p53-line-015",
           "order": 33,
-          "displayText": "בֵּין",
-          "spokenText": "בֵּין",
+          "displayText": "מֶֽלֶךְ",
+          "spokenText": "מֶֽלֶךְ",
           "status": "verified"
         },
         {
           "id": "p53-word-034",
           "page": 53,
-          "lineId": "p53-line-013",
+          "lineId": "p53-line-015",
           "order": 34,
-          "displayText": "קֹֽדֶשׁ",
-          "spokenText": "קֹֽדֶשׁ",
+          "displayText": "הָעוֹלָם,",
+          "spokenText": "הָעוֹלָם,",
           "status": "verified"
         },
         {
           "id": "p53-word-035",
           "page": 53,
-          "lineId": "p53-line-013",
+          "lineId": "p53-line-015",
           "order": 35,
-          "displayText": "לְחוֹל.",
-          "spokenText": "לְחוֹל.",
+          "displayText": "בּוֹרֵא",
+          "spokenText": "בּוֹרֵא",
           "status": "verified"
         },
         {
@@ -43692,8 +43667,8 @@
           "page": 53,
           "lineId": "p53-line-015",
           "order": 36,
-          "displayText": "בָּרוּךְ",
-          "spokenText": "בָּרוּךְ",
+          "displayText": "פְּרִי",
+          "spokenText": "פְּרִי",
           "status": "verified"
         },
         {
@@ -43701,71 +43676,71 @@
           "page": 53,
           "lineId": "p53-line-015",
           "order": 37,
-          "displayText": "אַתָּה,",
-          "spokenText": "אַתָּה,",
+          "displayText": "הַגָּֽפֶן.",
+          "spokenText": "הַגָּֽפֶן.",
           "status": "verified"
         },
         {
           "id": "p53-word-038",
           "page": 53,
-          "lineId": "p53-line-015",
+          "lineId": "p53-line-016",
           "order": 38,
-          "displayText": "יְיָ",
-          "spokenText": "אֲדֹנָי",
+          "displayText": "בָּרוּךְ",
+          "spokenText": "בָּרוּךְ",
           "status": "verified"
         },
         {
           "id": "p53-word-039",
           "page": 53,
-          "lineId": "p53-line-015",
+          "lineId": "p53-line-016",
           "order": 39,
-          "displayText": "אֱלֹהֵֽינוּ,",
-          "spokenText": "אֱלֹהֵֽינוּ,",
+          "displayText": "אַתָּה,",
+          "spokenText": "אַתָּה,",
           "status": "verified"
         },
         {
           "id": "p53-word-040",
           "page": 53,
-          "lineId": "p53-line-015",
+          "lineId": "p53-line-016",
           "order": 40,
-          "displayText": "מֶֽלֶךְ",
-          "spokenText": "מֶֽלֶךְ",
+          "displayText": "יְיָ",
+          "spokenText": "אֲדֹנָי",
           "status": "verified"
         },
         {
           "id": "p53-word-041",
           "page": 53,
-          "lineId": "p53-line-015",
+          "lineId": "p53-line-016",
           "order": 41,
-          "displayText": "הָעוֹלָם,",
-          "spokenText": "הָעוֹלָם,",
+          "displayText": "אֱלֹהֵֽינוּ,",
+          "spokenText": "אֱלֹהֵֽינוּ,",
           "status": "verified"
         },
         {
           "id": "p53-word-042",
           "page": 53,
-          "lineId": "p53-line-015",
+          "lineId": "p53-line-016",
           "order": 42,
-          "displayText": "בּוֹרֵא",
-          "spokenText": "בּוֹרֵא",
+          "displayText": "מֶֽלֶךְ",
+          "spokenText": "מֶֽלֶךְ",
           "status": "verified"
         },
         {
           "id": "p53-word-043",
           "page": 53,
-          "lineId": "p53-line-015",
+          "lineId": "p53-line-016",
           "order": 43,
-          "displayText": "פְּרִי",
-          "spokenText": "פְּרִי",
+          "displayText": "הָעוֹלָם,",
+          "spokenText": "הָעוֹלָם,",
           "status": "verified"
         },
         {
           "id": "p53-word-044",
           "page": 53,
-          "lineId": "p53-line-015",
+          "lineId": "p53-line-016",
           "order": 44,
-          "displayText": "הַגָּֽפֶן.",
-          "spokenText": "הַגָּֽפֶן.",
+          "displayText": "אֲשֶׁר",
+          "spokenText": "אֲשֶׁר",
           "status": "verified"
         },
         {
@@ -43773,8 +43748,8 @@
           "page": 53,
           "lineId": "p53-line-016",
           "order": 45,
-          "displayText": "בָּרוּךְ",
-          "spokenText": "בָּרוּךְ",
+          "displayText": "קִדְּשָֽׁנוּ",
+          "spokenText": "קִדְּשָֽׁנוּ",
           "status": "verified"
         },
         {
@@ -43782,8 +43757,8 @@
           "page": 53,
           "lineId": "p53-line-016",
           "order": 46,
-          "displayText": "אַתָּה,",
-          "spokenText": "אַתָּה,",
+          "displayText": "בְּמִצְוֹתָיו",
+          "spokenText": "בְּמִצְוֹתָיו",
           "status": "verified"
         },
         {
@@ -43791,8 +43766,8 @@
           "page": 53,
           "lineId": "p53-line-016",
           "order": 47,
-          "displayText": "יְיָ",
-          "spokenText": "אֲדֹנָי",
+          "displayText": "וְרָֽצָה",
+          "spokenText": "וְרָֽצָה",
           "status": "verified"
         },
         {
@@ -43800,71 +43775,71 @@
           "page": 53,
           "lineId": "p53-line-016",
           "order": 48,
-          "displayText": "אֱלֹהֵֽינוּ,",
-          "spokenText": "אֱלֹהֵֽינוּ,",
+          "displayText": "בָֽנוּ,",
+          "spokenText": "בָֽנוּ,",
           "status": "verified"
         },
         {
           "id": "p53-word-049",
           "page": 53,
-          "lineId": "p53-line-016",
+          "lineId": "p53-line-017",
           "order": 49,
-          "displayText": "מֶֽלֶךְ",
-          "spokenText": "מֶֽלֶךְ",
+          "displayText": "וְשַׁבַּת",
+          "spokenText": "וְשַׁבַּת",
           "status": "verified"
         },
         {
           "id": "p53-word-050",
           "page": 53,
-          "lineId": "p53-line-016",
+          "lineId": "p53-line-017",
           "order": 50,
-          "displayText": "הָעוֹלָם,",
-          "spokenText": "הָעוֹלָם,",
+          "displayText": "קָדְשׁוֹ",
+          "spokenText": "קָדְשׁוֹ",
           "status": "verified"
         },
         {
           "id": "p53-word-051",
           "page": 53,
-          "lineId": "p53-line-016",
+          "lineId": "p53-line-017",
           "order": 51,
-          "displayText": "אֲשֶׁר",
-          "spokenText": "אֲשֶׁר",
+          "displayText": "בְּאַהֲבָה",
+          "spokenText": "בְּאַהֲבָה",
           "status": "verified"
         },
         {
           "id": "p53-word-052",
           "page": 53,
-          "lineId": "p53-line-016",
+          "lineId": "p53-line-017",
           "order": 52,
-          "displayText": "קִדְּשָֽׁנוּ",
-          "spokenText": "קִדְּשָֽׁנוּ",
+          "displayText": "וּבְרָצוֹן",
+          "spokenText": "וּבְרָצוֹן",
           "status": "verified"
         },
         {
           "id": "p53-word-053",
           "page": 53,
-          "lineId": "p53-line-016",
+          "lineId": "p53-line-017",
           "order": 53,
-          "displayText": "בְּמִצְוֹתָיו",
-          "spokenText": "בְּמִצְוֹתָיו",
+          "displayText": "הִנְחִילָֽנוּ,",
+          "spokenText": "הִנְחִילָֽנוּ,",
           "status": "verified"
         },
         {
           "id": "p53-word-054",
           "page": 53,
-          "lineId": "p53-line-016",
+          "lineId": "p53-line-017",
           "order": 54,
-          "displayText": "וְרָֽצָה",
-          "spokenText": "וְרָֽצָה",
+          "displayText": "זִכָּרוֹן",
+          "spokenText": "זִכָּרוֹן",
           "status": "verified"
         },
         {
           "id": "p53-word-055",
           "page": 53,
-          "lineId": "p53-line-016",
+          "lineId": "p53-line-017",
           "order": 55,
-          "displayText": "בָֽנוּ,",
-          "spokenText": "בָֽנוּ,",
+          "displayText": "לְמַעֲשֵׂה",
+          "spokenText": "לְמַעֲשֵׂה",
           "status": "verified"
         },
         {
@@ -43872,8 +43847,8 @@
           "page": 53,
           "lineId": "p53-line-017",
           "order": 56,
-          "displayText": "וְשַׁבַּת",
-          "spokenText": "וְשַׁבַּת",
+          "displayText": "בְרֵאשִׁית.",
+          "spokenText": "בְרֵאשִׁית.",
           "status": "verified"
         },
         {
@@ -43881,8 +43856,8 @@
           "page": 53,
           "lineId": "p53-line-017",
           "order": 57,
-          "displayText": "קָדְשׁוֹ",
-          "spokenText": "קָדְשׁוֹ",
+          "displayText": "כִּי",
+          "spokenText": "כִּי",
           "status": "verified"
         },
         {
@@ -43890,134 +43865,134 @@
           "page": 53,
           "lineId": "p53-line-017",
           "order": 58,
-          "displayText": "בְּאַהֲבָה",
-          "spokenText": "בְּאַהֲבָה",
-          "status": "verified"
-        },
-        {
-          "id": "p53-word-059",
-          "page": 53,
-          "lineId": "p53-line-017",
-          "order": 59,
-          "displayText": "וּבְרָצוֹן",
-          "spokenText": "וּבְרָצוֹן",
-          "status": "verified"
-        },
-        {
-          "id": "p53-word-060",
-          "page": 53,
-          "lineId": "p53-line-017",
-          "order": 60,
-          "displayText": "הִנְחִילָֽנוּ,",
-          "spokenText": "הִנְחִילָֽנוּ,",
-          "status": "verified"
-        },
-        {
-          "id": "p53-word-061",
-          "page": 53,
-          "lineId": "p53-line-017",
-          "order": 61,
-          "displayText": "זִכָּרוֹן",
-          "spokenText": "זִכָּרוֹן",
-          "status": "verified"
-        },
-        {
-          "id": "p53-word-062",
-          "page": 53,
-          "lineId": "p53-line-017",
-          "order": 62,
-          "displayText": "לְמַעֲשֵׂה",
-          "spokenText": "לְמַעֲשֵׂה",
-          "status": "verified"
-        },
-        {
-          "id": "p53-word-063",
-          "page": 53,
-          "lineId": "p53-line-017",
-          "order": 63,
-          "displayText": "בְרֵאשִׁית.",
-          "spokenText": "בְרֵאשִׁית.",
-          "status": "verified"
-        },
-        {
-          "id": "p53-word-064",
-          "page": 53,
-          "lineId": "p53-line-017",
-          "order": 64,
-          "displayText": "כִּי",
-          "spokenText": "כִּי",
-          "status": "verified"
-        },
-        {
-          "id": "p53-word-065",
-          "page": 53,
-          "lineId": "p53-line-017",
-          "order": 65,
           "displayText": "הוא",
           "spokenText": "הוא",
           "status": "verified"
         },
         {
-          "id": "p53-word-066",
+          "id": "p53-word-059",
           "page": 53,
           "lineId": "p53-line-018",
-          "order": 66,
+          "order": 59,
           "displayText": "יוֹם",
           "spokenText": "יוֹם",
           "status": "verified"
         },
         {
-          "id": "p53-word-067",
+          "id": "p53-word-060",
           "page": 53,
           "lineId": "p53-line-018",
-          "order": 67,
+          "order": 60,
           "displayText": "תְּחִלָּה",
           "spokenText": "תְּחִלָּה",
           "status": "verified"
         },
         {
-          "id": "p53-word-068",
+          "id": "p53-word-061",
           "page": 53,
           "lineId": "p53-line-018",
-          "order": 68,
+          "order": 61,
           "displayText": "לְמִקְרָאֵי",
           "spokenText": "לְמִקְרָאֵי",
           "status": "verified"
         },
         {
-          "id": "p53-word-069",
+          "id": "p53-word-062",
           "page": 53,
           "lineId": "p53-line-018",
-          "order": 69,
+          "order": 62,
           "displayText": "קֹֽדֶשׁ,",
           "spokenText": "קֹֽדֶשׁ,",
           "status": "verified"
         },
         {
-          "id": "p53-word-070",
+          "id": "p53-word-063",
           "page": 53,
           "lineId": "p53-line-018",
-          "order": 70,
+          "order": 63,
           "displayText": "זֵֽכֶר",
           "spokenText": "זֵֽכֶר",
           "status": "verified"
         },
         {
-          "id": "p53-word-071",
+          "id": "p53-word-064",
           "page": 53,
           "lineId": "p53-line-018",
-          "order": 71,
+          "order": 64,
           "displayText": "לִיצִיאַת",
           "spokenText": "לִיצִיאַת",
           "status": "verified"
         },
         {
-          "id": "p53-word-072",
+          "id": "p53-word-065",
           "page": 53,
           "lineId": "p53-line-018",
-          "order": 72,
+          "order": 65,
           "displayText": "מִצְרָֽיִם.",
           "spokenText": "מִצְרָֽיִם.",
+          "status": "verified"
+        },
+        {
+          "id": "p53-word-066",
+          "page": 53,
+          "lineId": "p53-line-019",
+          "order": 66,
+          "displayText": "כִּי־בָֽנוּ",
+          "spokenText": "כִּי בָֽנוּ",
+          "status": "verified"
+        },
+        {
+          "id": "p53-word-067",
+          "page": 53,
+          "lineId": "p53-line-019",
+          "order": 67,
+          "displayText": "בָחַֽרְתָּ",
+          "spokenText": "בָחַֽרְתָּ",
+          "status": "verified"
+        },
+        {
+          "id": "p53-word-068",
+          "page": 53,
+          "lineId": "p53-line-019",
+          "order": 68,
+          "displayText": "וְאוֹתָֽנוּ",
+          "spokenText": "וְאוֹתָֽנוּ",
+          "status": "verified"
+        },
+        {
+          "id": "p53-word-069",
+          "page": 53,
+          "lineId": "p53-line-019",
+          "order": 69,
+          "displayText": "קִדַּֽשְׁתָּ",
+          "spokenText": "קִדַּֽשְׁתָּ",
+          "status": "verified"
+        },
+        {
+          "id": "p53-word-070",
+          "page": 53,
+          "lineId": "p53-line-019",
+          "order": 70,
+          "displayText": "מִכָּל־הָעַמִּים,",
+          "spokenText": "מִכָּל הָעַמִּים,",
+          "status": "verified"
+        },
+        {
+          "id": "p53-word-071",
+          "page": 53,
+          "lineId": "p53-line-019",
+          "order": 71,
+          "displayText": "וְשַׁבַּת",
+          "spokenText": "וְשַׁבַּת",
+          "status": "verified"
+        },
+        {
+          "id": "p53-word-072",
+          "page": 53,
+          "lineId": "p53-line-019",
+          "order": 72,
+          "displayText": "קָדְשְׁךָ",
+          "spokenText": "kod-SHEKH-kha",
           "status": "verified"
         },
         {
@@ -44025,132 +44000,69 @@
           "page": 53,
           "lineId": "p53-line-019",
           "order": 73,
-          "displayText": "כִּי־בָֽנוּ",
-          "spokenText": "כִּי בָֽנוּ",
-          "status": "verified"
-        },
-        {
-          "id": "p53-word-074",
-          "page": 53,
-          "lineId": "p53-line-019",
-          "order": 74,
-          "displayText": "בָחַֽרְתָּ",
-          "spokenText": "בָחַֽרְתָּ",
-          "status": "verified"
-        },
-        {
-          "id": "p53-word-075",
-          "page": 53,
-          "lineId": "p53-line-019",
-          "order": 75,
-          "displayText": "וְאוֹתָֽנוּ",
-          "spokenText": "וְאוֹתָֽנוּ",
-          "status": "verified"
-        },
-        {
-          "id": "p53-word-076",
-          "page": 53,
-          "lineId": "p53-line-019",
-          "order": 76,
-          "displayText": "קִדַּֽשְׁתָּ",
-          "spokenText": "קִדַּֽשְׁתָּ",
-          "status": "verified"
-        },
-        {
-          "id": "p53-word-077",
-          "page": 53,
-          "lineId": "p53-line-019",
-          "order": 77,
-          "displayText": "מִכָּל־הָעַמִּים,",
-          "spokenText": "מִכָּל הָעַמִּים,",
-          "status": "verified"
-        },
-        {
-          "id": "p53-word-078",
-          "page": 53,
-          "lineId": "p53-line-019",
-          "order": 78,
-          "displayText": "וְשַׁבַּת",
-          "spokenText": "וְשַׁבַּת",
-          "status": "verified"
-        },
-        {
-          "id": "p53-word-079",
-          "page": 53,
-          "lineId": "p53-line-019",
-          "order": 79,
-          "displayText": "קָדְשְׁךְ",
-          "spokenText": "קָדְשְׁךְ",
-          "status": "verified"
-        },
-        {
-          "id": "p53-word-080",
-          "page": 53,
-          "lineId": "p53-line-019",
-          "order": 80,
           "displayText": "בְּאַהֲבָה",
           "spokenText": "בְּאַהֲבָה",
           "status": "verified"
         },
         {
-          "id": "p53-word-081",
+          "id": "p53-word-074",
           "page": 53,
           "lineId": "p53-line-020",
-          "order": 81,
+          "order": 74,
           "displayText": "וּבְרָצוֹן",
           "spokenText": "וּבְרָצוֹן",
           "status": "verified"
         },
         {
-          "id": "p53-word-082",
+          "id": "p53-word-075",
           "page": 53,
           "lineId": "p53-line-020",
-          "order": 82,
+          "order": 75,
           "displayText": "הִנְחַלְתָּֽנוּ.",
           "spokenText": "הִנְחַלְתָּֽנוּ.",
           "status": "verified"
         },
         {
-          "id": "p53-word-083",
+          "id": "p53-word-076",
           "page": 53,
           "lineId": "p53-line-020",
-          "order": 83,
+          "order": 76,
           "displayText": "בָּרוּךְ",
           "spokenText": "בָּרוּךְ",
           "status": "verified"
         },
         {
-          "id": "p53-word-084",
+          "id": "p53-word-077",
           "page": 53,
           "lineId": "p53-line-020",
-          "order": 84,
+          "order": 77,
           "displayText": "אַתָּה,",
           "spokenText": "אַתָּה,",
           "status": "verified"
         },
         {
-          "id": "p53-word-085",
+          "id": "p53-word-078",
           "page": 53,
           "lineId": "p53-line-020",
-          "order": 85,
+          "order": 78,
           "displayText": "יְיָ,",
           "spokenText": "אֲדֹנָי,",
           "status": "verified"
         },
         {
-          "id": "p53-word-086",
+          "id": "p53-word-079",
           "page": 53,
           "lineId": "p53-line-020",
-          "order": 86,
+          "order": 79,
           "displayText": "מְקַדֵּשׁ",
           "spokenText": "מְקַדֵּשׁ",
           "status": "verified"
         },
         {
-          "id": "p53-word-087",
+          "id": "p53-word-080",
           "page": 53,
           "lineId": "p53-line-020",
-          "order": 87,
+          "order": 80,
           "displayText": "הַשַּׁבָּת.",
           "spokenText": "הַשַּׁבָּת.",
           "status": "verified"
@@ -44163,7 +44075,7 @@
       "sourcePdfPage": 54,
       "title": "TORAH BLESSINGS",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-054.png",
       "notes": [],
       "sections": [
@@ -44960,7 +44872,7 @@
           "lineId": "p54-line-003",
           "order": 1,
           "displayText": "בָּרְכוּ",
-          "spokenText": "בָּרְכוּ",
+          "spokenText": "bar-KHOO",
           "status": "verified"
         },
         {
@@ -45601,7 +45513,7 @@
       "sourcePdfPage": 55,
       "title": "Blessing 28: After the Reading of the Haftarah",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-055.png",
       "notes": [],
       "sections": [
@@ -46989,7 +46901,7 @@
       "sourcePdfPage": 56,
       "title": "ADDITIONAL READINGS",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-056.png",
       "notes": [],
       "sections": [
@@ -47664,7 +47576,7 @@
           "lineId": "p56-line-005",
           "order": 7,
           "displayText": "שֶׁבְּכָל",
-          "spokenText": "שֶׁבְּכָל",
+          "spokenText": "sheh-be-KHOL",
           "status": "verified"
         },
         {
@@ -47790,7 +47702,7 @@
           "lineId": "p56-line-006",
           "order": 21,
           "displayText": "שְׁאָר",
-          "spokenText": "שְׁאָר",
+          "spokenText": "she-AR",
           "status": "verified"
         },
         {
@@ -47835,7 +47747,7 @@
           "lineId": "p56-line-007",
           "order": 26,
           "displayText": "שֶׁבְּכָל",
-          "spokenText": "שֶׁבְּכָל",
+          "spokenText": "sheh-be-KHOL",
           "status": "verified"
         },
         {
@@ -48053,7 +47965,7 @@
       "sourcePdfPage": 57,
       "title": "FROM THE PRAYER BOOK",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-057.png",
       "notes": [],
       "sections": [
@@ -48100,7 +48012,7 @@
           "badgeLabel": "Line 2",
           "sectionId": "main",
           "status": "verified",
-          "displayText": "Barech  !בָּרְכוּ אֶת־יְיָ הַמְבֹרָךְ\nPraise Adonai, to whom our praise is duel",
+          "displayText": "Barechu  !בָּרְכוּ אֶת־יְיָ הַמְבֹרָךְ\nPraise Adonai, to whom our praise is duel",
           "contentMode": "mixed",
           "notes": [
             "This line contains two stacked phrases, both part of the same line."
@@ -48127,7 +48039,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "Barech  !בָּרְכוּ אֶת־אֲדֹנָי הַמְבֹרָךְ\nPraise Adonai, to whom our praise is duel"
+          "mixedText": "bar-KHOO  !בָּרְכוּ אֶת־אֲדֹנָי הַמְבֹרָךְ\nPraise Adonai, to whom our praise is duel"
         },
         {
           "id": "p57-line-003",
@@ -48550,16 +48462,30 @@
           "badgeLabel": "Line 15",
           "sectionId": "main",
           "status": "verified",
-          "displayText": "בֵּיתֶֽךָ, וּבִשְׁעָרֶֽיךָ.",
+          "displayText": "וּקְשַׁרְתָּם לְאוֹת עַל־יָדֶֽךָ, וְהָיוּ לְטֹטָפֹת בֵּין עֵינֶֽיךָ, וּכְתַבְתָּם עַל־מְזֻזוֹת",
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
             "p57-word-049",
-            "p57-word-050"
+            "p57-word-050",
+            "p57-word-051",
+            "p57-word-052",
+            "p57-word-053",
+            "p57-word-054",
+            "p57-word-055",
+            "p57-word-056",
+            "p57-word-057"
           ],
           "displayWords": [
-            "בֵּיתֶֽךָ,",
-            "וּבִשְׁעָרֶֽיךָ."
+            "וּקְשַׁרְתָּם",
+            "לְאוֹת",
+            "עַל־יָדֶֽךָ,",
+            "וְהָיוּ",
+            "לְטֹטָפֹת",
+            "בֵּין",
+            "עֵינֶֽיךָ,",
+            "וּכְתַבְתָּם",
+            "עַל־מְזֻזוֹת"
           ],
           "region": {
             "top": 54.59,
@@ -48637,15 +48563,15 @@
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
-            "p57-word-051",
-            "p57-word-052",
-            "p57-word-053",
-            "p57-word-054",
-            "p57-word-055",
-            "p57-word-056",
-            "p57-word-057",
             "p57-word-058",
-            "p57-word-059"
+            "p57-word-059",
+            "p57-word-060",
+            "p57-word-061",
+            "p57-word-062",
+            "p57-word-063",
+            "p57-word-064",
+            "p57-word-065",
+            "p57-word-066"
           ],
           "displayWords": [
             "לְמַֽעַן",
@@ -48682,16 +48608,16 @@
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
-            "p57-word-060",
-            "p57-word-061",
-            "p57-word-062",
-            "p57-word-063",
-            "p57-word-064",
-            "p57-word-065",
-            "p57-word-066",
             "p57-word-067",
             "p57-word-068",
-            "p57-word-069"
+            "p57-word-069",
+            "p57-word-070",
+            "p57-word-071",
+            "p57-word-072",
+            "p57-word-073",
+            "p57-word-074",
+            "p57-word-075",
+            "p57-word-076"
           ],
           "displayWords": [
             "אֱלֹהֵיכֶם,",
@@ -48729,8 +48655,8 @@
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
-            "p57-word-070",
-            "p57-word-071"
+            "p57-word-077",
+            "p57-word-078"
           ],
           "displayWords": [
             "יְיָ",
@@ -48814,9 +48740,9 @@
             "This line contains three stacked phrases, both part of the same line."
           ],
           "wordIds": [
-            "p57-word-072",
-            "p57-word-073",
-            "p57-word-074"
+            "p57-word-079",
+            "p57-word-080",
+            "p57-word-081"
           ],
           "displayWords": [
             "?מִי־כָמֹֽכָה",
@@ -48844,20 +48770,20 @@
           "badgeLabel": "Line 24",
           "sectionId": "main",
           "status": "verified",
-          "displayText": "Who is like You, majestic in holiness, ?מִי כָמֹֽכָה, נֶאְדָּר בַּקְֹדֶשׁ",
+          "displayText": "Mi Chamochah ?מִי־כָמֹֽכָה בָּאֵלִים, יְיָ\nWho is like You, Eternal One, among the gods \nthat are worshiped?",
           "contentMode": "mixed",
-          "notes": [],
+          "notes": [
+            "This line contains three stacked phrases, both part of the same line."
+          ],
           "wordIds": [
-            "p57-word-075",
-            "p57-word-076",
-            "p57-word-077",
-            "p57-word-078"
+            "p57-word-082",
+            "p57-word-083",
+            "p57-word-084"
           ],
           "displayWords": [
-            "?מִי",
-            "כָמֹֽכָה,",
-            "נֶאְדָּר",
-            "בַּקְֹדֶשׁ"
+            "?מִי־כָמֹֽכָה",
+            "בָּאֵלִים,",
+            "יְיָ"
           ],
           "region": {
             "top": 79.95,
@@ -48871,7 +48797,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "Who is like You, majestic in holiness, ?מִי כָמֹֽכָה, נֶאְדָּר בַּקְֹדֶשׁ"
+          "mixedText": "Mi ka-MO-kha ?מִי־כָמֹֽכָה בָּאֵלִים, אֲדֹנָי\nWho is like You, Eternal One, among the gods \nthat are worshiped?"
         },
         {
           "id": "p57-line-025",
@@ -48884,10 +48810,10 @@
           "contentMode": "mixed",
           "notes": [],
           "wordIds": [
-            "p57-word-079",
-            "p57-word-080",
-            "p57-word-081",
-            "p57-word-082"
+            "p57-word-085",
+            "p57-word-086",
+            "p57-word-087",
+            "p57-word-088"
           ],
           "displayWords": [
             "?נוֹרָא",
@@ -48907,6 +48833,30 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
+          "mixedText": "awesome in splendor, doing wonders?  ?נוֹרָא תְהִלֹּת, עֹֽשֵׂה פֶֽלֶא"
+        },
+        {
+          "id": "p57-line-026",
+          "order": 26,
+          "label": "Page 57 line 26",
+          "badgeLabel": "Line 26",
+          "sectionId": "main",
+          "status": "verified",
+          "displayText": "awesome in splendor, doing wonders?  ?נוֹרָא תְהִלֹּת, עֹֽשֵׂה פֶֽלֶא",
+          "contentMode": "mixed",
+          "notes": [],
+          "wordIds": [
+            "p57-word-089",
+            "p57-word-090",
+            "p57-word-091",
+            "p57-word-092"
+          ],
+          "displayWords": [
+            "?נוֹרָא",
+            "תְהִלֹּת,",
+            "עֹֽשֵׂה",
+            "פֶֽלֶא"
+          ],
           "mixedText": "awesome in splendor, doing wonders?  ?נוֹרָא תְהִלֹּת, עֹֽשֵׂה פֶֽלֶא"
         }
       ],
@@ -49348,8 +49298,8 @@
           "page": 57,
           "lineId": "p57-line-015",
           "order": 49,
-          "displayText": "בֵּיתֶֽךָ,",
-          "spokenText": "בֵּיתֶֽךָ,",
+          "displayText": "וּקְשַׁרְתָּם",
+          "spokenText": "וּקְשַׁרְתָּם",
           "status": "verified"
         },
         {
@@ -49357,71 +49307,71 @@
           "page": 57,
           "lineId": "p57-line-015",
           "order": 50,
-          "displayText": "וּבִשְׁעָרֶֽיךָ.",
-          "spokenText": "וּבִשְׁעָרֶֽיךָ.",
+          "displayText": "לְאוֹת",
+          "spokenText": "לְאוֹת",
           "status": "verified"
         },
         {
           "id": "p57-word-051",
           "page": 57,
-          "lineId": "p57-line-018",
+          "lineId": "p57-line-015",
           "order": 51,
-          "displayText": "לְמַֽעַן",
-          "spokenText": "לְמַֽעַן",
+          "displayText": "עַל־יָדֶֽךָ,",
+          "spokenText": "עַל יָדֶֽךָ,",
           "status": "verified"
         },
         {
           "id": "p57-word-052",
           "page": 57,
-          "lineId": "p57-line-018",
+          "lineId": "p57-line-015",
           "order": 52,
-          "displayText": "תִּזְכְּרוּ",
-          "spokenText": "תִּזְכְּרוּ",
+          "displayText": "וְהָיוּ",
+          "spokenText": "וְהָיוּ",
           "status": "verified"
         },
         {
           "id": "p57-word-053",
           "page": 57,
-          "lineId": "p57-line-018",
+          "lineId": "p57-line-015",
           "order": 53,
-          "displayText": "וַעֲשִׂיתֶם",
-          "spokenText": "וַעֲשִׂיתֶם",
+          "displayText": "לְטֹטָפֹת",
+          "spokenText": "le-to-ta-FOT",
           "status": "verified"
         },
         {
           "id": "p57-word-054",
           "page": 57,
-          "lineId": "p57-line-018",
+          "lineId": "p57-line-015",
           "order": 54,
-          "displayText": "אֶת־כָּל־מִצְוֹתָי,",
-          "spokenText": "אֶת כָּל מִצְוֹתָי,",
+          "displayText": "בֵּין",
+          "spokenText": "בֵּין",
           "status": "verified"
         },
         {
           "id": "p57-word-055",
           "page": 57,
-          "lineId": "p57-line-018",
+          "lineId": "p57-line-015",
           "order": 55,
-          "displayText": "וִהְיִיתֶם",
-          "spokenText": "וִהְיִיתֶם",
+          "displayText": "עֵינֶֽיךָ,",
+          "spokenText": "עֵינֶֽיךָ,",
           "status": "verified"
         },
         {
           "id": "p57-word-056",
           "page": 57,
-          "lineId": "p57-line-018",
+          "lineId": "p57-line-015",
           "order": 56,
-          "displayText": "קְדשִׁים",
-          "spokenText": "קְדשִׁים",
+          "displayText": "וּכְתַבְתָּם",
+          "spokenText": "וּכְתַבְתָּם",
           "status": "verified"
         },
         {
           "id": "p57-word-057",
           "page": 57,
-          "lineId": "p57-line-018",
+          "lineId": "p57-line-015",
           "order": 57,
-          "displayText": "לֵאלֹהֵיכֶם,",
-          "spokenText": "לֵאלֹהֵיכֶם,",
+          "displayText": "עַל־מְזֻזוֹת",
+          "spokenText": "עַל מְזֻזוֹת",
           "status": "verified"
         },
         {
@@ -49429,8 +49379,8 @@
           "page": 57,
           "lineId": "p57-line-018",
           "order": 58,
-          "displayText": "אֲנִי",
-          "spokenText": "אֲנִי",
+          "displayText": "לְמַֽעַן",
+          "spokenText": "לְמַֽעַן",
           "status": "verified"
         },
         {
@@ -49438,71 +49388,71 @@
           "page": 57,
           "lineId": "p57-line-018",
           "order": 59,
-          "displayText": "יְיָ",
-          "spokenText": "אֲדֹנָי",
+          "displayText": "תִּזְכְּרוּ",
+          "spokenText": "תִּזְכְּרוּ",
           "status": "verified"
         },
         {
           "id": "p57-word-060",
           "page": 57,
-          "lineId": "p57-line-019",
+          "lineId": "p57-line-018",
           "order": 60,
-          "displayText": "אֱלֹהֵיכֶם,",
-          "spokenText": "אֱלֹהֵיכֶם,",
+          "displayText": "וַעֲשִׂיתֶם",
+          "spokenText": "וַעֲשִׂיתֶם",
           "status": "verified"
         },
         {
           "id": "p57-word-061",
           "page": 57,
-          "lineId": "p57-line-019",
+          "lineId": "p57-line-018",
           "order": 61,
-          "displayText": "אֲשֶׁר",
-          "spokenText": "אֲשֶׁר",
+          "displayText": "אֶת־כָּל־מִצְוֹתָי,",
+          "spokenText": "אֶת כָּל מִצְוֹתָי,",
           "status": "verified"
         },
         {
           "id": "p57-word-062",
           "page": 57,
-          "lineId": "p57-line-019",
+          "lineId": "p57-line-018",
           "order": 62,
-          "displayText": "הוֹצֵֽאתִי",
-          "spokenText": "הוֹצֵֽאתִי",
+          "displayText": "וִהְיִיתֶם",
+          "spokenText": "וִהְיִיתֶם",
           "status": "verified"
         },
         {
           "id": "p57-word-063",
           "page": 57,
-          "lineId": "p57-line-019",
+          "lineId": "p57-line-018",
           "order": 63,
-          "displayText": "אֶתְכֶם",
-          "spokenText": "אֶתְכֶם",
+          "displayText": "קְדשִׁים",
+          "spokenText": "קְדשִׁים",
           "status": "verified"
         },
         {
           "id": "p57-word-064",
           "page": 57,
-          "lineId": "p57-line-019",
+          "lineId": "p57-line-018",
           "order": 64,
-          "displayText": "מֵאֶֽרֶץ",
-          "spokenText": "מֵאֶֽרֶץ",
+          "displayText": "לֵאלֹהֵיכֶם,",
+          "spokenText": "לֵאלֹהֵיכֶם,",
           "status": "verified"
         },
         {
           "id": "p57-word-065",
           "page": 57,
-          "lineId": "p57-line-019",
+          "lineId": "p57-line-018",
           "order": 65,
-          "displayText": "מִצְרַיִם",
-          "spokenText": "מִצְרַיִם",
+          "displayText": "אֲנִי",
+          "spokenText": "אֲנִי",
           "status": "verified"
         },
         {
           "id": "p57-word-066",
           "page": 57,
-          "lineId": "p57-line-019",
+          "lineId": "p57-line-018",
           "order": 66,
-          "displayText": "לִהְיוֹת",
-          "spokenText": "לִהְיוֹת",
+          "displayText": "יְיָ",
+          "spokenText": "אֲדֹנָי",
           "status": "verified"
         },
         {
@@ -49510,8 +49460,8 @@
           "page": 57,
           "lineId": "p57-line-019",
           "order": 67,
-          "displayText": "לָכֶם",
-          "spokenText": "לָכֶם",
+          "displayText": "אֱלֹהֵיכֶם,",
+          "spokenText": "אֱלֹהֵיכֶם,",
           "status": "verified"
         },
         {
@@ -49519,8 +49469,8 @@
           "page": 57,
           "lineId": "p57-line-019",
           "order": 68,
-          "displayText": "לֵאלֹהִים,",
-          "spokenText": "לֵאלֹהִים,",
+          "displayText": "אֲשֶׁר",
+          "spokenText": "אֲשֶׁר",
           "status": "verified"
         },
         {
@@ -49528,123 +49478,213 @@
           "page": 57,
           "lineId": "p57-line-019",
           "order": 69,
-          "displayText": "אֲנִי",
-          "spokenText": "אֲנִי",
+          "displayText": "הוֹצֵֽאתִי",
+          "spokenText": "הוֹצֵֽאתִי",
           "status": "verified"
         },
         {
           "id": "p57-word-070",
           "page": 57,
-          "lineId": "p57-line-020",
+          "lineId": "p57-line-019",
           "order": 70,
-          "displayText": "יְיָ",
-          "spokenText": "אֲדֹנָי",
+          "displayText": "אֶתְכֶם",
+          "spokenText": "אֶתְכֶם",
           "status": "verified"
         },
         {
           "id": "p57-word-071",
           "page": 57,
-          "lineId": "p57-line-020",
+          "lineId": "p57-line-019",
           "order": 71,
-          "displayText": "אֱלֹהֵיכֶם.",
-          "spokenText": "אֱלֹהֵיכֶם.",
+          "displayText": "מֵאֶֽרֶץ",
+          "spokenText": "מֵאֶֽרֶץ",
           "status": "verified"
         },
         {
           "id": "p57-word-072",
           "page": 57,
-          "lineId": "p57-line-023",
+          "lineId": "p57-line-019",
           "order": 72,
-          "displayText": "?מִי־כָמֹֽכָה",
-          "spokenText": "?מִי כָמֹֽכָה",
+          "displayText": "מִצְרַיִם",
+          "spokenText": "מִצְרַיִם",
           "status": "verified"
         },
         {
           "id": "p57-word-073",
           "page": 57,
-          "lineId": "p57-line-023",
+          "lineId": "p57-line-019",
           "order": 73,
-          "displayText": "בָּאֵלִים,",
-          "spokenText": "בָּאֵלִים,",
+          "displayText": "לִהְיוֹת",
+          "spokenText": "לִהְיוֹת",
           "status": "verified"
         },
         {
           "id": "p57-word-074",
           "page": 57,
-          "lineId": "p57-line-023",
+          "lineId": "p57-line-019",
           "order": 74,
-          "displayText": "יְיָ",
-          "spokenText": "אֲדֹנָי",
+          "displayText": "לָכֶם",
+          "spokenText": "לָכֶם",
           "status": "verified"
         },
         {
           "id": "p57-word-075",
           "page": 57,
-          "lineId": "p57-line-024",
+          "lineId": "p57-line-019",
           "order": 75,
-          "displayText": "?מִי",
-          "spokenText": "?מִי",
+          "displayText": "לֵאלֹהִים,",
+          "spokenText": "לֵאלֹהִים,",
           "status": "verified"
         },
         {
           "id": "p57-word-076",
           "page": 57,
-          "lineId": "p57-line-024",
+          "lineId": "p57-line-019",
           "order": 76,
-          "displayText": "כָמֹֽכָה,",
-          "spokenText": "כָמֹֽכָה,",
+          "displayText": "אֲנִי",
+          "spokenText": "אֲנִי",
           "status": "verified"
         },
         {
           "id": "p57-word-077",
           "page": 57,
-          "lineId": "p57-line-024",
+          "lineId": "p57-line-020",
           "order": 77,
-          "displayText": "נֶאְדָּר",
-          "spokenText": "נֶאְדָּר",
+          "displayText": "יְיָ",
+          "spokenText": "אֲדֹנָי",
           "status": "verified"
         },
         {
           "id": "p57-word-078",
           "page": 57,
-          "lineId": "p57-line-024",
+          "lineId": "p57-line-020",
           "order": 78,
-          "displayText": "בַּקְֹדֶשׁ",
-          "spokenText": "בַּקְֹדֶשׁ",
+          "displayText": "אֱלֹהֵיכֶם.",
+          "spokenText": "אֱלֹהֵיכֶם.",
           "status": "verified"
         },
         {
           "id": "p57-word-079",
           "page": 57,
-          "lineId": "p57-line-025",
+          "lineId": "p57-line-023",
           "order": 79,
-          "displayText": "?נוֹרָא",
-          "spokenText": "?נוֹרָא",
+          "displayText": "?מִי־כָמֹֽכָה",
+          "spokenText": "?מִי כָמֹֽכָה",
           "status": "verified"
         },
         {
           "id": "p57-word-080",
           "page": 57,
-          "lineId": "p57-line-025",
+          "lineId": "p57-line-023",
           "order": 80,
-          "displayText": "תְהִלֹּת,",
-          "spokenText": "תְהִלֹּת,",
+          "displayText": "בָּאֵלִים,",
+          "spokenText": "בָּאֵלִים,",
           "status": "verified"
         },
         {
           "id": "p57-word-081",
           "page": 57,
-          "lineId": "p57-line-025",
+          "lineId": "p57-line-023",
           "order": 81,
-          "displayText": "עֹֽשֵׂה",
-          "spokenText": "עֹֽשֵׂה",
+          "displayText": "יְיָ",
+          "spokenText": "אֲדֹנָי",
           "status": "verified"
         },
         {
           "id": "p57-word-082",
           "page": 57,
-          "lineId": "p57-line-025",
+          "lineId": "p57-line-024",
           "order": 82,
+          "displayText": "?מִי־כָמֹֽכָה",
+          "spokenText": "?מִי כָמֹֽכָה",
+          "status": "verified"
+        },
+        {
+          "id": "p57-word-083",
+          "page": 57,
+          "lineId": "p57-line-024",
+          "order": 83,
+          "displayText": "בָּאֵלִים,",
+          "spokenText": "בָּאֵלִים,",
+          "status": "verified"
+        },
+        {
+          "id": "p57-word-084",
+          "page": 57,
+          "lineId": "p57-line-024",
+          "order": 84,
+          "displayText": "יְיָ",
+          "spokenText": "אֲדֹנָי",
+          "status": "verified"
+        },
+        {
+          "id": "p57-word-085",
+          "page": 57,
+          "lineId": "p57-line-025",
+          "order": 85,
+          "displayText": "?נוֹרָא",
+          "spokenText": "?נוֹרָא",
+          "status": "verified"
+        },
+        {
+          "id": "p57-word-086",
+          "page": 57,
+          "lineId": "p57-line-025",
+          "order": 86,
+          "displayText": "תְהִלֹּת,",
+          "spokenText": "תְהִלֹּת,",
+          "status": "verified"
+        },
+        {
+          "id": "p57-word-087",
+          "page": 57,
+          "lineId": "p57-line-025",
+          "order": 87,
+          "displayText": "עֹֽשֵׂה",
+          "spokenText": "עֹֽשֵׂה",
+          "status": "verified"
+        },
+        {
+          "id": "p57-word-088",
+          "page": 57,
+          "lineId": "p57-line-025",
+          "order": 88,
+          "displayText": "פֶֽלֶא",
+          "spokenText": "פֶֽלֶא",
+          "status": "verified"
+        },
+        {
+          "id": "p57-word-089",
+          "page": 57,
+          "lineId": "p57-line-026",
+          "order": 89,
+          "displayText": "?נוֹרָא",
+          "spokenText": "?נוֹרָא",
+          "status": "verified"
+        },
+        {
+          "id": "p57-word-090",
+          "page": 57,
+          "lineId": "p57-line-026",
+          "order": 90,
+          "displayText": "תְהִלֹּת,",
+          "spokenText": "תְהִלֹּת,",
+          "status": "verified"
+        },
+        {
+          "id": "p57-word-091",
+          "page": 57,
+          "lineId": "p57-line-026",
+          "order": 91,
+          "displayText": "עֹֽשֵׂה",
+          "spokenText": "עֹֽשֵׂה",
+          "status": "verified"
+        },
+        {
+          "id": "p57-word-092",
+          "page": 57,
+          "lineId": "p57-line-026",
+          "order": 92,
           "displayText": "פֶֽלֶא",
           "spokenText": "פֶֽלֶא",
           "status": "verified"
@@ -49657,7 +49697,7 @@
       "sourcePdfPage": 58,
       "title": "Veshamru",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-058.png",
       "notes": [],
       "sections": [
@@ -51016,7 +51056,7 @@
           "lineId": "p58-line-004",
           "order": 25,
           "displayText": "שָׁבַת",
-          "spokenText": "שָׁבַת",
+          "spokenText": "sha-VAT",
           "status": "verified"
         },
         {
@@ -51801,7 +51841,7 @@
       "sourcePdfPage": 59,
       "title": "אָלֶף-בֵּית",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-059.png",
       "notes": [],
       "sections": [
@@ -52066,7 +52106,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "33 d Dalet ד - דָּלֶת"
+          "mixedText": "33 d dalet ד - דָּלֶת"
         },
         {
           "id": "p59-line-009",
@@ -52202,7 +52242,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "28 ch Chet ח - חֵית"
+          "mixedText": "28 kh Chet ח - חֵית"
         },
         {
           "id": "p59-line-013",
@@ -52338,7 +52378,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "6 ch Chaf כ - כָף"
+          "mixedText": "6 kh Khaf כ - כָף"
         },
         {
           "id": "p59-line-017",
@@ -52374,7 +52414,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "6 ch Final Chaf ך - כָף סוֹפִית"
+          "mixedText": "6 kh Final Khaf ך - כָף סוֹפִית"
         },
         {
           "id": "p59-line-018",
@@ -52708,7 +52748,7 @@
       "sourcePdfPage": 60,
       "title": "Page  Sounds Like  Transliteration  Hebrew Script Bloack\n                                                          Name   Letter Letter",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-060.png",
       "notes": [],
       "sections": [
@@ -52922,7 +52962,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "46 s Samech ס - סָמֶךְ"
+          "mixedText": "46 s Samekh ס - סָמֶךְ"
         },
         {
           "id": "p60-line-007",
@@ -53024,7 +53064,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "25 f Fei פ - פֵא"
+          "mixedText": "25 f Fei Fei - FEI"
         },
         {
           "id": "p60-line-010",
@@ -53060,7 +53100,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "25 f Final Fei ף - פֵא סוֹפִית"
+          "mixedText": "25 f Final Fei ף - FEI סוֹפִית"
         },
         {
           "id": "p60-line-011",
@@ -53488,7 +53528,7 @@
           "lineId": "p60-line-009",
           "order": 17,
           "displayText": "פ",
-          "spokenText": "פ",
+          "spokenText": "Fei",
           "status": "verified"
         },
         {
@@ -53497,7 +53537,7 @@
           "lineId": "p60-line-009",
           "order": 18,
           "displayText": "פֵא",
-          "spokenText": "פֵא",
+          "spokenText": "FEI",
           "status": "verified"
         },
         {
@@ -53515,7 +53555,7 @@
           "lineId": "p60-line-010",
           "order": 20,
           "displayText": "פֵא",
-          "spokenText": "פֵא",
+          "spokenText": "FEI",
           "status": "verified"
         },
         {
@@ -53688,7 +53728,7 @@
       "sourcePdfPage": 61,
       "title": "VOWEL CHART",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-full-v2",
       "image": "pages/page-061.png",
       "notes": [],
       "sections": [
@@ -53788,7 +53828,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "8 ah Patach פַּתָּח  ַ"
+          "mixedText": "8 ah Patakh פַּתָּח  ַ"
         },
         {
           "id": "p61-line-004",
@@ -53856,7 +53896,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "23 ee Chirik חִירִיק ִ"
+          "mixedText": "23 ee Khirik חִירִיק ִ"
         },
         {
           "id": "p61-line-006",
@@ -53994,7 +54034,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "16 oh Cholam וֹ חוֹלָם or ֹ"
+          "mixedText": "16 oh Kholam וֹ חוֹלָם or ֹ"
         },
         {
           "id": "p61-line-010",
@@ -54040,8 +54080,7 @@
           "displayText": "5 i Sheva שְׁוָה ְ\n   or stop or pause",
           "contentMode": "mixed",
           "notes": [
-            "The letter's vowel mark (Niqqud) is drawen below an imaginary line.\nThis line contain two words are written one blow the other, but they represent a single Line",
-            "The hebrew word seems to be missing shin dot placement, and other vowels."
+            "The letter's vowel mark (Niqqud) is drawen below an imaginary line.\nThis line contain two words are written one blow the other, but they represent a single Line"
           ],
           "wordIds": [
             "p61-word-018",
@@ -54099,7 +54138,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "31 ah Chataf Patach חֲטַף פַּתָּח ֲ"
+          "mixedText": "31 ah Khataf Patakh חֲטַף פַּתָּח ֲ"
         },
         {
           "id": "p61-line-013",
@@ -54135,7 +54174,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "14 eh Chataf Segol חֲטַף סֶגּוֹל ֱ"
+          "mixedText": "14 eh Khataf Segol חֲטַף סֶגּוֹל ֱ"
         },
         {
           "id": "p61-line-014",
@@ -54171,7 +54210,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "49 aw or oh Chataf Kamatz חֲטַף קָמָץ ֳ"
+          "mixedText": "49 aw or oh Khataf Kamatz חֲטַף קָמָץ ֳ"
         },
         {
           "id": "p61-line-015",
@@ -54492,5 +54531,11 @@
         }
       ]
     }
-  ]
+  ],
+  "importSummary": {
+    "pageCount": 61,
+    "rowCount": 857,
+    "issueAware": true,
+    "updatedIssueLineCount": 199
+  }
 }
