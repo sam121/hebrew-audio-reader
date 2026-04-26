@@ -13,7 +13,7 @@
       "sourcePdfPage": 1,
       "title": "Blessing 1: The Blessing over the Fruit of the Vine",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-p1-5-v1",
       "image": "pages/page-001.png",
       "notes": [],
       "sections": [
@@ -252,7 +252,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "mixedText": "Locate the bet throughout this paragraph from the sid-oor"
+          "mixedText": "Locate the bet throughout this paragraph from the sid-door"
         },
         {
           "id": "p01-line-009",
@@ -986,7 +986,7 @@
           "lineId": "p01-line-016",
           "order": 45,
           "displayText": "וְרֽוּחַ",
-          "spokenText": "וְרֽוּחַ",
+          "spokenText": "וְרוּאַךְ",
           "status": "verified"
         },
         {
@@ -1435,7 +1435,7 @@
       "sourcePdfPage": 3,
       "title": "בָּרוּךְ אַתָּה יְיָ",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-p1-5-v1",
       "image": "pages/page-003.png",
       "notes": [],
       "sections": [
@@ -1510,7 +1510,7 @@
           "notes": [],
           "wordIds": [],
           "displayWords": [],
-          "englishText": "has the sound of \"R\" as in Rosh Hashanah."
+          "englishText": "has the sound of \"R\" as in Rosh hah-shah-NAH."
         },
         {
           "id": "p03-line-004",
@@ -1801,7 +1801,7 @@
           "lineId": "p03-line-006",
           "order": 12,
           "displayText": "רָבָּ",
-          "spokenText": "רָבָּ",
+          "spokenText": "rah-bah",
           "status": "verified"
         },
         {
@@ -1810,7 +1810,7 @@
           "lineId": "p03-line-006",
           "order": 13,
           "displayText": "בָּרָ",
-          "spokenText": "בָּרָ",
+          "spokenText": "bah-rah",
           "status": "verified"
         },
         {
@@ -1864,7 +1864,7 @@
           "lineId": "p03-line-007",
           "order": 19,
           "displayText": "בָּרָ",
-          "spokenText": "בָּרָ",
+          "spokenText": "bah-rah",
           "status": "verified"
         },
         {
@@ -1873,7 +1873,7 @@
           "lineId": "p03-line-007",
           "order": 20,
           "displayText": "רָבָּ",
-          "spokenText": "רָבָּ",
+          "spokenText": "rah-bah",
           "status": "verified"
         },
         {
@@ -1909,7 +1909,7 @@
           "lineId": "p03-line-008",
           "order": 24,
           "displayText": "בָּבָּ",
-          "spokenText": "בָּבָּ",
+          "spokenText": "bah-bah",
           "status": "verified"
         },
         {
@@ -1918,7 +1918,7 @@
           "lineId": "p03-line-008",
           "order": 25,
           "displayText": "רָרָ",
-          "spokenText": "רָרָ",
+          "spokenText": "rah-rah",
           "status": "verified"
         },
         {
@@ -1927,7 +1927,7 @@
           "lineId": "p03-line-008",
           "order": 26,
           "displayText": "בָּבָּרָ",
-          "spokenText": "בָּבָּרָ",
+          "spokenText": "bah-bah-rah",
           "status": "verified"
         },
         {
@@ -1963,7 +1963,7 @@
           "lineId": "p03-line-008",
           "order": 30,
           "displayText": "רָבָּבָּר",
-          "spokenText": "רָבָּבָּר",
+          "spokenText": "rah-bah-bar",
           "status": "verified"
         }
       ]
@@ -1974,7 +1974,7 @@
       "sourcePdfPage": 4,
       "title": "בָּרוּךְ אַתָּה יְיָ",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-p1-5-v1",
       "image": "pages/page-004.png",
       "notes": [],
       "sections": [
@@ -2344,7 +2344,7 @@
           "lineId": "p04-line-005",
           "order": 11,
           "displayText": "רָבָּ",
-          "spokenText": "רָבָּ",
+          "spokenText": "rah-bah",
           "status": "verified"
         },
         {
@@ -2371,7 +2371,7 @@
           "lineId": "p04-line-005",
           "order": 14,
           "displayText": "בָּרָ",
-          "spokenText": "בָּרָ",
+          "spokenText": "bah-rah",
           "status": "verified"
         },
         {
@@ -2425,7 +2425,7 @@
           "lineId": "p04-line-007",
           "order": 20,
           "displayText": "וּרָבּוּ",
-          "spokenText": "אוּרָבּוּ",
+          "spokenText": "u-ra-BU",
           "status": "verified"
         },
         {
@@ -2517,7 +2517,7 @@
       "sourcePdfPage": 5,
       "title": "בָּרוּךְ אַתָּה יְיָ",
       "status": "verified",
-      "audioRevision": "2026-04-12-sheet-import-v1",
+      "audioRevision": "2026-04-26-contractor-p1-5-v1",
       "image": "pages/page-005.png",
       "notes": [],
       "sections": [
@@ -2580,7 +2580,7 @@
           "displayWords": [
             "ְ"
           ],
-          "mixedText": "Sheva ְ"
+          "mixedText": "shva"
         },
         {
           "id": "p05-line-003",
@@ -2675,7 +2675,7 @@
             "confidence": 0.92
           },
           "matchMode": "hybrid",
-          "englishText": "The Sheva is also read as a stop or pause, having no sound at all"
+          "englishText": "The shva is also read as a stop or pause, having no sound at all"
         },
         {
           "id": "p05-line-007",
@@ -2741,7 +2741,7 @@
           "badgeLabel": "Line 9",
           "sectionId": "exercise",
           "status": "verified",
-          "displayText": "2. בָּרְ בָּרְבּר בָּרְבּוּר בָּרְבּוּ",
+          "displayText": "2. בָּרְ בָּרְבָּר בָּרְבּוּר בָּרְבּוּ",
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
@@ -2752,7 +2752,7 @@
           ],
           "displayWords": [
             "בָּרְ",
-            "בָּרְבּר",
+            "בָּרְבָּר",
             "בָּרְבּוּר",
             "בָּרְבּוּ"
           ],
@@ -2923,7 +2923,7 @@
           "badgeLabel": "Line 14",
           "sectionId": "exercise",
           "status": "verified",
-          "displayText": "6. בְּ רְ בּוּרְ רוּר בְּרוּ",
+          "displayText": "6. בְּ רְ בּוּרְ רוּר בָּרוּ בְּרוּ",
           "contentMode": "hebrew",
           "notes": [],
           "wordIds": [
@@ -2931,14 +2931,16 @@
             "p05-word-034",
             "p05-word-035",
             "p05-word-036",
-            "p05-word-037"
+            "p05-word-037",
+            "p05-word-038"
           ],
           "displayWords": [
             "בְּ",
             "רְ",
             "בּוּרְ",
             "רוּר",
-            "בְּרוּ"
+            "בָּרוּ",
+            "בְּרוּ"
           ],
           "region": {
             "top": 85.14,
@@ -3079,8 +3081,8 @@
           "page": 5,
           "lineId": "p05-line-009",
           "order": 14,
-          "displayText": "בָּרְבּר",
-          "spokenText": "בָּרְבּר",
+          "displayText": "בָּרְבָּר",
+          "spokenText": "בָּרְבָּר",
           "status": "verified"
         },
         {
@@ -3125,7 +3127,7 @@
           "lineId": "p05-line-010",
           "order": 19,
           "displayText": "בְּבָּרְבָּר",
-          "spokenText": "בְּבָּרְבָּר",
+          "spokenText": "be-bar-BAR",
           "status": "verified"
         },
         {
@@ -3134,7 +3136,7 @@
           "lineId": "p05-line-010",
           "order": 20,
           "displayText": "בְּבָּרְבּוּר",
-          "spokenText": "בְּבָּרְבּוּר",
+          "spokenText": "be-bar-BOOR",
           "status": "verified"
         },
         {
@@ -3188,7 +3190,7 @@
           "lineId": "p05-line-012",
           "order": 26,
           "displayText": "רוּבָּבּ",
-          "spokenText": "רוּבָּבּ",
+          "spokenText": "roo-BAB",
           "status": "verified"
         },
         {
@@ -3206,7 +3208,7 @@
           "lineId": "p05-line-013",
           "order": 28,
           "displayText": "בְּרוּרָ",
-          "spokenText": "בְּרוּרָ",
+          "spokenText": "be-roo-RA",
           "status": "verified"
         },
         {
@@ -3224,7 +3226,7 @@
           "lineId": "p05-line-013",
           "order": 30,
           "displayText": "רָבְּ",
-          "spokenText": "רָבְּ",
+          "spokenText": "rab",
           "status": "verified"
         },
         {
@@ -3286,8 +3288,17 @@
           "page": 5,
           "lineId": "p05-line-014",
           "order": 37,
-          "displayText": "בְּרוּ",
-          "spokenText": "בְּרוּ",
+          "displayText": "בָּרוּ",
+          "spokenText": "בָּרוּ",
+          "status": "verified"
+        },
+        {
+          "id": "p05-word-038",
+          "page": 5,
+          "lineId": "p05-line-014",
+          "order": 38,
+          "displayText": "בְּרוּ",
+          "spokenText": "בְּרוּ",
           "status": "verified"
         }
       ]
