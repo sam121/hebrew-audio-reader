@@ -48,7 +48,7 @@
       gap: 18px;
     }
 
-    .hero,
+    .masthead,
     .page-panel,
     .transcript-panel,
     .message-card {
@@ -59,17 +59,85 @@
       backdrop-filter: blur(12px);
     }
 
-    .hero,
+    .masthead,
     .page-panel,
     .transcript-panel {
       padding: 20px 24px;
     }
 
-    .hero {
+    .masthead {
       display: flex;
       justify-content: space-between;
       gap: 24px;
-      align-items: end;
+      align-items: stretch;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top right, rgba(255, 236, 210, 0.95), transparent 32%),
+        linear-gradient(135deg, rgba(255, 252, 248, 0.98), rgba(247, 237, 222, 0.94));
+    }
+
+    .masthead::before {
+      content: "";
+      position: absolute;
+      inset: auto -10% -38% 40%;
+      height: 220px;
+      background: radial-gradient(circle, rgba(147, 80, 54, 0.12), transparent 65%);
+      pointer-events: none;
+    }
+
+    .masthead-copy,
+    .masthead-meta {
+      position: relative;
+      z-index: 1;
+    }
+
+    .masthead-copy {
+      display: grid;
+      gap: 8px;
+      align-content: start;
+      max-width: 760px;
+    }
+
+    .masthead-meta {
+      min-width: min(360px, 100%);
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .masthead-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .masthead-stat {
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: rgba(255, 251, 246, 0.9);
+      border: 1px solid rgba(93, 69, 52, 0.12);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+      display: grid;
+      gap: 6px;
+    }
+
+    .masthead-stat strong,
+    .masthead-current-title {
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      font-size: 1.02rem;
+      line-height: 1.35;
+      color: var(--ink);
+    }
+
+    .masthead-current {
+      padding: 16px 18px;
+      border-radius: 22px;
+      background: rgba(255, 251, 246, 0.94);
+      border: 1px solid rgba(93, 69, 52, 0.12);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+      display: grid;
+      gap: 8px;
     }
 
     .eyebrow,
@@ -523,6 +591,14 @@
       flex-wrap: wrap;
     }
 
+    .masthead {
+      padding: 26px 28px;
+    }
+
+    .masthead h1 {
+      max-width: 16ch;
+    }
+
     .workspace {
       grid-template-columns: minmax(620px, 1.28fr) minmax(330px, 0.72fr);
       gap: 16px;
@@ -598,6 +674,16 @@
         padding: 14px;
       }
 
+      .masthead {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+
+      .masthead-meta,
+      .masthead-copy {
+        max-width: none;
+      }
+
       .workspace {
         grid-template-columns: 1fr;
       }
@@ -615,6 +701,14 @@
     }
 
     @media (max-width: 720px) {
+      .masthead {
+        padding: 20px 18px;
+      }
+
+      .masthead-stats {
+        grid-template-columns: 1fr;
+      }
+
       .page-panel,
       .transcript-panel {
         padding: 16px;
@@ -661,6 +755,31 @@
         <button id="nextPage" type="button" disabled>Next page</button>
       </div>
     </header>
+
+    <section class="masthead" aria-label="Reader overview">
+      <div class="masthead-copy">
+        <p class="eyebrow">Interactive Hebrew Reader</p>
+        <h1>Learn Hebrew Today</h1>
+        <p class="lede">Follow the printed page with synced line audio, clearer word drills, and on-page arrow guidance that mirrors the latest reviewed backup positions.</p>
+      </div>
+      <div class="masthead-meta">
+        <div class="masthead-stats">
+          <div class="masthead-stat">
+            <p class="panel-label">Current page</p>
+            <strong id="heroPageNumber">Page 1</strong>
+          </div>
+          <div class="masthead-stat">
+            <p class="panel-label">Audio mode</p>
+            <strong id="heroAudioMode">Line-by-line drills</strong>
+          </div>
+        </div>
+        <div class="masthead-current">
+          <p class="panel-label">Page focus</p>
+          <div id="heroPageTitle" class="masthead-current-title">Preparing reader...</div>
+          <p id="heroLineCount" class="helper">Loading page data…</p>
+        </div>
+      </div>
+    </section>
 
     <main class="workspace">
       <section class="page-panel">
@@ -712,6 +831,10 @@
       overlayLayer: document.getElementById("overlayLayer"),
       pageCounter: document.getElementById("pageCounter"),
       pageImage: document.getElementById("pageImage"),
+      heroAudioMode: document.getElementById("heroAudioMode"),
+      heroLineCount: document.getElementById("heroLineCount"),
+      heroPageNumber: document.getElementById("heroPageNumber"),
+      heroPageTitle: document.getElementById("heroPageTitle"),
       playbackStatus: document.getElementById("playbackStatus"),
       playDrills: document.getElementById("playDrills"),
       playPrimary: document.getElementById("playPrimary"),
@@ -1411,8 +1534,14 @@
       const page = currentPage();
       const initialLine = firstMatchableLine(page);
       state.activeLineId = initialLine ? initialLine.id : null;
+      const drills = drillPlaybackGroups(page);
+      const visibleLines = orderedLines(page).length;
 
       elements.pageCounter.textContent = "Page " + (state.currentPageIndex + 1) + " of " + state.reader.pages.length;
+      elements.heroPageNumber.textContent = "Page " + page.page;
+      elements.heroPageTitle.textContent = page.title || ("Page " + page.page);
+      elements.heroLineCount.textContent = visibleLines + " reviewed line" + (visibleLines === 1 ? "" : "s") + " on this page";
+      elements.heroAudioMode.textContent = drills.length ? "Line-by-line drills" : "Page playback";
       requestVisiblePageImage(page);
       document.title = "Hebrew Reader - Page " + page.page;
       elements.prevPage.disabled = state.currentPageIndex === 0;
@@ -1421,7 +1550,6 @@
       elements.endPage.disabled = state.currentPageIndex === state.reader.pages.length - 1;
       const wholePage = wholePagePlaybackGroups(page);
       const primary = primaryPlaybackGroups(page);
-      const drills = drillPlaybackGroups(page);
       elements.playWholePage.disabled = !wholePage.length;
       elements.playPrimary.disabled = !primary.length;
       elements.playDrills.disabled = !drills.length;

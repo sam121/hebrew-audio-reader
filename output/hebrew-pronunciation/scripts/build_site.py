@@ -488,6 +488,7 @@ def ensure_mixed_audio_segments(
     hebrew_voice_id: Optional[str],
     english_model: str,
     english_voice_id: Optional[str],
+    english_language_code: Optional[str],
     api_key: Optional[str],
     output_format: str,
     allow_missing_audio: bool,
@@ -522,11 +523,11 @@ def ensure_mixed_audio_segments(
             url = ensure_audio(
                 category="lines",
                 language="en",
-                language_code="en",
+                language_code=english_language_code,
                 item_id=f"{item_id}-mixed-en-{index:02d}",
                 text=segment_text,
                 model_id=english_model,
-                voice_id=hebrew_voice_id or english_voice_id,
+                voice_id=english_voice_id or hebrew_voice_id,
                 voice_secret_name="ELEVENLABS_HEBREW_VOICE_ID",
                 api_key=api_key,
                 output_format=output_format,
@@ -1290,6 +1291,10 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
     hebrew_model = os.getenv("ELEVENLABS_HEBREW_MODEL", "eleven_v3")
     english_model = os.getenv("ELEVENLABS_ENGLISH_MODEL", "eleven_flash_v2_5")
     output_format = os.getenv("ELEVENLABS_OUTPUT_FORMAT", DEFAULT_OUTPUT_FORMAT)
+    force_hebrew_voice = os.getenv("HEBREW_READER_FORCE_HEBREW_VOICE", "1").strip().lower() not in {"0", "false", "no"}
+    english_voice_for_reader = hebrew_voice_id if force_hebrew_voice else (english_voice_id or hebrew_voice_id)
+    english_model_for_reader = hebrew_model if force_hebrew_voice else english_model
+    english_language_code = None if force_hebrew_voice else "en"
 
     manifest_entries: List[Dict] = []
     missing_items: List[Dict] = []
@@ -1300,6 +1305,8 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
         "audioConfig": {
             "hebrewModel": hebrew_model,
             "englishModel": english_model,
+            "readerEnglishModel": english_model_for_reader,
+            "singleVoiceMode": "hebrew" if force_hebrew_voice else "mixed",
             "outputFormat": output_format,
         },
         "pages": [],
@@ -1337,8 +1344,9 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                     text=section.get("mixedText"),
                     hebrew_model=hebrew_model,
                     hebrew_voice_id=hebrew_voice_id,
-                    english_model=english_model,
-                    english_voice_id=english_voice_id,
+                    english_model=english_model_for_reader,
+                    english_voice_id=english_voice_for_reader,
+                    english_language_code=english_language_code,
                     api_key=api_key,
                     output_format=output_format,
                     allow_missing_audio=allow_missing_audio,
@@ -1429,8 +1437,9 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                     text=line.get("mixedText"),
                     hebrew_model=hebrew_model,
                     hebrew_voice_id=hebrew_voice_id,
-                    english_model=english_model,
-                    english_voice_id=english_voice_id,
+                    english_model=english_model_for_reader,
+                    english_voice_id=english_voice_for_reader,
+                    english_language_code=english_language_code,
                     api_key=api_key,
                     output_format=output_format,
                     allow_missing_audio=allow_missing_audio,
@@ -1465,11 +1474,11 @@ def build_site_data(source: Dict, *, allow_missing_audio: bool) -> Tuple[Dict, D
                 line_out["audio"]["en"]["line"] = ensure_audio(
                     category="lines",
                     language="en",
-                    language_code="en",
+                    language_code=english_language_code,
                     item_id=line["id"],
                     text=english_audio_text,
-                    model_id=english_model,
-                    voice_id=hebrew_voice_id or english_voice_id,
+                    model_id=english_model_for_reader,
+                    voice_id=english_voice_for_reader,
                     voice_secret_name="ELEVENLABS_HEBREW_VOICE_ID",
                     api_key=api_key,
                     output_format=output_format,

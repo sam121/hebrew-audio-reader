@@ -96,9 +96,20 @@ def parse_args(argv: Iterable[str]) -> argparse.Namespace:
     parser.add_argument("--pdf-path", default=DEFAULT_PDF_PATH)
     parser.add_argument("--audio-revision", default=DEFAULT_AUDIO_REVISION)
     parser.add_argument(
+        "--issue-review-column",
+        choices=("auto", "review_1", "review_2"),
+        default="auto",
+        help="Which issue review columns to import. 'auto' prefers review_2, then review_1.",
+    )
+    parser.add_argument(
         "--review-sync-url",
         default="",
         help="Optional QA review backup endpoint. If omitted, qa-sync-config.json is used when available.",
+    )
+    parser.add_argument(
+        "--force-pages",
+        default="",
+        help="Comma-separated page numbers to fully refresh from the sheet, even if the lines have no issue note.",
     )
     parser.add_argument(
         "--force-all-lines",
@@ -300,6 +311,15 @@ def first_present_value(raw: Dict, *keys: str) -> str:
     return ""
 
 
+def parse_force_pages(raw_value: str) -> List[int]:
+    pages: List[int] = []
+    for token in (raw_value or "").split(","):
+        cleaned = clean_text(token)
+        if cleaned.isdigit():
+            pages.append(int(cleaned))
+    return sorted(set(pages))
+
+
 def issue_present(category: str, note: str) -> bool:
     return bool(category or note)
 
@@ -400,8 +420,11 @@ def load_remote_review_state(review_sync_url: str) -> Dict[str, Dict]:
     if not review_sync_url:
         return {}
     try:
-        with urlopen(review_sync_url, timeout=120) as response:
-            payload = json.load(response)
+        if review_sync_url.startswith(("http://", "https://")):
+            with urlopen(review_sync_url, timeout=120) as response:
+                payload = json.load(response)
+        else:
+            payload = json.loads(Path(review_sync_url).read_text(encoding="utf-8"))
     except Exception:
         return {}
 
@@ -417,11 +440,17 @@ def load_remote_review_state(review_sync_url: str) -> Dict[str, Dict]:
         flow_end_value = review.get("flowEndLine")
         legacy_block_start_value = review.get("blockStartLine")
         legacy_block_end_value = review.get("blockEndLine")
+        anchor_value = review.get("anchorY")
         flow_issue = bool(review.get("flowIssue") or review.get("flowAction") or review.get("blockAction"))
         flow_action = str(review.get("flowAction") or review.get("blockAction") or "").strip()
+        try:
+            anchor_y = float(anchor_value) if anchor_value is not None and str(anchor_value).strip() != "" else None
+        except (TypeError, ValueError):
+            anchor_y = None
         review_state[line_id] = {
             "page": int(page_value) if str(page_value).strip().isdigit() else None,
             "lineNumber": int(line_number_value) if str(line_number_value).strip().isdigit() else None,
+            "anchorY": anchor_y,
             "status": str(review.get("status") or "pending").strip() or "pending",
             "category": str(review.get("category") or "").strip(),
             "note": str(review.get("note") or "").strip(),
@@ -432,6 +461,42 @@ def load_remote_review_state(review_sync_url: str) -> Dict[str, Dict]:
             "flowNote": str(review.get("flowNote") or "").strip(),
         }
     return review_state
+
+
+def apply_anchor_overrides_to_pages(pages: List[Dict], review_state: Dict[str, Dict]) -> int:
+    if not review_state:
+        return 0
+
+    applied = 0
+    for page in pages:
+        for line in page.get("lines", []):
+            review = review_state.get(line.get("id", ""))
+            if not review:
+                continue
+            anchor_y = review.get("anchorY")
+            if not isinstance(anchor_y, float):
+                continue
+
+            region = deep_clone(line.get("region") or line.get("overlay") or {})
+            if not region:
+                continue
+
+            try:
+                height = float(region.get("height") or 0.0)
+            except (TypeError, ValueError):
+                height = 0.0
+            if height <= 0:
+                continue
+
+            max_top = max(0.0, 100.0 - height)
+            top = max(0.0, min(max_top, anchor_y - (height / 2.0)))
+            region["top"] = round(top, 6)
+            line["region"] = region
+            if "matchMode" not in line and region:
+                line["matchMode"] = "hybrid"
+            applied += 1
+
+    return applied
 
 
 def apply_flow_grouping_overrides(pages: List[Dict], review_state: Dict[str, Dict]) -> int:
@@ -527,6 +592,7 @@ def merge_page_with_issue_filter(
     *,
     audio_revision: str,
     force_all_lines: bool,
+    force_page_refresh: bool = False,
 ) -> Dict:
     existing_lines_by_id = {line.get("id"): line for line in (existing_page or {}).get("lines", []) if line.get("id")}
     existing_words_by_id = {word.get("id"): word for word in (existing_page or {}).get("words", []) if word.get("id")}
@@ -550,6 +616,7 @@ def merge_page_with_issue_filter(
         issue_note = str(candidate_line.get("sheetIssueNote") or "").strip()
         should_update = (
             force_all_lines
+            or force_page_refresh
             or existing_line is None
             or issue_present(issue_category, issue_note)
         )
@@ -987,7 +1054,55 @@ def build_page(
     }
 
 
-def load_rows(csv_text: str) -> List[Dict]:
+def resolve_issue_values(raw: Dict, review_preference: str) -> Dict[str, str]:
+    candidate_sets = []
+    if review_preference == "review_2":
+        candidate_sets.append(
+            (
+                ("issue_category_review_2", "Issue Category Review 2"),
+                ("issue_note_review_2", "Issue Note Review 2"),
+            )
+        )
+    elif review_preference == "review_1":
+        candidate_sets.append(
+            (
+                ("issue_category_review_1", "Issue Category Review 1"),
+                ("issue_note_review_1", "Issue Note Review 1"),
+            )
+        )
+    else:
+        candidate_sets.extend(
+            [
+                (
+                    ("issue_category_review_2", "Issue Category Review 2"),
+                    ("issue_note_review_2", "Issue Note Review 2"),
+                ),
+                (
+                    ("issue_category_review_1", "Issue Category Review 1"),
+                    ("issue_note_review_1", "Issue Note Review 1"),
+                ),
+            ]
+        )
+
+    candidate_sets.append(
+        (
+            ("Issue Category", "issue_category", "Issue category"),
+            ("Issue Note", "issue_note", "Issue note"),
+        )
+    )
+
+    for category_keys, note_keys in candidate_sets:
+        category = first_present_value(raw, *category_keys)
+        note = first_present_value(raw, *note_keys)
+        if category or note:
+            if note and not category:
+                category = ISSUE_CATEGORY_OTHER
+            return {"issue_category": category, "issue_note": note}
+
+    return {"issue_category": "", "issue_note": ""}
+
+
+def load_rows(csv_text: str, *, issue_review_column: str) -> List[Dict]:
     reader = csv.DictReader(io.StringIO(csv_text))
     rows: List[Dict] = []
     for raw in reader:
@@ -1004,24 +1119,9 @@ def load_rows(csv_text: str) -> List[Dict]:
         ]
         notes = [note for note in notes if note]
 
-        issue_category = first_present_value(
-            raw,
-            "issue_category_review_1",
-            "Issue Category Review 1",
-            "Issue Category",
-            "issue_category",
-            "Issue category",
-        )
-        issue_note = first_present_value(
-            raw,
-            "issue_note_review_1",
-            "Issue Note Review 1",
-            "Issue Note",
-            "issue_note",
-            "Issue note",
-        )
-        if issue_note and not issue_category:
-            issue_category = ISSUE_CATEGORY_OTHER
+        issue_values = resolve_issue_values(raw, issue_review_column)
+        issue_category = issue_values["issue_category"]
+        issue_note = issue_values["issue_note"]
 
         rows.append(
             {
@@ -1046,6 +1146,8 @@ def build_transcript(
     audio_revision: str,
     existing_transcript: Optional[Dict] = None,
     force_all_lines: bool = False,
+    review_state: Optional[Dict[str, Dict]] = None,
+    force_pages: Optional[List[int]] = None,
 ) -> Dict:
     pages_by_number: Dict[int, List[Dict]] = defaultdict(list)
     for row in rows:
@@ -1058,6 +1160,7 @@ def build_transcript(
 
     pages = []
     updated_line_count = 0
+    forced_page_set = set(force_pages or [])
     for page_number, page_rows in sorted(pages_by_number.items()):
         new_page = build_page(
             page_number,
@@ -1071,9 +1174,13 @@ def build_transcript(
             existing_pages.get(page_number),
             audio_revision=audio_revision,
             force_all_lines=force_all_lines,
+            force_page_refresh=page_number in forced_page_set,
         )
         updated_line_count += merged_page.pop("_updatedLineCount", 0)
         pages.append(merged_page)
+
+    flow_override_count = apply_flow_grouping_overrides(pages, review_state or {})
+    anchor_override_count = apply_anchor_overrides_to_pages(pages, review_state or {})
 
     notes = [
         "Imported from the Google Sheet submission tab.",
@@ -1092,6 +1199,9 @@ def build_transcript(
             "rowCount": len(rows),
             "issueAware": not force_all_lines,
             "updatedIssueLineCount": updated_line_count,
+            "flowOverrideCount": flow_override_count,
+            "anchorOverrideCount": anchor_override_count,
+            "forcedRefreshPages": sorted(forced_page_set),
         },
     }
 
@@ -1106,15 +1216,19 @@ def write_json(path: Path, payload: Dict) -> None:
 def main(argv: Iterable[str]) -> int:
     args = parse_args(argv)
     csv_text = load_csv_text(args)
-    rows = load_rows(csv_text)
+    rows = load_rows(csv_text, issue_review_column=args.issue_review_column)
     output_path = Path(args.output)
     existing_transcript = load_existing_transcript(output_path)
+    review_sync_url = args.review_sync_url or load_default_review_sync_url()
+    review_state = load_remote_review_state(review_sync_url)
     payload = build_transcript(
         rows,
         pdf_path=args.pdf_path,
         audio_revision=args.audio_revision,
         existing_transcript=existing_transcript,
         force_all_lines=args.force_all_lines,
+        review_state=review_state,
+        force_pages=parse_force_pages(args.force_pages),
     )
     write_json(output_path, payload)
     summary = payload.get("importSummary", {})
