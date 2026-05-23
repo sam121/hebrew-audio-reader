@@ -1351,6 +1351,19 @@
       return line.region || line.overlay || null;
     }
 
+    function resolvedArrowY(line) {
+      if (typeof line.anchorY === "number") {
+        return line.anchorY;
+      }
+
+      const region = paddedRegion(resolvedRegion(line));
+      if (!region || !region.width || !region.height) {
+        return null;
+      }
+
+      return region.top + (region.height / 2);
+    }
+
     function effectiveMatchMode(line, section) {
       const requestedMode = line.matchMode || (section && section.matchMode) || (resolvedRegion(line) ? "hybrid" : "none");
       const region = resolvedRegion(line);
@@ -1386,10 +1399,10 @@
 
     function firstMatchableLine(page) {
       const pageSections = sectionsById(page);
-      return drillLines(page).find(function (line) {
+      return orderedLines(page).find(function (line) {
         const section = pageSections.get(line.sectionId || "default");
-        return effectiveMatchMode(line, section) === "hybrid";
-      }) || drillLines(page)[0] || null;
+        return resolvedArrowY(line) !== null || effectiveMatchMode(line, section) === "hybrid";
+      }) || orderedLines(page)[0] || null;
     }
 
     function updateActiveFromEvent(lineId) {
@@ -1402,21 +1415,17 @@
       const pageSections = sectionsById(page);
       elements.overlayLayer.replaceChildren();
 
-      drillLines(page).forEach(function (line) {
+      orderedLines(page).forEach(function (line) {
         const section = pageSections.get(line.sectionId || "default");
-        if (effectiveMatchMode(line, section) !== "hybrid") {
-          return;
-        }
-
-        const region = paddedRegion(resolvedRegion(line));
-        if (!region || !region.width || !region.height) {
+        const arrowY = resolvedArrowY(line);
+        if (arrowY === null || (effectiveMatchMode(line, section) !== "hybrid" && typeof line.anchorY !== "number")) {
           return;
         }
 
         const overlay = document.createElement("div");
         overlay.className = "line-overlay";
         overlay.dataset.lineId = line.id;
-        overlay.style.top = region.top + (region.height / 2) + "%";
+        overlay.style.top = arrowY + "%";
         overlay.style.left = "92%";
         overlay.title = line.badgeLabel || line.label || line.id;
         overlay.textContent = "⬅";

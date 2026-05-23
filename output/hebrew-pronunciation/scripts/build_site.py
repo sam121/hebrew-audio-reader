@@ -1084,6 +1084,7 @@ def build_qa_payload(site_payload: Dict) -> Dict:
                     "isDotSensitiveRisk": bool(risk_tokens),
                     "isDrill": is_drill,
                     "hasRegion": bool(line.get("region") or line.get("overlay")),
+                    "anchorY": line.get("anchorY"),
                     "riskTokens": risk_tokens,
                     "wordPlayback": word_playback,
                     "mixedSegments": playback["segments"],

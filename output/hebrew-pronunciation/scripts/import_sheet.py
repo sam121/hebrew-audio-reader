@@ -477,8 +477,10 @@ def apply_anchor_overrides_to_pages(pages: List[Dict], review_state: Dict[str, D
             if not isinstance(anchor_y, float):
                 continue
 
+            line["anchorY"] = round(max(0.0, min(100.0, anchor_y)), 6)
             region = deep_clone(line.get("region") or line.get("overlay") or {})
             if not region:
+                applied += 1
                 continue
 
             try:
@@ -486,6 +488,7 @@ def apply_anchor_overrides_to_pages(pages: List[Dict], review_state: Dict[str, D
             except (TypeError, ValueError):
                 height = 0.0
             if height <= 0:
+                applied += 1
                 continue
 
             max_top = max(0.0, 100.0 - height)

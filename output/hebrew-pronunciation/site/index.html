@@ -13,11 +13,11 @@
       --ink: #29231d;
       --muted: #726559;
       --accent: #935036;
-      --accent-soft: #ecd5c2;
+      --accent-soft: rgba(147, 80, 54, 0.12);
+      --accent-strong: #6f3723;
       --border: rgba(93, 69, 52, 0.16);
       --shadow: 0 24px 60px rgba(77, 54, 36, 0.13);
       --radius: 24px;
-      --radius-sm: 16px;
       --success: #295944;
       --warning: #a45831;
     }
@@ -48,11 +48,9 @@
       gap: 18px;
     }
 
-    .hero,
-    .toolbar,
+    .masthead,
     .page-panel,
     .transcript-panel,
-    .status-bar,
     .message-card {
       background: var(--panel);
       border: 1px solid var(--border);
@@ -61,27 +59,94 @@
       backdrop-filter: blur(12px);
     }
 
-    .hero,
-    .toolbar,
+    .masthead,
     .page-panel,
-    .transcript-panel,
-    .status-bar {
+    .transcript-panel {
       padding: 20px 24px;
     }
 
-    .hero {
+    .masthead {
       display: flex;
       justify-content: space-between;
       gap: 24px;
-      align-items: end;
+      align-items: stretch;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top right, rgba(255, 236, 210, 0.95), transparent 32%),
+        linear-gradient(135deg, rgba(255, 252, 248, 0.98), rgba(247, 237, 222, 0.94));
+    }
+
+    .masthead::before {
+      content: "";
+      position: absolute;
+      inset: auto -10% -38% 40%;
+      height: 220px;
+      background: radial-gradient(circle, rgba(147, 80, 54, 0.12), transparent 65%);
+      pointer-events: none;
+    }
+
+    .masthead-copy,
+    .masthead-meta {
+      position: relative;
+      z-index: 1;
+    }
+
+    .masthead-copy {
+      display: grid;
+      gap: 8px;
+      align-content: start;
+      max-width: 760px;
+    }
+
+    .masthead-meta {
+      min-width: min(360px, 100%);
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .masthead-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .masthead-stat {
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: rgba(255, 251, 246, 0.9);
+      border: 1px solid rgba(93, 69, 52, 0.12);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+      display: grid;
+      gap: 6px;
+    }
+
+    .masthead-stat strong,
+    .masthead-current-title {
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      font-size: 1.02rem;
+      line-height: 1.35;
+      color: var(--ink);
+    }
+
+    .masthead-current {
+      padding: 16px 18px;
+      border-radius: 22px;
+      background: rgba(255, 251, 246, 0.94);
+      border: 1px solid rgba(93, 69, 52, 0.12);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+      display: grid;
+      gap: 8px;
     }
 
     .eyebrow,
     .panel-label,
     .line-label,
     .page-counter,
-    .status-chip,
-    .helper {
+    .helper,
+    .line-badge,
+    .status-chip {
       margin: 0;
       font-family: "Avenir Next", "Segoe UI", sans-serif;
       text-transform: uppercase;
@@ -107,17 +172,9 @@
 
     .lede {
       margin-top: 12px;
-      max-width: 66ch;
+      max-width: 72ch;
       line-height: 1.6;
       color: var(--muted);
-    }
-
-    .toolbar {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      align-items: center;
-      flex-wrap: wrap;
     }
 
     .toolbar-actions,
@@ -132,7 +189,7 @@
 
     .workspace {
       display: grid;
-      grid-template-columns: minmax(360px, 0.96fr) minmax(400px, 1.04fr);
+      grid-template-columns: minmax(380px, 0.96fr) minmax(420px, 1.04fr);
       gap: 18px;
       align-items: start;
     }
@@ -148,7 +205,7 @@
       font-family: "Avenir Next", "Segoe UI", sans-serif;
       font-weight: 700;
       letter-spacing: 0.01em;
-      transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+      transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease, border-color 160ms ease;
     }
 
     button:hover:not(:disabled) {
@@ -177,20 +234,8 @@
       transform: none;
     }
 
-    .status-bar {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
     .status-chip {
       color: var(--success);
-    }
-
-    .workspace section {
-      min-width: 0;
     }
 
     .panel-heading {
@@ -205,27 +250,77 @@
     .transcript-panel {
       display: grid;
       gap: 18px;
+      align-self: start;
+    }
+
+    .page-panel {
+      position: sticky;
+      top: 18px;
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+      scrollbar-gutter: stable;
     }
 
     .image-frame {
       min-height: 440px;
-      display: grid;
-      place-items: center;
       padding: 16px;
       border-radius: 20px;
       background:
         linear-gradient(180deg, rgba(103, 77, 57, 0.11), transparent 22%),
         #f2e8d8;
       border: 1px solid rgba(94, 67, 48, 0.12);
+      display: grid;
+      place-items: center;
     }
 
-    .image-frame img {
+    .image-wrap {
+      position: relative;
+      display: inline-block;
+      width: fit-content;
       max-width: 100%;
+    }
+
+    .image-wrap img {
+      max-width: 100%;
+      max-height: min(70vh, 980px);
+      width: auto;
       height: auto;
       display: block;
       background: white;
       border-radius: 14px;
       box-shadow: 0 18px 34px rgba(63, 44, 31, 0.18);
+    }
+
+    .image-wrap img.loading {
+      opacity: 0.72;
+    }
+
+    .overlay-layer {
+      position: absolute;
+      inset: 0;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .line-overlay {
+      position: absolute;
+      width: auto;
+      height: auto;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 3;
+      transform: translate(0, -50%);
+      transition: opacity 140ms ease, transform 140ms ease;
+      color: #ff2a1f;
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1;
+      text-shadow: 0 2px 8px rgba(134, 9, 0, 0.32);
+    }
+
+    .line-overlay.active {
+      opacity: 1;
+      transform: translate(-2px, -50%);
     }
 
     .notes {
@@ -252,6 +347,55 @@
       align-content: start;
     }
 
+    .section-block {
+      display: grid;
+      gap: 12px;
+    }
+
+    .section-heading {
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: rgba(255, 252, 248, 0.9);
+      border: 1px solid rgba(84, 61, 46, 0.1);
+      box-shadow: 0 12px 20px rgba(87, 60, 42, 0.05);
+    }
+
+    .section-heading-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+      flex-wrap: wrap;
+    }
+
+    .section-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .section-description {
+      margin-top: 8px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .section-line-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .section-line-item {
+      display: grid;
+      gap: 10px;
+    }
+
+    .section-line-item + .section-line-item {
+      padding-top: 14px;
+      border-top: 1px solid rgba(120, 89, 65, 0.12);
+    }
+
     .line-card {
       padding: 16px;
       border-radius: 20px;
@@ -259,6 +403,19 @@
       border: 1px solid rgba(84, 61, 46, 0.11);
       display: grid;
       gap: 14px;
+      transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    }
+
+    .line-card.active {
+      border-color: rgba(147, 80, 54, 0.42);
+      box-shadow: 0 16px 28px rgba(97, 63, 41, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .line-card.active .line-badge,
+    .line-card.active .printed-hebrew {
+      background: rgba(147, 80, 54, 0.16);
+      border-color: rgba(147, 80, 54, 0.28);
     }
 
     .line-heading {
@@ -269,26 +426,121 @@
       flex-wrap: wrap;
     }
 
+    .line-heading-main {
+      display: grid;
+      gap: 6px;
+    }
+
+    .line-reading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      gap: 14px;
+    }
+
+    .line-display-text {
+      margin: 0;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(147, 80, 54, 0.06);
+      border: 1px solid rgba(147, 80, 54, 0.12);
+      color: var(--ink);
+      line-height: 1.55;
+      white-space: pre-wrap;
+      unicode-bidi: plaintext;
+      font-size: 1rem;
+    }
+
+    .line-display-text.hebrew {
+      text-align: right;
+      direction: rtl;
+      font-family: "Times New Roman", "Noto Serif Hebrew", "David", serif;
+      font-size: clamp(1.35rem, 1.9vw, 1.7rem);
+    }
+
+    .line-display-text.mixed {
+      direction: auto;
+    }
+
+    .line-reading-arrow {
+      min-width: 98px;
+      margin-top: 16px;
+      color: #ff2a1f;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-align: right;
+      text-shadow: 0 2px 8px rgba(134, 9, 0, 0.2);
+    }
+
+    .line-title-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .line-badge {
+      display: inline-grid;
+      place-items: center;
+      min-width: 34px;
+      min-height: 34px;
+      padding: 0 10px;
+      border-radius: 999px;
+      color: var(--accent-strong);
+      background: rgba(147, 80, 54, 0.1);
+      border: 1px solid rgba(147, 80, 54, 0.2);
+      font-size: 0.78rem;
+    }
+
+    .line-help,
     .line-english {
       color: var(--muted);
       line-height: 1.5;
-      margin-top: 4px;
+    }
+
+    .page-guide {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .printed-hebrew {
+      margin: 0;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(147, 80, 54, 0.08);
+      border: 1px solid rgba(147, 80, 54, 0.12);
+      text-align: right;
+      direction: rtl;
+      unicode-bidi: plaintext;
+      font-family: "Times New Roman", "Noto Serif Hebrew", "David", serif;
+      font-size: clamp(1.45rem, 2vw, 1.85rem);
+      line-height: 1.55;
     }
 
     .word-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
+      direction: rtl;
+      justify-content: flex-end;
+      align-items: flex-start;
+    }
+
+    .line-word-grid {
+      flex: 1;
     }
 
     .word-chip {
-      padding: 10px 14px;
-      border-radius: 16px;
+      padding: 14px 18px;
+      border-radius: 18px;
       border: 1px solid rgba(120, 89, 65, 0.18);
       background: rgba(255, 249, 243, 0.96);
       color: var(--ink);
       box-shadow: 0 8px 18px rgba(87, 60, 42, 0.06);
-      font-size: 1.35rem;
+      font-size: clamp(1.6rem, 2.1vw, 2.05rem);
       direction: rtl;
       unicode-bidi: plaintext;
       font-family: "Times New Roman", "Noto Serif Hebrew", "David", serif;
@@ -305,8 +557,116 @@
       color: var(--muted);
     }
 
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     .hidden {
       display: none;
+    }
+
+    .shell {
+      max-width: 1720px;
+      gap: 16px;
+    }
+
+    .compact-header {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .page-nav {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .masthead {
+      padding: 26px 28px;
+    }
+
+    .masthead h1 {
+      max-width: 16ch;
+    }
+
+    .workspace {
+      grid-template-columns: minmax(620px, 1.28fr) minmax(330px, 0.72fr);
+      gap: 16px;
+    }
+
+    .page-panel,
+    .transcript-panel {
+      padding: 16px;
+      gap: 16px;
+    }
+
+    .page-panel {
+      top: 12px;
+      max-height: calc(100vh - 24px);
+    }
+
+    .image-frame {
+      min-height: 0;
+      padding: 8px;
+    }
+
+    .image-wrap {
+      width: fit-content;
+      max-width: 100%;
+      display: inline-block;
+    }
+
+    .image-wrap img {
+      width: auto;
+      max-width: min(100%, 980px);
+      max-height: min(86vh, 980px);
+    }
+
+    .page-playback {
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    .simple-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .line-list,
+    .section-block {
+      gap: 12px;
+    }
+
+    .line-card {
+      padding: 14px;
+      gap: 12px;
+    }
+
+    .line-title {
+      margin: 0;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .line-card.active .line-title {
+      color: var(--accent-strong);
     }
 
     @media (max-width: 1020px) {
@@ -314,120 +674,153 @@
         padding: 14px;
       }
 
-      .hero {
-        align-items: start;
+      .masthead {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+
+      .masthead-meta,
+      .masthead-copy {
+        max-width: none;
       }
 
       .workspace {
         grid-template-columns: 1fr;
       }
+
+      .page-panel {
+        position: static;
+        max-height: none;
+        overflow: visible;
+      }
+
+      .image-wrap img {
+        max-height: none;
+        width: 100%;
+      }
     }
 
     @media (max-width: 720px) {
-      .hero,
-      .toolbar,
+      .masthead {
+        padding: 20px 18px;
+      }
+
+      .masthead-stats {
+        grid-template-columns: 1fr;
+      }
+
       .page-panel,
-      .transcript-panel,
-      .status-bar {
+      .transcript-panel {
         padding: 16px;
       }
 
+      .compact-header {
+        justify-content: stretch;
+      }
+
+      .page-nav {
+        width: 100%;
+        justify-content: space-between;
+      }
+
       .word-chip {
-        font-size: 1.15rem;
+        font-size: 1.35rem;
+        padding: 12px 15px;
+      }
+
+      .line-reading {
+        gap: 10px;
+      }
+
+      .line-reading-arrow {
+        min-width: 78px;
+        margin-top: 14px;
+        font-size: 0.78rem;
+      }
+
+      .line-overlay {
+        font-size: 28px;
       }
     }
   </style>
 </head>
 <body>
   <div class="shell">
-    <header class="hero">
-      <div>
-        <p class="eyebrow">Static GitHub Pages reader</p>
-        <h1>Hebrew Audio Reader</h1>
-        <p class="lede">
-          Click any Hebrew word to hear its pre-generated audio immediately. Use the line and page controls
-          to hear Hebrew assembled from the verified word clips, or the matching English read as a full line or page.
-        </p>
-      </div>
-      <div class="nav-actions">
-        <button id="prevPage" class="secondary" type="button">Previous page</button>
-        <button id="nextPage" type="button">Next page</button>
+    <header class="compact-header">
+      <div class="page-nav">
+        <button id="prevPage" class="secondary" type="button" disabled>Previous page</button>
+        <button id="goToPageOne" class="secondary" type="button" disabled>Page 1</button>
+        <p id="pageCounter" class="page-counter"></p>
+        <button id="endPage" class="secondary" type="button" disabled>End page</button>
+        <button id="nextPage" type="button" disabled>Next page</button>
       </div>
     </header>
 
-    <section class="toolbar">
-      <div>
-        <p class="panel-label">Data source</p>
-        <h2 id="pageTitle">Loading reader...</h2>
+    <section class="masthead" aria-label="Reader overview">
+      <div class="masthead-copy">
+        <p class="eyebrow">Interactive Hebrew Reader</p>
+        <h1>Learn Hebrew Today</h1>
+        <p class="lede">Follow the printed page with synced line audio, clearer word drills, and on-page arrow guidance that mirrors the latest reviewed backup positions.</p>
       </div>
-      <div class="toolbar-actions">
-        <p id="pageCounter" class="page-counter"></p>
+      <div class="masthead-meta">
+        <div class="masthead-stats">
+          <div class="masthead-stat">
+            <p class="panel-label">Current page</p>
+            <strong id="heroPageNumber">Page 1</strong>
+          </div>
+          <div class="masthead-stat">
+            <p class="panel-label">Audio mode</p>
+            <strong id="heroAudioMode">Line-by-line drills</strong>
+          </div>
+        </div>
+        <div class="masthead-current">
+          <p class="panel-label">Page focus</p>
+          <div id="heroPageTitle" class="masthead-current-title">Preparing reader...</div>
+          <p id="heroLineCount" class="helper">Loading page data…</p>
+        </div>
       </div>
-    </section>
-
-    <section class="status-bar">
-      <div>
-        <p class="panel-label">Playback status</p>
-        <p id="playbackStatus">Loading site data...</p>
-      </div>
-      <p id="audioSummary" class="status-chip"></p>
     </section>
 
     <main class="workspace">
       <section class="page-panel">
-        <div class="panel-heading">
-          <div>
-            <p class="panel-label">Scanned page</p>
-            <h2 id="pageSubtitle">Preparing page image</h2>
-          </div>
-          <p id="pageStatus" class="status-chip"></p>
-        </div>
-
         <div class="image-frame">
-          <img id="pageImage" alt="Current book page">
-        </div>
-
-        <section class="page-playback">
-          <div class="panel-heading">
-            <div>
-              <p class="panel-label">Whole page playback</p>
-              <h3>Play the full page</h3>
-            </div>
+          <div class="image-wrap">
+            <img id="pageImage" alt="Current book page" decoding="sync" loading="eager" fetchpriority="high">
+            <div id="overlayLayer" class="overlay-layer"></div>
           </div>
-          <div class="playback-actions">
-            <button id="playPageHebrew" type="button">Play page in Hebrew</button>
-            <button id="playPageEnglish" class="secondary" type="button">Play page in English</button>
+        </div>
+      </section>
+
+      <section class="transcript-panel">
+        <section class="page-playback">
+          <div class="simple-actions">
+            <button id="playWholePage" type="button" disabled>Play whole page</button>
+            <button id="playPrimary" type="button" disabled>Play introduction</button>
+            <button id="playDrills" class="secondary" type="button" disabled>Play drills</button>
             <button id="stopPlayback" class="ghost" type="button">Stop</button>
           </div>
         </section>
 
-        <ol id="pageNotes" class="notes"></ol>
-      </section>
-
-      <section class="transcript-panel">
-        <div class="panel-heading">
-          <div>
-            <p class="panel-label">Verified transcript</p>
-            <h2>Lines and word audio</h2>
-          </div>
-          <p class="helper">Word click = Hebrew audio</p>
-        </div>
-
         <div id="lineList" class="line-list"></div>
         <section id="emptyState" class="message-card hidden">
-          This page does not have verified transcript lines yet. Keep the scan as reference and add the next verified page
-          in <code>transcript.json</code> before generating production audio.
+          This page does not have verified transcript lines yet.
         </section>
       </section>
     </main>
   </div>
+
+  <p id="playbackStatus" class="visually-hidden" aria-live="polite">Loading site data...</p>
+  <p id="audioSummary" class="visually-hidden" aria-live="polite"></p>
 
   <script>
     const state = {
       reader: null,
       currentPageIndex: 0,
       currentAudio: null,
-      playbackToken: 0
+      playbackToken: 0,
+      activeLineId: null,
+      pageImageLoadToken: 0,
+      preloadedImages: new Map()
     };
 
     const elements = {
@@ -435,21 +828,155 @@
       emptyState: document.getElementById("emptyState"),
       lineList: document.getElementById("lineList"),
       nextPage: document.getElementById("nextPage"),
+      overlayLayer: document.getElementById("overlayLayer"),
       pageCounter: document.getElementById("pageCounter"),
       pageImage: document.getElementById("pageImage"),
-      pageNotes: document.getElementById("pageNotes"),
-      pageStatus: document.getElementById("pageStatus"),
-      pageSubtitle: document.getElementById("pageSubtitle"),
-      pageTitle: document.getElementById("pageTitle"),
+      heroAudioMode: document.getElementById("heroAudioMode"),
+      heroLineCount: document.getElementById("heroLineCount"),
+      heroPageNumber: document.getElementById("heroPageNumber"),
+      heroPageTitle: document.getElementById("heroPageTitle"),
       playbackStatus: document.getElementById("playbackStatus"),
-      playPageEnglish: document.getElementById("playPageEnglish"),
-      playPageHebrew: document.getElementById("playPageHebrew"),
+      playDrills: document.getElementById("playDrills"),
+      playPrimary: document.getElementById("playPrimary"),
+      playWholePage: document.getElementById("playWholePage"),
+      goToPageOne: document.getElementById("goToPageOne"),
       prevPage: document.getElementById("prevPage"),
+      endPage: document.getElementById("endPage"),
       stopPlayback: document.getElementById("stopPlayback")
     };
 
     function currentPage() {
       return state.reader.pages[state.currentPageIndex];
+    }
+
+    function drillLines(page) {
+      return orderedLines(page).filter(function (line) {
+        return line.hebrewPlaybackMode === "sequence" && line.hebrewAudioSequence && line.hebrewAudioSequence.length;
+      });
+    }
+
+    function drillPlaybackGroups(page) {
+      if (page.drillPlaybackGroups && page.drillPlaybackGroups.length) {
+        return page.drillPlaybackGroups;
+      }
+
+      return drillLines(page)
+        .map(function (line) {
+          return {
+            label: line.badgeLabel || line.label || line.id,
+            lineId: line.id,
+            urls: line.hebrewAudioSequence,
+            gapMs: Number(line.sequenceGapMs) || 0
+          };
+        });
+    }
+
+    function introPlaybackGroup(page) {
+      const introSection = orderedSections(page).find(function (section) {
+        return section.playbackMode === "single_block"
+          && section.audio
+          && section.audio.mixed
+          && (
+            (section.audio.mixed.segments && section.audio.mixed.segments.length)
+            || section.audio.mixed.block
+          );
+      });
+      if (!introSection) {
+        return null;
+      }
+      const segmentUrls = (introSection.audio.mixed.segments || [])
+        .map(function (segment) {
+          return segment.url;
+        })
+        .filter(Boolean);
+      return {
+        label: introSection.playbackLabel || "Introduction",
+        lineId: null,
+        urls: segmentUrls.length ? segmentUrls : [introSection.audio.mixed.block],
+        gapMs: segmentUrls.length > 1 ? Number(introSection.audio.mixed.gapMs) || 0 : 0,
+      };
+    }
+
+    function primaryPlaybackGroups(page) {
+      const introGroup = introPlaybackGroup(page);
+      if (introGroup) {
+        return [introGroup];
+      }
+
+      const drillLineIds = new Set(
+        drillPlaybackGroups(page)
+          .map(function (group) {
+            return group.lineId;
+          })
+          .filter(Boolean)
+      );
+
+      const groupedPlayback = (page.fullPlaybackGroups || []).filter(function (group) {
+        return !group.lineId || !drillLineIds.has(group.lineId);
+      });
+      if (groupedPlayback.length) {
+        return groupedPlayback;
+      }
+
+      return orderedLines(page)
+        .filter(function (line) {
+          return !drillLineIds.has(line.id);
+        })
+        .map(function (line) {
+          if (line.audio && line.audio.mixed && line.audio.mixed.segments && line.audio.mixed.segments.length) {
+            const segmentUrls = line.audio.mixed.segments
+              .map(function (segment) {
+                return segment.url;
+              })
+              .filter(Boolean);
+            if (segmentUrls.length) {
+              return {
+                label: line.badgeLabel || line.label || line.id,
+                lineId: line.id,
+                urls: segmentUrls,
+                gapMs: segmentUrls.length > 1 ? Number(line.audio.mixed.gapMs) || 0 : 0,
+              };
+            }
+          }
+          if (line.audio && line.audio.mixed && line.audio.mixed.line) {
+            return {
+              label: line.badgeLabel || line.label || line.id,
+              lineId: line.id,
+              urls: [line.audio.mixed.line],
+              gapMs: 0,
+            };
+          }
+          if (line.audio && line.audio.he && line.audio.he.line) {
+            return {
+              label: line.badgeLabel || line.label || line.id,
+              lineId: line.id,
+              urls: [line.audio.he.line],
+              gapMs: 0,
+            };
+          }
+          if (line.audio && line.audio.en && line.audio.en.line) {
+            return {
+              label: line.badgeLabel || line.label || line.id,
+              lineId: line.id,
+              urls: [line.audio.en.line],
+              gapMs: 0,
+            };
+          }
+          return null;
+        })
+        .filter(Boolean);
+    }
+
+    function wholePagePlaybackGroups(page) {
+      if (page.fullPlaybackGroups && page.fullPlaybackGroups.length) {
+        return page.fullPlaybackGroups.filter(function (group) {
+          return group.urls && group.urls.length;
+        });
+      }
+
+      const drills = drillPlaybackGroups(page);
+      const primary = primaryPlaybackGroups(page);
+      return primary.concat(drills);
     }
 
     function currentPageWordsById(page) {
@@ -463,6 +990,85 @@
     function setStatus(message, tone) {
       elements.playbackStatus.textContent = message;
       elements.audioSummary.textContent = tone || "";
+    }
+
+    function scheduleIdle(callback) {
+      if ("requestIdleCallback" in window) {
+        window.requestIdleCallback(callback, { timeout: 800 });
+        return;
+      }
+
+      window.setTimeout(callback, 80);
+    }
+
+    function preloadImage(url, fetchPriority) {
+      if (!url || state.preloadedImages.has(url)) {
+        return;
+      }
+
+      const image = new Image();
+      image.decoding = "async";
+
+      if (fetchPriority && "fetchPriority" in image) {
+        image.fetchPriority = fetchPriority;
+      }
+
+      image.src = url;
+      if (typeof image.decode === "function") {
+        image.decode().catch(function () {
+          return undefined;
+        });
+      }
+
+      state.preloadedImages.set(url, image);
+    }
+
+    function markPageImageReady() {
+      elements.pageImage.classList.remove("loading");
+      elements.pageImage.removeAttribute("aria-busy");
+    }
+
+    function requestVisiblePageImage(page) {
+      const sourceUrl = page.image;
+      const token = state.pageImageLoadToken + 1;
+      state.pageImageLoadToken = token;
+
+      elements.pageImage.dataset.sourceUrl = sourceUrl;
+      elements.pageImage.dataset.retryCount = "0";
+      elements.pageImage.alt = "Scanned book page " + page.page;
+      elements.pageImage.classList.add("loading");
+      elements.pageImage.setAttribute("aria-busy", "true");
+      elements.pageImage.decoding = "sync";
+      elements.pageImage.loading = "eager";
+
+      if ("fetchPriority" in elements.pageImage) {
+        elements.pageImage.fetchPriority = "high";
+      }
+
+      preloadImage(sourceUrl, "high");
+      if (elements.pageImage.getAttribute("src") !== sourceUrl) {
+        elements.pageImage.src = sourceUrl;
+      }
+
+      const cached = state.preloadedImages.get(sourceUrl);
+      if (cached && cached.complete && cached.naturalWidth > 0) {
+        markPageImageReady();
+        return;
+      }
+
+      window.setTimeout(function () {
+        if (token !== state.pageImageLoadToken) {
+          return;
+        }
+
+        if (elements.pageImage.complete && elements.pageImage.naturalWidth > 0) {
+          markPageImageReady();
+          return;
+        }
+
+        elements.pageImage.dataset.retryCount = "1";
+        elements.pageImage.src = sourceUrl + (sourceUrl.indexOf("?") === -1 ? "?" : "&") + "retry=" + token;
+      }, 1200);
     }
 
     function stopAudioOnly() {
@@ -481,9 +1087,20 @@
       }
     }
 
-    function startPlayback(label) {
+    function setActiveLine(lineId) {
+      state.activeLineId = lineId || null;
+      document.querySelectorAll(".line-card").forEach(function (card) {
+        card.classList.toggle("active", card.dataset.lineId === state.activeLineId);
+      });
+      document.querySelectorAll(".line-overlay").forEach(function (overlay) {
+        overlay.classList.toggle("active", overlay.dataset.lineId === state.activeLineId);
+      });
+    }
+
+    function startPlayback(label, lineId) {
       stopPlayback(false);
       state.playbackToken += 1;
+      setActiveLine(lineId || null);
       setStatus(label, "Playing");
       return state.playbackToken;
     }
@@ -524,13 +1141,26 @@
       });
     }
 
-    async function playSingle(url, label) {
+    function pauseBetweenSequenceClips(gapMs, token) {
+      const delay = Number(gapMs) || 0;
+      if (delay <= 0) {
+        return Promise.resolve(true);
+      }
+
+      return new Promise(function (resolve) {
+        window.setTimeout(function () {
+          resolve(token === state.playbackToken);
+        }, delay);
+      });
+    }
+
+    async function playSingle(url, label, lineId) {
       if (!url) {
         setStatus("Audio is not available for this item yet.", "Unavailable");
         return;
       }
 
-      const token = startPlayback(label);
+      const token = startPlayback(label, lineId);
       try {
         await playFile(url, token);
         if (token === state.playbackToken) {
@@ -542,23 +1172,44 @@
       }
     }
 
-    async function playSequence(urls, label) {
+    async function playSequence(urls, label, lineId, gapMs) {
       const sequence = urls.filter(Boolean);
       if (!sequence.length) {
         setStatus("Audio is not available for this item yet.", "Unavailable");
         return;
       }
 
-      const token = startPlayback(label);
+      const token = startPlayback(label, lineId);
+      let skipped = 0;
       try {
-        for (const url of sequence) {
+        for (let index = 0; index < sequence.length; index += 1) {
+          const url = sequence[index];
           if (token !== state.playbackToken) {
             return;
           }
-          await playFile(url, token);
+          try {
+            await playFile(url, token);
+          } catch (error) {
+            skipped += 1;
+            console.error("Skipping broken clip in sequence", url, error);
+          }
+
+          if (index < sequence.length - 1) {
+            const stillActive = await pauseBetweenSequenceClips(gapMs, token);
+            if (!stillActive) {
+              return;
+            }
+          }
         }
         if (token === state.playbackToken) {
-          setStatus(label + " finished.", "Ready");
+          if (skipped === sequence.length) {
+            setStatus("Playback failed. Every clip in this line was unavailable.", "Error");
+            return;
+          }
+          setStatus(
+            skipped ? label + " finished with " + skipped + " skipped clip" + (skipped === 1 ? "" : "s") + "." : label + " finished.",
+            skipped ? "Partial" : "Ready"
+          );
         }
       } catch (error) {
         setStatus("Playback failed. Check the generated audio file.", "Error");
@@ -566,13 +1217,72 @@
       }
     }
 
-    function renderNotes(notes) {
-      elements.pageNotes.replaceChildren();
-      notes.forEach(function (note) {
-        const item = document.createElement("li");
-        item.textContent = note;
-        elements.pageNotes.appendChild(item);
-      });
+    async function playGroups(groups, label) {
+      const preparedGroups = groups
+        .map(function (group) {
+          return {
+            label: group.label,
+            lineId: group.lineId || null,
+            urls: (group.urls || []).filter(Boolean),
+            gapMs: Number(group.gapMs) || 0
+          };
+        })
+        .filter(function (group) {
+          return group.urls.length;
+        });
+
+      if (!preparedGroups.length) {
+        setStatus("Audio is not available for this item yet.", "Unavailable");
+        return;
+      }
+
+      const token = startPlayback(label, null);
+      let skipped = 0;
+      let attempted = 0;
+      try {
+        for (const group of preparedGroups) {
+          if (token !== state.playbackToken) {
+            return;
+          }
+
+          setActiveLine(group.lineId);
+
+          for (let index = 0; index < group.urls.length; index += 1) {
+            const url = group.urls[index];
+            if (token !== state.playbackToken) {
+              return;
+            }
+            attempted += 1;
+            try {
+              await playFile(url, token);
+            } catch (error) {
+              skipped += 1;
+              console.error("Skipping broken clip in grouped playback", url, error);
+            }
+
+            if (index < group.urls.length - 1) {
+              const stillActive = await pauseBetweenSequenceClips(group.gapMs, token);
+              if (!stillActive) {
+                return;
+              }
+            }
+          }
+        }
+
+        if (token === state.playbackToken) {
+          if (attempted && skipped === attempted) {
+            setStatus("Playback failed. Every clip in this section was unavailable.", "Error");
+            return;
+          }
+          setStatus(
+            skipped ? label + " finished with " + skipped + " skipped clip" + (skipped === 1 ? "" : "s") + "." : label + " finished.",
+            skipped ? "Partial" : "Ready"
+          );
+        }
+      } catch (error) {
+        setStatus("Playback failed. Check the generated audio file.", "Error");
+        console.error(error);
+      }
     }
 
     function orderedLines(page) {
@@ -581,117 +1291,293 @@
       });
     }
 
-    function orderedWords(page) {
-      return page.words.slice().sort(function (a, b) {
-        return a.order - b.order;
+    function preloadPageAssets(pageIndex, options) {
+      if (!state.reader || pageIndex < 0 || pageIndex >= state.reader.pages.length) {
+        return;
+      }
+
+      const page = state.reader.pages[pageIndex];
+      const includeStrips = !options || options.includeStrips !== false;
+      preloadImage(page.image, options && options.pagePriority ? options.pagePriority : null);
+
+      if (!includeStrips) {
+        return;
+      }
+
+      orderedLines(page).forEach(function (line) {
+        if (line.stripImage) {
+          preloadImage(line.stripImage, "low");
+        }
       });
+    }
+
+    function warmNearbyPages(pageIndex) {
+      preloadPageAssets(pageIndex, { pagePriority: "high" });
+      preloadPageAssets(pageIndex + 1, { pagePriority: "high" });
+
+      scheduleIdle(function () {
+        preloadPageAssets(pageIndex - 1);
+        preloadPageAssets(pageIndex + 2, { includeStrips: false });
+      });
+    }
+
+    function orderedSections(page) {
+      if (page.sections && page.sections.length) {
+        return page.sections.slice().sort(function (a, b) {
+          return a.order - b.order;
+        });
+      }
+
+      return [
+        {
+          id: "default",
+          order: 1,
+          title: "Transcript",
+          description: "",
+          hiddenHeading: true
+        }
+      ];
+    }
+
+    function sectionsById(page) {
+      const byId = new Map();
+      orderedSections(page).forEach(function (section) {
+        byId.set(section.id, section);
+      });
+      return byId;
+    }
+
+    function resolvedRegion(line) {
+      return line.region || line.overlay || null;
+    }
+
+    function resolvedArrowY(line) {
+      if (typeof line.anchorY === "number") {
+        return line.anchorY;
+      }
+
+      const region = paddedRegion(resolvedRegion(line));
+      if (!region || !region.width || !region.height) {
+        return null;
+      }
+
+      return region.top + (region.height / 2);
+    }
+
+    function effectiveMatchMode(line, section) {
+      const requestedMode = line.matchMode || (section && section.matchMode) || (resolvedRegion(line) ? "hybrid" : "none");
+      const region = resolvedRegion(line);
+
+      if (requestedMode === "none") {
+        return "none";
+      }
+
+      if (!region) {
+        return "strip_only";
+      }
+
+      return requestedMode;
+    }
+
+    function paddedRegion(region) {
+      if (!region) {
+        return null;
+      }
+
+      const left = Math.max(0, region.left - (region.padLeft || 0));
+      const top = Math.max(0, region.top - (region.padTop || 0));
+      const right = Math.min(100, region.left + region.width + (region.padRight || 0));
+      const bottom = Math.min(100, region.top + region.height + (region.padBottom || 0));
+
+      return {
+        left: left,
+        top: top,
+        width: Math.max(0, right - left),
+        height: Math.max(0, bottom - top)
+      };
+    }
+
+    function firstMatchableLine(page) {
+      const pageSections = sectionsById(page);
+      return orderedLines(page).find(function (line) {
+        const section = pageSections.get(line.sectionId || "default");
+        return resolvedArrowY(line) !== null || effectiveMatchMode(line, section) === "hybrid";
+      }) || orderedLines(page)[0] || null;
+    }
+
+    function updateActiveFromEvent(lineId) {
+      if (lineId) {
+        setActiveLine(lineId);
+      }
+    }
+
+    function renderOverlays(page) {
+      const pageSections = sectionsById(page);
+      elements.overlayLayer.replaceChildren();
+
+      orderedLines(page).forEach(function (line) {
+        const section = pageSections.get(line.sectionId || "default");
+        const arrowY = resolvedArrowY(line);
+        if (arrowY === null || (effectiveMatchMode(line, section) !== "hybrid" && typeof line.anchorY !== "number")) {
+          return;
+        }
+
+        const overlay = document.createElement("div");
+        overlay.className = "line-overlay";
+        overlay.dataset.lineId = line.id;
+        overlay.style.top = arrowY + "%";
+        overlay.style.left = "92%";
+        overlay.title = line.badgeLabel || line.label || line.id;
+        overlay.textContent = "⬅";
+
+        elements.overlayLayer.appendChild(overlay);
+      });
+
+      setActiveLine(state.activeLineId);
     }
 
     function renderLines(page) {
       const wordsById = currentPageWordsById(page);
       elements.lineList.replaceChildren();
 
-      if (!page.lines.length) {
-        elements.emptyState.classList.remove("hidden");
+      const pageDrillLines = drillLines(page);
+      if (!pageDrillLines.length) {
+        elements.emptyState.classList.add("hidden");
         return;
       }
 
       elements.emptyState.classList.add("hidden");
 
-      orderedLines(page).forEach(function (line) {
+      const sectionBlock = document.createElement("section");
+      sectionBlock.className = "section-block";
+
+      const sectionList = document.createElement("div");
+      sectionList.className = "line-list";
+
+      pageDrillLines.forEach(function (line, sectionLineIndex) {
         const card = document.createElement("section");
         card.className = "line-card";
+        card.dataset.lineId = line.id;
+
+        card.addEventListener("mouseenter", function () {
+          updateActiveFromEvent(line.id);
+        });
+
+        card.addEventListener("focusin", function () {
+          updateActiveFromEvent(line.id);
+        });
+
+        card.addEventListener("click", function (event) {
+          if (!event.target.closest("button")) {
+            setActiveLine(line.id);
+          }
+        });
 
         const heading = document.createElement("div");
-        heading.className = "line-heading";
+        heading.className = "line-heading-main";
 
-        const headingText = document.createElement("div");
-        const label = document.createElement("p");
-        label.className = "line-label";
-        label.textContent = line.label;
-        const english = document.createElement("p");
-        english.className = "line-english";
-        english.textContent = line.englishText || "English line audio has not been added yet.";
-        headingText.appendChild(label);
-        headingText.appendChild(english);
+        const title = document.createElement("h3");
+        title.className = "line-title";
+        title.textContent = "Line " + String(sectionLineIndex + 1);
+        heading.appendChild(title);
 
         const actions = document.createElement("div");
         actions.className = "line-actions";
-
+        const sequenceGapMs = Number(line.sequenceGapMs) || 0;
         const playHebrew = document.createElement("button");
         playHebrew.type = "button";
-        playHebrew.textContent = "Play Hebrew line";
-        playHebrew.disabled = !line.hebrewAudioSequence || !line.hebrewAudioSequence.length;
+        playHebrew.textContent = "Play whole line";
         playHebrew.addEventListener("click", function () {
-          playSequence(line.hebrewAudioSequence || [], line.label + " in Hebrew");
+          playSequence(line.hebrewAudioSequence || [], line.label + " in Hebrew", line.id, sequenceGapMs);
         });
-
-        const playEnglish = document.createElement("button");
-        playEnglish.type = "button";
-        playEnglish.className = "secondary";
-        playEnglish.textContent = "Play English line";
-        playEnglish.disabled = !line.audio || !line.audio.en || !line.audio.en.line;
-        playEnglish.addEventListener("click", function () {
-          playSingle(line.audio.en.line, line.label + " in English");
-        });
-
         actions.appendChild(playHebrew);
-        actions.appendChild(playEnglish);
-        heading.appendChild(headingText);
-        heading.appendChild(actions);
+
         card.appendChild(heading);
 
-        const wordGrid = document.createElement("div");
-        wordGrid.className = "word-grid";
+        if (line.wordIds && line.wordIds.length) {
+          const lineReading = document.createElement("div");
+          lineReading.className = "line-reading";
 
-        line.wordIds.forEach(function (wordId) {
-          const word = wordsById.get(wordId);
-          if (!word) {
-            return;
-          }
+          const wordGrid = document.createElement("div");
+          wordGrid.className = "word-grid line-word-grid";
+          wordGrid.lang = "he";
+          wordGrid.dir = "rtl";
 
-          const chip = document.createElement("button");
-          chip.type = "button";
-          chip.className = "word-chip";
-          chip.textContent = word.displayText;
-          chip.disabled = !word.audio || !word.audio.he || !word.audio.he.word;
-          chip.title = word.spokenText;
-          chip.addEventListener("click", function () {
-            playSingle(word.audio.he.word, "Hebrew word: " + word.spokenText);
+          const displayWords = Array.isArray(line.displayWords) && line.displayWords.length === line.wordIds.length
+            ? line.displayWords
+            : null;
+
+          line.wordIds.forEach(function (wordId, index) {
+            const word = wordsById.get(wordId);
+            if (!word) {
+              return;
+            }
+
+            const chip = document.createElement("button");
+            chip.type = "button";
+            chip.className = "word-chip";
+            chip.textContent = displayWords ? displayWords[index] : word.displayText;
+            chip.disabled = !word.audio || !word.audio.he || !word.audio.he.word;
+            chip.title = word.spokenText;
+            chip.addEventListener("click", function () {
+              playSingle(word.audio.he.word, "Hebrew word: " + word.spokenText, line.id);
+            });
+            wordGrid.appendChild(chip);
           });
-          wordGrid.appendChild(chip);
-        });
 
-        card.appendChild(wordGrid);
-        elements.lineList.appendChild(card);
+          lineReading.appendChild(wordGrid);
+          card.appendChild(lineReading);
+        }
+
+        card.appendChild(actions);
+        sectionList.appendChild(card);
       });
+
+      sectionBlock.appendChild(sectionList);
+      elements.lineList.appendChild(sectionBlock);
+
+      setActiveLine(state.activeLineId);
     }
 
     function renderPage() {
       const page = currentPage();
-      elements.pageTitle.textContent = page.title;
-      elements.pageSubtitle.textContent = "Page " + page.page;
+      const initialLine = firstMatchableLine(page);
+      state.activeLineId = initialLine ? initialLine.id : null;
+      const drills = drillPlaybackGroups(page);
+      const visibleLines = orderedLines(page).length;
+
       elements.pageCounter.textContent = "Page " + (state.currentPageIndex + 1) + " of " + state.reader.pages.length;
-      elements.pageStatus.textContent = page.status === "verified" ? "Verified" : "Pending transcription";
-      elements.pageImage.src = page.image;
-      elements.pageImage.alt = "Scanned book page " + page.page;
+      elements.heroPageNumber.textContent = "Page " + page.page;
+      elements.heroPageTitle.textContent = page.title || ("Page " + page.page);
+      elements.heroLineCount.textContent = visibleLines + " reviewed line" + (visibleLines === 1 ? "" : "s") + " on this page";
+      elements.heroAudioMode.textContent = drills.length ? "Line-by-line drills" : "Page playback";
+      requestVisiblePageImage(page);
+      document.title = "Hebrew Reader - Page " + page.page;
       elements.prevPage.disabled = state.currentPageIndex === 0;
       elements.nextPage.disabled = state.currentPageIndex === state.reader.pages.length - 1;
-      elements.playPageHebrew.disabled = !(page.hebrewAudioSequence && page.hebrewAudioSequence.length);
-      elements.playPageEnglish.disabled = !(page.audio && page.audio.en && page.audio.en.page);
+      elements.goToPageOne.disabled = state.currentPageIndex === 0;
+      elements.endPage.disabled = state.currentPageIndex === state.reader.pages.length - 1;
+      const wholePage = wholePagePlaybackGroups(page);
+      const primary = primaryPlaybackGroups(page);
+      elements.playWholePage.disabled = !wholePage.length;
+      elements.playPrimary.disabled = !primary.length;
+      elements.playDrills.disabled = !drills.length;
 
-      renderNotes(page.notes || []);
       renderLines(page);
+      renderOverlays(page);
+      warmNearbyPages(state.currentPageIndex);
 
       setStatus(
-        page.status === "verified"
-          ? "Ready. Click a Hebrew word to hear it immediately."
-          : "This page is visible, but it does not have verified audio yet.",
+        page.status === "verified" ? "Ready." : "This page is visible, but it does not have verified audio yet.",
         page.status === "verified" ? "Ready" : "Pending"
       );
     }
 
     function movePage(delta) {
+      if (!state.reader) {
+        return;
+      }
+
       const nextIndex = state.currentPageIndex + delta;
       if (nextIndex < 0 || nextIndex >= state.reader.pages.length) {
         return;
@@ -710,6 +1596,8 @@
         }
 
         state.reader = await response.json();
+        preloadPageAssets(0, { pagePriority: "high" });
+        preloadPageAssets(1, { pagePriority: "high" });
         renderPage();
       } catch (error) {
         setStatus("Site data could not be loaded. Run the build step first.", "Error");
@@ -725,14 +1613,71 @@
       movePage(1);
     });
 
-    elements.playPageHebrew.addEventListener("click", function () {
-      const page = currentPage();
-      playSequence(page.hebrewAudioSequence || [], "Page " + page.page + " in Hebrew");
+    elements.goToPageOne.addEventListener("click", function () {
+      if (!state.reader || state.currentPageIndex === 0) {
+        return;
+      }
+      stopPlayback(false);
+      state.currentPageIndex = 0;
+      renderPage();
     });
 
-    elements.playPageEnglish.addEventListener("click", function () {
+    elements.endPage.addEventListener("click", function () {
+      if (!state.reader || state.currentPageIndex === state.reader.pages.length - 1) {
+        return;
+      }
+      stopPlayback(false);
+      state.currentPageIndex = state.reader.pages.length - 1;
+      renderPage();
+    });
+
+    elements.playWholePage.addEventListener("click", function () {
       const page = currentPage();
-      playSingle(page.audio && page.audio.en ? page.audio.en.page : null, "Page " + page.page + " in English");
+      const groups = wholePagePlaybackGroups(page);
+      if (!groups.length) {
+        return;
+      }
+      playGroups(groups, "Page " + page.page);
+    });
+
+    elements.playPrimary.addEventListener("click", function () {
+      const page = currentPage();
+      const groups = primaryPlaybackGroups(page);
+      if (!groups.length) {
+        return;
+      }
+      playGroups(groups, "Page " + page.page + " introduction");
+    });
+
+    elements.playDrills.addEventListener("click", function () {
+      const page = currentPage();
+      const groups = drillPlaybackGroups(page);
+      if (!groups.length) {
+        return;
+      }
+      playGroups(groups, "Page " + page.page + " drills");
+    });
+
+    elements.pageImage.addEventListener("load", function () {
+      markPageImageReady();
+    });
+
+    elements.pageImage.addEventListener("error", function () {
+      const sourceUrl = elements.pageImage.dataset.sourceUrl;
+      if (!sourceUrl) {
+        return;
+      }
+
+      const retryCount = Number(elements.pageImage.dataset.retryCount || "0");
+      if (retryCount < 1) {
+        elements.pageImage.dataset.retryCount = String(retryCount + 1);
+        elements.pageImage.src = sourceUrl + (sourceUrl.indexOf("?") === -1 ? "?" : "&") + "retry=" + Date.now();
+        return;
+      }
+
+      elements.pageImage.classList.remove("loading");
+      elements.pageImage.removeAttribute("aria-busy");
+      setStatus("The page image had trouble loading. Try refreshing if it stays blank.", "Image");
     });
 
     elements.stopPlayback.addEventListener("click", function () {
