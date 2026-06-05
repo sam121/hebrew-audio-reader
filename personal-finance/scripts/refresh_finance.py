@@ -22,6 +22,8 @@ OPTIONAL_REPORT_MODULES = [
     "report_barclays",
     "report_vanguard",
     "report_net_worth_stacked",
+    "report_income_spending_quarterly",
+    "report_net_worth_sankey",
     "report_spending_by_category",
     "report_salary",
     "report_platform_fee_review",
