@@ -1,0 +1,69 @@
+owners:
+  - owner: samuel
+    display_name: Samuel Taylor
+    source_folder: Sam
+  - owner: amy
+    display_name: Amy Taylor
+    source_folder: amy
+
+institutions:
+  - institution: wise
+    owner: samuel
+    source_folder: Sam/sam_wise
+    account_type: multi_currency_account
+  - institution: dbs
+    owner: samuel
+    source_folder: Sam/sam_dbs
+    account_type: bank_and_credit_card
+  - institution: barclays
+    owner: samuel
+    source_folder: Sam/sam_barclays
+    account_type: bank
+  - institution: endowus
+    owner: samuel
+    source_folder: Sam/sam_endowus
+    account_type: investment
+  - institution: ibkr
+    owner: samuel
+    source_folder: Sam/sam_ibkr
+    account_type: brokerage
+  - institution: vanguard
+    owner: samuel
+    source_folder: Sam/sam_vanguard
+    account_type: investment
+  - institution: evelyn
+    owner: samuel
+    source_folder: Sam/sam_evelyn
+    account_type: investment
+  - institution: stripe
+    owner: samuel
+    source_folder: Sam/sam_stripe
+    account_type: private_equity
+  - institution: manual_property
+    owner: amy
+    source_folder: Manual/manual_property_assets.csv
+    account_type: property
+  - institution: manual_premium_bonds
+    owner: samuel
+    source_folder: Manual/manual_premium_bonds.csv
+    account_type: investment
+  - institution: wise
+    owner: amy
+    source_folder: amy/amy_wise
+    account_type: multi_currency_account
+  - institution: dbs
+    owner: amy
+    source_folder: amy/amy_dbs
+    account_type: bank_and_credit_card
+  - institution: endowus
+    owner: amy
+    source_folder: amy/amy_endowus
+    account_type: investment
+  - institution: vanguard
+    owner: amy
+    source_folder: amy/amy_vanguard
+    account_type: investment
+  - institution: halifax
+    owner: amy
+    source_folder: amy/amy_halifax
+    account_type: bank

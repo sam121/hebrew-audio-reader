@@ -1,0 +1,101 @@
+Front	Back	Tags
+אֲדֹנָי / יְיָ	<div class="translit">Adonai</div><div class="english">Lord / divine name as read aloud</div><div class="notes">Divine name as pronounced in prayer</div>	siddur hebrew prayer_vocab type_divine_name
+אֱלֹהִים	<div class="translit">Elohim</div><div class="english">God</div>	siddur hebrew prayer_vocab type_divine_name
+אֱלֹהֵינוּ	<div class="translit">Eloheinu</div><div class="english">our God</div><div class="notes">Common fixed prayer form</div>	siddur hebrew prayer_vocab type_liturgical_form
+אֵל	<div class="translit">El</div><div class="english">God</div>	siddur hebrew prayer_vocab type_divine_name
+אַתָּה	<div class="translit">atah</div><div class="english">you</div>	siddur hebrew prayer_vocab type_pronoun
+אֲנַחְנוּ	<div class="translit">anachnu</div><div class="english">we</div>	siddur hebrew prayer_vocab type_pronoun
+אֲנִי	<div class="translit">ani</div><div class="english">I</div>	siddur hebrew prayer_vocab type_pronoun
+הוּא	<div class="translit">hu</div><div class="english">he / it is</div>	siddur hebrew prayer_vocab type_pronoun
+הִיא	<div class="translit">hi</div><div class="english">she / it is</div>	siddur hebrew prayer_vocab type_pronoun
+בָּרוּךְ	<div class="translit">barukh</div><div class="english">blessed</div>	siddur hebrew prayer_vocab type_adjective
+אָמֵן	<div class="translit">amen</div><div class="english">amen / truly</div>	siddur hebrew prayer_vocab type_particle
+מֶלֶךְ	<div class="translit">melekh</div><div class="english">king</div>	siddur hebrew prayer_vocab type_noun
+קָדוֹשׁ	<div class="translit">kadosh</div><div class="english">holy</div>	siddur hebrew prayer_vocab type_adjective
+קֹדֶשׁ	<div class="translit">kodesh</div><div class="english">holiness / holy thing</div>	siddur hebrew prayer_vocab type_noun
+שֵׁם	<div class="translit">shem</div><div class="english">name</div>	siddur hebrew prayer_vocab type_noun
+וְ־	<div class="translit">v'- / u-</div><div class="english">and</div><div class="notes">Prefix attached to the next word</div>	siddur hebrew prayer_vocab type_prefix
+בְּ־	<div class="translit">b'-</div><div class="english">in / with / by</div><div class="notes">Prefix attached to the next word</div>	siddur hebrew prayer_vocab type_prefix
+לְ־	<div class="translit">l'-</div><div class="english">to / for</div><div class="notes">Prefix attached to the next word</div>	siddur hebrew prayer_vocab type_prefix
+מִן / מִ־	<div class="translit">min / mi-</div><div class="english">from</div><div class="notes">Can appear as a word or prefix</div>	siddur hebrew prayer_vocab type_prefix
+הַ־	<div class="translit">ha-</div><div class="english">the</div><div class="notes">Definite article attached to nouns</div>	siddur hebrew prayer_vocab type_prefix
+שֶׁ־	<div class="translit">she-</div><div class="english">that / which</div><div class="notes">Relative prefix</div>	siddur hebrew prayer_vocab type_prefix
+אֶת	<div class="translit">et</div><div class="english">direct-object marker; usually untranslated</div><div class="notes">Marks a definite direct object</div>	siddur hebrew prayer_vocab type_particle
+אֲשֶׁר	<div class="translit">asher</div><div class="english">who / that / which</div>	siddur hebrew prayer_vocab type_particle
+כִּי	<div class="translit">ki</div><div class="english">because / for / that</div>	siddur hebrew prayer_vocab type_conjunction
+כָּל	<div class="translit">kol</div><div class="english">all / every</div>	siddur hebrew prayer_vocab type_noun
+עַל	<div class="translit">al</div><div class="english">on / upon / concerning</div>	siddur hebrew prayer_vocab type_preposition
+עִם	<div class="translit">im</div><div class="english">with</div>	siddur hebrew prayer_vocab type_preposition
+אֶל	<div class="translit">el</div><div class="english">to / toward</div>	siddur hebrew prayer_vocab type_preposition
+לֹא	<div class="translit">lo</div><div class="english">no / not</div>	siddur hebrew prayer_vocab type_particle
+אֵין	<div class="translit">ein</div><div class="english">there is not</div>	siddur hebrew prayer_vocab type_particle
+לִפְנֵי	<div class="translit">lifnei</div><div class="english">before / in front of</div>	siddur hebrew prayer_vocab type_preposition
+לְפָנֶיךָ	<div class="translit">l'fanekha</div><div class="english">before You</div><div class="notes">Common prayer form addressed to God</div>	siddur hebrew prayer_vocab type_liturgical_form
+עָלֵינוּ	<div class="translit">aleinu</div><div class="english">upon us / it is upon us</div><div class="notes">Also the name of the Aleinu prayer</div>	siddur hebrew prayer_vocab type_liturgical_form
+עוֹלָם	<div class="translit">olam</div><div class="english">world / eternity</div><div class="notes">Can mean world, universe, age, or eternity</div>	siddur hebrew prayer_vocab type_noun
+הָעוֹלָם	<div class="translit">ha-olam</div><div class="english">the world / the universe</div><div class="notes">Common in blessing formula</div>	siddur hebrew prayer_vocab type_liturgical_form
+לְעוֹלָם	<div class="translit">l'olam</div><div class="english">forever</div><div class="notes">Literally "to eternity"</div>	siddur hebrew prayer_vocab type_liturgical_form
+וָעֶד	<div class="translit">va'ed</div><div class="english">and ever / eternity</div><div class="notes">Often appears in "לְעוֹלָם וָעֶד"</div>	siddur hebrew prayer_vocab type_liturgical_form
+יוֹם	<div class="translit">yom</div><div class="english">day</div>	siddur hebrew prayer_vocab type_noun
+זְמַן	<div class="translit">z'man</div><div class="english">time</div>	siddur hebrew prayer_vocab type_noun
+דּוֹר	<div class="translit">dor</div><div class="english">generation</div>	siddur hebrew prayer_vocab type_noun
+שַׁבָּת	<div class="translit">Shabbat</div><div class="english">Sabbath</div>	siddur hebrew prayer_vocab type_noun
+חַיִּים	<div class="translit">chayim</div><div class="english">life</div>	siddur hebrew prayer_vocab type_noun
+אוֹר	<div class="translit">or</div><div class="english">light</div>	siddur hebrew prayer_vocab type_noun
+יִשְׂרָאֵל	<div class="translit">Yisrael</div><div class="english">Israel</div>	siddur hebrew prayer_vocab type_noun
+עַם	<div class="translit">am</div><div class="english">people / nation</div>	siddur hebrew prayer_vocab type_noun
+אָדָם	<div class="translit">adam</div><div class="english">human / person</div>	siddur hebrew prayer_vocab type_noun
+אָב	<div class="translit">av</div><div class="english">father</div>	siddur hebrew prayer_vocab type_noun
+אָבוֹת	<div class="translit">avot</div><div class="english">fathers / ancestors</div>	siddur hebrew prayer_vocab type_noun
+אֲבוֹתֵינוּ	<div class="translit">avoteinu</div><div class="english">our fathers / our ancestors</div>	siddur hebrew prayer_vocab type_liturgical_form
+אֵם	<div class="translit">em</div><div class="english">mother</div>	siddur hebrew prayer_vocab type_noun
+אִמָּהוֹת	<div class="translit">imahot</div><div class="english">mothers / matriarchs</div>	siddur hebrew prayer_vocab type_noun
+בֵּן	<div class="translit">ben</div><div class="english">son</div>	siddur hebrew prayer_vocab type_noun
+בְּנֵי	<div class="translit">b'nei</div><div class="english">children of / people of</div>	siddur hebrew prayer_vocab type_liturgical_form
+בַּיִת	<div class="translit">bayit</div><div class="english">house</div>	siddur hebrew prayer_vocab type_noun
+בֵּית	<div class="translit">beit</div><div class="english">house of</div><div class="notes">Construct form</div>	siddur hebrew prayer_vocab type_noun
+אֶרֶץ	<div class="translit">eretz</div><div class="english">land / earth</div>	siddur hebrew prayer_vocab type_noun
+שָׁמַיִם	<div class="translit">shamayim</div><div class="english">heaven / sky</div>	siddur hebrew prayer_vocab type_noun
+יְרוּשָׁלַיִם	<div class="translit">Yerushalayim</div><div class="english">Jerusalem</div>	siddur hebrew prayer_vocab type_noun
+צִיּוֹן	<div class="translit">Tziyon</div><div class="english">Zion</div>	siddur hebrew prayer_vocab type_noun
+טוֹב	<div class="translit">tov</div><div class="english">good</div>	siddur hebrew prayer_vocab type_adjective
+גָּדוֹל	<div class="translit">gadol</div><div class="english">great / big</div>	siddur hebrew prayer_vocab type_adjective
+נוֹרָא	<div class="translit">nora</div><div class="english">awesome / awe-inspiring</div>	siddur hebrew prayer_vocab type_adjective
+אֶחָד	<div class="translit">echad</div><div class="english">one</div>	siddur hebrew prayer_vocab type_adjective
+אֱמֶת	<div class="translit">emet</div><div class="english">truth</div>	siddur hebrew prayer_vocab type_noun
+חֶסֶד	<div class="translit">chesed</div><div class="english">kindness / covenant love</div>	siddur hebrew prayer_vocab type_noun
+רַחֲמִים	<div class="translit">rachamim</div><div class="english">mercy / compassion</div>	siddur hebrew prayer_vocab type_noun
+שָׁלוֹם	<div class="translit">shalom</div><div class="english">peace</div>	siddur hebrew prayer_vocab type_noun
+אַהֲבָה	<div class="translit">ahavah</div><div class="english">love</div>	siddur hebrew prayer_vocab type_noun
+תּוֹרָה	<div class="translit">Torah</div><div class="english">Torah / teaching</div>	siddur hebrew prayer_vocab type_noun
+מִצְוָה	<div class="translit">mitzvah</div><div class="english">commandment</div>	siddur hebrew prayer_vocab type_noun
+מִצְוֹת	<div class="translit">mitzvot</div><div class="english">commandments</div>	siddur hebrew prayer_vocab type_noun
+בְּרִית	<div class="translit">brit</div><div class="english">covenant</div>	siddur hebrew prayer_vocab type_noun
+לֵב	<div class="translit">lev</div><div class="english">heart</div>	siddur hebrew prayer_vocab type_noun
+נֶפֶשׁ	<div class="translit">nefesh</div><div class="english">soul / life / self</div>	siddur hebrew prayer_vocab type_noun
+רוּחַ	<div class="translit">ruach</div><div class="english">spirit / wind</div>	siddur hebrew prayer_vocab type_noun
+נְשָׁמָה	<div class="translit">n'shamah</div><div class="english">soul / breath</div>	siddur hebrew prayer_vocab type_noun
+פָּנִים	<div class="translit">panim</div><div class="english">face / presence</div>	siddur hebrew prayer_vocab type_noun
+כָּבוֹד	<div class="translit">kavod</div><div class="english">honour / glory</div>	siddur hebrew prayer_vocab type_noun
+תְּפִלָּה	<div class="translit">t'fillah</div><div class="english">prayer</div>	siddur hebrew prayer_vocab type_noun
+בְּרָכָה	<div class="translit">b'rakhah</div><div class="english">blessing</div>	siddur hebrew prayer_vocab type_noun
+שְׁמַע	<div class="translit">sh'ma</div><div class="english">hear / listen</div>	siddur hebrew prayer_vocab type_verb
+אָמַר	<div class="translit">amar</div><div class="english">said</div>	siddur hebrew prayer_vocab type_verb
+עָשָׂה	<div class="translit">asah</div><div class="english">did / made</div>	siddur hebrew prayer_vocab type_verb
+נָתַן	<div class="translit">natan</div><div class="english">gave</div>	siddur hebrew prayer_vocab type_verb
+הָיָה	<div class="translit">hayah</div><div class="english">was</div>	siddur hebrew prayer_vocab type_verb
+מָלַךְ	<div class="translit">malakh</div><div class="english">ruled / reigned</div>	siddur hebrew prayer_vocab type_verb
+אָהַב	<div class="translit">ahav</div><div class="english">loved</div>	siddur hebrew prayer_vocab type_verb
+בָּרָא	<div class="translit">bara</div><div class="english">created</div>	siddur hebrew prayer_vocab type_verb
+קִדֵּשׁ	<div class="translit">kiddesh</div><div class="english">sanctified</div>	siddur hebrew prayer_vocab type_verb
+קִדְּשָׁנוּ	<div class="translit">kiddeshanu</div><div class="english">sanctified us</div>	siddur hebrew prayer_vocab type_liturgical_form
+צִוָּנוּ	<div class="translit">tzivanu</div><div class="english">commanded us</div>	siddur hebrew prayer_vocab type_liturgical_form
+מוֹדִים	<div class="translit">modim</div><div class="english">we thank / acknowledge</div>	siddur hebrew prayer_vocab type_liturgical_form
+רְצֵה	<div class="translit">r'tzei</div><div class="english">be pleased / accept</div>	siddur hebrew prayer_vocab type_verb
+סְלַח	<div class="translit">s'lach</div><div class="english">forgive</div>	siddur hebrew prayer_vocab type_verb
+רְפָא	<div class="translit">r'fa</div><div class="english">heal</div>	siddur hebrew prayer_vocab type_verb
+בָּרֵךְ	<div class="translit">barekh</div><div class="english">bless</div>	siddur hebrew prayer_vocab type_verb
+מָגֵן	<div class="translit">magen</div><div class="english">shield</div>	siddur hebrew prayer_vocab type_noun
+גּוֹאֵל	<div class="translit">go'el</div><div class="english">redeemer</div>	siddur hebrew prayer_vocab type_noun
+מוֹשִׁיעַ	<div class="translit">moshia</div><div class="english">saviour / one who saves</div>	siddur hebrew prayer_vocab type_noun
+שִׁיר	<div class="translit">shir</div><div class="english">song</div>	siddur hebrew prayer_vocab type_noun

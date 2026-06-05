@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hebrew Reader Line Review</title>
+  <style>
+    :root {
+      --bg: #f6efe4;
+      --panel: rgba(255, 252, 246, 0.96);
+      --ink: #2b241e;
+      --muted: #716256;
+      --accent: #935036;
+      --accent-strong: #ff3c1f;
+      --border: rgba(91, 66, 47, 0.16);
+      --shadow: 0 20px 40px rgba(73, 52, 36, 0.1);
+      --good: #2d7f45;
+      --bad: #a63d34;
+      --regen: #d6851c;
+      --changed: #2f5f9c;
+      --neutral: #c8b8a7;
+      --good-soft: rgba(45, 127, 69, 0.12);
+      --bad-soft: rgba(166, 61, 52, 0.12);
+      --regen-soft: rgba(214, 133, 28, 0.16);
+      --changed-soft: rgba(47, 95, 156, 0.14);
+      --neutral-soft: rgba(200, 184, 167, 0.24);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f8f2e8, var(--bg));
+      color: var(--ink);
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    .shell {
+      max-width: 1920px;
+      margin: 0 auto;
+      padding: 12px;
+      display: grid;
+      grid-template-columns: minmax(720px, 1.5fr) minmax(340px, 420px) minmax(360px, 460px);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 14px;
+      min-height: 0;
+    }
+
+    .viewer-panel,
+    .review-panel,
+    .summary-panel {
+      display: grid;
+      gap: 16px;
+      min-height: 0;
+      height: calc(100vh - 24px);
+    }
+
+    .viewer-panel {
+      overflow: hidden;
+    }
+
+    .review-panel,
+    .summary-panel {
+      overflow: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    p,
+    label {
+      margin: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    h2 {
+      font-size: 1.12rem;
+    }
+
+    .lede,
+    .hint,
+    .status {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .group {
+      display: grid;
+      gap: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .button-row button {
+      width: auto;
+    }
+
+    .button-state-good {
+      background: var(--good);
+      color: #f7fff8;
+    }
+
+    .button-state-bad {
+      background: var(--bad);
+      color: #fff7f6;
+    }
+
+    .button-state-regen {
+      background: var(--regen);
+      color: #fffaf1;
+    }
+
+    .button-state-saving {
+      background: #2f5f9c;
+      color: #f5faff;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-size: 0.84rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      background: #fffdf9;
+      color: var(--ink);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+      line-height: 1.45;
+    }
+
+    button {
+      border: 0;
+      background: var(--accent);
+      color: #fff9f4;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--border);
+    }
+
+    button:disabled {
+      opacity: 0.48;
+      cursor: not-allowed;
+    }
+
+    .progress-strip {
+      display: grid;
+      gap: 4px;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .progress-meta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .progress-bar {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(200, 184, 167, 0.35);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #935036, #d6851c);
+    }
+
+    .canvas-wrap {
+      display: grid;
+      min-height: 0;
+      align-content: start;
+    }
+
+    .canvas-scroll {
+      overflow: auto;
+      max-height: calc(100vh - 200px);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: 0 12px 28px rgba(73, 52, 36, 0.08);
+      background: white;
+    }
+
+    .viewer-controls {
+      align-items: center;
+    }
+
+    .viewer-controls button,
+    .viewer-controls .mini-pill {
+      width: auto;
+      padding: 8px 12px;
+      font-size: 0.96rem;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: white;
+      cursor: crosshair;
+    }
+
+    .selected-line-card,
+    .line-list-card,
+    .actions-card {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.64);
+      padding: 14px;
+    }
+
+    .selected-line-card {
+      display: grid;
+      gap: 12px;
+    }
+
+    .line-list-card {
+      display: grid;
+      gap: 10px;
+      height: 100%;
+      overflow: auto;
+      padding-right: 6px;
+    }
+
+    .line-row {
+      display: grid;
+      grid-template-columns: 14px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.75);
+      cursor: pointer;
+    }
+
+    .line-row.selected {
+      border-color: rgba(147, 80, 54, 0.6);
+      box-shadow: 0 10px 22px rgba(147, 80, 54, 0.12);
+    }
+
+    .block-card {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: rgba(255, 252, 247, 0.94);
+      margin-bottom: 14px;
+    }
+
+    .block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .block-header-main {
+      display: grid;
+      gap: 4px;
+    }
+
+    .block-header-main strong {
+      font-size: 1rem;
+    }
+
+    .block-header-main span {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.35;
+    }
+
+    .block-line-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .block-membership {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .status-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: var(--neutral);
+      border: 2px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 0 0 1px rgba(91, 66, 47, 0.12);
+    }
+
+    .status-dot.good { background: var(--good); }
+    .status-dot.bad { background: var(--bad); }
+    .status-dot.needs_regen { background: var(--regen); }
+    .status-dot.changed { background: var(--changed); }
+    .status-dot.pending { background: var(--neutral); }
+
+    .line-main {
+      display: grid;
+      gap: 4px;
+    }
+
+    .line-main strong {
+      font-size: 0.98rem;
+    }
+
+    .line-main span {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.35;
+    }
+
+    .line-status-pills {
+      display: grid;
+      gap: 8px;
+      justify-items: end;
+      align-content: center;
+    }
+
+    .mini-pill {
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: rgba(147, 80, 54, 0.12);
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .mini-pill.good {
+      background: var(--good-soft);
+      color: var(--good);
+    }
+
+    .mini-pill.bad {
+      background: var(--bad-soft);
+      color: var(--bad);
+    }
+
+    .mini-pill.needs_regen {
+      background: var(--regen-soft);
+      color: var(--regen);
+    }
+
+    .mini-pill.changed {
+      background: var(--changed-soft);
+      color: var(--changed);
+    }
+
+    .mini-pill.sync-saving {
+      background: rgba(51, 108, 189, 0.12);
+      color: #2f5f9c;
+    }
+
+    .mini-pill.sync-saved {
+      background: var(--good-soft);
+      color: var(--good);
+    }
+
+    .mini-pill.sync-error {
+      background: var(--bad-soft);
+      color: var(--bad);
+    }
+
+    .instruction-box,
+    .line-text,
+    .note-preview {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px;
+      background: rgba(255, 250, 244, 0.76);
+      line-height: 1.45;
+    }
+
+    .instruction-box strong,
+    .note-preview strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .status-chip-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .status-chip {
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      background: var(--neutral-soft);
+      color: var(--muted);
+    }
+
+    .status-chip.good {
+      background: var(--good-soft);
+      color: var(--good);
+    }
+
+    .status-chip.bad {
+      background: var(--bad-soft);
+      color: var(--bad);
+    }
+
+    .status-chip.missing-arrow {
+      background: var(--bad-soft);
+      color: var(--bad);
+      border: 1px solid rgba(166, 61, 52, 0.2);
+    }
+
+    .status-chip.needs_regen {
+      background: var(--regen-soft);
+      color: var(--regen);
+    }
+
+    .status-chip.changed {
+      background: var(--changed-soft);
+      color: var(--changed);
+      border: 1px solid rgba(47, 95, 156, 0.18);
+    }
+
+    .word-button-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      direction: rtl;
+      justify-content: flex-start;
+    }
+
+    .word-button-row button {
+      width: auto;
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--border);
+      direction: rtl;
+    }
+
+    .reason-card {
+      display: none;
+      gap: 10px;
+    }
+
+    .reason-card.visible {
+      display: grid;
+    }
+
+    .sheet-guidance {
+      display: none;
+      border: 1px solid rgba(214, 133, 28, 0.28);
+      background: rgba(214, 133, 28, 0.12);
+      border-radius: 16px;
+      padding: 12px;
+      color: #8c5600;
+      line-height: 1.45;
+    }
+
+    .sheet-guidance.visible {
+      display: block;
+    }
+
+    .block-override-fields {
+      display: none;
+      gap: 10px;
+    }
+
+    .block-override-fields.visible {
+      display: grid;
+    }
+
+    .block-override-note {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 1120px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+
+      .viewer-panel,
+      .review-panel,
+      .summary-panel {
+        height: auto;
+        overflow: visible;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="panel viewer-panel">
+      <div class="progress-strip">
+        <div class="progress-header">
+          <h2 id="pageTitle">Page</h2>
+          <div class="progress-meta">
+            <span id="syncStatus" class="mini-pill">Ready</span>
+            <span id="progressText" class="mini-pill">0 / 0 complete</span>
+          </div>
+        </div>
+        <div class="progress-bar">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="button-row viewer-controls">
+        <button id="prevPage" type="button" class="secondary">Previous page</button>
+        <button id="nextPage" type="button" class="secondary">Next page</button>
+        <button id="playPage" type="button">Play whole page</button>
+        <button id="stopPlayback" type="button" class="secondary">Stop</button>
+      </div>
+
+      <div class="canvas-wrap">
+        <div class="canvas-scroll">
+          <canvas id="pageCanvas"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel review-panel">
+      <section class="selected-line-card">
+        <div class="group">
+          <h2 id="selectedLineTitle">Select a line</h2>
+          <div id="selectedLineStatus" class="status-chip-row"></div>
+        </div>
+
+        <div id="selectedLineText" class="line-text">Choose a line from the list below.</div>
+
+        <div class="button-row">
+          <button id="playLine" type="button">Play line</button>
+          <button id="clearLocation" type="button" class="secondary">Clear location</button>
+        </div>
+      </section>
+
+      <section class="actions-card group">
+        <div class="button-row">
+          <button id="saveProgress" type="button">Save progress</button>
+        </div>
+      </section>
+    </section>
+
+    <section class="panel summary-panel">
+      <section class="line-list-card">
+        <h2>Lines On This Page</h2>
+        <div id="lineList"></div>
+      </section>
+    </section>
+  </div>
+
+  <script>
+    const REVIEW_STORAGE_KEY = "hebrew-reader-line-review-v2";
+    const DEFAULT_SYNC_CONFIG = {
+      enabled: false,
+      endpoint: "",
+      spreadsheetId: "",
+      sheetName: "backup",
+      saveTriggers: ["page_change", "page_signoff", "manual_save"]
+    };
+
+    const state = {
+      qa: null,
+      syncConfig: DEFAULT_SYNC_CONFIG,
+      currentPageId: null,
+      selectedLineId: null,
+      image: null,
+      imageWidth: 0,
+      imageHeight: 0,
+      scale: 1,
+      playbackToken: 0,
+      playbackAudio: null,
+      playbackTimer: null,
+      review: loadReviewState()
+    };
+
+    const elements = {
+      canvasHint: document.getElementById("canvasHint"),
+      clearLocation: document.getElementById("clearLocation"),
+      saveProgress: document.getElementById("saveProgress"),
+      lineList: document.getElementById("lineList"),
+      nextPage: document.getElementById("nextPage"),
+      pageCanvas: document.getElementById("pageCanvas"),
+      pageTitle: document.getElementById("pageTitle"),
+      playPage: document.getElementById("playPage"),
+      playLine: document.getElementById("playLine"),
+      prevPage: document.getElementById("prevPage"),
+      progressFill: document.getElementById("progressFill"),
+      progressText: document.getElementById("progressText"),
+      selectedLineStatus: document.getElementById("selectedLineStatus"),
+      selectedLineText: document.getElementById("selectedLineText"),
+      selectedLineTitle: document.getElementById("selectedLineTitle"),
+      syncStatus: document.getElementById("syncStatus"),
+      status: document.getElementById("status"),
+      stopPlayback: document.getElementById("stopPlayback")
+    };
+
+    let saveButtonResetTimer = null;
+
+    function loadReviewState() {
+      try {
+        const raw = window.localStorage.getItem(REVIEW_STORAGE_KEY);
+        if (!raw) {
+          return {
+            lineReviews: {},
+            createdAt: new Date().toISOString()
+          };
+        }
+        const parsed = JSON.parse(raw);
+        return {
+          lineReviews: parsed.lineReviews || {},
+          createdAt: parsed.createdAt || new Date().toISOString(),
+          updatedAt: parsed.updatedAt || ""
+        };
+      } catch (error) {
+        console.error(error);
+        return {
+          lineReviews: {},
+          createdAt: new Date().toISOString(),
+          updatedAt: ""
+        };
+      }
+    }
+
+    function saveReviewState() {
+      state.review.updatedAt = new Date().toISOString();
+      window.localStorage.setItem(REVIEW_STORAGE_KEY, JSON.stringify(state.review));
+      updateProgress();
+      updateSelectedLine();
+      renderLineList();
+      updateExport();
+    }
+
+    function statusToneFromMessage(message) {
+      const text = String(message || "").toLowerCase();
+      if (
+        text.includes("failed") ||
+        text.includes("could not") ||
+        text.includes("cancelled") ||
+        text.includes("select a line") ||
+        text.includes("place the arrow") ||
+        text.includes("choose a reason") ||
+        text.includes("add a note") ||
+        text.includes("finish every line")
+      ) {
+        return "sync-error";
+      }
+      if (
+        text.includes("saving") ||
+        text.includes("loading")
+      ) {
+        return "sync-saving";
+      }
+      return "sync-saved";
+    }
+
+    function setStatus(message, tone) {
+      const resolvedTone = tone || statusToneFromMessage(message);
+      if (elements.syncStatus) {
+        elements.syncStatus.textContent = message;
+        elements.syncStatus.className = "mini-pill " + resolvedTone;
+      }
+      if (elements.status) {
+        elements.status.textContent = message;
+      }
+    }
+
+    function setSaveButtonState(label, stateClass, disabled) {
+      if (!elements.saveProgress) {
+        return;
+      }
+      elements.saveProgress.textContent = label;
+      elements.saveProgress.className = stateClass || "";
+      elements.saveProgress.disabled = Boolean(disabled);
+    }
+
+    function flashSaveButton(label, stateClass) {
+      if (saveButtonResetTimer) {
+        window.clearTimeout(saveButtonResetTimer);
+      }
+      setSaveButtonState(label, stateClass, false);
+      saveButtonResetTimer = window.setTimeout(function () {
+        setSaveButtonState("Save progress", "", false);
+      }, 1800);
+    }
+
+    function orderedPages() {
+      return (state.qa.pages || []).slice().sort(function (a, b) {
+        return a.page - b.page;
+      });
+    }
+
+    function hasConfiguredRemoteSync() {
+      return Boolean(
+        state.syncConfig &&
+        state.syncConfig.enabled &&
+        state.syncConfig.endpoint
+      );
+    }
+
+    function buildLineReviewsArray() {
+      const lineReviews = [];
+      orderedPages().forEach(function (page) {
+        orderedLines(page).forEach(function (line) {
+          const review = reviewForLine(line.id);
+          lineReviews.push({
+            page: line.page,
+            lineId: line.id,
+            lineNumber: line.lineNumber,
+            anchorY: typeof review.anchorY === "number" ? review.anchorY : null
+          });
+        });
+      });
+      return lineReviews;
+    }
+
+    function normalizeLoadedReview(parsed) {
+      return {
+        lineReviews: Object.fromEntries(
+          (parsed.lineReviews || []).map(function (review) {
+            return [review.lineId, {
+              lineId: review.lineId,
+              anchorY: typeof review.anchorY === "number" ? review.anchorY : null
+            }];
+          })
+        ),
+        createdAt: parsed.createdAt || new Date().toISOString(),
+        updatedAt: parsed.updatedAt || ""
+      };
+    }
+
+    function currentPage() {
+      return orderedPages().find(function (page) {
+        return page.id === state.currentPageId;
+      }) || null;
+    }
+
+    function orderedLines(page) {
+      return (page.lines || []).slice().sort(function (a, b) {
+        return a.lineNumber - b.lineNumber;
+      });
+    }
+
+    function currentLine() {
+      const page = currentPage();
+      if (!page) {
+        return null;
+      }
+      return orderedLines(page).find(function (line) {
+        return line.id === state.selectedLineId;
+      }) || null;
+    }
+
+    function reviewForLine(lineId) {
+      return state.review.lineReviews[lineId] || {
+        lineId: lineId,
+        anchorY: null
+      };
+    }
+
+    function spokenBlocksForPage(page) {
+      return Array.isArray(page && page.spokenBlocks) ? page.spokenBlocks.slice().sort(function (a, b) {
+        const aOrder = Array.isArray(a.lineNumbers) && a.lineNumbers.length ? a.lineNumbers[0] : 0;
+        const bOrder = Array.isArray(b.lineNumbers) && b.lineNumbers.length ? b.lineNumbers[0] : 0;
+        return aOrder - bOrder;
+      }) : [];
+    }
+
+    function spokenBlockForLine(page, line) {
+      if (!page || !line || !line.spokenBlockId) {
+        return null;
+      }
+      return spokenBlocksForPage(page).find(function (block) {
+        return block.id === line.spokenBlockId;
+      }) || null;
+    }
+
+    function isVisibleMultiLineBlock(block) {
+      return Boolean(block && Array.isArray(block.lineIds) && block.lineIds.length > 1);
+    }
+
+    function playbackForLine(line) {
+      if (!line) {
+        return { urls: [], gapMs: 0 };
+      }
+      const playback = line.playback || {};
+      const urls = Array.isArray(playback.urls) ? playback.urls.slice() : [];
+      if (urls.length) {
+        return {
+          urls: urls,
+          gapMs: Number(playback.gapMs) || 0
+        };
+      }
+      if (Array.isArray(line.wordPlayback) && line.wordPlayback.length) {
+        return {
+          urls: line.wordPlayback.map(function (word) { return word.url; }).filter(Boolean),
+          gapMs: 0
+        };
+      }
+      return { urls: [], gapMs: 0 };
+    }
+
+    function isLineComplete(line) {
+      const review = reviewForLine(line.id);
+      return typeof review.anchorY === "number";
+    }
+
+    function pageCompletion(page) {
+      const lines = orderedLines(page);
+      const completed = lines.filter(isLineComplete).length;
+      return {
+        total: lines.length,
+        completed: completed,
+        complete: lines.length > 0 && completed === lines.length
+      };
+    }
+
+    function stopPlayback() {
+      state.playbackToken += 1;
+      if (state.playbackTimer) {
+        window.clearTimeout(state.playbackTimer);
+        state.playbackTimer = null;
+      }
+      if (state.playbackAudio) {
+        state.playbackAudio.pause();
+        state.playbackAudio.src = "";
+        state.playbackAudio = null;
+      }
+    }
+
+    function playSequence(urls, gapMs, label) {
+      if (!urls || !urls.length) {
+        setStatus("No audio is available for " + label + ".");
+        return;
+      }
+
+      stopPlayback();
+      const token = state.playbackToken;
+      let index = 0;
+
+      function playNext() {
+        if (token !== state.playbackToken || index >= urls.length) {
+          return;
+        }
+
+        const audio = new Audio(urls[index]);
+        state.playbackAudio = audio;
+        audio.addEventListener("ended", function () {
+          if (token !== state.playbackToken) {
+            return;
+          }
+          index += 1;
+          if (index >= urls.length) {
+            setStatus(label + " finished.");
+            return;
+          }
+          state.playbackTimer = window.setTimeout(playNext, gapMs || 0);
+        });
+        audio.addEventListener("error", function () {
+          setStatus("Audio failed to load for " + label + ".");
+        });
+        audio.play().catch(function (error) {
+          console.error(error);
+          setStatus("Playback failed for " + label + ".");
+        });
+      }
+
+      setStatus("Playing " + label + "...");
+      playNext();
+    }
+
+    function playSegments(segments, label) {
+      const playable = (segments || []).filter(function (segment) {
+        return segment && segment.urls && segment.urls.length;
+      });
+      if (!playable.length) {
+        setStatus("No audio is available for " + label + ".");
+        return;
+      }
+
+      stopPlayback();
+      const token = state.playbackToken;
+      let segmentIndex = 0;
+      let urlIndex = 0;
+
+      function playCurrent() {
+        if (token !== state.playbackToken || segmentIndex >= playable.length) {
+          return;
+        }
+
+        const segment = playable[segmentIndex];
+        const audio = new Audio(segment.urls[urlIndex]);
+        state.playbackAudio = audio;
+        audio.addEventListener("ended", function () {
+          if (token !== state.playbackToken) {
+            return;
+          }
+          urlIndex += 1;
+          if (urlIndex < segment.urls.length) {
+            state.playbackTimer = window.setTimeout(playCurrent, segment.gapMs || 0);
+            return;
+          }
+          segmentIndex += 1;
+          urlIndex = 0;
+          if (segmentIndex >= playable.length) {
+            setStatus(label + " finished.");
+            return;
+          }
+          state.playbackTimer = window.setTimeout(playCurrent, segment.lineGapMs || 260);
+        });
+        audio.addEventListener("error", function () {
+          setStatus("Audio failed to load for " + label + ".");
+        });
+        audio.play().catch(function (error) {
+          console.error(error);
+          setStatus("Playback failed for " + label + ".");
+        });
+      }
+
+      setStatus("Playing " + label + "...");
+      playCurrent();
+    }
+
+    function clamp(value, minimum, maximum) {
+      return Math.min(maximum, Math.max(minimum, value));
+    }
+
+    function drawArrow(ctx, anchorYPercent) {
+      const canvasWidth = elements.pageCanvas.width;
+      const canvasHeight = elements.pageCanvas.height;
+      const y = (anchorYPercent / 100) * canvasHeight;
+      const arrowTipX = canvasWidth - 86;
+      const arrowStartX = canvasWidth - 28;
+
+      ctx.strokeStyle = "rgba(255, 60, 31, 0.95)";
+      ctx.fillStyle = "rgba(255, 60, 31, 0.95)";
+      ctx.lineWidth = 6;
+      ctx.lineCap = "round";
+
+      ctx.beginPath();
+      ctx.moveTo(arrowStartX, y);
+      ctx.lineTo(arrowTipX, y);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(arrowTipX, y);
+      ctx.lineTo(arrowTipX + 14, y - 12);
+      ctx.lineTo(arrowTipX + 14, y + 12);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    function renderCanvas() {
+      const page = currentPage();
+      if (!page || !state.image) {
+        return;
+      }
+
+      const scrollFrame = document.querySelector(".canvas-scroll");
+      const availableWidth = Math.max(320, scrollFrame.clientWidth - 2);
+      const displayScale = Math.min(1, availableWidth / state.imageWidth);
+      state.scale = displayScale;
+      elements.pageCanvas.width = state.imageWidth;
+      elements.pageCanvas.height = state.imageHeight;
+      elements.pageCanvas.style.width = Math.round(state.imageWidth * displayScale) + "px";
+      elements.pageCanvas.style.height = Math.round(state.imageHeight * displayScale) + "px";
+
+      const ctx = elements.pageCanvas.getContext("2d");
+      ctx.imageSmoothingEnabled = true;
+      ctx.clearRect(0, 0, elements.pageCanvas.width, elements.pageCanvas.height);
+      ctx.drawImage(state.image, 0, 0, elements.pageCanvas.width, elements.pageCanvas.height);
+
+      const line = currentLine();
+      if (!line) {
+        return;
+      }
+
+      const review = reviewForLine(line.id);
+      if (typeof review.anchorY === "number") {
+        drawArrow(ctx, review.anchorY);
+        if (elements.canvasHint) {
+          elements.canvasHint.textContent = "Arrow placed. Click again if you want to move it for this line.";
+        }
+      } else {
+        if (elements.canvasHint) {
+          elements.canvasHint.textContent = "Click once on the page to place the arrow for the selected line.";
+        }
+      }
+    }
+
+    async function loadImage(src) {
+      return new Promise(function (resolve, reject) {
+        const image = new Image();
+        image.onload = function () {
+          resolve(image);
+        };
+        image.onerror = reject;
+        image.src = src;
+      });
+    }
+
+    function updateSelectedLine() {
+      const line = currentLine();
+      if (!line) {
+        elements.selectedLineTitle.textContent = "Select a line";
+        elements.selectedLineText.textContent = "Choose a line below.";
+        elements.selectedLineStatus.replaceChildren();
+        return;
+      }
+
+      const review = reviewForLine(line.id);
+      elements.selectedLineTitle.textContent = "Page " + line.page + " · " + line.badgeLabel;
+      elements.selectedLineText.textContent = line.displayText;
+
+      elements.selectedLineStatus.replaceChildren();
+      const chip = document.createElement("span");
+      chip.className = "status-chip " + (typeof review.anchorY === "number" ? "good" : "missing-arrow");
+      chip.textContent = typeof review.anchorY === "number" ? "Arrow set" : "Arrow required";
+      elements.selectedLineStatus.appendChild(chip);
+
+      const linePlayback = playbackForLine(line);
+      elements.playLine.textContent = "Play line";
+      elements.playLine.disabled = !linePlayback.urls.length;
+      elements.clearLocation.disabled = typeof review.anchorY !== "number";
+    }
+
+    function renderLineList() {
+      const page = currentPage();
+      elements.lineList.replaceChildren();
+      if (!page) {
+        return;
+      }
+
+      function buildLineRow(line) {
+        const review = reviewForLine(line.id);
+        const row = document.createElement("article");
+        row.className = "line-row" + (line.id === state.selectedLineId ? " selected" : "");
+        row.addEventListener("click", function () {
+          state.selectedLineId = line.id;
+          updateSelectedLine();
+          renderLineList();
+          renderCanvas();
+        });
+
+        const dot = document.createElement("div");
+        dot.className = "status-dot " + (typeof review.anchorY === "number" ? "good" : "pending");
+        row.appendChild(dot);
+
+        const main = document.createElement("div");
+        main.className = "line-main";
+        const strong = document.createElement("strong");
+        strong.textContent = line.badgeLabel;
+        main.appendChild(strong);
+        const span = document.createElement("span");
+        span.textContent = line.displayText;
+        if (/[֐-׿]/.test(line.displayText) && !/[A-Za-z]/.test(line.displayText)) {
+          span.dir = "rtl";
+          span.style.textAlign = "right";
+        }
+        main.appendChild(span);
+        row.appendChild(main);
+
+        const arrowPill = document.createElement("span");
+        arrowPill.className = "mini-pill " + (typeof review.anchorY === "number" ? "good" : "bad");
+        arrowPill.textContent = typeof review.anchorY === "number" ? "Arrow set" : "Arrow not set";
+        row.appendChild(arrowPill);
+        return row;
+      }
+
+      orderedLines(page).forEach(function (line) {
+        elements.lineList.appendChild(buildLineRow(line));
+      });
+    }
+
+    function pagePlaybackSegments(page) {
+      if (!page) {
+        return [];
+      }
+      const playbackItems = [];
+      spokenBlocksForPage(page).forEach(function (block) {
+        const playback = block.playback || {};
+        const urls = Array.isArray(playback.urls) ? playback.urls.slice() : [];
+        if (!urls.length) {
+          return;
+        }
+        playbackItems.push({
+          order: Array.isArray(block.lineNumbers) && block.lineNumbers.length ? block.lineNumbers[0] : 0,
+          segment: {
+            urls: urls,
+            gapMs: Number(playback.gapMs) || 0,
+            lineGapMs: 260
+          }
+        });
+      });
+
+      orderedLines(page).forEach(function (line) {
+        if (line.spokenBlockId) {
+          return;
+        }
+        const playback = playbackForLine(line);
+        if (!playback.urls.length) {
+          return;
+        }
+        playbackItems.push({
+          order: line.lineNumber,
+          segment: {
+            urls: playback.urls,
+            gapMs: playback.gapMs,
+            lineGapMs: 260
+          }
+        });
+      });
+
+      return playbackItems.sort(function (a, b) {
+        return a.order - b.order;
+      }).map(function (item) {
+        return item.segment;
+      });
+    }
+
+    function updateProgress() {
+      const page = currentPage();
+      if (!page) {
+        return;
+      }
+      const progress = pageCompletion(page);
+      elements.progressText.textContent = progress.completed + " / " + progress.total + " arrows set";
+      elements.progressFill.style.width = progress.total ? ((progress.completed / progress.total) * 100).toFixed(2) + "%" : "0%";
+      if (elements.playPage) {
+        elements.playPage.disabled = pagePlaybackSegments(page).length === 0;
+      }
+    }
+
+    function updateExport() {
+      const payload = {
+        version: "arrow-review-v1",
+        createdAt: state.review.createdAt,
+        updatedAt: new Date().toISOString(),
+        lineReviews: buildLineReviewsArray()
+      };
+      state.exportPayload = payload;
+    }
+
+    function buildPagePayload(page) {
+      return {
+        action: "savePage",
+        page: page.page,
+        lineReviews: orderedLines(page).map(function (line) {
+          const review = reviewForLine(line.id);
+          return {
+            page: line.page,
+            lineId: line.id,
+            lineNumber: line.lineNumber,
+            anchorY: typeof review.anchorY === "number" ? review.anchorY : null
+          };
+        })
+      };
+    }
+
+    async function saveRemotePage(page, reason) {
+      if (!hasConfiguredRemoteSync() || !page) {
+        return;
+      }
+      try {
+        await fetch(state.syncConfig.endpoint, {
+          method: "POST",
+          body: JSON.stringify(buildPagePayload(page))
+        });
+        setStatus("Saved progress to backup after " + reason + ".");
+      } catch (error) {
+        console.error(error);
+        setStatus("Remote backup save failed. Local progress is still saved in this browser.");
+      }
+    }
+
+    async function saveRemoteAll(reason) {
+      if (!hasConfiguredRemoteSync()) {
+        return false;
+      }
+      try {
+        setStatus("Saving to backup sheet...", "sync-saving");
+        updateExport();
+        await fetch(state.syncConfig.endpoint, {
+          method: "POST",
+          body: JSON.stringify({
+            action: "saveAll",
+            lineReviews: state.exportPayload.lineReviews || []
+          })
+        });
+        setStatus("Progress saved to the backup sheet.");
+        return true;
+      } catch (error) {
+        console.error(error);
+        setStatus("Shared save failed. Local browser progress is still intact.");
+        return false;
+      }
+    }
+
+    async function loadSyncConfig() {
+      try {
+        const response = await fetch("./data/qa-sync-config.json", { cache: "no-store" });
+        if (!response.ok) {
+          return DEFAULT_SYNC_CONFIG;
+        }
+        const config = await response.json();
+        return Object.assign({}, DEFAULT_SYNC_CONFIG, config || {});
+      } catch (error) {
+        console.error(error);
+        return DEFAULT_SYNC_CONFIG;
+      }
+    }
+
+    async function loadRemoteReview() {
+      if (!hasConfiguredRemoteSync()) {
+        return null;
+      }
+      try {
+        const response = await fetch(state.syncConfig.endpoint, { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error("Remote sync load failed: " + response.status);
+        }
+        const payload = await response.json();
+        if (!payload || payload.ok === false) {
+          return null;
+        }
+        return {
+          lineReviews: payload.lineReviews || [],
+          updatedAt: payload.updatedAt || ""
+        };
+      } catch (error) {
+        console.error(error);
+        setStatus("Could not load shared backup. Using browser-saved progress.");
+        return null;
+      }
+    }
+
+    function backfillMissingReviewFingerprints() {
+      return false;
+    }
+
+    async function setCurrentPage(pageId) {
+      state.currentPageId = pageId;
+      const page = currentPage();
+      if (!page) {
+        return;
+      }
+      state.image = await loadImage(page.image);
+      state.imageWidth = state.image.naturalWidth;
+      state.imageHeight = state.image.naturalHeight;
+      const lines = orderedLines(page);
+      if (!lines.some(function (line) { return line.id === state.selectedLineId; })) {
+        state.selectedLineId = lines[0] ? lines[0].id : null;
+      }
+      elements.pageTitle.textContent = "Page " + page.page + " · " + page.title;
+      updateSelectedLine();
+      renderLineList();
+      renderCanvas();
+      updateProgress();
+      updateExport();
+      setStatus("Loaded page " + page.page + ".");
+    }
+
+    function movePage(delta) {
+      const pageBeforeMove = currentPage();
+      if (pageBeforeMove) {
+        saveRemotePage(pageBeforeMove, "page change");
+      }
+      const pages = orderedPages();
+      const index = pages.findIndex(function (page) {
+        return page.id === state.currentPageId;
+      });
+      const next = index + delta;
+      if (next < 0 || next >= pages.length) {
+        return;
+      }
+      setCurrentPage(pages[next].id).catch(function (error) {
+        console.error(error);
+        setStatus("The selected page could not be loaded.");
+      });
+    }
+
+    function ensureSelectedLine() {
+      const line = currentLine();
+      if (!line) {
+        setStatus("Select a line first.");
+        return null;
+      }
+      return line;
+    }
+
+    function clearLocation() {
+      const line = ensureSelectedLine();
+      if (!line) {
+        return;
+      }
+      delete state.review.lineReviews[line.id];
+      saveReviewState();
+      renderCanvas();
+      setStatus("Cleared arrow for " + line.badgeLabel + ".");
+    }
+
+    async function loadQa() {
+      const response = await fetch("./data/qa.json", { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("QA data fetch failed: " + response.status);
+      }
+      state.qa = await response.json();
+      state.syncConfig = await loadSyncConfig();
+      const remote = await loadRemoteReview();
+      if (remote && remote.lineReviews && remote.lineReviews.length) {
+        const remoteReview = normalizeLoadedReview({
+          lineReviews: remote.lineReviews || [],
+          createdAt: state.review.createdAt,
+          updatedAt: remote.updatedAt || ""
+        });
+        const localUpdated = state.review.updatedAt || "";
+        if (!localUpdated || (remote.updatedAt && remote.updatedAt >= localUpdated)) {
+          state.review = remoteReview;
+          saveReviewState();
+        }
+      }
+      const firstPage = orderedPages()[0];
+      state.currentPageId = firstPage ? firstPage.id : null;
+      if (state.currentPageId) {
+        await setCurrentPage(state.currentPageId);
+      }
+    }
+
+    elements.pageCanvas.addEventListener("click", function (event) {
+      const line = ensureSelectedLine();
+      if (!line) {
+        return;
+      }
+      const rect = elements.pageCanvas.getBoundingClientRect();
+      const y = clamp(((event.clientY - rect.top) / rect.height) * 100, 0, 100);
+      state.review.lineReviews[line.id] = {
+        lineId: line.id,
+        anchorY: y
+      };
+      saveReviewState();
+      renderCanvas();
+      setStatus("Arrow placed for " + line.badgeLabel + ".");
+    });
+
+    elements.prevPage.addEventListener("click", function () {
+      movePage(-1);
+    });
+
+    elements.nextPage.addEventListener("click", function () {
+      movePage(1);
+    });
+
+    elements.playPage.addEventListener("click", function () {
+      const page = currentPage();
+      if (!page) {
+        return;
+      }
+      playSegments(pagePlaybackSegments(page), "Page " + page.page);
+    });
+
+    elements.playLine.addEventListener("click", function () {
+      const line = ensureSelectedLine();
+      if (!line) {
+        return;
+      }
+      const playback = playbackForLine(line);
+      playSequence(playback.urls, playback.gapMs, line.badgeLabel);
+    });
+
+    elements.stopPlayback.addEventListener("click", stopPlayback);
+    elements.clearLocation.addEventListener("click", clearLocation);
+
+    elements.saveProgress.addEventListener("click", async function () {
+      try {
+        setSaveButtonState("Saving...", "button-state-saving", true);
+        updateExport();
+        if (await saveRemoteAll("manual save")) {
+          flashSaveButton("Saved", "button-state-good");
+          return;
+        }
+        const payload = JSON.stringify(state.exportPayload || {}, null, 2);
+        if ("showSaveFilePicker" in window) {
+          const handle = await window.showSaveFilePicker({
+            suggestedName: "hebrew-reader-arrow-progress.json",
+            types: [
+              {
+                description: "JSON arrow progress",
+                accept: { "application/json": [".json"] }
+              }
+            ]
+          });
+          const writable = await handle.createWritable();
+          await writable.write(payload);
+          await writable.close();
+          setStatus("Progress saved to file.");
+          flashSaveButton("Saved", "button-state-good");
+          return;
+        }
+
+        const blob = new Blob([payload], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "hebrew-reader-arrow-progress.json";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+        setStatus("Progress downloaded as a file.");
+        flashSaveButton("Saved", "button-state-good");
+      } catch (error) {
+        console.error(error);
+        if (error && error.name === "AbortError") {
+          setStatus("Save cancelled.");
+          setSaveButtonState("Save progress", "", false);
+          return;
+        }
+        setStatus("Save failed.");
+        flashSaveButton("Save failed", "button-state-bad");
+      }
+    });
+
+    loadQa().catch(function (error) {
+      console.error(error);
+      setStatus("Review data could not be loaded. Build the site first.");
+    });
+  </script>
+</body>
+</html>

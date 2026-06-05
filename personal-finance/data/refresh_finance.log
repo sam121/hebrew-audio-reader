@@ -1,0 +1,276 @@
+Finance refresh started: Mon May  4 20:16:01 +08 2026
+{'rows': 6, 'issues': 0, 'report': '/Users/samueltaylor/Documents/New project/personal-finance/reports/embedded_fund_fees.html'}
+{
+  "pipeline": {
+    "started_at": "2026-05-04T20:16:01",
+    "source_root": "/Users/samueltaylor/Library/Mobile Documents/com~apple~CloudDocs/Transactions",
+    "steps": {
+      "inventory": {
+        "files": 400,
+        "missing_months": 0,
+        "issues": 0,
+        "elapsed_seconds": 0.191
+      },
+      "fetch_fx": {
+        "source": "ECB",
+        "source_url": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip",
+        "currencies": 42,
+        "core_currencies": "SGD,EUR,USD,GBP,CAD,CNY,JPY,AUD,HKD,PHP",
+        "rows": 320956,
+        "date_min": "1999-01-04",
+        "date_max_ecb": "2026-04-30",
+        "date_max_table": "2026-05-04",
+        "elapsed_seconds": 2.461
+      },
+      "ingest_wise": {
+        "files": 13,
+        "transactions": 2778,
+        "balances": 2778,
+        "issues": 0,
+        "elapsed_seconds": 2.167
+      },
+      "ingest_ibkr": {
+        "files": 2,
+        "transactions": 36,
+        "balances": 73,
+        "holdings": 6,
+        "issues": 0,
+        "elapsed_seconds": 0.053
+      },
+      "ingest_vanguard": {
+        "files": 1,
+        "transactions": 171,
+        "balances": 171,
+        "issues": 4,
+        "elapsed_seconds": 0.165
+      },
+      "ingest_vanguard_inferred": {
+        "files": 1,
+        "balances": 77,
+        "holdings": 4,
+        "issues": 0,
+        "elapsed_seconds": 0.019
+      },
+      "ingest_evelyn": {
+        "files": 3,
+        "transactions": 1,
+        "balances": 3,
+        "holdings": 0,
+        "issues": 0,
+        "elapsed_seconds": 0.118
+      },
+      "ingest_stripe": {
+        "files": 1,
+        "transactions": 14,
+        "balances": 49,
+        "holdings": 1,
+        "issues": 0,
+        "elapsed_seconds": 0.067
+      },
+      "ingest_manual_legacy_pensions": {
+        "files": 1,
+        "balances": 18,
+        "issues": 4,
+        "elapsed_seconds": 0.004
+      },
+      "ingest_manual_property_assets": {
+        "balances": 88,
+        "issues": 0,
+        "elapsed_seconds": 0.014
+      },
+      "ingest_manual_premium_bonds": {
+        "balances": 88,
+        "issues": 0,
+        "elapsed_seconds": 0.023
+      },
+      "ingest_dbs": {
+        "files": 144,
+        "transactions": 7230,
+        "balances": 320,
+        "issues": 1,
+        "elapsed_seconds": 3.447
+      },
+      "ingest_barclays": {
+        "files": 185,
+        "transactions": 410,
+        "balances": 157,
+        "issues": 0,
+        "elapsed_seconds": 6.909
+      },
+      "ingest_endowus": {
+        "files": 49,
+        "balances": 49,
+        "holdings": 10,
+        "issues": 0,
+        "elapsed_seconds": 0.774
+      },
+      "normalize": {
+        "transactions": 10385,
+        "balances": 3827,
+        "holdings": 21,
+        "parse_issues": 9,
+        "control_totals": 405,
+        "elapsed_seconds": 0.21
+      },
+      "categorize_transactions": {
+        "transactions": 10385,
+        "categories": 16,
+        "elapsed_seconds": 0.217
+      },
+      "reconcile_transfers": {
+        "matched_transfers": 0,
+        "transfer_candidates": 2204,
+        "large_unmatched": 724,
+        "elapsed_seconds": 0.059
+      },
+      "validate": {
+        "validation_issues": 89,
+        "all_issues": 98,
+        "elapsed_seconds": 0.092
+      },
+      "build_net_worth": {
+        "net_worth_months": 76,
+        "net_worth_account_rows": 839,
+        "net_worth_currency_rows": 237,
+        "monthly_spending_rows": 76,
+        "as_of_snapshot_date": "2026-04-30",
+        "as_of_snapshot_rows": 28,
+        "elapsed_seconds": 0.179
+      },
+      "duckdb": {
+        "duckdb": "/Users/samueltaylor/Documents/New project/personal-finance/data/finance.duckdb",
+        "loaded": {
+          "transactions": 10385,
+          "balances": 3827,
+          "holdings": 21,
+          "transfers": 0,
+          "source_limitations": 2,
+          "issues": 98,
+          "inventory_files": 400,
+          "run_control_totals": 405,
+          "fx_rates": 320956
+        },
+        "elapsed_seconds": 0.923
+      },
+      "report": {
+        "reports": 6,
+        "elapsed_seconds": 0.065
+      },
+      "report_source_of_funds": {
+        "rows": 30,
+        "cash_total_gbp": "242580.00",
+        "cash_total_sgd": "391481.6635925290745783520009",
+        "asset_total_gbp": "120776.15",
+        "asset_total_sgd": "201348.4504088586030664395230",
+        "funding_total_gbp": "250000.00",
+        "funding_total_sgd": "431019.4850382741823242867085",
+        "stripe_cashout_total_usd": "244662.86",
+        "stripe_cashout_total_sgd": "323777.1958492388414206614822",
+        "report": "/Users/samueltaylor/Documents/New project/personal-finance/reports/source_of_funds.html",
+        "elapsed_seconds": 0.011
+      }
+    },
+    "finished_at": "2026-05-04T20:16:19"
+  },
+  "optional_reports": {
+    "report_barclays": {
+      "status": "ok",
+      "result": {
+        "points": 82,
+        "series": 3,
+        "report": "/Users/samueltaylor/Documents/New project/personal-finance/reports/barclays_balances.html"
+      }
+    },
+    "report_vanguard": {
+      "status": "ok",
+      "result": {
+        "points": 27,
+        "series": 2,
+        "report": "/Users/samueltaylor/Documents/New project/personal-finance/reports/vanguard_inferred_value.html"
+      }
+    },
+    "report_net_worth_stacked": {
+      "status": "ok",
+      "result": {
+        "months": 76,
+        "report": "/Users/samueltaylor/Documents/New project/personal-finance/reports/net_worth_stacked.html"
+      }
+    },
+    "report_spending_by_category": {
+      "status": "ok",
+      "result": {
+        "months": 76,
+        "categories": 13,
+        "report": "/Users/samueltaylor/Documents/New project/personal-finance/reports/spending_by_category.html"
+      }
+    },
+    "report_platform_fee_review": {
+      "status": "ok",
+      "result": {
+        "detail_rows": 60,
+        "summary_rows": 4,
+        "report": "/Users/samueltaylor/Documents/New project/personal-finance/reports/platform_fee_review.html"
+      }
+    },
+    "report_platform_fees": {
+      "status": "ok",
+      "result": {
+        "platforms": 4,
+        "fee_rows": 57,
+        "report": "/Users/samueltaylor/Documents/New project/personal-finance/reports/platform_fees.html"
+      }
+    },
+    "report_evelyn_fee_deep_dive": {
+      "status": "ok",
+      "result": {
+        "rows": 4,
+        "recurring_bps": "120.2358567216844255635257794",
+        "report": "/Users/samueltaylor/Documents/New project/personal-finance/reports/evelyn_fee_deep_dive.html"
+      }
+    },
+    "report_source_of_funds": {
+      "status": "ok",
+      "result": {
+        "rows": 30,
+        "cash_total_gbp": "242580.00",
+        "cash_total_sgd": "391481.6635925290745783520009",
+        "asset_total_gbp": "120776.15",
+        "asset_total_sgd": "201348.4504088586030664395230",
+        "funding_total_gbp": "250000.00",
+        "funding_total_sgd": "431019.4850382741823242867085",
+        "stripe_cashout_total_usd": "244662.86",
+        "stripe_cashout_total_sgd": "323777.1958492388414206614822",
+        "report": "/Users/samueltaylor/Documents/New project/personal-finance/reports/source_of_funds.html"
+      }
+    },
+    "scan_embedded_fund_fees": {
+      "status": "ok",
+      "result": 0
+    },
+    "check_public_fee_changes": {
+      "status": "ok",
+      "result": {
+        "changes": 0,
+        "issues": 0,
+        "sources_refreshed": 6,
+        "snapshot_updated": true,
+        "report": "/Users/samueltaylor/Documents/New project/personal-finance/reports/public_fee_source_changes.html"
+      }
+    },
+    "refresh_control_checks": {
+      "status": "ok",
+      "result": {
+        "controls": 18,
+        "details": 94,
+        "critical": 1,
+        "warnings": 6,
+        "report": "/Users/samueltaylor/Documents/New project/personal-finance/reports/refresh_control_checks.html"
+      }
+    }
+  },
+  "summary": {
+    "report": "/Users/samueltaylor/Documents/New project/personal-finance/reports/refresh_summary.html"
+  },
+  "open_report": "/Users/samueltaylor/Documents/New project/personal-finance/reports/refresh_summary.html"
+}
+Finance refresh finished: Mon May  4 20:16:31 +08 2026

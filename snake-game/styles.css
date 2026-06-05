@@ -1,0 +1,156 @@
+:root {
+  --bg: #f6f2eb;
+  --ink: #2a1f1a;
+  --grid: #e3d8cc;
+  --snake: #2e7d55;
+  --snake-head: #1e5f3c;
+  --food: #c24b3a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Georgia", "Times New Roman", serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+.app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  gap: 16px;
+}
+
+.hud {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.score {
+  font-size: 16px;
+}
+
+.btn {
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.game-wrap {
+  position: relative;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: repeat(20, 1fr);
+  gap: 1px;
+  background: var(--grid);
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.cell {
+  background: var(--bg);
+  width: 100%;
+  height: 100%;
+}
+
+.cell.snake {
+  background: var(--snake);
+}
+
+.cell.snake.head {
+  background: var(--snake-head);
+}
+
+.cell.food {
+  background: var(--food);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(246, 242, 235, 0.9);
+  border-radius: 8px;
+}
+
+.overlay[hidden] {
+  display: none;
+}
+
+.overlay-card {
+  text-align: center;
+  border: 2px solid var(--ink);
+  background: var(--bg);
+  padding: 16px 20px;
+}
+
+.overlay-title {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.overlay-sub {
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.controls {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+}
+
+.controls .row {
+  display: grid;
+  grid-template-columns: repeat(3, 48px);
+  gap: 8px;
+  justify-items: center;
+}
+
+.ctrl {
+  width: 48px;
+  height: 48px;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.help {
+  font-size: 13px;
+  opacity: 0.8;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .controls {
+    display: none;
+  }
+}

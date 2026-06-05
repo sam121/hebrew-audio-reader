@@ -1,0 +1,3 @@
+[
+  "DuckDB load failed for holdings: Constraint Error: PRIMARY KEY or UNIQUE constraint violation: duplicate key \"hold_220d69b2719ee65e5f16\""
+]

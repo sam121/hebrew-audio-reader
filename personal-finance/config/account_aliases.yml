@@ -1,0 +1,13 @@
+aliases:
+  - owner: samuel
+    institution: ibkr
+    account_id: U8508174
+    aliases:
+      - Interactive Brokers
+      - IBKR
+  - owner: samuel
+    institution: endowus
+    account_id: "2549876"
+    aliases:
+      - Endowus
+

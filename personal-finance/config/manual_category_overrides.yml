@@ -1,0 +1,127 @@
+manual_category_overrides:
+  - owner: amy
+    date: 2026-03-12
+    institution: halifax
+    amount_sgd_abs: 10077.91
+    description_contains: "LAURA CORRY"
+    category: travel
+    subcategory: flights_hotels_holidays
+    confidence_status: confirmed
+    notes: "Samuel confirmed this was holiday spending."
+  - owner: amy
+    date: 2025-04-03
+    institution: dbs
+    amount_sgd_abs: 8558.20
+    description_contains: "INLAND REVENUE"
+    category: tax_government
+    subcategory: tax_government
+    confidence_status: confirmed
+    notes: "Samuel confirmed this was tax."
+  - owner: amy
+    date: 2024-09-23
+    institution: halifax
+    amount_sgd_abs: 7735.64
+    description_contains: "HAZEL PARTINGTON"
+    category: travel
+    subcategory: flights_hotels_holidays
+    confidence_status: confirmed
+    notes: "Samuel confirmed this was holiday spending."
+  - owner: amy
+    date: 2024-11-18
+    institution: halifax
+    amount_sgd_abs: 7235.61
+    description_contains: "LAURA CORRY"
+    category: travel
+    subcategory: flights_hotels_holidays
+    confidence_status: confirmed
+    notes: "Samuel confirmed this was holiday spending."
+  - owner: amy
+    date: 2026-04-14
+    institution: dbs
+    amount_sgd_abs: 6059.63
+    description_contains: "INLAND REVENUE"
+    category: tax_government
+    subcategory: tax_government
+    confidence_status: confirmed
+    notes: "Samuel confirmed this was tax."
+  - owner: amy
+    date: 2025-12-30
+    institution: halifax
+    amount_sgd_abs: 5757.65
+    description_contains: "LAURA CORRY"
+    category: travel
+    subcategory: flights_hotels_holidays
+    confidence_status: confirmed
+    notes: "Samuel confirmed this was holiday spending."
+  - owner: samuel
+    date: 2025-07-20
+    institution: dbs
+    amount_sgd_abs: 5175.00
+    description_contains: "LITTLE BUNNIES"
+    category: education
+    subcategory: education_childcare
+    confidence_status: confirmed
+    notes: "Samuel confirmed this was childcare."
+  - owner: samuel
+    date: 2023-03-02
+    institution: dbs
+    amount_sgd_abs: 70000.00
+    description_contains: "HSBC:822621876002"
+    category: housing
+    subcategory: mortgage_payment
+    confidence_status: confirmed
+    notes: "Samuel confirmed this was the final external mortgage payment after the Barclays/Wise/DBS funding chain."
+  - owner: samuel
+    date: 2023-03-02
+    institution: dbs
+    amount_sgd_abs: 7500.00
+    description_contains: "HSBC:822621876002"
+    category: housing
+    subcategory: mortgage_payment
+    confidence_status: confirmed
+    notes: "Samuel confirmed this was part of the final external mortgage payment after the Barclays/Wise/DBS funding chain."
+  - owner: amy
+    date: 2023-06-01
+    institution: halifax
+    amount_sgd_abs: 40724.23
+    description_contains: "LLOYDS BANK PLC"
+    category: housing
+    subcategory: mortgage_payment
+    confidence_status: confirmed
+    notes: "Samuel indicated this Lloyds payment should be treated as mortgage payment if sent to the same place."
+  - owner: amy
+    date: 2025-10-20
+    institution: halifax
+    amount_sgd_abs: 1909.65
+    description_contains: "LAURA CORRY"
+    category: travel
+    subcategory: flights_hotels_holidays
+    confidence_status: confirmed
+    notes: "Samuel confirmed this was holiday spending."
+  - owner: amy
+    date: 2024-09-13
+    institution: halifax
+    amount_sgd_abs: 1619.86
+    description_contains: "LAURA CORRY"
+    category: travel
+    subcategory: flights_hotels_holidays
+    confidence_status: confirmed
+    notes: "Samuel confirmed this was holiday spending."
+  - owner: amy
+    date: 2024-05-23
+    institution: dbs
+    amount_sgd_abs: 1965.88
+    description_contains: "INLAND REVENUE"
+    category: tax_government
+    subcategory: tax_government
+    confidence_status: confirmed
+    notes: "Samuel confirmed this was tax."
+  - owner: amy
+    date: 2025-07-25
+    institution: halifax
+    amount_sgd_abs: 1568.35
+    description_contains: "LAURA CORRY"
+    category: tax_government
+    subcategory: tax_government
+    confidence_status: confirmed
+    notes: "Samuel confirmed this was tax."

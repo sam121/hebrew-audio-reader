@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Snake</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="hud">
+        <div class="title">Classic Snake</div>
+        <div class="score">Score: <span id="score">0</span></div>
+        <button id="restart" class="btn">Restart</button>
+      </header>
+
+      <section class="game-wrap">
+        <div id="board" class="board" role="grid" aria-label="Snake game board"></div>
+        <div id="overlay" class="overlay" hidden>
+          <div class="overlay-card">
+            <div id="overlay-title" class="overlay-title">Game Over</div>
+            <div class="overlay-sub">Press Restart to play again.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="controls" aria-label="On-screen controls">
+        <button class="btn ctrl" data-dir="up">▲</button>
+        <div class="row">
+          <button class="btn ctrl" data-dir="left">◀</button>
+          <button class="btn ctrl" data-dir="down">▼</button>
+          <button class="btn ctrl" data-dir="right">▶</button>
+        </div>
+      </section>
+
+      <footer class="help">
+        Use Arrow Keys or WASD. Space to Pause/Resume.
+      </footer>
+    </main>
+
+    <script type="module" src="game.js"></script>
+  </body>
+</html>

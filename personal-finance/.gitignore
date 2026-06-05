@@ -1,0 +1,15 @@
+data/raw/
+data/processed/
+data/exports/
+data/*.duckdb
+data/*.duckdb.wal
+data/*.sqlite
+reports/*.html
+*.pdf
+*.csv
+*.xlsx
+.env
+.venv/
+.python/
+__pycache__/
+.DS_Store

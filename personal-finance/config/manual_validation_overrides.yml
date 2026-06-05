@@ -1,0 +1,70 @@
+manual_validation_overrides:
+  - owner: samuel
+    institution: barclays
+    issue_type: duplicate_statement
+    account_id: "43168786"
+    statement_date: 2023-11-24
+    source_files:
+      - Statement 24-NOV-23 AC 43168786  26231616.pdf
+      - Statement 24-NOV-23 AC 43168786  28050926.pdf
+    decision: confirmed_duplicate_same_statement
+    status: confirmed
+    notes: Samuel confirmed these two November 2023 PDFs are duplicate copies of the same Barclays statement.
+  - owner: samuel
+    institution: barclays
+    issue_type: statement_closing_balance_spot_check
+    account_id: "43168786"
+    statement_date: 2023-12-22
+    source_file: Statement 22-DEC-23 AC 43168786  24044024.pdf
+    decision: closing_balance_confirmed
+    expected_closing_balance: 1175.00
+    currency: GBP
+    status: confirmed
+    notes: Samuel confirmed closing balance is GBP 1,175.00.
+  - owner: samuel
+    institution: barclays
+    issue_type: statement_closing_balance_spot_check
+    account_id: "43168786"
+    statement_date: 2022-01-25
+    source_file: Statement 25-JAN-22 AC 43168786  27042711.pdf
+    decision: closing_balance_confirmed
+    expected_closing_balance: 25500.00
+    currency: GBP
+    status: confirmed
+    notes: Samuel confirmed closing balance is GBP 25,500.00.
+  - owner: samuel
+    institution: barclays
+    issue_type: stale_valuation
+    account_id: "10295620"
+    decision: expected_statement_gap
+    status: confirmed
+    notes: Samuel confirmed gaps/no newer statements for this account are expected.
+  - owner: samuel
+    institution: barclays
+    issue_type: stale_valuation
+    account_id: "13108473"
+    decision: expected_sparse_statement_history
+    status: confirmed
+    notes: Samuel confirmed this account is sparse and stale valuation warning is expected.
+  - owner: samuel
+    institution: dbs
+    issue_type: stale_valuation
+    account_id: "0120-20335678-5:GBP"
+    decision: fixed_deposit_no_longer_present
+    status: excluded_after_last_seen
+    last_seen_date: 2024-11-30
+    notes: Samuel confirmed DBS fixed deposits are no longer present; do not carry them forward into current net worth after they disappear from later statements.
+  - owner: samuel
+    institution: dbs
+    issue_type: stale_valuation
+    account_id: "0120-20335678-5:USD"
+    decision: fixed_deposit_no_longer_present
+    status: excluded_after_last_seen
+    last_seen_date: 2024-11-30
+    notes: Samuel confirmed DBS fixed deposits are no longer present; do not carry them forward into current net worth after they disappear from later statements.
+  - owner: samuel
+    institution: vanguard
+    issue_type: valuation
+    decision: use_inferred_units_times_latest_workbook_price
+    status: inferred
+    notes: Samuel requested including Vanguard using the separate ISA and pension transaction tabs; valuations are inferred from cumulative units multiplied by latest workbook transaction price.

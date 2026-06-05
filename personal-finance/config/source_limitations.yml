@@ -1,0 +1,16 @@
+source_limitations:
+  - owner: samuel
+    institution: wise
+    account_id: ALL
+    known_account_existed_before_available_records: true
+    earliest_available_record_date: 2019-05-16
+    likely_reason: Apparent 7-year Wise export/history limit.
+    notes: Treat 2019-05-16 as earliest exported record, not true account inception.
+  - owner: samuel
+    institution: barclays
+    account_id: ALL
+    known_account_existed_before_available_records: true
+    earliest_available_record_date: 2019-01-01
+    likely_reason: Apparent 7-year Barclays download/history limit.
+    notes: Treat Jan 2019 as earliest downloaded record, not true account inception.
+

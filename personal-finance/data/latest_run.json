@@ -1,0 +1,187 @@
+{
+  "started_at": "2026-06-04T21:27:19",
+  "source_root": "/Users/samueltaylor/Library/Mobile Documents/com~apple~CloudDocs/Transactions",
+  "steps": {
+    "inventory": {
+      "files": 628,
+      "missing_months": 4,
+      "issues": 0,
+      "elapsed_seconds": 0.314
+    },
+    "fetch_fx": {
+      "source": "ECB",
+      "source_url": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip",
+      "currencies": 42,
+      "core_currencies": "SGD,EUR,USD,GBP,CAD,CNY,JPY,AUD,HKD,PHP",
+      "rows": 321886,
+      "date_min": "1999-01-04",
+      "date_max_ecb": "2026-06-03",
+      "date_max_table": "2026-06-04",
+      "elapsed_seconds": 2.509
+    },
+    "ingest_wise": {
+      "files": 34,
+      "transactions": 4675,
+      "balances": 4675,
+      "issues": 0,
+      "elapsed_seconds": 2.545
+    },
+    "ingest_ibkr": {
+      "files": 3,
+      "transactions": 74,
+      "balances": 126,
+      "holdings": 8,
+      "issues": 0,
+      "elapsed_seconds": 0.098
+    },
+    "ingest_vanguard": {
+      "files": 3,
+      "transactions": 253,
+      "balances": 253,
+      "issues": 10,
+      "elapsed_seconds": 0.225
+    },
+    "ingest_vanguard_inferred": {
+      "files": 3,
+      "balances": 104,
+      "holdings": 8,
+      "issues": 1,
+      "elapsed_seconds": 0.043
+    },
+    "ingest_vanguard_pdf": {
+      "files": 20,
+      "balances": 19,
+      "holdings": 0,
+      "issues": 1,
+      "elapsed_seconds": 0.422
+    },
+    "ingest_evelyn": {
+      "files": 5,
+      "transactions": 1,
+      "balances": 3,
+      "holdings": 0,
+      "issues": 2,
+      "elapsed_seconds": 0.159
+    },
+    "ingest_stripe": {
+      "files": 2,
+      "transactions": 28,
+      "balances": 100,
+      "holdings": 2,
+      "issues": 0,
+      "elapsed_seconds": 0.15
+    },
+    "ingest_manual_legacy_pensions": {
+      "files": 1,
+      "balances": 18,
+      "issues": 4,
+      "elapsed_seconds": 0.004
+    },
+    "ingest_manual_property_assets": {
+      "balances": 88,
+      "issues": 0,
+      "elapsed_seconds": 0.015
+    },
+    "ingest_manual_premium_bonds": {
+      "balances": 88,
+      "issues": 0,
+      "elapsed_seconds": 0.014
+    },
+    "ingest_dbs": {
+      "files": 224,
+      "transactions": 15226,
+      "balances": 610,
+      "issues": 1,
+      "elapsed_seconds": 7.285
+    },
+    "ingest_barclays": {
+      "files": 186,
+      "transactions": 414,
+      "balances": 158,
+      "issues": 0,
+      "elapsed_seconds": 7.34
+    },
+    "ingest_endowus": {
+      "files": 75,
+      "balances": 75,
+      "holdings": 11,
+      "issues": 0,
+      "elapsed_seconds": 1.2
+    },
+    "ingest_halifax": {
+      "files": 8,
+      "transactions": 1577,
+      "balances": 1577,
+      "issues": 0,
+      "elapsed_seconds": 0.5
+    },
+    "normalize": {
+      "transactions": 21718,
+      "balances": 7582,
+      "holdings": 29,
+      "parse_issues": 15,
+      "control_totals": 571,
+      "elapsed_seconds": 0.422
+    },
+    "categorize_transactions": {
+      "transactions": 21718,
+      "categories": 23,
+      "elapsed_seconds": 0.725
+    },
+    "reconcile_transfers": {
+      "matched_transfers": 689,
+      "transfer_candidates": 5633,
+      "large_unmatched": 875,
+      "confirmed_transfers": 681,
+      "probable_transfers": 8,
+      "elapsed_seconds": 46.39
+    },
+    "validate": {
+      "validation_issues": 280,
+      "all_issues": 295,
+      "elapsed_seconds": 0.208
+    },
+    "build_net_worth": {
+      "net_worth_months": 77,
+      "net_worth_account_rows": 1422,
+      "net_worth_currency_rows": 266,
+      "monthly_spending_rows": 77,
+      "as_of_snapshot_date": "2026-05-31",
+      "as_of_snapshot_rows": 44,
+      "elapsed_seconds": 0.378
+    },
+    "duckdb": {
+      "duckdb": "/Users/samueltaylor/Documents/New project/personal-finance/data/finance.duckdb",
+      "loaded": {
+        "transactions": 21718,
+        "balances": 7582,
+        "holdings": -1,
+        "transfers": 689,
+        "source_limitations": 2,
+        "issues": 295,
+        "inventory_files": 628,
+        "run_control_totals": 571,
+        "fx_rates": 321886
+      },
+      "elapsed_seconds": 1.216
+    },
+    "report": {
+      "reports": 6,
+      "elapsed_seconds": 0.151
+    },
+    "report_source_of_funds": {
+      "rows": 44,
+      "cash_total_gbp": "242580.00",
+      "cash_total_sgd": "391481.6635925290745783520009",
+      "asset_total_gbp": "120776.15",
+      "asset_total_sgd": "201348.4504088586030664395230",
+      "funding_total_gbp": "250000.00",
+      "funding_total_sgd": "431019.4850382741823242867085",
+      "stripe_cashout_total_usd": "489325.72",
+      "stripe_cashout_total_sgd": "647554.3916984776828413229645",
+      "report": "/Users/samueltaylor/Documents/New project/personal-finance/reports/source_of_funds.html",
+      "elapsed_seconds": 0.011
+    }
+  },
+  "finished_at": "2026-06-04T21:28:31"
+}

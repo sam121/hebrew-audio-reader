@@ -1,0 +1,101 @@
+Hebrew	Transliteration	English	Type	Notes	Tags
+אֲדֹנָי / יְיָ	Adonai	Lord / divine name as read aloud	divine_name	Divine name as pronounced in prayer	siddur hebrew prayer_vocab type_divine_name
+אֱלֹהִים	Elohim	God	divine_name		siddur hebrew prayer_vocab type_divine_name
+אֱלֹהֵינוּ	Eloheinu	our God	liturgical_form	Common fixed prayer form	siddur hebrew prayer_vocab type_liturgical_form
+אֵל	El	God	divine_name		siddur hebrew prayer_vocab type_divine_name
+אַתָּה	atah	you	pronoun		siddur hebrew prayer_vocab type_pronoun
+אֲנַחְנוּ	anachnu	we	pronoun		siddur hebrew prayer_vocab type_pronoun
+אֲנִי	ani	I	pronoun		siddur hebrew prayer_vocab type_pronoun
+הוּא	hu	he / it is	pronoun		siddur hebrew prayer_vocab type_pronoun
+הִיא	hi	she / it is	pronoun		siddur hebrew prayer_vocab type_pronoun
+בָּרוּךְ	barukh	blessed	adjective		siddur hebrew prayer_vocab type_adjective
+אָמֵן	amen	amen / truly	particle		siddur hebrew prayer_vocab type_particle
+מֶלֶךְ	melekh	king	noun		siddur hebrew prayer_vocab type_noun
+קָדוֹשׁ	kadosh	holy	adjective		siddur hebrew prayer_vocab type_adjective
+קֹדֶשׁ	kodesh	holiness / holy thing	noun		siddur hebrew prayer_vocab type_noun
+שֵׁם	shem	name	noun		siddur hebrew prayer_vocab type_noun
+וְ־	v'- / u-	and	prefix	Prefix attached to the next word	siddur hebrew prayer_vocab type_prefix
+בְּ־	b'-	in / with / by	prefix	Prefix attached to the next word	siddur hebrew prayer_vocab type_prefix
+לְ־	l'-	to / for	prefix	Prefix attached to the next word	siddur hebrew prayer_vocab type_prefix
+מִן / מִ־	min / mi-	from	prefix	Can appear as a word or prefix	siddur hebrew prayer_vocab type_prefix
+הַ־	ha-	the	prefix	Definite article attached to nouns	siddur hebrew prayer_vocab type_prefix
+שֶׁ־	she-	that / which	prefix	Relative prefix	siddur hebrew prayer_vocab type_prefix
+אֶת	et	direct-object marker; usually untranslated	particle	Marks a definite direct object	siddur hebrew prayer_vocab type_particle
+אֲשֶׁר	asher	who / that / which	particle		siddur hebrew prayer_vocab type_particle
+כִּי	ki	because / for / that	conjunction		siddur hebrew prayer_vocab type_conjunction
+כָּל	kol	all / every	noun		siddur hebrew prayer_vocab type_noun
+עַל	al	on / upon / concerning	preposition		siddur hebrew prayer_vocab type_preposition
+עִם	im	with	preposition		siddur hebrew prayer_vocab type_preposition
+אֶל	el	to / toward	preposition		siddur hebrew prayer_vocab type_preposition
+לֹא	lo	no / not	particle		siddur hebrew prayer_vocab type_particle
+אֵין	ein	there is not	particle		siddur hebrew prayer_vocab type_particle
+לִפְנֵי	lifnei	before / in front of	preposition		siddur hebrew prayer_vocab type_preposition
+לְפָנֶיךָ	l'fanekha	before You	liturgical_form	Common prayer form addressed to God	siddur hebrew prayer_vocab type_liturgical_form
+עָלֵינוּ	aleinu	upon us / it is upon us	liturgical_form	Also the name of the Aleinu prayer	siddur hebrew prayer_vocab type_liturgical_form
+עוֹלָם	olam	world / eternity	noun	Can mean world, universe, age, or eternity	siddur hebrew prayer_vocab type_noun
+הָעוֹלָם	ha-olam	the world / the universe	liturgical_form	Common in blessing formula	siddur hebrew prayer_vocab type_liturgical_form
+לְעוֹלָם	l'olam	forever	liturgical_form	Literally "to eternity"	siddur hebrew prayer_vocab type_liturgical_form
+וָעֶד	va'ed	and ever / eternity	liturgical_form	Often appears in "לְעוֹלָם וָעֶד"	siddur hebrew prayer_vocab type_liturgical_form
+יוֹם	yom	day	noun		siddur hebrew prayer_vocab type_noun
+זְמַן	z'man	time	noun		siddur hebrew prayer_vocab type_noun
+דּוֹר	dor	generation	noun		siddur hebrew prayer_vocab type_noun
+שַׁבָּת	Shabbat	Sabbath	noun		siddur hebrew prayer_vocab type_noun
+חַיִּים	chayim	life	noun		siddur hebrew prayer_vocab type_noun
+אוֹר	or	light	noun		siddur hebrew prayer_vocab type_noun
+יִשְׂרָאֵל	Yisrael	Israel	noun		siddur hebrew prayer_vocab type_noun
+עַם	am	people / nation	noun		siddur hebrew prayer_vocab type_noun
+אָדָם	adam	human / person	noun		siddur hebrew prayer_vocab type_noun
+אָב	av	father	noun		siddur hebrew prayer_vocab type_noun
+אָבוֹת	avot	fathers / ancestors	noun		siddur hebrew prayer_vocab type_noun
+אֲבוֹתֵינוּ	avoteinu	our fathers / our ancestors	liturgical_form		siddur hebrew prayer_vocab type_liturgical_form
+אֵם	em	mother	noun		siddur hebrew prayer_vocab type_noun
+אִמָּהוֹת	imahot	mothers / matriarchs	noun		siddur hebrew prayer_vocab type_noun
+בֵּן	ben	son	noun		siddur hebrew prayer_vocab type_noun
+בְּנֵי	b'nei	children of / people of	liturgical_form		siddur hebrew prayer_vocab type_liturgical_form
+בַּיִת	bayit	house	noun		siddur hebrew prayer_vocab type_noun
+בֵּית	beit	house of	noun	Construct form	siddur hebrew prayer_vocab type_noun
+אֶרֶץ	eretz	land / earth	noun		siddur hebrew prayer_vocab type_noun
+שָׁמַיִם	shamayim	heaven / sky	noun		siddur hebrew prayer_vocab type_noun
+יְרוּשָׁלַיִם	Yerushalayim	Jerusalem	noun		siddur hebrew prayer_vocab type_noun
+צִיּוֹן	Tziyon	Zion	noun		siddur hebrew prayer_vocab type_noun
+טוֹב	tov	good	adjective		siddur hebrew prayer_vocab type_adjective
+גָּדוֹל	gadol	great / big	adjective		siddur hebrew prayer_vocab type_adjective
+נוֹרָא	nora	awesome / awe-inspiring	adjective		siddur hebrew prayer_vocab type_adjective
+אֶחָד	echad	one	adjective		siddur hebrew prayer_vocab type_adjective
+אֱמֶת	emet	truth	noun		siddur hebrew prayer_vocab type_noun
+חֶסֶד	chesed	kindness / covenant love	noun		siddur hebrew prayer_vocab type_noun
+רַחֲמִים	rachamim	mercy / compassion	noun		siddur hebrew prayer_vocab type_noun
+שָׁלוֹם	shalom	peace	noun		siddur hebrew prayer_vocab type_noun
+אַהֲבָה	ahavah	love	noun		siddur hebrew prayer_vocab type_noun
+תּוֹרָה	Torah	Torah / teaching	noun		siddur hebrew prayer_vocab type_noun
+מִצְוָה	mitzvah	commandment	noun		siddur hebrew prayer_vocab type_noun
+מִצְוֹת	mitzvot	commandments	noun		siddur hebrew prayer_vocab type_noun
+בְּרִית	brit	covenant	noun		siddur hebrew prayer_vocab type_noun
+לֵב	lev	heart	noun		siddur hebrew prayer_vocab type_noun
+נֶפֶשׁ	nefesh	soul / life / self	noun		siddur hebrew prayer_vocab type_noun
+רוּחַ	ruach	spirit / wind	noun		siddur hebrew prayer_vocab type_noun
+נְשָׁמָה	n'shamah	soul / breath	noun		siddur hebrew prayer_vocab type_noun
+פָּנִים	panim	face / presence	noun		siddur hebrew prayer_vocab type_noun
+כָּבוֹד	kavod	honour / glory	noun		siddur hebrew prayer_vocab type_noun
+תְּפִלָּה	t'fillah	prayer	noun		siddur hebrew prayer_vocab type_noun
+בְּרָכָה	b'rakhah	blessing	noun		siddur hebrew prayer_vocab type_noun
+שְׁמַע	sh'ma	hear / listen	verb		siddur hebrew prayer_vocab type_verb
+אָמַר	amar	said	verb		siddur hebrew prayer_vocab type_verb
+עָשָׂה	asah	did / made	verb		siddur hebrew prayer_vocab type_verb
+נָתַן	natan	gave	verb		siddur hebrew prayer_vocab type_verb
+הָיָה	hayah	was	verb		siddur hebrew prayer_vocab type_verb
+מָלַךְ	malakh	ruled / reigned	verb		siddur hebrew prayer_vocab type_verb
+אָהַב	ahav	loved	verb		siddur hebrew prayer_vocab type_verb
+בָּרָא	bara	created	verb		siddur hebrew prayer_vocab type_verb
+קִדֵּשׁ	kiddesh	sanctified	verb		siddur hebrew prayer_vocab type_verb
+קִדְּשָׁנוּ	kiddeshanu	sanctified us	liturgical_form		siddur hebrew prayer_vocab type_liturgical_form
+צִוָּנוּ	tzivanu	commanded us	liturgical_form		siddur hebrew prayer_vocab type_liturgical_form
+מוֹדִים	modim	we thank / acknowledge	liturgical_form		siddur hebrew prayer_vocab type_liturgical_form
+רְצֵה	r'tzei	be pleased / accept	verb		siddur hebrew prayer_vocab type_verb
+סְלַח	s'lach	forgive	verb		siddur hebrew prayer_vocab type_verb
+רְפָא	r'fa	heal	verb		siddur hebrew prayer_vocab type_verb
+בָּרֵךְ	barekh	bless	verb		siddur hebrew prayer_vocab type_verb
+מָגֵן	magen	shield	noun		siddur hebrew prayer_vocab type_noun
+גּוֹאֵל	go'el	redeemer	noun		siddur hebrew prayer_vocab type_noun
+מוֹשִׁיעַ	moshia	saviour / one who saves	noun		siddur hebrew prayer_vocab type_noun
+שִׁיר	shir	song	noun		siddur hebrew prayer_vocab type_noun

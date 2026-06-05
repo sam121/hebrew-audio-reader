@@ -4,8 +4,8 @@ import json
 from pathlib import Path
 from typing import List
 
-from sources import artshouse, esplanade, gallery, nhb, sco, sso
-from sources.common import Event, dedupe, sort_events
+from sources import artshouse, cultural_centres, esplanade, gallery, nhb, sco, sso
+from sources.common import Event, dedupe, is_probable_event, is_upcoming_event, sort_events
 
 SOURCES = [
     esplanade,
@@ -14,6 +14,7 @@ SOURCES = [
     artshouse,
     gallery,
     nhb,
+    cultural_centres,
 ]
 
 
@@ -21,9 +22,14 @@ def run() -> List[Event]:
     events: List[Event] = []
     for module in SOURCES:
         try:
-            events.extend(module.fetch())
+            try:
+                events.extend(module.fetch(max_events=80))
+            except TypeError:
+                events.extend(module.fetch())
         except Exception as exc:  # pragma: no cover
             print(f"[warn] {module.__name__} failed: {exc}")
+    events = [e for e in events if is_probable_event(e)]
+    events = [e for e in events if is_upcoming_event(e)]
     events = dedupe(events)
     events = sort_events(events)
     return events

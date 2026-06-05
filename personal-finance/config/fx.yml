@@ -1,0 +1,14 @@
+reporting_currency: SGD
+standard_source:
+  name: ECB euro foreign exchange reference rates
+  url: https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip
+  method: Daily EUR reference rates are triangulated into SGD. Weekends and holidays are forward-filled from the latest prior ECB business-day rate and marked inferred.
+policy:
+  missing_rate: flag_issue
+  never_invent_rates: true
+rates:
+  - currency: SGD
+    date: "*"
+    rate_to_sgd: 1.0
+    source: identity
+    confidence: confirmed

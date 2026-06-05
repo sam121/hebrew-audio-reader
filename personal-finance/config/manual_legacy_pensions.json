@@ -1,0 +1,42 @@
+{
+  "owner": "samuel",
+  "currency": "GBP",
+  "valuation_month_day": "04-30",
+  "transfer_to_vanguard_date": "2024-09-24",
+  "assumptions": [
+    "Annual values are treated as April-to-April snapshots and dated April 30.",
+    "2024 legacy pension values are carried flat from the last inferred/stated value until transfer to Vanguard on 2024-09-24.",
+    "A zero balance is recorded on 2024-09-24 for each legacy pension to avoid double-counting after Vanguard receives the assets.",
+    "Second legacy pension uses the stated 2018 and 2020 values, then follows the same annual percentage changes as the Standard Chartered pension."
+  ],
+  "accounts": [
+    {
+      "account_id": "standard_chartered_legacy_pension",
+      "institution": "standard_chartered",
+      "account_name": "Standard Chartered Legacy Pension",
+      "account_type": "pension",
+      "balance_type": "manual_annual_pension_valuation",
+      "method": "stated_values",
+      "valuations": {
+        "2018": "87382.03",
+        "2019": "92810.61",
+        "2020": "75280.54",
+        "2021": "101796.06",
+        "2022": "116043.40",
+        "2023": "120776.15"
+      }
+    },
+    {
+      "account_id": "other_legacy_pension",
+      "institution": "legacy_pension",
+      "account_name": "Other Legacy Pension",
+      "account_type": "pension",
+      "balance_type": "manual_inferred_annual_pension_valuation",
+      "method": "stated_2018_2020_then_standard_chartered_growth",
+      "valuations": {
+        "2018": "7751.00",
+        "2020": "30422.00"
+      }
+    }
+  ]
+}

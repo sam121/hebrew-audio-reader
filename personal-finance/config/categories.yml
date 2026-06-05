@@ -1,0 +1,21 @@
+categories:
+  uncategorized:
+    description: Needs manual category review.
+  transfer:
+    description: Candidate internal movement between owned accounts.
+  investment:
+    description: Contributions, withdrawals, trades, dividends, and interest.
+  tax_government:
+    description: Tax and government payments, including IRAS, HMRC, and CPF.
+  fees:
+    description: Bank, platform, or card fees.
+  income:
+    description: Salary, refunds, dividends, interest, and other incoming funds.
+  spending:
+    description: External spending.
+  education:
+    description: Education and childcare.
+  fitness_wellness:
+    description: Sports, fitness, wellness, and personal training.
+  religion_community:
+    description: Religious, community, and congregation payments.

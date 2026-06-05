@@ -1,0 +1,19 @@
+date_window_days: 7
+same_currency_amount_tolerance: 0.01
+cross_currency_fx_tolerance_pct: 3.0
+large_transfer_review_threshold_sgd: 1000
+paths:
+  - DBS to Wise
+  - Wise to DBS
+  - Wise to Barclays
+  - Barclays to Wise
+  - DBS to Barclays
+  - Barclays to DBS
+  - bank to IBKR
+  - IBKR to bank
+  - bank to Vanguard
+  - Vanguard to bank
+  - bank to Endowus
+  - Endowus to bank
+  - credit card repayments
+
