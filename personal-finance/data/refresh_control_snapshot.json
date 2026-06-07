@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-06-04T14:02:03+00:00",
+  "created_at": "2026-06-05T11:19:48+00:00",
   "inventory": {
     "file_count": 628,
     "files": {
@@ -9670,6 +9670,171 @@
         "count": 1,
         "sum_amount_sgd": "0.03",
         "content_hash": "529d4d8cf79bdc85da990a721be8f86120b37b543bb07c4cc727cf16f5ac6564"
+      },
+      "2024-01|endowus|2549876": {
+        "count": 1,
+        "sum_amount_sgd": "-292.15",
+        "content_hash": "8e72165944a2e52b3ba11b3c6b2e86bab0122dbee6569036d15e9f53a65be8f3"
+      },
+      "2025-01|endowus|2549876": {
+        "count": 5,
+        "sum_amount_sgd": "-53.78",
+        "content_hash": "a5e3ff59758353383a07df4a62a57b989a76163bd1a3176a0609269a6de94437"
+      },
+      "2025-02|endowus|2549876": {
+        "count": 4,
+        "sum_amount_sgd": "0.00",
+        "content_hash": "f0a1e1f14cba6bc8f8412b88d1c47e2202351837a4651621ce10e70ef7835236"
+      },
+      "2024-03|endowus|2549876": {
+        "count": 11,
+        "sum_amount_sgd": "0.00",
+        "content_hash": "f129419dc433a0e9887125ac0750be7595266824a5b9635ed162dffbd3f39387"
+      },
+      "2025-03|endowus|2549876": {
+        "count": 8,
+        "sum_amount_sgd": "0.00",
+        "content_hash": "8bcc9ed693ad35fd66b8408a10df0dedcd45d5d9da4d752688aa2dc98127c980"
+      },
+      "2024-04|endowus|2549876": {
+        "count": 1,
+        "sum_amount_sgd": "-321.82",
+        "content_hash": "3b80991b826dcf2d18108adc319b25e7b0f9e6369f3f6b56bc6b3b34869ebe6f"
+      },
+      "2025-04|endowus|2549876": {
+        "count": 13,
+        "sum_amount_sgd": "-65.82",
+        "content_hash": "a5495d0f1fbec9ca7947c1229fa27ddc97c740b8c2c11be06933b2ecab1dd916"
+      },
+      "2025-05|endowus|2549876": {
+        "count": 1,
+        "sum_amount_sgd": "5160.00",
+        "content_hash": "5c933c06bee5adbbe3bd92e1805bafe89843ec6ef661bb8cd1a334e5e8aa19b5"
+      },
+      "2025-06|endowus|2549876": {
+        "count": 12,
+        "sum_amount_sgd": "-5158.90",
+        "content_hash": "d149b275048b13ae3d48da513d274492c4cfa85536f5abdd63df433483b36e2e"
+      },
+      "2024-07|endowus|2549876": {
+        "count": 5,
+        "sum_amount_sgd": "-695.36",
+        "content_hash": "e35ef248ae22f51eeb4cb6f1d3f66e7ed3823a79cfc8b21e67a7953d0a9b2018"
+      },
+      "2025-09|endowus|2549876": {
+        "count": 3,
+        "sum_amount_sgd": "0.11",
+        "content_hash": "205cd5343310fa122ec48037ad09e29f08557cd34978e43eac8dcdfbaefa2a9b"
+      },
+      "2023-10|endowus|2549876": {
+        "count": 1,
+        "sum_amount_sgd": "-286.28",
+        "content_hash": "5b5ca2db309cfbd53125f654ecdb140e3473c9c47b5e62adf359e82d0c529695"
+      },
+      "2024-10|endowus|2549876": {
+        "count": 14,
+        "sum_amount_sgd": "-715.18",
+        "content_hash": "9c686e6a47af6cd476773cd48917e37be708066ebc4863a8b625f7b20d16db81"
+      },
+      "2024-11|endowus|2549876": {
+        "count": 16,
+        "sum_amount_sgd": "0.00",
+        "content_hash": "986f00a9eec15fbb95998c6153657e594114971ba4813c195d97ec6d6ea80305"
+      },
+      "2025-01|endowus|2583838": {
+        "count": 3,
+        "sum_amount_sgd": "-20.28",
+        "content_hash": "2dde9493a4e7098bd05fd81ef0d74b38140fc4bfabb092dd1b6f2279f551eaaa"
+      },
+      "2026-01|endowus|2583838": {
+        "count": 5,
+        "sum_amount_sgd": "-30.08",
+        "content_hash": "280a73f0e3ebb7376944d5a8bb1377b09cb83fe4bab1932e89c08e2ef33c2fb9"
+      },
+      "2025-02|endowus|2583838": {
+        "count": 4,
+        "sum_amount_sgd": "0.00",
+        "content_hash": "1ffbc0f15430774d8aa0b12059e177bbeefbea4a0166641d345d487aafd941d1"
+      },
+      "2026-02|endowus|2583838": {
+        "count": 8,
+        "sum_amount_sgd": "0.00",
+        "content_hash": "37aaff3c7f509af5c91a4f2fe48a0cbc3aad1e841966a5eb9ab66b07ba23aff5"
+      },
+      "2025-03|endowus|2583838": {
+        "count": 3,
+        "sum_amount_sgd": "41584.22",
+        "content_hash": "3c771799bbdb358999acb3c5892b8a28f1f40e22190aa9717e071579e24f18c1"
+      },
+      "2026-03|endowus|2583838": {
+        "count": 7,
+        "sum_amount_sgd": "40.23",
+        "content_hash": "8f3aba0a8c7cfe12f2c958c9f8f057cc9718b36457582339a6f74d25e707eb0b"
+      },
+      "2024-04|endowus|2583838": {
+        "count": 3,
+        "sum_amount_sgd": "0.00",
+        "content_hash": "1f4b1aeaf6928e426e6b73ba330db52a3b8cf646730c6cfc297b90c8e409ff48"
+      },
+      "2025-04|endowus|2583838": {
+        "count": 6,
+        "sum_amount_sgd": "-41612.88",
+        "content_hash": "2481fa11ad54dd352d92b2c7a9a0265180cffb890449b49542497de3ed6f871d"
+      },
+      "2026-04|endowus|2583838": {
+        "count": 5,
+        "sum_amount_sgd": "-22.68",
+        "content_hash": "778017c85d15b966b41cfe343de6f48a4962216a5098fc7ec4e6ca3782945a96"
+      },
+      "2025-06|endowus|2583838": {
+        "count": 3,
+        "sum_amount_sgd": "15.34",
+        "content_hash": "dab5234d5d11d98c92b8352f53ddbdeba2612a80e32288e7afb3f8f8eb51624d"
+      },
+      "2024-07|endowus|2583838": {
+        "count": 2,
+        "sum_amount_sgd": "-19.40",
+        "content_hash": "1b490c18816e5c86c4eb562c444ed464d78582b301c3bc61ae45f5d56a962256"
+      },
+      "2025-07|endowus|2583838": {
+        "count": 2,
+        "sum_amount_sgd": "-48.22",
+        "content_hash": "d9fc98a99ba0c2351a7f35f821ae3089173094058181a85accddcfa826577bd4"
+      },
+      "2024-09|endowus|2583838": {
+        "count": 2,
+        "sum_amount_sgd": "6.20",
+        "content_hash": "51a2cd7807ffb58e8691e1c4d8145f9d6a99b7307c66f31dd90678e9986628e6"
+      },
+      "2025-09|endowus|2583838": {
+        "count": 3,
+        "sum_amount_sgd": "42.50",
+        "content_hash": "2b7cd03ce9dd4cb5e97a6c8242aec3ba759aa6682d5dbddc3bec9ea2230f9d46"
+      },
+      "2024-10|endowus|2583838": {
+        "count": 2,
+        "sum_amount_sgd": "-22.96",
+        "content_hash": "884252b004d5c6eac71bcc31f0f2b3649e29f0fb078c5d6c3d51c1dc9bb378a5"
+      },
+      "2025-10|endowus|2583838": {
+        "count": 5,
+        "sum_amount_sgd": "-32.44",
+        "content_hash": "316cbbfed2bfaee840963bedd103018626a180d92e443737525b9e80279c2d9d"
+      },
+      "2025-11|endowus|2583838": {
+        "count": 4,
+        "sum_amount_sgd": "0.00",
+        "content_hash": "e62e7a87312709d920df84e74e09b0c3113c0193a8a6c7b930ed927e72b89a59"
+      },
+      "2024-12|endowus|2583838": {
+        "count": 2,
+        "sum_amount_sgd": "9.12",
+        "content_hash": "7754004fdbbe4aecbb28154ce261809e3428285f51700cb50dc32d18939b09b8"
+      },
+      "2025-12|endowus|2583838": {
+        "count": 7,
+        "sum_amount_sgd": "43.44",
+        "content_hash": "1ea195355ab95b2dd9e3e1e38afaff19e618142c30891c3b85ff6ef21bd7e306"
       },
       "2025-06|halifax|11419868": {
         "count": 19,

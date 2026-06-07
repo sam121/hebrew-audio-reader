@@ -9,7 +9,7 @@ from common import CONFIG_DIR, EXPORTS_DIR, PROCESSED_DIR, TRANSACTION_COLUMNS, 
 RULES = [
     ("tax_government", "tax_government", ["hmrc", "iras", "cpf", "income tax", "property tax", "student loan repay", "slc receipts", "student loan", "axs pte ltd", " giro | itx ", " itx "]),
     ("investment", "investment_transaction", ["supplementary retirement scheme", "uob kay hian", "investment & securities", "buy fund", "fund mgt", "hargreaveslansdown", "fixed deposit/structured deposit", "fixed deposits", "outstanding placements", "debit | vanguard", "deb | vanguard", "fpo | vanguard", "direct debit to vanguard collectio"]),
-    ("transfer", "internal_or_payment", ["autopay", "bill payment", "payment received", "funds transfer", "fast payment", "remittance transfer", "paynow transfer", "giro payments / collections via giro", "giro standing instruction", ": i-bank", "advice | 0120", "advice | 120-", "received from", "payment to", "sent money to", "moved ", " debit | conversion", " credit | conversion", "bcard freedom", "vanguard asset man", "mysavings/posb saye", "to msa:", "advice fast collection", "giro return", "lloyds bank plc", "bp | lloyds", "revolut", "ocbc singapore", "paypal *fk.aluko", "tfr | a partington", "fpo | a partington", "fpo | amy partington", "fpo | laura corry", "fpo | hazel partington", "fpo | mrs laura beaver", "fpo | louise kelly"]),
+    ("transfer", "internal_or_payment", ["autopay", "bill payment", "payment received", "funds transfer", "fast payment", "remittance transfer", "paynow transfer", "meps receipt", "telegraphic transfer", "giro payments / collections via giro", "giro standing instruction", ": i-bank", "advice | 0120", "advice | 120-", "received from", "payment to", "sent money to", "moved ", " debit | conversion", " credit | conversion", "bcard freedom", "vanguard asset man", "mysavings/posb saye", "to msa:", "advice fast collection", "giro return", "lloyds bank plc", "bp | lloyds", "revolut", "ocbc singapore", "paypal *fk.aluko", "tfr | a partington", "fpo | a partington", "fpo | amy partington", "fpo | laura corry", "fpo | hazel partington", "fpo | mrs laura beaver", "fpo | louise kelly"]),
     ("fees", "bank_fx_fees", ["account fee", "non-gbp trans fee", "non-gbp purch fee", "assets service fee", "wise charges"]),
     ("insurance", "insurance", ["aviva rcpts accoun", "aviva", "etiqa insurance"]),
     ("housing", "rent_mortgage_property", ["your mortgage", "dd | halifax", "halifax |", "landlords tax serv", "mortgage", "newman & company", "ref: rent", "ref:rent", "rental deposit", "rent 06-01", "rent 0601", "0601 rent", "rent one north", "sandon st rent", "deduction rent payment", "rental payment"]),
@@ -32,7 +32,7 @@ RULES = [
     ("cash_atm", "cash_withdrawal", ["atm cash withdrawal", "cash withdrawal", "la banque postale", "lnk notemachine"]),
 ]
 
-OVERRIDE_CATEGORIES = {"tax_government", "housing", "education", "fitness_wellness", "religion_community", "travel"}
+OVERRIDE_CATEGORIES = {"tax_government", "housing", "mortgage", "education", "fitness_wellness", "religion_community", "travel"}
 
 
 def load_manual_category_overrides() -> list[dict[str, str]]:

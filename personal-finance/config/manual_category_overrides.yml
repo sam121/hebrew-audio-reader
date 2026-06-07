@@ -67,7 +67,7 @@ manual_category_overrides:
     institution: dbs
     amount_sgd_abs: 70000.00
     description_contains: "HSBC:822621876002"
-    category: housing
+    category: mortgage
     subcategory: mortgage_payment
     confidence_status: confirmed
     notes: "Samuel confirmed this was the final external mortgage payment after the Barclays/Wise/DBS funding chain."
@@ -76,7 +76,7 @@ manual_category_overrides:
     institution: dbs
     amount_sgd_abs: 7500.00
     description_contains: "HSBC:822621876002"
-    category: housing
+    category: mortgage
     subcategory: mortgage_payment
     confidence_status: confirmed
     notes: "Samuel confirmed this was part of the final external mortgage payment after the Barclays/Wise/DBS funding chain."
@@ -85,10 +85,82 @@ manual_category_overrides:
     institution: halifax
     amount_sgd_abs: 40724.23
     description_contains: "LLOYDS BANK PLC"
-    category: housing
+    category: mortgage
     subcategory: mortgage_payment
     confidence_status: confirmed
     notes: "Samuel indicated this Lloyds payment should be treated as mortgage payment if sent to the same place."
+  - owner: amy
+    date: 2023-02-01
+    institution: halifax
+    amount_sgd_abs: 40443.71
+    description_contains: "LLOYDS BANK PLC"
+    category: mortgage
+    subcategory: mortgage_payment
+    confidence_status: confirmed
+    notes: "Samuel confirmed this Lloyds outflow should be treated as mortgage."
+  - owner: amy
+    date: 2023-02-02
+    institution: halifax
+    amount_sgd_abs: 37753.35
+    description_contains: "LLOYDS BANK PLC"
+    category: mortgage
+    subcategory: mortgage_payment
+    confidence_status: confirmed
+    notes: "Samuel confirmed this Lloyds outflow should be treated as mortgage."
+  - owner: amy
+    date: 2023-02-01
+    institution: halifax
+    amount_sgd_abs: 32354.97
+    description_contains: "LLOYDS BANK PLC"
+    category: mortgage
+    subcategory: mortgage_payment
+    confidence_status: confirmed
+    notes: "Samuel confirmed this Lloyds outflow should be treated as mortgage."
+  - owner: amy
+    date: 2023-02-01
+    institution: halifax
+    amount_sgd_abs: 11324.24
+    description_contains: "A PARTINGTON"
+    category: mortgage
+    subcategory: mortgage_payment
+    confidence_status: confirmed
+    notes: "Samuel confirmed this A Partington outflow should be treated as mortgage."
+  - owner: samuel
+    date: 2023-01-16
+    institution: barclays
+    amount_sgd_abs: 80488.52
+    description_contains: "Bill Payment to Amy Partington"
+    category: transfer
+    subcategory: internal_transfer_to_amy_halifax
+    confidence_status: confirmed
+    notes: "Matched to Amy Halifax +GBP 50,000 FPI | TAYLOR SJ on the same date; not final mortgage spending."
+  - owner: samuel
+    date: 2023-01-23
+    institution: barclays
+    amount_sgd_abs: 81436.85
+    description_contains: "Bill Payment to Amy Partington"
+    category: transfer
+    subcategory: internal_transfer_to_amy_halifax
+    confidence_status: confirmed
+    notes: "Matched to Amy Halifax +GBP 50,000 FPI | TAYLOR SJ on the same date; not final mortgage spending."
+  - owner: amy
+    date: 2023-01-16
+    institution: halifax
+    amount_sgd_abs: 80488.52
+    description_contains: "TAYLOR SJ"
+    category: transfer
+    subcategory: internal_transfer_from_samuel_barclays
+    confidence_status: confirmed
+    notes: "Matched to Samuel Barclays -GBP 50,000 Bill Payment to Amy Partington on the same date."
+  - owner: amy
+    date: 2023-01-23
+    institution: halifax
+    amount_sgd_abs: 81436.85
+    description_contains: "TAYLOR SJ"
+    category: transfer
+    subcategory: internal_transfer_from_samuel_barclays
+    confidence_status: confirmed
+    notes: "Matched to Samuel Barclays -GBP 50,000 Bill Payment to Amy Partington on the same date."
   - owner: amy
     date: 2025-10-20
     institution: halifax

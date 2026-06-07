@@ -172,6 +172,32 @@ def stock_vesting_income() -> Decimal:
     return total
 
 
+def stripe_cashouts() -> Decimal:
+    total = Decimal("0")
+    for row in read_transactions():
+        if row.get("institution") != "stripe" or not in_period(row.get("date", "")):
+            continue
+        if "withdrawal" in row.get("description_raw", "").lower():
+            total += -Decimal(row.get("amount_sgd") or "0")
+    return total
+
+
+def stripe_stock_appreciation(start: dict[str, Decimal], end: dict[str, Decimal], vesting_income: Decimal) -> Decimal:
+    """Estimate Stripe stock appreciation net of vesting income already counted as income."""
+    return end.get("Stripe", Decimal("0")) - start.get("Stripe", Decimal("0")) + stripe_cashouts() - vesting_income
+
+
+def stripe_stock_appreciation_rows(start: dict[str, Decimal], end: dict[str, Decimal], vesting_income: Decimal) -> list[dict[str, Any]]:
+    cashouts = stripe_cashouts()
+    return [
+        {"component": "Opening Stripe stock value", "value_sgd": start.get("Stripe", Decimal("0")), "note": "Opening balance sheet value."},
+        {"component": "Ending Stripe stock value", "value_sgd": end.get("Stripe", Decimal("0")), "note": "Ending balance sheet value."},
+        {"component": "Add Stripe stock cash-outs", "value_sgd": cashouts, "note": "Cash-outs reduce remaining stock value, so add them back to estimate total return."},
+        {"component": "Less Stripe vesting income already counted", "value_sgd": -vesting_income, "note": "Already included in Sam income, so remove it to avoid double counting."},
+        {"component": "Estimated Stripe stock appreciation", "value_sgd": stripe_stock_appreciation(start, end, vesting_income), "note": "Ending value - opening value + cash-outs - vesting income."},
+    ]
+
+
 def net_worth_rows() -> list[dict[str, str]]:
     with (EXPORTS_DIR / "net_worth_monthly_stacked.csv").open(newline="", encoding="utf-8") as f:
         return list(csv.DictReader(f))
@@ -238,6 +264,197 @@ def investment_cash_flows() -> dict[str, Decimal]:
             seen.add(key)
             flows[platform] += Decimal(row.get("amount_sgd") or "0")
     return flows
+
+
+def read_transactions() -> list[dict[str, str]]:
+    with Path("data/processed/transactions.csv").open(newline="", encoding="utf-8") as f:
+        return list(csv.DictReader(f))
+
+
+def read_transfers() -> list[dict[str, str]]:
+    with Path("data/processed/transfers.csv").open(newline="", encoding="utf-8") as f:
+        return list(csv.DictReader(f))
+
+
+def ibkr_cash_flow_rows() -> list[dict[str, str]]:
+    rows = []
+    seen: set[tuple[str, str, str, str]] = set()
+    for row in read_transactions():
+        if row.get("institution") != "ibkr" or not in_period(row.get("date", "")):
+            continue
+        text = row.get("description_raw", "").lower()
+        if "deposit" not in text and "withdrawal" not in text:
+            continue
+        key = (row.get("date", ""), row.get("amount", ""), row.get("currency", ""), row.get("description_raw", ""))
+        if key in seen:
+            continue
+        seen.add(key)
+        rows.append(row)
+    return sorted(rows, key=lambda row: (row["date"], Decimal(row["amount"])))
+
+
+def trace_ibkr_funding() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    transactions = read_transactions()
+    transaction_by_id = {row["transaction_id"]: row for row in transactions}
+    transfers = read_transfers()
+    status_priority = {"confirmed": 0, "probable": 1, "needs_review": 2, "": 3}
+    institution_priority = {"dbs": 0, "barclays": 1, "wise": 2, "halifax": 3, "stripe": 4, "ibkr": 5}
+
+    def transfer_matches(flow: dict[str, str]) -> list[tuple[dict[str, str], dict[str, str]]]:
+        amount = Decimal(flow["amount"])
+        currency = flow["currency"]
+        flow_date = flow["date"]
+        flow_id = flow["transaction_id"]
+        is_deposit = amount > 0
+        matches = []
+        for transfer in transfers:
+            if is_deposit:
+                matched = transfer.get("to_transaction_id") == flow_id or (
+                    transfer.get("to_account", "").startswith("ibkr:")
+                    and transfer.get("to_date") == flow_date
+                    and transfer.get("to_currency") == currency
+                    and Decimal(transfer.get("to_amount") or "0") == amount
+                )
+                if matched:
+                    matches.append((transfer, transaction_by_id.get(transfer.get("from_transaction_id", ""), {})))
+            else:
+                matched = transfer.get("from_transaction_id") == flow_id or (
+                    transfer.get("from_account", "").startswith("ibkr:")
+                    and transfer.get("from_date") == flow_date
+                    and transfer.get("from_currency") == currency
+                    and Decimal(transfer.get("from_amount") or "0") == amount
+                )
+                if matched:
+                    matches.append((transfer, transaction_by_id.get(transfer.get("to_transaction_id", ""), {})))
+        deduped = []
+        seen_ids = set()
+        for transfer, other in matches:
+            if transfer["transfer_id"] in seen_ids:
+                continue
+            seen_ids.add(transfer["transfer_id"])
+            deduped.append((transfer, other))
+        deduped.sort(
+            key=lambda item: (
+                status_priority.get(item[0].get("status", ""), 9),
+                institution_priority.get(item[1].get("institution", ""), 9),
+                -abs(Decimal(item[1].get("amount_sgd") or "0")),
+            )
+        )
+        return deduped
+
+    def nearby_bank_match(flow: dict[str, str]) -> tuple[dict[str, str], Decimal] | None:
+        flow_date = datetime.strptime(flow["date"], "%Y-%m-%d").date()
+        flow_sgd = Decimal(flow.get("amount_sgd") or "0")
+        candidates = []
+        for row in transactions:
+            if row.get("institution") not in {"dbs", "barclays", "wise"}:
+                continue
+            try:
+                row_date = datetime.strptime(row["date"], "%Y-%m-%d").date()
+            except ValueError:
+                continue
+            day_gap = abs((row_date - flow_date).days)
+            if day_gap > 7:
+                continue
+            row_sgd = Decimal(row.get("amount_sgd") or "0")
+            if flow_sgd == 0 or row_sgd == 0 or (flow_sgd > 0) == (row_sgd > 0):
+                continue
+            gap = abs(abs(flow_sgd) - abs(row_sgd))
+            tolerance = max(Decimal("1000"), abs(flow_sgd) * Decimal("0.015"))
+            if gap <= tolerance:
+                text = row.get("description_raw", "").lower()
+                score = (
+                    day_gap,
+                    gap,
+                    0 if "outward telegraphic transfer" in text or "interactive" in text or "ibkr" in text or "u8508174" in text else 1,
+                )
+                candidates.append((score, row, gap))
+        if not candidates:
+            return None
+        candidates.sort(key=lambda item: item[0])
+        return candidates[0][1], candidates[0][2]
+
+    rows = []
+    for flow in ibkr_cash_flow_rows():
+        matches = transfer_matches(flow)
+        flow_amount_sgd = Decimal(flow["amount_sgd"])
+        if matches:
+            transfer, source = matches[0]
+            rows.append(
+                {
+                    "ibkr_date": flow["date"],
+                    "ibkr_amount": Decimal(flow["amount"]),
+                    "ibkr_currency": flow["currency"],
+                    "ibkr_amount_sgd": flow_amount_sgd,
+                    "source_date": source.get("date", ""),
+                    "source_owner": source.get("owner", ""),
+                    "source_institution": source.get("institution", ""),
+                    "source_account_id": source.get("account_id", ""),
+                    "source_amount": Decimal(source.get("amount") or "0") if source.get("amount") else "",
+                    "source_currency": source.get("currency", ""),
+                    "source_amount_sgd": Decimal(source.get("amount_sgd") or "0") if source.get("amount_sgd") else "",
+                    "match_status": transfer.get("status", ""),
+                    "match_reason": transfer.get("match_reason", ""),
+                    "source_description": source.get("description_raw", ""),
+                }
+            )
+            continue
+        nearby = nearby_bank_match(flow)
+        if nearby:
+            source, gap = nearby
+            rows.append(
+                {
+                    "ibkr_date": flow["date"],
+                    "ibkr_amount": Decimal(flow["amount"]),
+                    "ibkr_currency": flow["currency"],
+                    "ibkr_amount_sgd": flow_amount_sgd,
+                    "source_date": source.get("date", ""),
+                    "source_owner": source.get("owner", ""),
+                    "source_institution": source.get("institution", ""),
+                    "source_account_id": source.get("account_id", ""),
+                    "source_amount": Decimal(source.get("amount") or "0") if source.get("amount") else "",
+                    "source_currency": source.get("currency", ""),
+                    "source_amount_sgd": Decimal(source.get("amount_sgd") or "0") if source.get("amount_sgd") else "",
+                    "match_status": "probable",
+                    "match_reason": f"nearby opposite-signed bank transfer within 7 days; SGD gap {money(gap)}; likely FX/TT route",
+                    "source_description": source.get("description_raw", ""),
+                }
+            )
+            continue
+        rows.append(
+            {
+                "ibkr_date": flow["date"],
+                "ibkr_amount": Decimal(flow["amount"]),
+                "ibkr_currency": flow["currency"],
+                "ibkr_amount_sgd": flow_amount_sgd,
+                "source_date": "",
+                "source_owner": "",
+                "source_institution": "unmatched",
+                "source_account_id": "",
+                "source_amount": "",
+                "source_currency": "",
+                "source_amount_sgd": "",
+                "match_status": "unmatched",
+                "match_reason": "No transfer row or nearby opposite-signed DBS/Barclays/Wise amount found.",
+                "source_description": flow.get("description_raw", ""),
+            }
+        )
+
+    summary: dict[tuple[str, str], Decimal] = defaultdict(Decimal)
+    for row in rows:
+        summary[(row["source_institution"], row["match_status"])] += row["ibkr_amount_sgd"]
+    summary_rows = [
+        {"source_institution": institution, "match_status": status, "ibkr_net_amount_sgd": value}
+        for (institution, status), value in sorted(summary.items())
+    ]
+    summary_rows.append(
+        {
+            "source_institution": "total",
+            "match_status": "all IBKR cash-flow rows",
+            "ibkr_net_amount_sgd": sum((row["ibkr_amount_sgd"] for row in rows), Decimal("0")),
+        }
+    )
+    return rows, summary_rows
 
 
 def investment_gain_rows(start: dict[str, Decimal], end: dict[str, Decimal]) -> list[dict[str, Any]]:
@@ -341,17 +558,24 @@ def build_rows() -> tuple[list[dict[str, Any]], list[dict[str, Any]], tuple[list
     sam_income_total = income_total - amy_income_total
     spending_total = sum(spending_totals.values(), Decimal("0"))
     investment_rows = investment_gain_rows(start, end)
+    investment_cash_flow_totals = investment_cash_flows()
+    legacy_pension_opening = start.get("Legacy Pensions", Decimal("0"))
+    vanguard_transfer_funding = investment_cash_flow_totals.get("Vanguard", Decimal("0"))
+    legacy_pension_consolidated = min(legacy_pension_opening, vanguard_transfer_funding)
+    legacy_pension_transfer_uplift = max(Decimal("0"), vanguard_transfer_funding - legacy_pension_consolidated)
     positive_investment_gains = {
         row["platform"]: row["estimated_gain_sgd"]
         for row in investment_rows
         if isinstance(row.get("estimated_gain_sgd"), Decimal) and row["estimated_gain_sgd"] > 0
     }
-    investment_gain_total = sum(positive_investment_gains.values(), Decimal("0"))
+    investment_gain_total = sum(positive_investment_gains.values(), Decimal("0")) + legacy_pension_transfer_uplift
+    stripe_vesting_income = income.get("Stripe stock vesting income", Decimal("0"))
+    stock_appreciation = max(Decimal("0"), stripe_stock_appreciation(start, end, stripe_vesting_income))
     fx_impact, fx_rows = estimated_fx_impact()
     fx_gain = fx_impact if fx_impact > 0 else Decimal("0")
     fx_drag = abs(fx_impact) if fx_impact < 0 else Decimal("0")
-    new_tracked_evelyn_funding = max(Decimal("0"), investment_cash_flows().get("Evelyn", Decimal("0")))
-    residual = ending_total + spending_total + fx_drag - opening_total - income_total - investment_gain_total - fx_gain - new_tracked_evelyn_funding
+    new_tracked_evelyn_funding = max(Decimal("0"), investment_cash_flow_totals.get("Evelyn", Decimal("0")))
+    residual = ending_total + spending_total + fx_drag - opening_total - income_total - investment_gain_total - stock_appreciation - fx_gain - new_tracked_evelyn_funding
 
     net_worth_increase = ending_total - opening_total
     links: list[dict[str, Any]] = []
@@ -367,7 +591,7 @@ def build_rows() -> tuple[list[dict[str, Any]], list[dict[str, Any]], tuple[list
     if investment_gain_total > 0:
         links.append(
             {
-                "source": "Investment gains",
+                "source": "Investment gains and pension revaluation",
                 "target": "Net worth increase",
                 "value_sgd": investment_gain_total,
                 "source_group": "investment",
@@ -381,6 +605,16 @@ def build_rows() -> tuple[list[dict[str, Any]], list[dict[str, Any]], tuple[list
                 "target": "Net worth increase",
                 "value_sgd": new_tracked_evelyn_funding,
                 "source_group": "new_asset",
+                "target_group": "increase",
+            }
+        )
+    if stock_appreciation > 0:
+        links.append(
+            {
+                "source": "Stripe stock appreciation",
+                "target": "Net worth increase",
+                "value_sgd": stock_appreciation,
+                "source_group": "stock",
                 "target_group": "increase",
             }
         )
@@ -455,6 +689,11 @@ def build_rows() -> tuple[list[dict[str, Any]], list[dict[str, Any]], tuple[list
         "spending_sgd": spending_total,
         "income_minus_spending_sgd": income_total - spending_total,
         "estimated_investment_gains_sgd": investment_gain_total,
+        "stripe_stock_appreciation_sgd": stock_appreciation,
+        "stripe_stock_vesting_income_already_counted_sgd": stripe_vesting_income,
+        "stripe_stock_cashouts_sgd": stripe_cashouts(),
+        "legacy_pension_consolidated_from_opening_sgd": legacy_pension_consolidated,
+        "legacy_pension_transfer_uplift_sgd": legacy_pension_transfer_uplift,
         "evelyn_funding_newly_tracked_asset_sgd": new_tracked_evelyn_funding,
         "estimated_fx_impact_sgd": fx_impact,
         "remaining_reconciliation_unclassified_growth_sgd": residual,
@@ -488,19 +727,34 @@ def residual_breakdown_rows(summary: dict[str, Decimal], platform_rows: list[dic
     }
     rows = [
         {
-            "component": "IBKR net funding not source-matched",
+            "component": "IBKR net funding destination, now source-traced",
             "value_sgd": net_funding.get("IBKR", Decimal("0")),
-            "note": "IBKR balance growth after removing estimated IBKR investment gains. This is funding/redeployment, not gain.",
+            "note": "This is where cash ended up, not new wealth. The IBKR funding trace below ties it to DBS/Wise transfers, including the Dec 2024 DBS GBP fixed-deposit/telegraphic-transfer chain.",
         },
         {
-            "component": "Vanguard net funding / pension consolidation",
+            "component": "Vanguard gross pension consolidation into Vanguard",
             "value_sgd": net_funding.get("Vanguard", Decimal("0")),
-            "note": "Vanguard balance growth after removing estimated Vanguard investment gains. Much of this should map to legacy pension transfers.",
+            "note": "Gross transfer/contribution-looking Vanguard cash flow. This is not treated as new wealth by itself.",
         },
         {
-            "component": "Stripe balance increase not separately modelled",
+            "component": "Less opening legacy pension wealth consolidated into Vanguard",
+            "value_sgd": -summary["legacy_pension_consolidated_from_opening_sgd"],
+            "note": "This pension wealth was already in opening net worth, so it is netted off the Vanguard transfer.",
+        },
+        {
+            "component": "Less legacy pension pre-transfer uplift already counted",
+            "value_sgd": -summary["legacy_pension_transfer_uplift_sgd"],
+            "note": "The excess of the Vanguard transfer over opening legacy pension value is now counted as pension revaluation/investment gain, not residual.",
+        },
+        {
+            "component": "Stripe balance increase",
             "value_sgd": platform_change.get("Stripe", Decimal("0")),
-            "note": "Stripe asset balance increased. Stripe vesting income is included in income, but the asset/value bridge is not fully modelled.",
+            "note": "Stripe asset balance increased. Vesting income is already counted in Sam income; stock appreciation is now counted separately below.",
+        },
+        {
+            "component": "Less Stripe stock appreciation now counted",
+            "value_sgd": -summary["stripe_stock_appreciation_sgd"],
+            "note": "Estimated as ending Stripe value minus opening Stripe value plus cash-outs minus Stripe vesting income already counted as income.",
         },
         {
             "component": "DBS cash/bank balance increase",
@@ -523,14 +777,9 @@ def residual_breakdown_rows(summary: dict[str, Decimal], platform_rows: list[dic
             "note": "Premium Bonds asset disappears as it is cashed out/transferred.",
         },
         {
-            "component": "Endowus balance reduction / incomplete flows",
+            "component": "Endowus net withdrawal / redeployment",
             "value_sgd": platform_change.get("Endowus", Decimal("0")),
-            "note": "Endowus is an investment asset, but complete contribution/withdrawal flows are not currently parsed.",
-        },
-        {
-            "component": "Legacy pensions reduction",
-            "value_sgd": platform_change.get("Legacy Pensions", Decimal("0")),
-            "note": "Legacy pension balances disappear when consolidated/transferred, mostly offsetting Vanguard funding.",
+            "note": "User-confirmed as money put into Endowus and then withdrawn/redeployed, not an unexplained investment loss.",
         },
     ]
     subtotal = sum((row["value_sgd"] for row in rows), Decimal("0"))
@@ -539,7 +788,7 @@ def residual_breakdown_rows(summary: dict[str, Decimal], platform_rows: list[dic
             {
                 "component": "Subtotal of not-yet-bridged platform movements",
                 "value_sgd": subtotal,
-                "note": "Platform changes after removing estimated IBKR/Vanguard/Evelyn gains and Evelyn funding.",
+                "note": "Destination/platform movements after removing estimated platform gains, Evelyn funding, and the pension consolidation reclassification.",
             },
             {
                 "component": "Less income retained already counted",
@@ -584,9 +833,14 @@ def bridge_rows(summary: dict[str, Decimal]) -> list[dict[str, Any]]:
             "explanation": "Income minus spending/outflows in the period.",
         },
         {
-            "component": "Estimated investment gains",
+            "component": "Estimated investment gains and pension revaluation",
             "value_sgd": summary["estimated_investment_gains_sgd"],
-            "explanation": "Balance-derived gain estimate for platforms with usable cash-flow data.",
+            "explanation": "Balance-derived gain estimate for platforms with usable cash-flow data, plus the legacy pension uplift before it was consolidated into Vanguard.",
+        },
+        {
+            "component": "Stripe stock appreciation",
+            "value_sgd": summary["stripe_stock_appreciation_sgd"],
+            "explanation": "Estimated Stripe stock appreciation after removing vesting income already counted as Sam income and adding back cash-outs.",
         },
         {
             "component": "Evelyn funding / newly tracked asset",
@@ -601,7 +855,7 @@ def bridge_rows(summary: dict[str, Decimal]) -> list[dict[str, Any]]:
         {
             "component": "Remaining reconciliation / unclassified growth",
             "value_sgd": summary["remaining_reconciliation_unclassified_growth_sgd"],
-            "explanation": "Unmodelled gains/flows/data additions, including areas where platform flows are incomplete.",
+            "explanation": "Unmodelled gains/flows/data additions after source-tracing IBKR funding and netting pension consolidation.",
         },
     ]
     rows.append(
@@ -647,28 +901,34 @@ def full_net_worth_bridge_rows(summary: dict[str, Decimal]) -> list[dict[str, An
             "note": "Sam income + Amy income - total spending.",
         },
         {
-            "step": "Estimated investment gains",
+            "step": "Estimated investment gains and pension revaluation",
             "amount_sgd": summary["estimated_investment_gains_sgd"],
             "running_net_worth_sgd": summary["opening_net_worth_sgd"] + summary["income_minus_spending_sgd"] + summary["estimated_investment_gains_sgd"],
-            "note": "Estimated gains for platforms with usable cash-flow data.",
+            "note": "Estimated gains for platforms with usable cash-flow data, including the uplift on legacy pensions before Vanguard consolidation.",
+        },
+        {
+            "step": "Stripe stock appreciation",
+            "amount_sgd": summary["stripe_stock_appreciation_sgd"],
+            "running_net_worth_sgd": summary["opening_net_worth_sgd"] + summary["income_minus_spending_sgd"] + summary["estimated_investment_gains_sgd"] + summary["stripe_stock_appreciation_sgd"],
+            "note": "Estimated appreciation on Stripe stock after excluding vesting income already counted as income.",
         },
         {
             "step": "Evelyn funding / newly tracked asset",
             "amount_sgd": summary["evelyn_funding_newly_tracked_asset_sgd"],
-            "running_net_worth_sgd": summary["opening_net_worth_sgd"] + summary["income_minus_spending_sgd"] + summary["estimated_investment_gains_sgd"] + summary["evelyn_funding_newly_tracked_asset_sgd"],
+            "running_net_worth_sgd": summary["opening_net_worth_sgd"] + summary["income_minus_spending_sgd"] + summary["estimated_investment_gains_sgd"] + summary["stripe_stock_appreciation_sgd"] + summary["evelyn_funding_newly_tracked_asset_sgd"],
             "note": "Visible during the period; may be newly visible wealth rather than newly created wealth.",
         },
         {
             "step": "Estimated FX impact",
             "amount_sgd": summary["estimated_fx_impact_sgd"],
-            "running_net_worth_sgd": summary["opening_net_worth_sgd"] + summary["income_minus_spending_sgd"] + summary["estimated_investment_gains_sgd"] + summary["evelyn_funding_newly_tracked_asset_sgd"] + summary["estimated_fx_impact_sgd"],
+            "running_net_worth_sgd": summary["opening_net_worth_sgd"] + summary["income_minus_spending_sgd"] + summary["estimated_investment_gains_sgd"] + summary["stripe_stock_appreciation_sgd"] + summary["evelyn_funding_newly_tracked_asset_sgd"] + summary["estimated_fx_impact_sgd"],
             "note": "Estimated FX revaluation on opening foreign-currency balances.",
         },
         {
             "step": "Remaining reconciliation / unclassified growth",
             "amount_sgd": summary["remaining_reconciliation_unclassified_growth_sgd"],
             "running_net_worth_sgd": summary["ending_net_worth_sgd"],
-            "note": "Unmodelled gains/flows/data additions that still need cleaner source matching.",
+            "note": "Unmodelled gains/flows/data additions after IBKR funding trace and pension consolidation netting.",
         },
         {
             "step": "Ending net worth",
@@ -687,6 +947,13 @@ def run() -> dict[str, Any]:
     full_bridge = full_net_worth_bridge_rows(summary)
     spending_losses = spending_loss_rows()
     residual_breakdown = residual_breakdown_rows(summary, platform_rows, investment_rows)
+    ibkr_trace, ibkr_trace_summary = trace_ibkr_funding()
+    platform_by_name = {row["platform"]: row for row in platform_rows}
+    stripe_appreciation = stripe_stock_appreciation_rows(
+        {"Stripe": platform_by_name.get("Stripe", {}).get("start_sgd", Decimal("0"))},
+        {"Stripe": platform_by_name.get("Stripe", {}).get("end_sgd", Decimal("0"))},
+        summary["stripe_stock_vesting_income_already_counted_sgd"],
+    )
     flow_rows = [
         {**row, "value_sgd": row["value_sgd"]}
         for row in links
@@ -697,6 +964,32 @@ def run() -> dict[str, Any]:
     write_csv(EXPORTS_DIR / "net_worth_change_bridge.csv", bridge, ["component", "value_sgd", "explanation"])
     write_csv(EXPORTS_DIR / "net_worth_spending_losses.csv", spending_losses, ["component", "value_sgd"])
     write_csv(EXPORTS_DIR / "net_worth_residual_breakdown.csv", residual_breakdown, ["component", "value_sgd", "note"])
+    write_csv(EXPORTS_DIR / "stripe_stock_appreciation_estimate.csv", stripe_appreciation, ["component", "value_sgd", "note"])
+    write_csv(
+        EXPORTS_DIR / "ibkr_funding_trace.csv",
+        ibkr_trace,
+        [
+            "ibkr_date",
+            "ibkr_amount",
+            "ibkr_currency",
+            "ibkr_amount_sgd",
+            "source_date",
+            "source_owner",
+            "source_institution",
+            "source_account_id",
+            "source_amount",
+            "source_currency",
+            "source_amount_sgd",
+            "match_status",
+            "match_reason",
+            "source_description",
+        ],
+    )
+    write_csv(
+        EXPORTS_DIR / "ibkr_funding_trace_summary.csv",
+        ibkr_trace_summary,
+        ["source_institution", "match_status", "ibkr_net_amount_sgd"],
+    )
     write_csv(EXPORTS_DIR / "net_worth_change_by_platform.csv", platform_rows, ["platform", "start_sgd", "end_sgd", "change_sgd"])
     write_csv(
         EXPORTS_DIR / "net_worth_investment_gain_estimates.csv",
@@ -718,11 +1011,12 @@ def run() -> dict[str, Any]:
   <div class="metric"><strong>{money(summary["net_worth_change_sgd"])}</strong><span>Left bridge: net worth increase</span></div>
   <div class="metric"><strong>{money(summary["ending_net_worth_sgd"])}</strong><span>Ending net worth</span></div>
   <div class="metric"><strong>{money(summary["income_minus_spending_sgd"])}</strong><span>Income minus spending</span></div>
-  <div class="metric"><strong>{money(summary["estimated_investment_gains_sgd"])}</strong><span>Estimated investment gains</span></div>
+  <div class="metric"><strong>{money(summary["estimated_investment_gains_sgd"])}</strong><span>Estimated investment gains/revaluation</span></div>
+  <div class="metric"><strong>{money(summary["stripe_stock_appreciation_sgd"])}</strong><span>Stripe stock appreciation</span></div>
   <div class="metric"><strong>{money(summary["estimated_fx_impact_sgd"])}</strong><span>Estimated FX impact</span></div>
 </div>
 <h2>Full Net Worth Bridge</h2>
-<p>This is the main arithmetic: start with opening net worth, add Sam income and Amy income, subtract spending to get retained income, then add investment gains, FX, newly visible assets, and the remaining reconciliation item.</p>
+<p>This is the main arithmetic: start with opening net worth, add Sam income and Amy income, subtract spending to get retained income, then add investment gains, Stripe stock appreciation, FX, newly visible assets, and the remaining reconciliation item.</p>
 {table(full_bridge, ["step", "amount_sgd", "running_net_worth_sgd", "note"])}
 <div id="sankeyWrap">
   <svg id="sankey" viewBox="0 0 1180 980" role="img" aria-label="Sankey diagram of net worth change" style="width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:6px"></svg>
@@ -735,8 +1029,15 @@ def run() -> dict[str, Any]:
 <p>The net worth bridge is the signed version of the Sankey: income has to be netted against spending, then gains, FX, newly visible assets, and the remaining reconciliation item are added.</p>
 {table(bridge, ["component", "value_sgd", "explanation"])}
 <h2>Residual Breakdown</h2>
-<p>This breaks down the {money(summary["remaining_reconciliation_unclassified_growth_sgd"])} residual. The big positive lines are mostly funding/redeployment that has not yet been tied back cleanly to a source account or prior asset. The negative lines are offsets from assets that fell or disappeared.</p>
+<p>This breaks down the {money(summary["remaining_reconciliation_unclassified_growth_sgd"])} residual. IBKR is shown here as a destination movement, but the table below traces the funding back to DBS/Wise rather than treating it as new wealth. Vanguard pension consolidation is netted against opening legacy pension wealth. Stripe appreciation is now separated from vesting income, and Endowus is treated as a contribution/withdrawal cycle rather than an unexplained platform loss.</p>
 {table(residual_breakdown, ["component", "value_sgd", "note"])}
+<h2>Stripe Stock Appreciation</h2>
+<p>This separates Stripe stock appreciation from Stripe vesting income. Vesting income is already in Sam income, while appreciation is the extra mark-to-market/cash-out return.</p>
+{table(stripe_appreciation, ["component", "value_sgd", "note"])}
+<h2>IBKR Funding Trace</h2>
+<p>The IBKR net funding line is {money(ibkr_trace_summary[-1]["ibkr_net_amount_sgd"])} across the period. The trace below checks the actual IBKR cash-flow rows against transfer matches and nearby DBS/Barclays/Wise rows. The large 23 Dec 2024 IBKR deposit is matched as probable to the 21 Dec 2024 DBS GBP outward telegraphic transfer that followed a GBP fixed-deposit maturity in the same DBS statement.</p>
+{table(ibkr_trace_summary, ["source_institution", "match_status", "ibkr_net_amount_sgd"])}
+{table(ibkr_trace, ["ibkr_date", "ibkr_amount", "ibkr_currency", "ibkr_amount_sgd", "source_date", "source_institution", "source_account_id", "source_amount", "source_currency", "source_amount_sgd", "match_status", "match_reason"], limit=40)}
 <h2>Sources and Uses Totals</h2>
 {table(summary_rows, ["component", "value_sgd"])}
 <h2>Investment Gain Estimates</h2>
@@ -764,13 +1065,13 @@ nodeMap.forEach(n => n.value = Math.max(n.in, n.out));
 const colFor = name => {{
   if (name === '{END_LABEL}') return 3;
   if (name === 'Net worth increase' || name === 'Opening net worth carried forward' || name === 'FX revaluation drag') return 2;
-  if (['Investment gains'].includes(name)) return 1;
+  if (['Investment gains and pension revaluation', 'Stripe stock appreciation'].includes(name)) return 1;
   return 0;
 }};
 const orderScore = n => {{
   const fixed = {{
     'Income retained after spending': -80, 'Net worth increase': -50, 'Opening net worth carried forward': -40,
-    'Investment gains': -40, 'Evelyn funding / newly tracked asset': -30, 'FX revaluation gain': -20,
+    'Investment gains and pension revaluation': -45, 'Stripe stock appreciation': -40, 'Evelyn funding / newly tracked asset': -30, 'FX revaluation gain': -20,
     'Remaining reconciliation / unclassified growth': -10,
     '{END_LABEL}': -10
   }};

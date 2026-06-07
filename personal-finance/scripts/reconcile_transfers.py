@@ -24,6 +24,10 @@ CROSS_CURRENCY_SGD_TOLERANCE = Decimal("75")
 CROSS_CURRENCY_PCT_TOLERANCE = Decimal("0.015")
 PLATFORM_SAME_CURRENCY_TOLERANCE = Decimal("100")
 PLATFORM_SAME_CURRENCY_PCT_TOLERANCE = Decimal("0.02")
+PLATFORM_CROSS_CURRENCY_SGD_TOLERANCE = Decimal("250")
+PLATFORM_CROSS_CURRENCY_PCT_TOLERANCE = Decimal("0.005")
+DBS_INTERNAL_FX_SGD_TOLERANCE = Decimal("350")
+DBS_INTERNAL_FX_PCT_TOLERANCE = Decimal("0.02")
 LARGE_SGD_REVIEW_THRESHOLD = Decimal("1000")
 HIGH_CONFIDENCE_MIN = Decimal("0.90")
 
@@ -58,7 +62,7 @@ def is_platform_or_investment_cash_flow(row: dict[str, Any]) -> bool:
 
 
 def is_candidate(row: dict[str, Any]) -> bool:
-    if mentions_endowus(row):
+    if mentions_endowus(row) and row.get("institution") != "endowus":
         return False
     if row.get("institution") == "ibkr":
         return is_ibkr_cash_flow(row)
@@ -70,7 +74,7 @@ def is_candidate(row: dict[str, Any]) -> bool:
 
 
 def is_assumed_one_sided_transfer(row: dict[str, Any]) -> bool:
-    return mentions_endowus(row) or mentions_ibkr(row)
+    return (mentions_endowus(row) and row.get("institution") != "endowus") or mentions_ibkr(row)
 
 
 def decimal_field(row: dict[str, Any], field: str) -> Decimal | None:
@@ -114,6 +118,19 @@ def is_wise_external_send(row: dict[str, Any]) -> bool:
 
 def is_bank_receipt(row: dict[str, Any]) -> bool:
     return row.get("institution") in {"dbs", "barclays", "halifax"}
+
+
+def is_dbs_internal_fx_pair(outflow: dict[str, Any], inflow: dict[str, Any]) -> bool:
+    if outflow.get("institution") != "dbs" or inflow.get("institution") != "dbs":
+        return False
+    if outflow.get("owner") != inflow.get("owner"):
+        return False
+    out_base = str(outflow.get("account_id", "")).split(":")[0]
+    in_base = str(inflow.get("account_id", "")).split(":")[0]
+    if out_base != in_base:
+        return False
+    text = f"{row_text(outflow)} {row_text(inflow)}"
+    return " : i-bank" in text and " @ " in text
 
 
 def candidate_score(outflow: dict[str, Any], inflow: dict[str, Any]) -> tuple[Decimal, str] | None:
@@ -160,7 +177,15 @@ def candidate_score(outflow: dict[str, Any], inflow: dict[str, Any]) -> tuple[De
         amount_gap_sgd = abs(abs(out_amt_sgd) - in_amt_sgd)
         base_sgd = max(abs(out_amt_sgd), in_amt_sgd)
         pct_gap = amount_gap_sgd / base_sgd if base_sgd else Decimal("1")
-        if amount_gap_sgd > CROSS_CURRENCY_SGD_TOLERANCE and pct_gap > CROSS_CURRENCY_PCT_TOLERANCE:
+        if is_dbs_internal_fx_pair(outflow, inflow):
+            if amount_gap_sgd > DBS_INTERNAL_FX_SGD_TOLERANCE or pct_gap > DBS_INTERNAL_FX_PCT_TOLERANCE:
+                return None
+            reasons.append("DBS same-account FX conversion tolerance")
+        elif mentions_ibkr(outflow) or mentions_ibkr(inflow) or is_platform_or_investment_cash_flow(outflow) or is_platform_or_investment_cash_flow(inflow):
+            if amount_gap_sgd > PLATFORM_CROSS_CURRENCY_SGD_TOLERANCE or pct_gap > PLATFORM_CROSS_CURRENCY_PCT_TOLERANCE:
+                return None
+            reasons.append("platform/investment FX tolerance")
+        elif amount_gap_sgd > CROSS_CURRENCY_SGD_TOLERANCE or pct_gap > CROSS_CURRENCY_PCT_TOLERANCE:
             return None
         score -= Decimal("0.04")
         reasons.extend(["cross currency", f"SGD equivalent gap {amount_gap_sgd:.2f}", f"{pct_gap:.2%} gap"])
