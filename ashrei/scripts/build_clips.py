@@ -60,8 +60,12 @@ def encode_clip(wav_path, m4a_path):
     )
 
 
-def build_clips(source, timings_path, output_dir):
+def build_clips(source, timings_path, output_dir, only_line=None):
     timings = read_timings(timings_path)
+    if only_line is not None:
+        timings = [timing for timing in timings if timing[0] == only_line]
+        if not timings:
+            raise ValueError(f"Line {only_line} was not found in {timings_path}")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     with tempfile.TemporaryDirectory(prefix="ashrei-clips-") as tmp:
@@ -92,11 +96,12 @@ def main():
     parser.add_argument("--source", type=Path, default=DEFAULT_SOURCE, help="Path to the source MP3.")
     parser.add_argument("--timings", type=Path, default=ROOT / "timings.csv", help="CSV with line,start,end.")
     parser.add_argument("--output", type=Path, default=ROOT / "audio", help="Output directory for .m4a clips.")
+    parser.add_argument("--line", type=int, help="Only regenerate one line number.")
     args = parser.parse_args()
 
     if not args.source.exists():
         raise SystemExit(f"Source audio not found: {args.source}")
-    build_clips(args.source, args.timings, args.output)
+    build_clips(args.source, args.timings, args.output, args.line)
 
 
 if __name__ == "__main__":
