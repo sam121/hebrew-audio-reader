@@ -1,7 +1,7 @@
 window.ASHREI_LINES = [
   {
     hebrew: "אַשְׁרֵי יוֹשְׁבֵי בֵיתֶךָ, עוֹד יְהַלְלוּךָ סֶּלָה.",
-    english: "Happy are those who dwell in Your house; they will praise You forever. Selah."
+    english: "Happy are those who dwell in Your house; they will continually praise You."
   },
   {
     hebrew: "אַשְׁרֵי הָעָם שֶׁכָּכָה לּוֹ, אַשְׁרֵי הָעָם שֶׁיְיָ אֱלֹהָיו.",
@@ -21,7 +21,7 @@ window.ASHREI_LINES = [
   },
   {
     hebrew: "דּוֹר לְדוֹר יְשַׁבַּח מַעֲשֶׂיךָ, וּגְבוּרֹתֶיךָ יַגִּידוּ.",
-    english: "One generation praises Your works to the next, and tells of Your mighty acts."
+    english: "One generation will praise Your works to the next, and tell of Your mighty acts."
   },
   {
     hebrew: "הֲדַר כְּבוֹד הוֹדֶךָ, וְדִבְרֵי נִפְלְאֹתֶיךָ אָשִׂיחָה.",
@@ -33,7 +33,7 @@ window.ASHREI_LINES = [
   },
   {
     hebrew: "זֵכֶר רַב טוּבְךָ יַבִּיעוּ, וְצִדְקָתְךָ יְרַנֵּנוּ.",
-    english: "They will pour forth the memory of Your abundant goodness, and sing joyfully of Your justice."
+    english: "They will pour forth the memory of Your abundant goodness, and sing joyfully of Your righteousness."
   },
   {
     hebrew: "חַנּוּן וְרַחוּם יְיָ, אֶרֶךְ אַפַּיִם וּגְדָל חָסֶד.",
@@ -57,7 +57,7 @@ window.ASHREI_LINES = [
   },
   {
     hebrew: "מַלְכוּתְךָ מַלְכוּת כָּל עֹלָמִים, וּמֶמְשַׁלְתְּךָ בְּכָל דּוֹר וָדֹר.",
-    english: "Your realm is a realm for all ages, and Your presence endures through every generation."
+    english: "Your realm is a realm for all ages, and Your dominion endures through every generation."
   },
   {
     hebrew: "סוֹמֵךְ יְיָ לְכָל הַנֹּפְלִים, וְזוֹקֵף לְכָל הַכְּפוּפִים.",
@@ -65,7 +65,7 @@ window.ASHREI_LINES = [
   },
   {
     hebrew: "עֵינֵי כֹל אֵלֶיךָ יְשַׂבֵּרוּ, וְאַתָּה נוֹתֵן לָהֶם אֶת אָכְלָם בְּעִתּוֹ.",
-    english: "The eyes of all look to You with hope, and You give them their food in its season."
+    english: "The eyes of all look to You with hope, and You give them their food in due season."
   },
   {
     hebrew: "פּוֹתֵחַ אֶת יָדֶךָ, וּמַשְׂבִּיעַ לְכָל חַי רָצוֹן.",
@@ -81,11 +81,11 @@ window.ASHREI_LINES = [
   },
   {
     hebrew: "רְצוֹן יְרֵאָיו יַעֲשֶׂה, וְאֶת שַׁוְעָתָם יִשְׁמַע וְיוֹשִׁיעֵם.",
-    english: "You fulfill the desire of those who revere You; You hear their cry and save them."
+    english: "You fulfill the desire of those who revere You; You hear their cry and deliver them."
   },
   {
     hebrew: "שׁוֹמֵר יְיָ אֶת כָּל אֹהֲבָיו, וְאֵת כָּל הָרְשָׁעִים יַשְׁמִיד.",
-    english: "The Eternal guards all who love You, and brings wickedness to an end."
+    english: "The Eternal guards all who love You, and destroys all the wicked."
   },
   {
     hebrew: "תְּהִלַּת יְיָ יְדַבֶּר פִּי, וִיבָרֵךְ כָּל בָּשָׂר שֵׁם קָדְשׁוֹ לְעוֹלָם וָעֶד.",
@@ -93,6 +93,6 @@ window.ASHREI_LINES = [
   },
   {
     hebrew: "וַאֲנַחְנוּ נְבָרֵךְ יָהּ מֵעַתָּה וְעַד עוֹלָם. הַלְלוּיָהּ.",
-    english: "And we will bless Yah from now and forever. Hallelujah."
+    english: "And we will bless the Eternal from now and forever. Hallelujah."
   }
 ];
