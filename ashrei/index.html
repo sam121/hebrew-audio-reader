@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ashrei Line Practice</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="kicker">Ashrei</p>
+        <h1>Line Practice</h1>
+      </div>
+      <label class="loop-control">
+        <input id="loopToggle" type="checkbox">
+        <span>Loop current line</span>
+      </label>
+    </header>
+
+    <main id="lines" class="lines" aria-live="polite"></main>
+
+    <footer>
+      <p>Hebrew text with an original egalitarian English rendering. Audio clips are cut from the supplied learner-speed recording.</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
