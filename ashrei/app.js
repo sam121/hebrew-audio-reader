@@ -61,6 +61,12 @@ function setAttentionLine(card, prayerId, lineNumber, isMarked) {
   }
 }
 
+function youtubeEmbedUrl(videoUrl) {
+  const url = new URL(videoUrl);
+  const videoId = url.searchParams.get("v") || url.pathname.split("/").filter(Boolean).pop();
+  return `https://www.youtube.com/embed/${videoId}`;
+}
+
 function stopCurrentAudio() {
   if (!currentAudio) return;
   currentAudio.pause();
@@ -90,7 +96,18 @@ function renderPrayer(prayerId) {
   prayerTitle.textContent = prayer.title;
   sourceNote.textContent = prayer.note;
   videoLinkEl.innerHTML = prayer.videoUrl
-    ? `<a class="whole-video" href="${prayer.videoUrl}" target="_blank" rel="noopener noreferrer">${externalIcon}<span>Play the whole video on YouTube</span></a>`
+    ? `
+      <div class="video-panel">
+        <iframe
+          src="${youtubeEmbedUrl(prayer.videoUrl)}"
+          title="${prayer.title} full video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+      <a class="whole-video" href="${prayer.videoUrl}" target="_blank" rel="noopener noreferrer">${externalIcon}<span>Open on YouTube</span></a>
+    `
     : "";
   linesEl.innerHTML = "";
 
