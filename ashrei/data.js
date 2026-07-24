@@ -111,43 +111,43 @@ window.PRAYERS = [
     lines: [
       {
         hebrew: "אֲדֹנָי שְׂפָתַי תִּפְתָּח, וּפִי יַגִּיד תְּהִלָּתֶךָ.",
-        english: ""
+        english: "Adonai, open up my lips that my mouth may declare Your praise."
       },
       {
         hebrew: "בָּרוּךְ אַתָּה יְיָ, אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ וְאִמּוֹתֵינוּ.",
-        english: ""
+        english: "Blessed are You Adonai our God, God of our fathers and mothers,"
       },
       {
         hebrew: "אֱלֹהֵי אַבְרָהָם, אֱלֹהֵי יִצְחָק, וֵאלֹהֵי יַעֲקֹב.",
-        english: ""
+        english: "God of Abraham, God of Isaac, God of Jacob,"
       },
       {
         hebrew: "אֱלֹהֵי שָׂרָה, אֱלֹהֵי רִבְקָה, אֱלֹהֵי רָחֵל, וֵאלֹהֵי לֵאָה.",
-        english: ""
+        english: "God of Sarah, God of Rebecca, God of Rachel, and God of Leah."
       },
       {
         hebrew: "הָאֵל הַגָּדוֹל הַגִּבּוֹר וְהַנּוֹרָא, אֵל עֶלְיוֹן.",
-        english: ""
+        english: "The great, mighty and awesome God, transcendent God"
       },
       {
         hebrew: "גּוֹמֵל חֲסָדִים טוֹבִים, וְקוֹנֵה הַכֹּל.",
-        english: ""
+        english: "who bestows loving kindness, creates everything out of love,"
       },
       {
         hebrew: "וְזוֹכֵר חַסְדֵי אָבוֹת וְאִמָּהוֹת.",
-        english: ""
+        english: "remembers the love of our fathers and mothers,"
       },
       {
         hebrew: "וּמֵבִיא גְאֻלָּה לִבְנֵי בְנֵיהֶם לְמַעַן שְׁמוֹ בְּאַהֲבָה.",
-        english: ""
+        english: "and brings redemption to their children's children for the sake of the Divine Name."
       },
       {
         hebrew: "מֶלֶךְ עוֹזֵר וּמוֹשִׁיעַ וּמָגֵן.",
-        english: ""
+        english: "Sovereign, Deliverer, Helper and Shield,"
       },
       {
         hebrew: "בָּרוּךְ אַתָּה יְיָ, מָגֵן אַבְרָהָם וְעֶזְרַת שָׂרָה.",
-        english: ""
+        english: "Blessed are You, Adonai, Sarah's Helper, Abraham's Shield."
       }
     ]
   }
