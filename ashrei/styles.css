@@ -8,6 +8,8 @@
   --accent: #1d6f6f;
   --accent-dark: #155453;
   --focus: #b8662b;
+  --attention: #b8662b;
+  --attention-bg: #fff6e7;
 }
 
 * {
@@ -130,6 +132,12 @@ h1 {
   box-shadow: 0 0 0 3px rgba(29, 111, 111, 0.09);
 }
 
+.line-card.needs-attention {
+  border-color: rgba(184, 102, 43, 0.55);
+  background: var(--attention-bg);
+  box-shadow: inset 4px 0 0 var(--attention), 0 1px 0 rgba(23, 33, 31, 0.04);
+}
+
 .controls {
   display: grid;
   gap: 8px;
@@ -143,16 +151,20 @@ h1 {
   font-weight: 750;
 }
 
-.play {
+.play,
+.attention {
   display: inline-grid;
   place-items: center;
+  cursor: pointer;
+}
+
+.play {
   width: 48px;
   height: 48px;
   border: 1px solid var(--accent);
   border-radius: 50%;
   background: var(--accent);
   color: #fff;
-  cursor: pointer;
 }
 
 .play:hover {
@@ -167,7 +179,28 @@ h1 {
   cursor: not-allowed;
 }
 
-.play:focus-visible {
+.attention {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+}
+
+.attention:hover {
+  border-color: var(--attention);
+  color: var(--attention);
+}
+
+.attention.active {
+  border-color: var(--attention);
+  background: var(--attention);
+  color: #fff;
+}
+
+.play:focus-visible,
+.attention:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 3px;
 }
@@ -175,6 +208,12 @@ h1 {
 .play svg {
   width: 22px;
   height: 22px;
+  fill: currentColor;
+}
+
+.attention svg {
+  width: 17px;
+  height: 17px;
   fill: currentColor;
 }
 
@@ -228,5 +267,10 @@ footer {
   .play {
     width: 42px;
     height: 42px;
+  }
+
+  .attention {
+    width: 32px;
+    height: 32px;
   }
 }
