@@ -108,6 +108,42 @@ h1 {
   outline-offset: 3px;
 }
 
+.video-link {
+  width: min(980px, calc(100% - 32px));
+  margin: 12px auto 0;
+}
+
+.whole-video {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 13px;
+  border: 1px solid rgba(29, 111, 111, 0.35);
+  border-radius: 8px;
+  background: rgba(29, 111, 111, 0.07);
+  color: var(--accent-dark);
+  font-size: 0.95rem;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.whole-video:hover {
+  border-color: var(--accent);
+  background: rgba(29, 111, 111, 0.12);
+}
+
+.whole-video:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.whole-video svg {
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
+}
+
 .lines {
   width: min(980px, calc(100% - 32px));
   margin: 28px auto 56px;

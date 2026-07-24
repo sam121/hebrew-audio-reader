@@ -1,5 +1,6 @@
 const linesEl = document.querySelector("#lines");
 const tabsEl = document.querySelector("#tabs");
+const videoLinkEl = document.querySelector("#videoLink");
 const loopToggle = document.querySelector("#loopToggle");
 const prayerTitle = document.querySelector("#prayerTitle");
 const sourceNote = document.querySelector("#sourceNote");
@@ -20,6 +21,12 @@ const pauseIcon = `
 const flagIcon = `
   <svg viewBox="0 0 24 24" aria-hidden="true">
     <path d="M6 21a1 1 0 0 1-1-1V5.8c0-.48.34-.9.81-.98l.93-.16a8.6 8.6 0 0 1 5.17.71 6.62 6.62 0 0 0 4.03.5l1.87-.34A1 1 0 0 1 19 6.52v8.14c0 .48-.34.9-.81.98l-1.9.34a8.62 8.62 0 0 1-5.17-.71 6.6 6.6 0 0 0-4.03-.5L7 14.79V20a1 1 0 0 1-1 1Z"></path>
+  </svg>`;
+
+const externalIcon = `
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M14 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V7.41l-7.29 7.3a1 1 0 0 1-1.42-1.42l7.3-7.29H15a1 1 0 0 1-1-1Z"></path>
+    <path d="M5 6a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H8a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V6Z"></path>
   </svg>`;
 
 function resetCard(card) {
@@ -82,6 +89,9 @@ function renderPrayer(prayerId) {
   renderTabs(prayer.id);
   prayerTitle.textContent = prayer.title;
   sourceNote.textContent = prayer.note;
+  videoLinkEl.innerHTML = prayer.videoUrl
+    ? `<a class="whole-video" href="${prayer.videoUrl}" target="_blank" rel="noopener noreferrer">${externalIcon}<span>Play the whole video on YouTube</span></a>`
+    : "";
   linesEl.innerHTML = "";
 
   prayer.lines.forEach((line, index) => {

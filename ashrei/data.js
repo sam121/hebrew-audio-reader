@@ -4,6 +4,7 @@ window.PRAYERS = [
     title: "Ashrei",
     note: "Hebrew text with the provided Mishkan T'filah-style English rendering. Audio clips are cut from the supplied learner-speed recording.",
     audioPattern: "audio/ashrei-{line}.m4a",
+    videoUrl: "https://www.youtube.com/watch?v=Qy-gdPGuUmo",
     lines: [
       {
     hebrew: "אַשְׁרֵי יוֹשְׁבֵי בֵיתֶךָ, עוֹד יְהַלְלוּךָ סֶּלָה.",
@@ -108,6 +109,7 @@ window.PRAYERS = [
     title: "Avot v'Imahot",
     note: "Hebrew text from the Temple Sinai Avot v'Imahot reference, with audio clips cut from the supplied Avot v'Imahot MP3.",
     audioPattern: "audio/avot-vimahot-{line}.m4a",
+    videoUrl: "https://www.youtube.com/watch?v=zoDXcm9A0Ko",
     lines: [
       {
         hebrew: "אֲדֹנָי שְׂפָתַי תִּפְתָּח, וּפִי יַגִּיד תְּהִלָּתֶךָ.",
