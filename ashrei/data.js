@@ -106,8 +106,8 @@ window.PRAYERS = [
   {
     id: "avot-vimahot",
     title: "Avot v'Imahot",
-    note: "Hebrew lines are ready for timestamping. Audio clips will be generated from the supplied Avot v'Imahot MP3 after you confirm the line breaks.",
-    audioPattern: "",
+    note: "Hebrew text from the Temple Sinai Avot v'Imahot reference, with audio clips cut from the supplied Avot v'Imahot MP3.",
+    audioPattern: "audio/avot-vimahot-{line}.m4a",
     lines: [
       {
         hebrew: "אֲדֹנָי שְׂפָתַי תִּפְתָּח, וּפִי יַגִּיד תְּהִלָּתֶךָ.",
@@ -146,11 +146,7 @@ window.PRAYERS = [
         english: ""
       },
       {
-        hebrew: "בָּרוּךְ אַתָּה יְיָ.",
-        english: ""
-      },
-      {
-        hebrew: "מָגֵן אַבְרָהָם וְעֶזְרַת שָׂרָה.",
+        hebrew: "בָּרוּךְ אַתָּה יְיָ, מָגֵן אַבְרָהָם וְעֶזְרַת שָׂרָה.",
         english: ""
       }
     ]

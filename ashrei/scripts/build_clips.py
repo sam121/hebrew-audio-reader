@@ -39,10 +39,10 @@ def read_timings(path):
             raise ValueError(f"Line {line} has end <= start")
         timings.append((line, start, end))
 
-    expected = list(range(1, 25))
+    expected = list(range(1, len(timings) + 1))
     found = [line for line, _, _ in timings]
     if found != expected:
-        raise ValueError(f"Expected lines 1-24 in order, found {found}")
+        raise ValueError(f"Expected lines 1-{len(timings)} in order, found {found}")
     return timings
 
 
@@ -60,7 +60,7 @@ def encode_clip(wav_path, m4a_path):
     )
 
 
-def build_clips(source, timings_path, output_dir, only_line=None):
+def build_clips(source, timings_path, output_dir, prefix, only_line=None):
     timings = read_timings(timings_path)
     if only_line is not None:
         timings = [timing for timing in timings if timing[0] == only_line]
@@ -81,14 +81,14 @@ def build_clips(source, timings_path, output_dir, only_line=None):
                 source_wav.setpos(max(0, int(start * rate)))
                 frames = source_wav.readframes(max(1, int((end - start) * rate)))
                 clip_wav = tmp_dir / f"ashrei-{line:02d}.wav"
-                clip_m4a = output_dir / f"ashrei-{line:02d}.m4a"
+                clip_m4a = output_dir / f"{prefix}-{line:02d}.m4a"
 
                 with wave.open(str(clip_wav), "wb") as out_wav:
                     out_wav.setparams(params)
                     out_wav.writeframes(frames)
 
                 encode_clip(clip_wav, clip_m4a)
-                print(f"Wrote {clip_m4a.relative_to(ROOT)} ({end - start:.2f}s)")
+                print(f"Wrote {clip_m4a.resolve().relative_to(ROOT)} ({end - start:.2f}s)")
 
 
 def main():
@@ -96,12 +96,13 @@ def main():
     parser.add_argument("--source", type=Path, default=DEFAULT_SOURCE, help="Path to the source MP3.")
     parser.add_argument("--timings", type=Path, default=ROOT / "timings.csv", help="CSV with line,start,end.")
     parser.add_argument("--output", type=Path, default=ROOT / "audio", help="Output directory for .m4a clips.")
+    parser.add_argument("--prefix", default="ashrei", help="Output filename prefix.")
     parser.add_argument("--line", type=int, help="Only regenerate one line number.")
     args = parser.parse_args()
 
     if not args.source.exists():
         raise SystemExit(f"Source audio not found: {args.source}")
-    build_clips(args.source, args.timings, args.output, args.line)
+    build_clips(args.source, args.timings, args.output, args.prefix, args.line)
 
 
 if __name__ == "__main__":
