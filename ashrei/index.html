@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ashrei Line Practice</title>
+    <title>Hebrew Prayer Line Practice</title>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <header class="topbar">
       <div>
-        <p class="kicker">Ashrei</p>
-        <h1>Line Practice</h1>
+        <p class="kicker">Hebrew Prayer</p>
+        <h1 id="prayerTitle">Line Practice</h1>
       </div>
       <label class="loop-control">
         <input id="loopToggle" type="checkbox">
@@ -18,10 +18,12 @@
       </label>
     </header>
 
+    <nav id="tabs" class="tabs" aria-label="Prayer selection"></nav>
+
     <main id="lines" class="lines" aria-live="polite"></main>
 
     <footer>
-      <p>Hebrew text with an original egalitarian English rendering. Audio clips are cut from the supplied learner-speed recording.</p>
+      <p id="sourceNote">Choose a prayer above, then play one line at a time.</p>
     </footer>
 
     <script src="data.js"></script>

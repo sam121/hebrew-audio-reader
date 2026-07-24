@@ -1,5 +1,8 @@
 const linesEl = document.querySelector("#lines");
+const tabsEl = document.querySelector("#tabs");
 const loopToggle = document.querySelector("#loopToggle");
+const prayerTitle = document.querySelector("#prayerTitle");
+const sourceNote = document.querySelector("#sourceNote");
 let currentAudio = null;
 let currentCard = null;
 
@@ -21,25 +24,59 @@ function resetCard(card) {
   button.setAttribute("aria-label", `Play line ${button.dataset.line}`);
 }
 
-window.ASHREI_LINES.forEach((line, index) => {
-  const lineNumber = String(index + 1).padStart(2, "0");
-  const card = document.createElement("section");
-  card.className = "line-card";
-  card.innerHTML = `
-    <div class="controls">
-      <span class="number">${lineNumber}</span>
-      <button class="play" type="button" data-line="${lineNumber}" aria-label="Play line ${lineNumber}">
-        ${playIcon}
-      </button>
-    </div>
-    <div class="texts">
-      <p class="hebrew" lang="he">${line.hebrew}</p>
-      <p class="english">${line.english}</p>
-    </div>
-    <audio preload="metadata" src="audio/ashrei-${lineNumber}.m4a"></audio>
-  `;
-  linesEl.appendChild(card);
-});
+function stopCurrentAudio() {
+  if (!currentAudio) return;
+  currentAudio.pause();
+  currentAudio.currentTime = 0;
+  resetCard(currentCard);
+  currentAudio = null;
+  currentCard = null;
+}
+
+function renderTabs(activeId) {
+  tabsEl.innerHTML = "";
+  window.PRAYERS.forEach((prayer) => {
+    const tab = document.createElement("button");
+    tab.className = `tab${prayer.id === activeId ? " active" : ""}`;
+    tab.type = "button";
+    tab.textContent = prayer.title;
+    tab.setAttribute("aria-current", prayer.id === activeId ? "page" : "false");
+    tab.addEventListener("click", () => renderPrayer(prayer.id));
+    tabsEl.appendChild(tab);
+  });
+}
+
+function renderPrayer(prayerId) {
+  stopCurrentAudio();
+  const prayer = window.PRAYERS.find((item) => item.id === prayerId) || window.PRAYERS[0];
+  renderTabs(prayer.id);
+  prayerTitle.textContent = prayer.title;
+  sourceNote.textContent = prayer.note;
+  linesEl.innerHTML = "";
+
+  prayer.lines.forEach((line, index) => {
+    const lineNumber = String(index + 1).padStart(2, "0");
+    const hasAudio = Boolean(prayer.audioPattern);
+    const audioSrc = hasAudio ? prayer.audioPattern.replace("{line}", lineNumber) : "";
+    const card = document.createElement("section");
+    card.className = "line-card";
+    card.innerHTML = `
+      <div class="controls">
+        <span class="number">${lineNumber}</span>
+        <button class="play" type="button" data-line="${lineNumber}" aria-label="Play line ${lineNumber}" ${hasAudio ? "" : "disabled"}>
+          ${playIcon}
+        </button>
+      </div>
+      <div class="texts">
+        <p class="hebrew" lang="he">${line.hebrew}</p>
+        ${line.english ? `<p class="english">${line.english}</p>` : ""}
+        ${hasAudio ? "" : `<p class="pending">Awaiting timestamp for this line.</p>`}
+      </div>
+      ${hasAudio ? `<audio preload="metadata" src="${audioSrc}"></audio>` : ""}
+    `;
+    linesEl.appendChild(card);
+  });
+}
 
 linesEl.addEventListener("click", async (event) => {
   const button = event.target.closest(".play");
@@ -47,6 +84,7 @@ linesEl.addEventListener("click", async (event) => {
 
   const card = button.closest(".line-card");
   const audio = card.querySelector("audio");
+  if (!audio) return;
 
   if (currentAudio && currentAudio !== audio) {
     currentAudio.pause();
@@ -78,3 +116,5 @@ linesEl.addEventListener("ended", (event) => {
 loopToggle.addEventListener("change", () => {
   if (currentAudio) currentAudio.loop = loopToggle.checked;
 });
+
+renderPrayer(window.PRAYERS[0].id);

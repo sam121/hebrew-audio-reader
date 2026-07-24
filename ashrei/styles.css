@@ -73,6 +73,39 @@ h1 {
   accent-color: var(--accent);
 }
 
+.tabs {
+  display: flex;
+  gap: 8px;
+  width: min(980px, calc(100% - 32px));
+  margin: 18px auto 0;
+  overflow-x: auto;
+}
+
+.tab {
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.tab.active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.tab:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
 .lines {
   width: min(980px, calc(100% - 32px));
   margin: 28px auto 56px;
@@ -127,6 +160,13 @@ h1 {
   border-color: var(--accent-dark);
 }
 
+.play:disabled {
+  border-color: var(--line);
+  background: #ebe6da;
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
 .play:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 3px;
@@ -157,6 +197,13 @@ h1 {
   color: #34403c;
   font-size: 1.02rem;
   line-height: 1.55;
+}
+
+.pending {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 650;
 }
 
 footer {
