@@ -152,5 +152,69 @@ window.PRAYERS = [
         english: "Blessed are You, Adonai, Sarah's Helper, Abraham's Shield."
       }
     ]
+  },
+  {
+    id: "chatzi-kaddish",
+    title: "Chatzi Kaddish",
+    note: "Hebrew text transcribed from the supplied Chatzi Kaddish photo, with audio clips cut from the supplied MP3.",
+    audioPattern: "audio/chatzi-kaddish-{line}.m4a",
+    lines: [
+      {
+        hebrew: "יִתְגַּדַּל וְיִתְקַדַּשׁ שְׁמֵהּ רַבָּא",
+        english: ""
+      },
+      {
+        hebrew: "בְּעָלְמָא דִּי בְרָא כִרְעוּתֵהּ, וְיַמְלִיךְ מַלְכוּתֵהּ",
+        english: ""
+      },
+      {
+        hebrew: "בְּחַיֵּיכוֹן וּבְיוֹמֵיכוֹן",
+        english: ""
+      },
+      {
+        hebrew: "וּבְחַיֵּי דְכָל בֵּית יִשְׂרָאֵל,",
+        english: ""
+      },
+      {
+        hebrew: "בַּעֲגָלָא וּבִזְמַן קָרִיב,",
+        english: ""
+      },
+      {
+        hebrew: "וְאִמְרוּ: אָמֵן.",
+        english: ""
+      },
+      {
+        hebrew: "יְהֵא שְׁמֵהּ רַבָּא מְבָרַךְ",
+        english: ""
+      },
+      {
+        hebrew: "לְעָלַם וּלְעָלְמֵי עָלְמַיָּא.",
+        english: ""
+      },
+      {
+        hebrew: "יִתְבָּרַךְ וְיִשְׁתַּבַּח וְיִתְפָּאַר וְיִתְרוֹמַם וְיִתְנַשֵּׂא,",
+        english: ""
+      },
+      {
+        hebrew: "וְיִתְהַדָּר וְיִתְעַלֶּה וְיִתְהַלָּל",
+        english: ""
+      },
+      {
+        hebrew: "שְׁמֵהּ דְּקֻדְשָׁא בְּרִיךְ הוּא,",
+        english: ""
+      },
+      {
+        hebrew: "לְעֵלָּא מִן כָּל בִּרְכָתָא וְשִׁירָתָא,",
+        english: ""
+      },
+      {
+        hebrew: "תֻּשְׁבְּחָתָא וְנֶחֱמָתָא,",
+        english: ""
+      },
+      {
+        hebrew: "דַּאֲמִירָן בְּעָלְמָא, וְאִמְרוּ: אָמֵן.",
+        english: ""
+      }
+    ]
   }
 ];
