@@ -158,7 +158,7 @@ window.PRAYERS = [
     title: "Chatzi Kaddish",
     note: "Hebrew text transcribed from the supplied Chatzi Kaddish photo, with audio clips cut from the supplied MP3.",
     audioPattern: "audio/chatzi-kaddish-{line}.m4a",
-    videoUrl: "https://www.youtube.com/watch?v=CfItybvDsGs",
+    videoUrl: "https://www.youtube.com/watch?v=ABZWZwwQxaY",
     lines: [
       {
         hebrew: "יִתְגַּדַּל וְיִתְקַדַּשׁ שְׁמֵהּ רַבָּא",
