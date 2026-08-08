@@ -158,62 +158,63 @@ window.PRAYERS = [
     title: "Chatzi Kaddish",
     note: "Hebrew text transcribed from the supplied Chatzi Kaddish photo, with audio clips cut from the supplied MP3.",
     audioPattern: "audio/chatzi-kaddish-{line}.m4a",
+    videoUrl: "https://www.youtube.com/watch?v=CfItybvDsGs",
     lines: [
       {
         hebrew: "יִתְגַּדַּל וְיִתְקַדַּשׁ שְׁמֵהּ רַבָּא",
-        english: ""
+        english: "Exalted and hallowed be God's great name,"
       },
       {
         hebrew: "בְּעָלְמָא דִּי בְרָא כִרְעוּתֵהּ, וְיַמְלִיךְ מַלְכוּתֵהּ",
-        english: ""
+        english: "in the world which God created, according to plan."
       },
       {
         hebrew: "בְּחַיֵּיכוֹן וּבְיוֹמֵיכוֹן",
-        english: ""
+        english: "May God's majesty be revealed in the days of our lifetime"
       },
       {
         hebrew: "וּבְחַיֵּי דְכָל בֵּית יִשְׂרָאֵל,",
-        english: ""
+        english: "and the life of all Israel --"
       },
       {
         hebrew: "בַּעֲגָלָא וּבִזְמַן קָרִיב,",
-        english: ""
+        english: "speedily, imminently."
       },
       {
         hebrew: "וְאִמְרוּ: אָמֵן.",
-        english: ""
+        english: "To which we say: Amen."
       },
       {
         hebrew: "יְהֵא שְׁמֵהּ רַבָּא מְבָרַךְ",
-        english: ""
+        english: "Blessed be God's great name"
       },
       {
         hebrew: "לְעָלַם וּלְעָלְמֵי עָלְמַיָּא.",
-        english: ""
+        english: "to all eternity."
       },
       {
         hebrew: "יִתְבָּרַךְ וְיִשְׁתַּבַּח וְיִתְפָּאַר וְיִתְרוֹמַם וְיִתְנַשֵּׂא,",
-        english: ""
+        english: "Blessed, praised, honored, exalted, extolled,"
       },
       {
         hebrew: "וְיִתְהַדָּר וְיִתְעַלֶּה וְיִתְהַלָּל",
-        english: ""
+        english: "glorified, adored, and lauded"
       },
       {
         hebrew: "שְׁמֵהּ דְּקֻדְשָׁא בְּרִיךְ הוּא,",
-        english: ""
+        english: "be the name of the Holy Blessed One,"
       },
       {
         hebrew: "לְעֵלָּא מִן כָּל בִּרְכָתָא וְשִׁירָתָא,",
-        english: ""
+        english: "beyond all earthly words and songs of blessing,"
       },
       {
         hebrew: "תֻּשְׁבְּחָתָא וְנֶחֱמָתָא,",
-        english: ""
+        english: "praise, and comfort."
       },
       {
         hebrew: "דַּאֲמִירָן בְּעָלְמָא, וְאִמְרוּ: אָמֵן.",
-        english: ""
+        english: "To which we say: Amen."
       }
     ]
   }
