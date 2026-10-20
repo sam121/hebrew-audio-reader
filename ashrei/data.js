@@ -400,5 +400,156 @@ window.PRAYERS = [
       "audioNote": "The recording omits יוֹשְׁבֵי תֵבֵל (yoshvei tevel); this clip contains only ‘v’imru: Amen’."
     }
   ]
+},
+{
+  "id": "aleinu",
+  "title": "Aleinu",
+  "note": "Both paragraphs of Aleinu, sung by Sarah Wolf for My Jewish Learning. Spoken commentary is removed from the practice clips and the video above. Hebrew follows the words sung; natural musical repetitions are retained. English is a fresh line-by-line translation.",
+  "audioPattern": "audio/aleinu-{line}.m4a",
+  "videoUrl": "https://www.youtube.com/watch?v=RVMRKLKVgSw",
+  "practiceVideoUrl": "video/aleinu-practice.mp4",
+  "usePracticeVideo": true,
+  "lines": [
+    {
+      "hebrew": "עָלֵינוּ לְשַׁבֵּחַ לַאֲדוֹן הַכֹּל,",
+      "english": "It is our duty to praise the Sovereign of all,"
+    },
+    {
+      "hebrew": "לָתֵת גְּדֻלָּה לְיוֹצֵר בְּרֵאשִׁית,",
+      "english": "to proclaim the greatness of the Creator of the beginning,"
+    },
+    {
+      "hebrew": "שֶׁלֹּא עָשָׂנוּ כְּגוֹיֵי הָאֲרָצוֹת,",
+      "english": "who did not make us like the nations of the lands,"
+    },
+    {
+      "hebrew": "וְלֹא שָׂמָנוּ כְּמִשְׁפְּחוֹת הָאֲדָמָה,",
+      "english": "or place us like the families of the earth,"
+    },
+    {
+      "hebrew": "שֶׁלֹּא שָׂם חֶלְקֵנוּ כָּהֶם,",
+      "english": "who did not make our portion like theirs,"
+    },
+    {
+      "hebrew": "וְגוֹרָלֵנוּ כְּכָל הֲמוֹנָם.",
+      "english": "or our destiny like that of their multitudes."
+    },
+    {
+      "hebrew": "וַאֲנַחְנוּ כּוֹרְעִים וּמִשְׁתַּחֲוִים וּמוֹדִים",
+      "english": "We bow, worship, and give thanks"
+    },
+    {
+      "hebrew": "לִפְנֵי מֶלֶךְ מַלְכֵי הַמְּלָכִים, הַקָּדוֹשׁ בָּרוּךְ הוּא,",
+      "english": "before the Sovereign of sovereigns, the Holy One, blessed be God,"
+    },
+    {
+      "hebrew": "שֶׁהוּא נוֹטֶה שָׁמַיִם וְיוֹסֵד אָרֶץ,",
+      "english": "who stretches out the heavens and establishes the earth,"
+    },
+    {
+      "hebrew": "וּמוֹשַׁב יְקָרוֹ בַּשָּׁמַיִם מִמַּעַל,",
+      "english": "whose glorious dwelling is in the heavens above,"
+    },
+    {
+      "hebrew": "וּשְׁכִינַת עֻזּוֹ בְּגָבְהֵי מְרוֹמִים.",
+      "english": "whose mighty presence is in the highest heights."
+    },
+    {
+      "hebrew": "הוּא אֱלֹהֵינוּ, אֵין עוֹד.",
+      "english": "This is our God; there is no other."
+    },
+    {
+      "hebrew": "אֱמֶת מַלְכֵּנוּ, אֶפֶס זוּלָתוֹ,",
+      "english": "Our Sovereign is truth; there is none besides God,"
+    },
+    {
+      "hebrew": "כַּכָּתוּב בְּתוֹרָתוֹ:",
+      "english": "as it is written in the Torah:"
+    },
+    {
+      "hebrew": "וְיָדַעְתָּ הַיּוֹם וַהֲשֵׁבֹתָ אֶל לְבָבֶךָ,",
+      "english": "Know this day and take it to heart:"
+    },
+    {
+      "hebrew": "כִּי יְיָ הוּא הָאֱלֹהִים בַּשָּׁמַיִם מִמַּעַל,",
+      "english": "Adonai is God in the heavens above"
+    },
+    {
+      "hebrew": "וְעַל הָאָרֶץ מִתָּחַת, אֵין עוֹד.",
+      "english": "and on the earth below; there is no other."
+    },
+    {
+      "hebrew": "עַל כֵּן נְקַוֶּה לְךָ יְיָ אֱלֹהֵינוּ,",
+      "english": "Therefore we place our hope in You, Adonai our God,"
+    },
+    {
+      "hebrew": "לִרְאוֹת מְהֵרָה בְּתִפְאֶרֶת עֻזֶּךָ,",
+      "english": "that we may soon see the splendor of Your might,"
+    },
+    {
+      "hebrew": "לְהַעֲבִיר גִּלּוּלִים מִן הָאָרֶץ,",
+      "english": "to remove idols from the earth,"
+    },
+    {
+      "hebrew": "וְהָאֱלִילִים כָּרוֹת יִכָּרֵתוּן,",
+      "english": "so that false gods may be utterly swept away,"
+    },
+    {
+      "hebrew": "לְתַקֵּן עוֹלָם בְּמַלְכוּת שַׁדַּי.",
+      "english": "to establish the world under the sovereignty of the Almighty."
+    },
+    {
+      "hebrew": "וְכָל בְּנֵי בָשָׂר יִקְרְאוּ בִשְׁמֶךָ,",
+      "english": "Then all humanity will call upon Your name,"
+    },
+    {
+      "hebrew": "לְהַפְנוֹת אֵלֶיךָ כָּל רִשְׁעֵי אָרֶץ.",
+      "english": "and all the wicked of the earth will turn toward You."
+    },
+    {
+      "hebrew": "יַכִּירוּ וְיֵדְעוּ כָּל יוֹשְׁבֵי תֵבֵל,",
+      "english": "All who dwell on earth will recognize and know"
+    },
+    {
+      "hebrew": "כִּי לְךָ תִּכְרַע כָּל בֶּרֶךְ, תִּשָּׁבַע כָּל לָשׁוֹן.",
+      "english": "that to You every knee must bend and every tongue pledge allegiance."
+    },
+    {
+      "hebrew": "לְפָנֶיךָ יְיָ אֱלֹהֵינוּ יִכְרְעוּ וְיִפֹּלוּ,",
+      "english": "Before You, Adonai our God, they will bow and fall down,"
+    },
+    {
+      "hebrew": "וְלִכְבוֹד שִׁמְךָ יְקָר יִתֵּנוּ,",
+      "english": "and give honor to Your glorious name."
+    },
+    {
+      "hebrew": "וִיקַבְּלוּ כֻלָּם אֶת עֹל מַלְכוּתֶךָ,",
+      "english": "They will all accept the obligation of Your sovereignty,"
+    },
+    {
+      "hebrew": "וְתִמְלֹךְ עֲלֵיהֶם מְהֵרָה לְעוֹלָם וָעֶד.",
+      "english": "and You will soon reign over them forever."
+    },
+    {
+      "hebrew": "כִּי הַמַּלְכוּת שֶׁלְּךָ הִיא, וּלְעוֹלְמֵי עַד תִּמְלֹךְ בְּכָבוֹד.",
+      "english": "For sovereignty is Yours, and You will reign in glory for all eternity."
+    },
+    {
+      "hebrew": "כַּכָּתוּב בְּתוֹרָתֶךָ:",
+      "english": "As it is written in Your Torah:"
+    },
+    {
+      "hebrew": "יְיָ יִמְלֹךְ לְעוֹלָם וָעֶד.",
+      "english": "Adonai will reign forever and ever."
+    },
+    {
+      "hebrew": "וְנֶאֱמַר: וְהָיָה יְיָ לְמֶלֶךְ עַל כָּל הָאָרֶץ,",
+      "english": "And it is said: Adonai will be Sovereign over all the earth;"
+    },
+    {
+      "hebrew": "בַּיּוֹם הַהוּא יִהְיֶה יְיָ אֶחָד וּשְׁמוֹ אֶחָד.",
+      "english": "on that day Adonai will be one, and God’s name will be one."
+    }
+  ]
 }
 ];

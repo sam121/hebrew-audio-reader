@@ -99,18 +99,22 @@ function renderPrayer(prayerId) {
   videoLinkEl.innerHTML = prayer.videoUrl
     ? `
       <div class="video-panel">
-        <iframe
+        ${prayer.usePracticeVideo && prayer.practiceVideoUrl
+          ? `<video class="practice-video" src="${prayer.practiceVideoUrl}" controls preload="metadata" aria-label="${prayer.title} without commentary"></video>`
+          : `<iframe
           src="${youtubeEmbedUrl(prayer.videoUrl)}"
           title="${prayer.title} full video"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen
           loading="lazy">
-        </iframe>
+        </iframe>`}
       </div>
       <a class="whole-video" href="${prayer.videoUrl}" target="_blank" rel="noopener noreferrer">${externalIcon}<span>Open on YouTube</span></a>
     `
     : "";
-  if (prayer.practiceVideoUrl) {
+  const practiceVideo = videoLinkEl.querySelector(".practice-video");
+  if (practiceVideo) practiceVideo.addEventListener("play", stopCurrentAudio);
+  if (prayer.practiceVideoUrl && !prayer.usePracticeVideo) {
     const link = document.createElement("a");
     link.className = "whole-video";
     link.href = prayer.practiceVideoUrl;
@@ -174,6 +178,8 @@ linesEl.addEventListener("click", async (event) => {
     resetCard(currentCard);
   }
 
+  const practiceVideo = videoLinkEl.querySelector(".practice-video");
+  if (practiceVideo) practiceVideo.pause();
   currentAudio = audio;
   currentCard = card;
   audio.loop = loopToggle.checked;
