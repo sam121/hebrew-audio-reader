@@ -329,3 +329,5 @@ footer {
     height: 32px;
   }
 }
+
+.audio-note { margin: 8px 0 0; color: var(--muted); font-size: .88rem; line-height: 1.5; }

@@ -311,5 +311,94 @@ window.PRAYERS = [
     }
   ],
   "practiceVideoUrl": "video/nissim-practice.mp4"
+},
+{
+  "id": "kaddish-drabbanan",
+  "title": "Kaddish D’Rabbanan",
+  "note": "Section from 2:14 onward. Text and line breaks follow the supplied prayer-book photo; English is a fresh line-by-line translation. Recording: The Synagogue with No Walls. Spoken instructions are removed from the practice clips. Wording differences are noted beside the affected lines.",
+  "audioPattern": "audio/kaddish-drabbanan-{line}.m4a",
+  "videoUrl": "https://www.youtube.com/watch?v=H9Ec8o8yGdE&t=134s",
+  "lines": [
+    {
+      "hebrew": "עַל יִשְׂרָאֵל וְעַל רַבָּנָן,",
+      "english": "For Israel and for the rabbis,"
+    },
+    {
+      "hebrew": "וְעַל תַּלְמִידֵיהוֹן",
+      "english": "and for their students,"
+    },
+    {
+      "hebrew": "וְעַל כָּל תַּלְמִידֵי תַלְמִידֵיהוֹן,",
+      "english": "and for all their students’ students,"
+    },
+    {
+      "hebrew": "וְעַל כָּל מַאן דְּעָסְקִין בְּאוֹרַיְתָא,",
+      "english": "and for everyone who studies Torah,"
+    },
+    {
+      "hebrew": "דִּי בְאַתְרָא הָדֵן וְדִי",
+      "english": "in this place and"
+    },
+    {
+      "hebrew": "בְכָל אֲתַר וַאֲתַר,",
+      "english": "in every place,"
+    },
+    {
+      "hebrew": "יְהֵא לְהוֹן וּלְכוֹן שְׁלָמָא רַבָּא,",
+      "english": "may they and you have abundant peace,"
+    },
+    {
+      "hebrew": "חִנָּא וְחִסְדָּא וְרַחֲמִין,",
+      "english": "grace, kindness, and compassion,"
+    },
+    {
+      "hebrew": "וְחַיִּין אֲרִיכִין,",
+      "english": "and long life,"
+    },
+    {
+      "hebrew": "וּמְזוֹנֵי רְוִיחֵי וּפֻרְקָנָא,",
+      "english": "ample sustenance and deliverance,"
+    },
+    {
+      "hebrew": "מִן קֳדָם אֲבוּהוֹן",
+      "english": "from their Parent,"
+    },
+    {
+      "hebrew": "דְּבִשְׁמַיָּא וְאַרְעָא וְאִמְרוּ: אָמֵן.",
+      "english": "in heaven and on earth. And say: Amen.",
+      "audioNote": "The recording omits וְאַרְעָא (v’ara, ‘and on earth’)."
+    },
+    {
+      "hebrew": "יְהֵא שְׁלָמָא רַבָּא מִן שְׁמַיָּא,",
+      "english": "May there be abundant peace from heaven,"
+    },
+    {
+      "hebrew": "וְחַיִּים טוֹבִים עָלֵינוּ וְעַל כָּל",
+      "english": "and a good life for us and for all",
+      "audioNote": "The recording omits טוֹבִים (tovim, ‘good’)."
+    },
+    {
+      "hebrew": "יִשְׂרָאֵל וְאִמְרוּ: אָמֵן.",
+      "english": "Israel. And say: Amen."
+    },
+    {
+      "hebrew": "עֹשֶׂה שָׁלוֹם בִּמְרוֹמָיו",
+      "english": "May the One who makes peace on high"
+    },
+    {
+      "hebrew": "הוּא בְרַחֲמָיו יַעֲשֶׂה שָׁלוֹם",
+      "english": "mercifully bring peace"
+    },
+    {
+      "hebrew": "עָלֵינוּ וְעַל כָּל יִשְׂרָאֵל, וְעַל כָּל",
+      "english": "to us, to all Israel, and to all",
+      "audioNote": "The recording omits the final וְעַל כָּל (v’al kol, ‘and to all’)."
+    },
+    {
+      "hebrew": "יוֹשְׁבֵי תֵבֵל, וְאִמְרוּ: אָמֵן.",
+      "english": "who dwell on earth. And say: Amen.",
+      "audioNote": "The recording omits יוֹשְׁבֵי תֵבֵל (yoshvei tevel); this clip contains only ‘v’imru: Amen’."
+    }
+  ]
 }
 ];

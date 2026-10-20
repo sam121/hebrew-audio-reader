@@ -64,7 +64,8 @@ function setAttentionLine(card, prayerId, lineNumber, isMarked) {
 function youtubeEmbedUrl(videoUrl) {
   const url = new URL(videoUrl);
   const videoId = url.searchParams.get("v") || url.pathname.split("/").filter(Boolean).pop();
-  return `https://www.youtube.com/embed/${videoId}`;
+  const start = parseInt(url.searchParams.get("t") || url.searchParams.get("start") || "0", 10);
+  return `https://www.youtube.com/embed/${videoId}${start > 0 ? `?start=${start}` : ""}`;
 }
 
 function stopCurrentAudio() {
@@ -140,6 +141,7 @@ function renderPrayer(prayerId) {
       <div class="texts">
         <p class="hebrew" lang="he">${line.hebrew}</p>
         ${line.english ? `<p class="english">${line.english}</p>` : ""}
+        ${line.audioNote ? `<p class="audio-note">${line.audioNote}</p>` : ""}
         ${hasAudio ? "" : `<p class="pending">Awaiting timestamp for this line.</p>`}
       </div>
       ${hasAudio ? `<audio preload="metadata" src="${audioSrc}"></audio>` : ""}
