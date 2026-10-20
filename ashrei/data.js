@@ -217,5 +217,99 @@ window.PRAYERS = [
         english: "To which we say: Amen."
       }
     ]
-  }
+  },
+{
+  "id": "nissim-bchol-yom",
+  "title": "Nissim B’Chol Yom",
+  "note": "Voice: Rabbi Rachael Miller · Learner’s speed. Each clip omits the repeated opening blessing. Hebrew follows the recording; English is a fresh translation. Line 11 uses the sung feminine form, bat chorin.",
+  "audioPattern": "audio/nissim-{line}.m4a",
+  "videoUrl": "https://www.youtube.com/watch?v=tQ1aS-lsvVU",
+  "lines": [
+    {
+      "hebrew": "אֲשֶׁר נָתַן לַשֶּׂכְוִי בִינָה לְהַבְחִין בֵּין יוֹם וּבֵין לָיְלָה.",
+      "english": "Who gives us understanding to distinguish day from night.",
+      "start": 7.0,
+      "end": 15.24
+    },
+    {
+      "hebrew": "פּוֹקֵחַ עִוְרִים.",
+      "english": "Who opens the eyes of the blind.",
+      "start": 22.8,
+      "end": 25.93
+    },
+    {
+      "hebrew": "מַתִּיר אֲסוּרִים.",
+      "english": "Who frees the captive.",
+      "start": 33.48,
+      "end": 36.62
+    },
+    {
+      "hebrew": "זוֹקֵף כְּפוּפִים.",
+      "english": "Who raises those who are bowed down.",
+      "start": 44.18,
+      "end": 47.44
+    },
+    {
+      "hebrew": "רוֹקַע הָאָרֶץ עַל הַמָּיִם.",
+      "english": "Who spreads the earth over the waters.",
+      "start": 55.33,
+      "end": 59.9
+    },
+    {
+      "hebrew": "הַמֵּכִין מִצְעֲדֵי גָבֶר.",
+      "english": "Who makes our steps firm.",
+      "start": 67.06,
+      "end": 70.56
+    },
+    {
+      "hebrew": "מַלְבִּישׁ עֲרֻמִּים.",
+      "english": "Who clothes the naked.",
+      "start": 77.67,
+      "end": 81.13
+    },
+    {
+      "hebrew": "הַנּוֹתֵן לַיָּעֵף כֹּחַ.",
+      "english": "Who gives strength to the weary.",
+      "start": 88.36,
+      "end": 91.47
+    },
+    {
+      "hebrew": "הַמַּעֲבִיר שֵׁנָה מֵעֵינַי וּתְנוּמָה מֵעַפְעַפָּי.",
+      "english": "Who removes sleep from my eyes and slumber from my eyelids.",
+      "start": 99.37,
+      "end": 106.45
+    },
+    {
+      "hebrew": "שֶׁעָשַׂנִי בְּצֶלֶם אֱלֹהִים.",
+      "english": "Who made me in the image of God.",
+      "start": 113.39,
+      "end": 117.13
+    },
+    {
+      "hebrew": "שֶׁעָשַׂנִי בַּת חוֹרִין.",
+      "english": "Who made me free.",
+      "start": 124.19,
+      "end": 127.89
+    },
+    {
+      "hebrew": "שֶׁעָשַׂנִי יִשְׂרָאֵל.",
+      "english": "Who made me a member of Israel.",
+      "start": 134.13,
+      "end": 137.17
+    },
+    {
+      "hebrew": "אוֹזֵר יִשְׂרָאֵל בִּגְבוּרָה.",
+      "english": "Who girds Israel with strength.",
+      "start": 144.18,
+      "end": 148.1
+    },
+    {
+      "hebrew": "עוֹטֵר יִשְׂרָאֵל בְּתִפְאָרָה.",
+      "english": "Who crowns Israel with glory.",
+      "start": 154.91,
+      "end": 159.57
+    }
+  ],
+  "practiceVideoUrl": "video/nissim-practice.mp4"
+}
 ];

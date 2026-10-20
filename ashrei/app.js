@@ -109,6 +109,15 @@ function renderPrayer(prayerId) {
       <a class="whole-video" href="${prayer.videoUrl}" target="_blank" rel="noopener noreferrer">${externalIcon}<span>Open on YouTube</span></a>
     `
     : "";
+  if (prayer.practiceVideoUrl) {
+    const link = document.createElement("a");
+    link.className = "whole-video";
+    link.href = prayer.practiceVideoUrl;
+    link.textContent = "Watch shortened practice video";
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    videoLinkEl.appendChild(link);
+  }
   linesEl.innerHTML = "";
 
   prayer.lines.forEach((line, index) => {
