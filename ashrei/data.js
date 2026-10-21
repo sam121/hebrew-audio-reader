@@ -316,7 +316,7 @@ window.PRAYERS = [
   "id": "kaddish-drabbanan",
   "title": "Kaddish D’Rabbanan",
   "note": "Section from 2:14 onward. Text and line breaks follow the supplied prayer-book photo; English is a fresh line-by-line translation. Recording: The Synagogue with No Walls. Spoken instructions are removed from the practice clips. Wording differences are noted beside the affected lines.",
-  "audioPattern": "audio/kaddish-drabbanan-{line}.m4a",
+  "audioPattern": "audio/kaddish-drabbanan-{line}.m4a?v=2",
   "videoUrl": "https://www.youtube.com/watch?v=H9Ec8o8yGdE&t=134s",
   "lines": [
     {
@@ -405,7 +405,7 @@ window.PRAYERS = [
   "id": "aleinu",
   "title": "Aleinu",
   "note": "Both paragraphs of Aleinu, sung by Sarah Wolf for My Jewish Learning. Spoken commentary is removed from the practice clips and the video above. Hebrew follows the words sung; natural musical repetitions are retained. English is a fresh line-by-line translation.",
-  "audioPattern": "audio/aleinu-{line}.m4a",
+  "audioPattern": "audio/aleinu-{line}.m4a?v=2",
   "videoUrl": "https://www.youtube.com/watch?v=RVMRKLKVgSw",
   "practiceVideoUrl": "video/aleinu-practice.mp4",
   "usePracticeVideo": true,

@@ -17,3 +17,17 @@ Times can be entered as seconds (`31.45`) or timecodes (`0:31.45`). The source M
 ```text
 /Users/samueltaylor/Downloads/Ashrei - Learner's Speed [Qy-gdPGuUmo].mp3
 ```
+
+## Aleinu and Kaddish D’Rabbanan clips
+
+Rebuild from the original source videos using the multipart timing CSVs:
+
+```sh
+python3 ashrei/scripts/build_prayer_clips.py aleinu /path/to/aleinu.mp4
+python3 ashrei/scripts/build_prayer_clips.py kaddish-drabbanan /path/to/rabbanan.mp4
+```
+
+The builder resets the concatenated audio time base and timestamps before AAC
+encoding. It validates each clip’s duration and packet spacing before replacing
+the file. This prevents the compressed playback timestamps that previously made
+these clips appear to last only a fraction of a second.
